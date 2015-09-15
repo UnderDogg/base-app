@@ -1,0 +1,6 @@
+{
+  "name": "IT Track Application",
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
