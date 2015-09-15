@@ -9,6 +9,12 @@ $router->get('/', [
 // Auth Covered Routes
 $router->group(['middleware' => ['auth']], function ($router)
 {
+    // Display all closed issues.
+    $router->get('issues/closed', [
+        'as' => 'issues.closed',
+        'uses' => 'IssueController@closed',
+    ]);
+
     // Close an Issue
     $router->post('issues/{issues}/close', [
         'as' => 'issues.close',
@@ -21,14 +27,10 @@ $router->group(['middleware' => ['auth']], function ($router)
         'uses' => 'IssueController@open',
     ]);
 
-    // Closed Issue View
-    $router->get('issues/closed', [
-        'as '=> 'issues.closed',
-        'uses' => 'IssueController@closed',
-    ]);
-
+    // The issue resource
     $router->resource('issues', 'IssueController');
 
+    // The issue comments resource
     $router->resource('issues.comments', 'IssueCommentController', [
         'except' => [
             'index',

@@ -34,6 +34,6 @@ class IssueCommentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        return $issue->addComment($request->input('content'));
+        return $issue->createComment($request->input('content'));
     }
 }

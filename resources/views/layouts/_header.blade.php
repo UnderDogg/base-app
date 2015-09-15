@@ -1,5 +1,5 @@
 <meta charset="utf-8">
-<title>@yield('title') | IT Track</title>
+<title>@yield('title') | IT Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ memorize('site.description', 'IT Track') }}">
 <meta name="author" content="{{ memorize('site.author', 'FBCL') }}">
@@ -12,7 +12,7 @@
 
 <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300,500" rel="stylesheet" type="text/css">
 
-#{{ $asset = app('orchestra.asset')->container('it-track.header') }}
+#{{ $asset = app('orchestra.asset')->container('ithub.header') }}
 #{{ $asset->style('all', 'css/all.css') }}
 #{{ $asset->script('all', 'js/all.js') }}
 

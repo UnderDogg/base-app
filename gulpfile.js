@@ -26,12 +26,14 @@ elixir(function(mix) {
         'libs/bootstrap.min.js',
         'libs/dropzone.min.js',
         'libs/sweetalert.min.js',
+        'libs/bootstrap-editable.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
         'libs/dropzone.min.css',
         'libs/font-awesome.min.css',
         'libs/sweetalert.css',
+        'libs/bootstrap-editable.css',
         'app.css'
     ]).copy('resources/assets/fonts/libs', 'public/fonts');
 });

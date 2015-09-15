@@ -20,7 +20,7 @@ class IssuePresenter extends Presenter
      */
     public function table(Issue $issue, $closed = false)
     {
-        $issue = $issue->where(compact('closed'));
+        $issue = $issue->where(compact('closed'))->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue) {
             $table->with($issue, true);
@@ -30,10 +30,8 @@ class IssuePresenter extends Presenter
                 'description',
             ]);
 
-            $table->layout('components.table');
-
             $table->column('title', function ($column) {
-                $column->label = 'Issue Title';
+                $column->label = 'Issue';
 
                 $column->value = function (Issue $issue) {
                     $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);

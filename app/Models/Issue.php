@@ -64,7 +64,7 @@ class Issue extends Model
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function addComment($content)
+    public function createComment($content)
     {
         $attributes = [
             'content' => $content,
@@ -72,6 +72,20 @@ class Issue extends Model
         ];
 
         return $this->comments()->create($attributes);
+    }
+
+    /**
+     * Adds a label to an issue.
+     *
+     * @param Label $label
+     *
+     * @return bool
+     */
+    public function addLabel(Label $label)
+    {
+        $this->labels()->attach($label);
+
+        return true;
     }
 
     /**

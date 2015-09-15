@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fab6294c46fa606eaf256ddd89edcef2",
+    "hash": "ae28d33071e35e86df54ae319a9aefe8",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -1001,22 +1001,23 @@
         },
         {
             "name": "orchestra/auth",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/auth.git",
-                "reference": "b80e84abfd3bc01b38c40257fe27746cf9d36ffa"
+                "reference": "d1c922a7074e254624f20f178f208bbf7035c72d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/auth/zipball/b80e84abfd3bc01b38c40257fe27746cf9d36ffa",
-                "reference": "b80e84abfd3bc01b38c40257fe27746cf9d36ffa",
+                "url": "https://api.github.com/repos/orchestral/auth/zipball/d1c922a7074e254624f20f178f208bbf7035c72d",
+                "reference": "d1c922a7074e254624f20f178f208bbf7035c72d",
                 "shasum": ""
             },
             "require": {
                 "orchestra/contracts": "~3.1.9",
                 "orchestra/memory": "~3.1.0",
                 "orchestra/notifier": "~3.1.0",
+                "orchestra/support": "~3.1.3",
                 "php": ">=5.5.0"
             },
             "replace": {
@@ -1069,7 +1070,7 @@
                 "permission",
                 "rbac"
             ],
-            "time": "2015-09-03 23:34:56"
+            "time": "2015-09-12 19:13:25"
         },
         {
             "name": "orchestra/control",
@@ -1195,16 +1196,16 @@
         },
         {
             "name": "orchestra/foundation",
-            "version": "v3.1.10",
+            "version": "v3.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/foundation.git",
-                "reference": "ca8fa96c0ab175a442679a327964308aed8b4171"
+                "reference": "aa0fd1c0d6d55a51dfcd6cbedfae47aea13b36e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/foundation/zipball/ca8fa96c0ab175a442679a327964308aed8b4171",
-                "reference": "ca8fa96c0ab175a442679a327964308aed8b4171",
+                "url": "https://api.github.com/repos/orchestral/foundation/zipball/aa0fd1c0d6d55a51dfcd6cbedfae47aea13b36e9",
+                "reference": "aa0fd1c0d6d55a51dfcd6cbedfae47aea13b36e9",
                 "shasum": ""
             },
             "require": {
@@ -1212,7 +1213,7 @@
                 "orchestra/asset": "~3.1.0",
                 "orchestra/auth": "~3.1.3",
                 "orchestra/extension": "~3.1.8",
-                "orchestra/html": "~3.1.1",
+                "orchestra/html": "~3.1.5",
                 "orchestra/kernel": "~3.1.8",
                 "orchestra/memory": "~3.1.0",
                 "orchestra/messages": "~3.1.0",
@@ -1223,7 +1224,7 @@
                 "orchestra/support": "~3.1.1",
                 "orchestra/translation": "~3.1.0",
                 "orchestra/view": "~3.1.0",
-                "orchestra/widget": "~3.1.0",
+                "orchestra/widget": "~3.1.2",
                 "php": ">=5.5.9",
                 "predis/predis": "~1.0"
             },
@@ -1273,20 +1274,20 @@
                 "orchestral",
                 "user-management"
             ],
-            "time": "2015-09-08 16:01:19"
+            "time": "2015-09-14 11:54:52"
         },
         {
             "name": "orchestra/html",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/html.git",
-                "reference": "365feb9d69f003a064c841ca1964c8e8b2e47b88"
+                "reference": "210909cfd000b4b5c9b326ad594c543cb638a680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/html/zipball/365feb9d69f003a064c841ca1964c8e8b2e47b88",
-                "reference": "365feb9d69f003a064c841ca1964c8e8b2e47b88",
+                "url": "https://api.github.com/repos/orchestral/html/zipball/210909cfd000b4b5c9b326ad594c543cb638a680",
+                "reference": "210909cfd000b4b5c9b326ad594c543cb638a680",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1340,7 @@
                 "orchestral",
                 "table"
             ],
-            "time": "2015-08-08 02:42:09"
+            "time": "2015-09-14 11:27:04"
         },
         {
             "name": "orchestra/installer",
@@ -1397,16 +1398,16 @@
         },
         {
             "name": "orchestra/kernel",
-            "version": "v3.1.10",
+            "version": "v3.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/kernel.git",
-                "reference": "1f07dee1001f4da410d6869f1a31599630ffc7c1"
+                "reference": "58bd3e9b2adf1539435b5e5c189a23f45d9973e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/kernel/zipball/1f07dee1001f4da410d6869f1a31599630ffc7c1",
-                "reference": "1f07dee1001f4da410d6869f1a31599630ffc7c1",
+                "url": "https://api.github.com/repos/orchestral/kernel/zipball/58bd3e9b2adf1539435b5e5c189a23f45d9973e6",
+                "reference": "58bd3e9b2adf1539435b5e5c189a23f45d9973e6",
                 "shasum": ""
             },
             "require": {
@@ -1457,7 +1458,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2015-09-08 11:18:16"
+            "time": "2015-09-12 19:25:50"
         },
         {
             "name": "orchestra/memory",
@@ -1702,16 +1703,16 @@
         },
         {
             "name": "orchestra/optimize",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/optimize.git",
-                "reference": "993d77387ab4b36314bb5ff48608ec50cd9bbab7"
+                "reference": "a476e73d591a758b9ff77c836403334f8ebd417d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/optimize/zipball/993d77387ab4b36314bb5ff48608ec50cd9bbab7",
-                "reference": "993d77387ab4b36314bb5ff48608ec50cd9bbab7",
+                "url": "https://api.github.com/repos/orchestral/optimize/zipball/a476e73d591a758b9ff77c836403334f8ebd417d",
+                "reference": "a476e73d591a758b9ff77c836403334f8ebd417d",
                 "shasum": ""
             },
             "require": {
@@ -1751,7 +1752,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2015-09-04 15:18:13"
+            "time": "2015-09-12 19:28:07"
         },
         {
             "name": "orchestra/publisher",
@@ -1817,16 +1818,16 @@
         },
         {
             "name": "orchestra/support",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/support.git",
-                "reference": "af295e526a1d10f308d203d18e37c2cd33aff31f"
+                "reference": "bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/support/zipball/af295e526a1d10f308d203d18e37c2cd33aff31f",
-                "reference": "af295e526a1d10f308d203d18e37c2cd33aff31f",
+                "url": "https://api.github.com/repos/orchestral/support/zipball/bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e",
+                "reference": "bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1884,7 @@
                 "utilities",
                 "validator"
             ],
-            "time": "2015-09-02 01:10:22"
+            "time": "2015-09-12 16:05:54"
         },
         {
             "name": "orchestra/translation",
@@ -2006,20 +2007,20 @@
         },
         {
             "name": "orchestra/widget",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/widget.git",
-                "reference": "902367fe275f4d0e0211523189840c2b25147bdd"
+                "reference": "605091886de6255114baed4f218a4463de348d3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/widget/zipball/902367fe275f4d0e0211523189840c2b25147bdd",
-                "reference": "902367fe275f4d0e0211523189840c2b25147bdd",
+                "url": "https://api.github.com/repos/orchestral/widget/zipball/605091886de6255114baed4f218a4463de348d3c",
+                "reference": "605091886de6255114baed4f218a4463de348d3c",
                 "shasum": ""
             },
             "require": {
-                "orchestra/support": "~3.1.0",
+                "orchestra/support": "~3.1.4",
                 "php": ">=5.5.0"
             },
             "require-dev": {
@@ -2060,7 +2061,7 @@
                 "orchestral",
                 "widget"
             ],
-            "time": "2015-06-16 11:26:44"
+            "time": "2015-09-12 18:59:00"
         },
         {
             "name": "predis/predis",
@@ -2287,6 +2288,49 @@
                 "uuid"
             ],
             "time": "2015-08-31 13:34:50"
+        },
+        {
+            "name": "stevebauman/revision",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/revision.git",
+                "reference": "778c56e2bd18083b28a772ab899d930863eb8224"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/revision/zipball/778c56e2bd18083b28a772ab899d930863eb8224",
+                "reference": "778c56e2bd18083b28a772ab899d930863eb8224",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.1",
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\Revision\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com"
+                }
+            ],
+            "description": "Revisions for Eloquent Models.",
+            "time": "2015-07-22 13:40:55"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3688,16 +3732,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -3746,7 +3790,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3879,16 +3923,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -3924,20 +3968,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.6",
+            "version": "4.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
                 "shasum": ""
             },
             "require": {
@@ -3996,7 +4040,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-24 04:09:38"
+            "time": "2015-09-14 06:57:22"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

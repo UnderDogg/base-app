@@ -1,5 +1,11 @@
-<?php namespace App\Providers;
+<?php
 
+namespace App\Providers;
+
+use App\Policies\IssuePolicy;
+use App\Policies\CommentPolicy;
+use App\Models\Issue;
+use App\Models\Comment;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -11,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Issue::class => IssuePolicy::class,
+        Comment::class => CommentPolicy::class,
     ];
 
     /**

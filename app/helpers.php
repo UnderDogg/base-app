@@ -30,3 +30,21 @@ function uuid()
 {
     return Uuid::uuid3(Uuid::NAMESPACE_DNS, str_random())->toString();
 }
+
+/**
+ * Compare given route with current route and return output if they match.
+ *
+ * @param string $route
+ * @param string $output
+ *
+ * @return string|null
+ */
+function isActiveRoute($route, $output = "active")
+{
+    if (Route::currentRouteName() == $route) {
+        return $output;
+    }
+
+    return null;
+}
+

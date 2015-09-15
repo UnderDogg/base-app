@@ -172,6 +172,8 @@ return [
 
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
+
+        Stevebauman\Revision\RevisionServiceProvider::class,
     ],
 
     /*

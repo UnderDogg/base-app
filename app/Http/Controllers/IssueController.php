@@ -85,37 +85,56 @@ class IssueController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Displays the form for editing the specified issue.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        return $this->processor->edit($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified issue.
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param IssueRequest $request
+     * @param int|string   $id
+     *
+     * @return bool
      */
-    public function update(Request $request, $id)
+    public function update(IssueRequest $request, $id)
     {
-        //
+        if($this->processor->update($request, $id)) {
+            flash()->success('Success!', 'Successfully edited issue.');
+
+            return redirect()->route('issues.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was a problem editing this issue. Please try again.');
+
+            return redirect()->route('issues.edit', [$id]);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified issue.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        if($this->processor->destroy($id)) {
+            flash()->success('Success!', 'Successfully deleted issue.');
+
+            return redirect()->route('issues.index');
+        } else {
+            flash()->error('Error!', 'There was a problem deleting this issue. Please try again.');
+
+            return redirect()->route('issues.show', [$id]);
+        }
     }
 
     /**

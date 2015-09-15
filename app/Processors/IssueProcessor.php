@@ -33,7 +33,7 @@ class IssueProcessor extends Processor
     }
 
     /**
-     * Returns a table displaying all issues.
+     * Returns a table displaying all open issues.
      *
      * @return \Illuminate\View\View
      */
@@ -47,7 +47,7 @@ class IssueProcessor extends Processor
     }
 
     /**
-     *
+     * Returns a table displaying all closed issues.
      *
      * @return \Illuminate\View\View
      */
@@ -110,6 +110,56 @@ class IssueProcessor extends Processor
         $form = $this->presenter->formComment($issue);
 
         return view('pages.issues.show', compact('issue', 'form'));
+    }
+
+    /**
+     * Displays the form for editing an issue.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $issue = $this->issue->findOrFail($id);
+
+        $form = $this->presenter->form($issue);
+
+        return view('pages.issues.edit', compact('form'));
+    }
+
+    /**
+     * Updates the specified issue.
+     *
+     * @param IssueRequest $request
+     * @param int|string   $id
+     *
+     * @return bool
+     */
+    public function update(IssueRequest $request, $id)
+    {
+        $issue = $this->issue->findOrFail($id);
+
+        $issue->title = $request->input('title', $issue->title);
+        $issue->description = $request->input('description', $issue->description);
+
+        if($issue->save()) {
+            return $issue;
+        }
+
+        return false;
+    }
+
+    /**
+     * Deletes the specified issue.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function destroy($id)
+    {
+        return $this->issue->destroy($id);
     }
 
     /**

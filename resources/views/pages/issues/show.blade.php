@@ -8,8 +8,15 @@
 
         <div class="col-md-12">
 
-            {!! $issue->statusLabel() !!} <span class="text-muted">{!! $issue->tagLine() !!}</span>
+            {!! $issue->statusLabel() !!}
 
+            <span class="text-muted hidden-xs">{!! $issue->tagLine() !!}</span>
+
+        </div>
+
+        <div class="col-md-12 visible-xs">
+            <br>
+            <span class="text-muted">{!! $issue->tagLine() !!}</span>
         </div>
 
     </div>

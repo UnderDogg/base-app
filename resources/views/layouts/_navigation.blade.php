@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="{{ route('welcome.index') }}" class="navbar-brand">IT Track</a>
+            <a href="{{ route('welcome.index') }}" class="navbar-brand">IT Hub</a>
         </div>
         <nav id="bs-navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

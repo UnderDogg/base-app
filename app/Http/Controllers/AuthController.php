@@ -145,7 +145,7 @@ class AuthController extends Controller
      */
     public function loginPath()
     {
-        return 'auth/login';
+        return route('auth.login.index');
     }
 
     /**
@@ -155,7 +155,7 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
-        return '/';
+        return route('welcome.index');
     }
 
     /**
