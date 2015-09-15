@@ -9,11 +9,15 @@
                 commented {{ $issue->createdAtDaysAgo() }}
             </span>
 
-            @can('update', $issue)
-                <span class="pull-right">
+            <span class="pull-right">
+                @can('edit', $issue)
                     <a href="{{ route('issues.edit', [$issue->id]) }}"><i class="fa fa-edit"></i></a>
-                </span>
-            @endcan
+                @endcan
+
+                @can('destroy', $issue)
+                    <a href="{{ route('issues.destroy', [$issue->id]) }}"><i class="fa fa-times"></i></a>
+                @endcan
+            </span>
 
             <div class="clearfix"></div>
 

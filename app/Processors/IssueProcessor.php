@@ -123,6 +123,8 @@ class IssueProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
+        $this->authorize($issue);
+
         $form = $this->presenter->form($issue);
 
         return view('pages.issues.edit', compact('form'));
@@ -139,6 +141,8 @@ class IssueProcessor extends Processor
     public function update(IssueRequest $request, $id)
     {
         $issue = $this->issue->findOrFail($id);
+
+        $this->authorize($issue);
 
         $issue->title = $request->input('title', $issue->title);
         $issue->description = $request->input('description', $issue->description);
@@ -159,7 +163,11 @@ class IssueProcessor extends Processor
      */
     public function destroy($id)
     {
-        return $this->issue->destroy($id);
+        $issue = $this->issue->findOrFail($id);
+
+        $this->authorize($issue);
+
+        return $issue->delete();
     }
 
     /**

@@ -38,11 +38,15 @@
     </div>
 
     <div class="col-md-12 text-center">
+
         @if($issue->isOpen())
 
             {!!
                 Form::open([
                     'url' => route('issues.close', [$issue->getKey()]),
+                    'class' => 'form-confirm',
+                    'data-title' => 'Close Issue?',
+                    'data-message' => 'Are you sure you want to close this issue?',
                 ])
             !!}
 
@@ -57,6 +61,9 @@
             {!!
                 Form::open([
                     'url' => route('issues.open', [$issue->getKey()]),
+                    'class' => 'form-confirm',
+                    'data-title' => 'Re-Open Issue?',
+                    'data-message' => 'Are you sure you want to re-open this issue?',
                 ])
             !!}
 
@@ -67,6 +74,7 @@
             {!! Form::close() !!}
 
         @endif
+
     </div>
 
 @stop

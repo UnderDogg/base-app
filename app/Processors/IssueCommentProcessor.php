@@ -36,4 +36,19 @@ class IssueCommentProcessor extends Processor
 
         return $issue->createComment($request->input('content'));
     }
+
+    public function edit()
+    {
+
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function destroy()
+    {
+
+    }
 }
