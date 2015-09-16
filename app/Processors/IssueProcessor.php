@@ -2,6 +2,7 @@
 
 namespace App\Processors;
 
+use App\Jobs\CreateIssue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use App\Jobs\CloseIssue;
@@ -95,17 +96,10 @@ class IssueProcessor extends Processor
      */
     public function store(IssueRequest $request)
     {
-        $issue = $this->issue->newInstance();
+        $title = $request->input('title');
+        $description = $request->input('description');
 
-        $issue->user_id = auth()->user()->getAuthIdentifier();
-        $issue->title = $request->input('title');
-        $issue->description = $request->input('description');
-
-        if($issue->save()) {
-            return $issue;
-        }
-
-        return false;
+        return $this->dispatch(new CreateIssue($title, $description));
     }
 
     /**
