@@ -30,6 +30,7 @@ elixir(function(mix) {
         'libs/bootstrap-markdown.js',
         'libs/markdown.js',
         'libs/to-markdown.js',
+        'libs/select2.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
@@ -38,6 +39,8 @@ elixir(function(mix) {
         'libs/sweetalert.css',
         'libs/bootstrap-editable.css',
         'libs/bootstrap-markdown.min.css',
+        'libs/select2.css',
+        'libs/select2-bootstrap.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')

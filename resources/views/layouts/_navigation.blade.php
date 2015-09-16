@@ -22,9 +22,25 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(auth()->check())
-                    <li><a href="{{ route('auth.logout') }}">Logout</a></li>
+                    <li class="dropdown" id="user-menu">
+                        <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            Bauman, Steve
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ route('auth.logout') }}">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @else
-                    <li><a href="{{ route('auth.login.index') }}">Login</a></li>
+                    <li>
+                        <a href="{{ route('auth.login.index') }}">
+                            Login
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>
