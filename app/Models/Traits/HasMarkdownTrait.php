@@ -4,7 +4,7 @@ namespace App\Models\Traits;
 
 use GrahamCampbell\Markdown\Facades\Markdown;
 
-trait HasMarkdown
+trait HasMarkdownTrait
 {
     /**
      * Converts markdown to HTML.

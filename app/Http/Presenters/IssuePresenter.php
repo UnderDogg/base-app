@@ -36,9 +36,17 @@ class IssuePresenter extends Presenter
                 $column->value = function (Issue $issue) {
                     $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);
 
+                    $labels = [];
+
+                    foreach($issue->labels as $label) {
+                        $labels[] = $label->display();
+                    }
+
+                    $labels = implode(null, $labels);
+
                     $tagLine = HTML::create('p', $issue->tagLine(), ['class' => 'h5 text-muted']);
 
-                    return $link.$tagLine;
+                    return sprintf('%s %s %s', $link, $labels, $tagLine);
                 };
             });
         });

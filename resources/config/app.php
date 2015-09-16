@@ -183,6 +183,11 @@ return [
         Stevebauman\Revision\RevisionServiceProvider::class,
 
         /*
+         * Purification Provider
+         */
+        Stevebauman\Purify\PurifyServiceProvider::class,
+
+        /*
          * Commonmark Wrapper
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
@@ -246,9 +251,9 @@ return [
         'Validator'  => Illuminate\Support\Facades\Validator::class,
         'View'       => Illuminate\Support\Facades\View::class,
 
-        'Adldap' => Adldap\Laravel\Facades\Adldap::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
-
+        'Adldap'    => Adldap\Laravel\Facades\Adldap::class,
+        'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
+        'Purify'    => Stevebauman\Purify\Facades\Purify::class,
     ],
 
 ];

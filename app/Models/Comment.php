@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Orchestra\Support\Facades\HTML;
-use App\Models\Traits\HasMarkdown;
+use App\Models\Traits\CanPurifyTrait;
+use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 
 class Comment extends Model
 {
-    use HasUserTrait, HasMarkdown;
+    use HasUserTrait, HasMarkdownTrait, CanPurifyTrait;
 
     /**
      * The comment table.
@@ -23,6 +24,16 @@ class Comment extends Model
      * @var array
      */
     protected $fillable = ['user_id', 'content'];
+
+    /**
+     * Set the comments content.
+     *
+     * @param $content
+     */
+    public function setContentAttribute($content)
+    {
+        $this->attributes['content'] = $this->clean($content);
+    }
 
     /**
      * Displays the commented 'daysAgo' tag line for comments.

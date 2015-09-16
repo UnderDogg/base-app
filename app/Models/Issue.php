@@ -6,12 +6,13 @@ use Orchestra\Support\Traits\QueryFilterTrait;
 use Orchestra\Support\Facades\HTML;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\HasMarkdown;
+use App\Models\Traits\CanPurifyTrait;
+use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 
 class Issue extends Model
 {
-    use HasUserTrait, HasMarkdown, QueryFilterTrait, SoftDeletes;
+    use HasUserTrait, CanPurifyTrait, HasMarkdownTrait, QueryFilterTrait, SoftDeletes;
 
     /**
      * The issues table.
@@ -40,6 +41,16 @@ class Issue extends Model
      * @var array
      */
     protected $fillable = ['title', 'description'];
+
+    /**
+     * Sets the issue's description attribute.
+     *
+     * @param $description
+     */
+    public function setDescriptionAttribute($description)
+    {
+        $this->attributes['description'] = $this->clean($description);
+    }
 
     /**
      * The belongsToMany labels relationship
