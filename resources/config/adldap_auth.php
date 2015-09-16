@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'login_attribute' => 'samaccountname',
+    'login_attribute' => env('ADLDAP_LOGIN_ATTRIBUTE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'bind_user_to_model' => false,
+    'bind_user_to_model' => env('ADLDAP_BIND_USER_TO_MODEL'),
 
     /*
     |--------------------------------------------------------------------------

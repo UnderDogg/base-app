@@ -18,7 +18,7 @@ class IssuePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Issue $issue, $closed = false)
+    public function table($issue, $closed = false)
     {
         $issue = $issue->where(compact('closed'))->latest();
 
@@ -51,7 +51,7 @@ class IssuePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(Issue $issue)
+    public function form($issue)
     {
         return $this->form->of('issue', function (FormGrid $form) use ($issue) {
             if($issue->exists) {
@@ -71,7 +71,11 @@ class IssuePresenter extends Presenter
 
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
-                    ->attributes(['placeholder' => 'Leave a comment']);
+                    ->attributes([
+                        'placeholder' => 'Leave a comment',
+                        'data-provide' => 'markdown',
+                        'data-hidden-buttons' => '["cmdUrl","cmdImage"]',
+                    ]);
             });
 
             $form->submit = 'Save';
@@ -94,7 +98,10 @@ class IssuePresenter extends Presenter
             $form->fieldset(function (Fieldset $fieldset) {
                 $fieldset->control('input:textarea', 'content')
                     ->label('Comment')
-                    ->attributes(['placeholder' => 'Leave a comment']);
+                    ->attributes([
+                        'placeholder' => 'Leave a comment',
+                        'data-provide' => 'markdown',
+                    ]);
             });
 
             $form->submit = 'Comment';

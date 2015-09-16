@@ -28,4 +28,18 @@ class CommentPolicy extends Policy
     {
         return $user->getKey() === $comment->user_id;
     }
+
+    /**
+     * Returns true / false if the specified user
+     * can delete the specified comment.
+     *
+     * @param User    $user
+     * @param Comment $comment
+     *
+     * @return bool
+     */
+    public function destroy(User $user, Comment $comment)
+    {
+        return $user->getKey() === $comment->user_id;
+    }
 }

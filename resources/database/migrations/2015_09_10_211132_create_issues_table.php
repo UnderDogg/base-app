@@ -16,6 +16,7 @@ class CreateIssuesTable extends Migration
         {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->integer('user_id')->unsigned();
             $table->boolean('closed')->default(false);
             $table->string('title');

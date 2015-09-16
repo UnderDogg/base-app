@@ -170,10 +170,21 @@ return [
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Active Directory Providers
+         */
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
 
+        /*
+         * Revision Provider
+         */
         Stevebauman\Revision\RevisionServiceProvider::class,
+
+        /*
+         * Commonmark Wrapper
+         */
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -235,6 +246,7 @@ return [
         'View'       => Illuminate\Support\Facades\View::class,
 
         'Adldap' => Adldap\Laravel\Facades\Adldap::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
     ],
 

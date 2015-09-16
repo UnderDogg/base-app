@@ -17,7 +17,7 @@ dir = {
         img: 'public/img',
         js: 'public/js'
     },
-    vendor: 'vendor/bower_components',
+    vendor: 'vendor/bower_components'
 };
 
 elixir(function(mix) {
@@ -27,6 +27,9 @@ elixir(function(mix) {
         'libs/dropzone.min.js',
         'libs/sweetalert.min.js',
         'libs/bootstrap-editable.min.js',
+        'libs/bootstrap-markdown.js',
+        'libs/markdown.js',
+        'libs/to-markdown.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
@@ -34,6 +37,9 @@ elixir(function(mix) {
         'libs/font-awesome.min.css',
         'libs/sweetalert.css',
         'libs/bootstrap-editable.css',
+        'libs/bootstrap-markdown.min.css',
         'app.css'
-    ]).copy('resources/assets/fonts/libs', 'public/fonts');
+    ])
+        .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')
+        .copy('resources/assets/fonts/libs/bootstrap/', 'public/fonts');
 });

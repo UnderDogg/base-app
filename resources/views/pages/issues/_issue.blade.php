@@ -15,7 +15,13 @@
                 @endcan
 
                 @can('destroy', $issue)
-                    <a href="{{ route('issues.destroy', [$issue->id]) }}"><i class="fa fa-times"></i></a>
+                    <a
+                            data-post="DELETE"
+                            data-title="Delete Issue?"
+                            data-message="Are you sure you want to delete this issue?"
+                            href="{{ route('issues.destroy', [$issue->id]) }}">
+                        <i class="fa fa-times"></i>
+                    </a>
                 @endcan
             </span>
 
@@ -31,7 +37,7 @@
     </div>
 
     <div class="panel-body">
-        {!! $issue->description !!}
+        {!! $issue->descriptionFromMarkdown() !!}
     </div>
 
 </div>

@@ -54,7 +54,7 @@ return [
         |
         */
 
-        'account_suffix' => '@corp.bwba.org',
+        'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX'),
 
         /*
         |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
         |
         */
 
-        'domain_controllers' => ['bwbc-dc01.corp.bwba.org', 'bwbc-dc02.corp.bwba.org'],
+        'domain_controllers' => [env('ADLDAP_DC1'), env('ADLDAP_DC2')],
 
         /*
         |--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ return [
         |
         */
 
-        'port' => 389,
+        'port' => env('ADLDAP_PORT'),
 
         /*
         |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
         |
         */
 
-        'base_dn' => 'dc=corp,dc=bwba,dc=org',
+        'base_dn' => env('ADLDAP_BASE_DN'),
 
         /*
         |--------------------------------------------------------------------------
@@ -109,8 +109,8 @@ return [
         |
         */
 
-        'admin_username' => 'admin',
-        'admin_password' => '$$BWBCit$$',
+        'admin_username' => env('ADLDAP_ADMIN_USERNAME'),
+        'admin_password' => env('ADLDAP_ADMIN_PASSWORD'),
 
         /*
         |--------------------------------------------------------------------------
@@ -140,8 +140,8 @@ return [
         |
         */
 
-        'use_ssl' => false,
-        'use_tls' => false,
+        'use_ssl' => env('ADLDAP_USE_SSL'),
+        'use_tls' => env('ADLDAP_USE_TLS'),
 
         /*
         |--------------------------------------------------------------------------

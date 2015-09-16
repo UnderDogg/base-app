@@ -2,6 +2,8 @@
 
 namespace App\Processors;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use App\Jobs\CloseIssue;
 use App\Http\Requests\IssueRequest;
 use App\Http\Presenters\IssuePresenter;
@@ -35,11 +37,17 @@ class IssueProcessor extends Processor
     /**
      * Returns a table displaying all open issues.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $issues = $this->presenter->table($this->issue);
+        $searchKeyword = Arr::get($request->all(), 'q', '');
+
+        $issue = $this->issue->search($searchKeyword);
+
+        $issues = $this->presenter->table($issue);
 
         $navbar = $this->navbar();
 
@@ -49,11 +57,17 @@ class IssueProcessor extends Processor
     /**
      * Returns a table displaying all closed issues.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
-    public function closed()
+    public function closed(Request $request)
     {
-        $issues = $this->presenter->table($this->issue, $closed = true);
+        $searchKeyword = Arr::get($request->all(), 'q', '');
+
+        $issue = $this->issue->search($searchKeyword);
+
+        $issues = $this->presenter->table($issue, $closed = true);
 
         $navbar = $this->navbar();
 

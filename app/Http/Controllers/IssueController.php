@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\IssueRequest;
 use App\Processors\IssueProcessor;
 
@@ -25,21 +26,25 @@ class IssueController extends Controller
     /**
      * Displays all issues.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->processor->index();
+        return $this->processor->index($request);
     }
 
     /**
      * Displays all closed issues.
      *
+     * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
-    public function closed()
+    public function closed(Request $request)
     {
-        return $this->processor->closed();
+        return $this->processor->closed($request);
     }
 
     /**
@@ -107,11 +112,11 @@ class IssueController extends Controller
     public function update(IssueRequest $request, $id)
     {
         if($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully edited issue.');
+            flash()->success('Success!', 'Successfully updated issue.');
 
             return redirect()->route('issues.show', [$id]);
         } else {
-            flash()->error('Error!', 'There was a problem editing this issue. Please try again.');
+            flash()->error('Error!', 'There was a problem updating this issue. Please try again.');
 
             return redirect()->route('issues.edit', [$id]);
         }

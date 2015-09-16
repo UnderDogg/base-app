@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Orchestra\Support\Traits\QueryFilterTrait;
 use Orchestra\Support\Facades\HTML;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Traits\HasMarkdown;
 use App\Models\Traits\HasUserTrait;
 
 class Issue extends Model
 {
-    use HasUserTrait;
+    use HasUserTrait, HasMarkdown, QueryFilterTrait, SoftDeletes;
 
     /**
      * The issues table.
@@ -140,5 +144,28 @@ class Issue extends Model
         $comments = count($this->comments);
 
         return "$user opened this issue $daysAgo - $comments Comment(s)";
+    }
+
+    /**
+     * Returns the description from markdown to HTML.
+     *
+     * @return string
+     */
+    public function descriptionFromMarkdown()
+    {
+        return $this->fromMarkdown($this->description);
+    }
+
+    /**
+     * Search an issue based on the specified keyword.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string                                 $keyword
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch(Builder $query, $keyword = '')
+    {
+        return $this->setupWildcardQueryFilter($query, $keyword, ['title', 'description']);
     }
 }
