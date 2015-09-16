@@ -12,7 +12,7 @@ return [
     |
     */
 
-    'empty' => 'orchestra/foundation::label.no-data',
+    'empty' => 'There are no records to display.',
 
     /*
     |----------------------------------------------------------------------

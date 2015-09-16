@@ -9,13 +9,18 @@
                 {!! $comment->tagLine() !!}
             </span>
 
-            <span class="pull-right">
+            <span class="pull-right btn-group">
                 @can('update', $comment)
-                    <a href="{{ route('issues.comments.edit', [$comment->pivot->issue_id, $comment->id]) }}"><i class="fa fa-edit"></i></a>
+                    <a
+                            class="btn btn-warning btn-xs"
+                            href="{{ route('issues.comments.edit', [$comment->pivot->issue_id, $comment->id]) }}">
+                        <i class="fa fa-edit"></i>
+                    </a>
                 @endcan
 
                 @can('destroy', $comment)
                     <a
+                            class="btn btn-danger btn-xs"
                             data-post="DELETE"
                             data-title="Delete Comment?"
                             data-message="Are you sure you want to delete this comment?"

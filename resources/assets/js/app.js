@@ -46,10 +46,10 @@ $(function ()
         var form = $("<form></form>");
 
         form.attr('method', 'POST');
-        form.attr('url', url);
+        form.attr('action', url);
 
-        form.append('<input name="_method" type="hidden" value="'+method+'">');
-        form.append('<input name="_token" type="hidden" value="'+token+'">');
+        form.append('<input name="_method" type="hidden" value="'+method+'" />');
+        form.append('<input name="_token" type="hidden" value="'+token+'" />');
 
         swal({
             title: (title ? title : "Are you sure?"),
@@ -63,6 +63,8 @@ $(function ()
             closeOnCancel: true
         }, function(isConfirm) {
             if (isConfirm) {
+                $('body').append(form);
+
                 return form.submit();
             }
         });

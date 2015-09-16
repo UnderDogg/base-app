@@ -44,36 +44,58 @@ class IssueCommentController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Displays the form to edit the specified issue comment.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int|string $id
+     * @param int|string $commentid
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id, $commentid)
     {
-        //
+        return $this->processor->edit($id, $commentid);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified issue comment.
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param IssueCommentRequest $request
+     * @param int|string          $id
+     * @param int|string          $commentId
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(IssueCommentRequest $request, $id, $commentId)
     {
-        //
+        if($this->processor->update($request, $id, $commentId)) {
+            flash()->success('Success!', 'Successfully updated comment.');
+
+            return redirect()->route('issues.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was a problem updating this comment. Please try again.');
+
+            return redirect()->route('issues.show', [$id]);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified issues comment.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int|string $id
+     * @param int|string $commentId
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id, $commentId)
     {
-        //
+        if($this->processor->destroy($id, $commentId)) {
+            flash()->success('Success!', 'Successfully deleted comment.');
+
+            return redirect()->back();
+        } else {
+            flash()->error('Error!', 'There was a problem deleting this comment. Please try again.');
+
+            return redirect()->back();
+        }
     }
 }

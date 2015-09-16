@@ -9,13 +9,14 @@
                 commented {{ $issue->createdAtDaysAgo() }}
             </span>
 
-            <span class="pull-right">
+            <span class="pull-right btn-group">
                 @can('edit', $issue)
-                    <a href="{{ route('issues.edit', [$issue->id]) }}"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-warning btn-xs" href="{{ route('issues.edit', [$issue->id]) }}"><i class="fa fa-edit"></i></a>
                 @endcan
 
                 @can('destroy', $issue)
                     <a
+                            class="btn btn-danger btn-xs"
                             data-post="DELETE"
                             data-title="Delete Issue?"
                             data-message="Are you sure you want to delete this issue?"

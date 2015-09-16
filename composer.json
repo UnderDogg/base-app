@@ -1,7 +1,6 @@
 {
-    "name": "orchestra/platform",
-    "description": "Orchestra Platform",
-    "homepage": "http://orchestraplatform.com/docs/latest/",
+    "name": "stevebauman/ithub",
+    "description": "IT Hub",
     "keywords": ["framework", "laravel", "orchestra-platform", "orchestral"],
     "license": "MIT",
     "type": "project",

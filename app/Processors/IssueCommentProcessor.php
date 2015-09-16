@@ -2,8 +2,9 @@
 
 namespace App\Processors;
 
-use App\Models\Issue;
+use App\Http\Presenters\IssueCommentPresenter;
 use App\Http\Requests\IssueCommentRequest;
+use App\Models\Issue;
 
 class IssueCommentProcessor extends Processor
 {
@@ -13,13 +14,20 @@ class IssueCommentProcessor extends Processor
     protected $issue;
 
     /**
+     * @var IssueCommentPresenter
+     */
+    protected $presenter;
+
+    /**
      * Constructor.
      *
-     * @param Issue $issue
+     * @param Issue                 $issue
+     * @param IssueCommentPresenter $presenter
      */
-    public function __construct(Issue $issue)
+    public function __construct(Issue $issue, IssueCommentPresenter $presenter)
     {
         $this->issue = $issue;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -37,18 +45,67 @@ class IssueCommentProcessor extends Processor
         return $issue->createComment($request->input('content'));
     }
 
-    public function edit()
+    /**
+     * Displays the form for editing a comment.
+     *
+     * @param int|string $id
+     * @param int|string $commentId
+     *
+     * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     */
+    public function edit($id, $commentId)
     {
+        $issue = $this->issue->findOrFail($id);
 
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        $form = $this->presenter->form($issue, $comment);
+
+        $this->authorize($comment);
+
+        return view('pages.issues.comments.edit', compact('form'));
     }
 
-    public function update()
+    /**
+     * Updates an issue comment.
+     *
+     * @param IssueCommentRequest $request
+     * @param int|string          $id
+     * @param int|string          $commentId
+     *
+     * @return bool
+     */
+    public function update(IssueCommentRequest $request, $id, $commentId)
     {
+        $issue = $this->issue->findOrFail($id);
 
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        $comment->content = $request->input('content', $comment->content);
+
+        return $comment->save();
     }
 
-    public function destroy()
+    /**
+     * Deletes an issue comment.
+     *
+     * @param int|string $id
+     * @param int|string $commentId
+     *
+     * @return bool
+     */
+    public function destroy($id, $commentId)
     {
+        $issue = $this->issue->findOrFail($id);
 
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        $this->authorize($comment);
+
+        $issue->comments()->detach($comment);
+
+        return $comment->delete();
     }
 }
