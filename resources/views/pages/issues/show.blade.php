@@ -23,6 +23,18 @@
 
     <br>
 
+    <div class="row">
+
+        <div class="col-md-12">
+            @foreach($issue->labels as $label)
+                {!! $label->displayLarge() !!}
+            @endforeach
+        </div>
+
+    </div>
+
+    <br>
+
     <div class="clearfix"></div>
 
     @include('pages.issues._issue')

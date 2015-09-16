@@ -13,6 +13,10 @@ class LabelSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $labels = Label::getDefault();
+
+        foreach($labels as $label) {
+            Label::create($label);
+        }
     }
 }

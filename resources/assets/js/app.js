@@ -3,6 +3,24 @@ $(function ()
     // Markdown
     $("textarea[data-provide='markdown']").markdown();
 
+    // Select2
+    $(".select-labels").select2({
+        formatResult: formatLabel,
+        formatSelection: formatLabel
+    });
+
+    /**
+     * Formats a select2 label.
+     *
+     * @param label
+     *
+     * @returns {*|jQuery}
+     */
+    function formatLabel(label)
+    {
+        return $(label.element).data('display');
+    }
+
     // Form Confirmation window
     $('.form-confirm').on('submit', function(e)
     {

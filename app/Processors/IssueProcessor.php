@@ -111,7 +111,7 @@ class IssueProcessor extends Processor
      */
     public function show($id)
     {
-        $with = ['comments'];
+        $with = ['comments', 'labels'];
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
@@ -221,7 +221,7 @@ class IssueProcessor extends Processor
             'id'    => 'issues',
             'title' => 'Issues',
             'url'   => route('issues.index'),
-            'menu'  => view('pages.issues._menu'),
+            'menu'  => view('pages.issues._nav'),
             'attributes' => [
                 'class' => 'navbar-default'
             ],

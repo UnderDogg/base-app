@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      * @var array
      */
     protected $seeders = [
-        // UserTableSeeder::class,
+        LabelSeeder::class,
     ];
 
     /**

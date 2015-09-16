@@ -44,5 +44,6 @@ elixir(function(mix) {
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')
-        .copy('resources/assets/fonts/libs/bootstrap/', 'public/fonts');
+        .copy('resources/assets/fonts/libs/bootstrap/', 'public/fonts')
+        .copy('resources/assets/img/libs/', 'public/css');
 });

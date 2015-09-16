@@ -18,6 +18,10 @@ class CreateLabelsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('color');
+
+            // Don't allow multiple labels of the
+            // same name and color
+            $table->unique(['name', 'color']);
         });
     }
 
