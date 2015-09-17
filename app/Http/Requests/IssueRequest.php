@@ -12,8 +12,8 @@ class IssueRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
-            'description' => 'required|min:5',
+            'title'         => 'required|min:5',
+            'description'   => 'required|min:5',
         ];
     }
 
