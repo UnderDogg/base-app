@@ -169,7 +169,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ComposerServiceProvider::class,
 
         /*
          * Active Directory Providers

@@ -3238,7 +3238,7 @@ $(function ()
      */
     function formatLabel(label)
     {
-        return $(label.element).data('display');
+        return $(label.element).text();
     }
 
     // Form Confirmation window

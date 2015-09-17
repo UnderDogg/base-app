@@ -49,6 +49,16 @@ class Label extends Model
     }
 
     /**
+     * The display attribute accessor.
+     *
+     * @return string
+     */
+    public function getDisplayAttribute()
+    {
+        return (string) $this->display();
+    }
+
+    /**
      * Displays the label in HTML.
      *
      * @return string
@@ -67,6 +77,6 @@ class Label extends Model
      */
     public function displayLarge()
     {
-        return HTML::create('h4', $this->display());
+        return HTML::create('span', $this->display(), ['class' => 'label-large']);
     }
 }

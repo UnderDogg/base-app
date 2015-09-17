@@ -2458,16 +2458,16 @@
         },
         {
             "name": "stevebauman/purify",
-            "version": "v1.1.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stevebauman/purify.git",
-                "reference": "95d6b4b5d5f5d49ca182d7cb1ebc7de6b417e995"
+                "reference": "4a4a414e5fbbbf70540248aab5df3954a892c0fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/purify/zipball/95d6b4b5d5f5d49ca182d7cb1ebc7de6b417e995",
-                "reference": "95d6b4b5d5f5d49ca182d7cb1ebc7de6b417e995",
+                "url": "https://api.github.com/repos/stevebauman/purify/zipball/4a4a414e5fbbbf70540248aab5df3954a892c0fb",
+                "reference": "4a4a414e5fbbbf70540248aab5df3954a892c0fb",
                 "shasum": ""
             },
             "require": {
@@ -2476,8 +2476,7 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "4.*"
+                "orchestra/testbench": "~3.0"
             },
             "type": "library",
             "autoload": {
@@ -2505,7 +2504,7 @@
                 "purification",
                 "purify"
             ],
-            "time": "2015-09-16 20:55:10"
+            "time": "2015-09-17 16:14:50"
         },
         {
             "name": "stevebauman/revision",

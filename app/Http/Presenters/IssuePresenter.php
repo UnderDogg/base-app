@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters;
 
+use App\Models\Label;
 use App\Models\Issue;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Fieldset;
@@ -113,6 +114,49 @@ class IssuePresenter extends Presenter
             });
 
             $form->submit = 'Comment';
+        });
+    }
+
+    /**
+     * Returns a new issue labels form.
+     *
+     * @param Issue $issue
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formLabels(Issue $issue)
+    {
+        return $this->form->of('issue.labels', function (FormGrid $form) use ($issue)
+        {
+            $labels = Label::all()->lists('display', 'id');
+
+            $form->setup($this, 'url', $issue);
+
+            $form->layout('components.form-modal');
+
+            $form->fieldset(function (Fieldset $fieldset) use ($labels) {
+
+                $fieldset->control('select', 'labels')
+                    ->label('Labels')
+                    ->options($labels)
+                    ->value(function(Issue $issue) {
+                        $labels = [];
+
+                        $pivots = $issue->labels()->get();
+
+                        foreach($pivots as $row) {
+                            $labels[] = $row->id;
+                        }
+
+                        return $labels;
+                    })
+                    ->attributes([
+                        'class' => 'select-labels form-control',
+                        'multiple' => true,
+                    ]);
+            });
+
+            $form->submit = 'Save';
         });
     }
 }

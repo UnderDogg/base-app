@@ -115,9 +115,11 @@ class IssueProcessor extends Processor
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
-        $form = $this->presenter->formComment($issue);
+        $formComment = $this->presenter->formComment($issue);
 
-        return view('pages.issues.show', compact('issue', 'form'));
+        $formLabels = $this->presenter->formLabels($issue);
+
+        return view('pages.issues.show', compact('issue', 'formComment', 'formLabels'));
     }
 
     /**
