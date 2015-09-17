@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Orchestra\Support\Facades\HTML;
-use App\Models\Traits\CanPurifyTrait;
+use App\Traits\CanPurifyTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 

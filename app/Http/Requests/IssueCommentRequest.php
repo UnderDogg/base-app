@@ -18,6 +18,8 @@ class IssueCommentRequest extends Request
 
     /**
      * Sanitizes the comment content.
+     *
+     * @return array
      */
     public function sanitize()
     {

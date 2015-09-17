@@ -6,7 +6,7 @@ use Orchestra\Support\Traits\QueryFilterTrait;
 use Orchestra\Support\Facades\HTML;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Traits\CanPurifyTrait;
+use App\Traits\CanPurifyTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 

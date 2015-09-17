@@ -2,22 +2,12 @@
 
 namespace App\Http\Requests;
 
-use Stevebauman\Purify\Facades\Purify;
+use App\Traits\CanPurifyTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 abstract class Request extends FormRequest
 {
-    /**
-     * Purifies the specified HTML input.
-     *
-     * @param string|array $input
-     *
-     * @return string
-     */
-    public function clean($input)
-    {
-        return Purify::clean($input);
-    }
+    use CanPurifyTrait;
 
     /**
      * Validate the input.
