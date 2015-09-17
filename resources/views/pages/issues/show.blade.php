@@ -31,7 +31,10 @@
             @endforeach
 
             <span class="pull-right">
-                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">Labels</a>
+                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">
+                    <i class="fa fa-tag"></i>
+                    Labels
+                </a>
             </span>
 
             <div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">

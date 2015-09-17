@@ -2,6 +2,7 @@
 @inject('htmlbuilder', 'html')
 
 <div class="modal-body">
+
     {!! $formbuilder->open($form) !!}
 
     @if ($token)
@@ -34,8 +35,10 @@
                     </div>
                 </div>
             @endforeach
+
         </fieldset>
     @endforeach
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

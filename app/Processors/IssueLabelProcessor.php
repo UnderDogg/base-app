@@ -2,6 +2,7 @@
 
 namespace App\Processors;
 
+use App\Http\Requests\IssueLabelRequest;
 use App\Models\Label;
 use App\Models\Issue;
 
@@ -19,8 +20,28 @@ class IssueLabelProcessor extends Processor
         $this->label = $label;
     }
 
-    public function update()
+    /**
+     * Updates the specified issue labels.
+     *
+     * @param IssueLabelRequest $request
+     * @param int|string        $id
+     *
+     * @return bool
+     */
+    public function store(IssueLabelRequest $request, $id)
     {
-        //
+        $issue = $this->issue->findOrFail($id);
+
+        if ($request->has('labels')) {
+            $labels = $this->label->find($request->input('labels'));
+
+            $issue->labels()->sync($labels);
+
+            return true;
+        }
+
+        $issue->labels()->detach();
+
+        return true;
     }
 }

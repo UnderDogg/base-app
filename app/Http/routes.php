@@ -37,6 +37,13 @@ $router->group(['middleware' => ['auth']], function ($router)
             'show',
         ],
     ]);
+
+    // The issue labels resource
+    $router->resource('issues.labels', 'IssueLabelController', [
+        'only' => [
+            'store',
+        ],
+    ]);
 });
 
 // Authentication Routes

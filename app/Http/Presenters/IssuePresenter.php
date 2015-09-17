@@ -130,16 +130,17 @@ class IssuePresenter extends Presenter
         {
             $labels = Label::all()->lists('display', 'id');
 
-            $form->setup($this, 'url', $issue);
+            $form->setup($this, route('issues.labels.store', [$issue->getKey()]), $issue);
 
             $form->layout('components.form-modal');
 
-            $form->fieldset(function (Fieldset $fieldset) use ($labels) {
-
-                $fieldset->control('select', 'labels')
+            $form->fieldset(function (Fieldset $fieldset) use ($labels)
+            {
+                $fieldset->control('select', 'labels[]')
                     ->label('Labels')
                     ->options($labels)
-                    ->value(function(Issue $issue) {
+                    ->value(function(Issue $issue)
+                    {
                         $labels = [];
 
                         $pivots = $issue->labels()->get();
