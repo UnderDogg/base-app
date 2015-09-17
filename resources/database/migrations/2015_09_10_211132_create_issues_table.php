@@ -38,6 +38,7 @@ class CreateIssuesTable extends Migration
         {
             $table->integer('issue_id')->unsigned();
             $table->integer('comment_id')->unsigned();
+            $table->boolean('resolution')->default(false);
 
             $table->foreign('issue_id')->references('id')->on('issues');
             $table->foreign('comment_id')->references('id')->on('comments');
