@@ -42,6 +42,9 @@ class CreateIssuesTable extends Migration
 
             $table->foreign('issue_id')->references('id')->on('issues');
             $table->foreign('comment_id')->references('id')->on('comments');
+
+            // Make sure only one resolution can be made per issue
+            $table->unique(['issue_id', 'resolution']);
         });
     }
 
