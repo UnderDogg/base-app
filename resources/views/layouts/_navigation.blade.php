@@ -24,7 +24,7 @@
                 @if(auth()->check())
                     <li class="dropdown" id="user-menu">
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Bauman, Steve
+                            {{ auth()->user()->fullname }}
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
