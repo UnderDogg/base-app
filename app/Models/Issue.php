@@ -26,14 +26,14 @@ class Issue extends Model
      *
      * @var string
      */
-    protected $tableLabels = 'issue_labels';
+    protected $tablePivotLabels = 'issue_labels';
 
     /**
      * The issue comments pivot table.
      *
      * @var string
      */
-    protected $tableComments = 'issue_comments';
+    protected $tablePivotComments = 'issue_comments';
 
     /**
      * The fillable issue attributes.
@@ -59,7 +59,7 @@ class Issue extends Model
      */
     public function labels()
     {
-        return $this->belongsToMany(Label::class, $this->tableLabels);
+        return $this->belongsToMany(Label::class, $this->tablePivotLabels);
     }
 
     /**
@@ -69,7 +69,7 @@ class Issue extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, $this->tableComments)->withPivot(['resolution']);
+        return $this->belongsToMany(Comment::class, $this->tablePivotComments)->withPivot(['resolution']);
     }
 
     /**
