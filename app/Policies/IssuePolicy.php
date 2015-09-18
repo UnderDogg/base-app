@@ -2,11 +2,25 @@
 
 namespace App\Policies;
 
+use Orchestra\Model\Role;
 use App\Models\User;
 use App\Models\Issue;
 
 class IssuePolicy extends Policy
 {
+    /**
+     * Returns true / false if the specified
+     * user can view all issues.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function viewAll(User $user)
+    {
+        return $user->is(Role::admin()->name);
+    }
+
     /**
      * Returns true / false if the specified user
      * can edit the specified issue.

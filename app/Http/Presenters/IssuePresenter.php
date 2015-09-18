@@ -2,7 +2,6 @@
 
 namespace App\Http\Presenters;
 
-use Orchestra\Model\Role;
 use App\Models\Label;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -25,7 +24,9 @@ class IssuePresenter extends Presenter
     {
         $issue = $issue->where(compact('closed'))->latest();
 
-        if (! auth()->user()->is(Role::admin()->name)) {
+        // Limit the view if the user isn't
+        // allowed to view all issues
+        if (! auth()->user()->can('viewAll', $issue)) {
             $issue->where('user_id', auth()->user()->getKey());
         }
 
@@ -81,10 +82,14 @@ class IssuePresenter extends Presenter
                 $form->setup($this, route('issues.update', [$issue->getKey()]), $issue, [
                     'method' => 'PATCH',
                 ]);
+
+                $form->submit = 'Save';
             } else {
                 $form->setup($this, route('issues.store'), $issue, [
                     'method' => 'POST',
                 ]);
+
+                $form->submit = 'Create';
             }
 
             $form->fieldset(function (Fieldset $fieldset) {
@@ -100,8 +105,6 @@ class IssuePresenter extends Presenter
                         'data-hidden-buttons' => '["cmdUrl","cmdImage"]',
                     ]);
             });
-
-            $form->submit = 'Save';
         });
     }
 
