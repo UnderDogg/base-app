@@ -26,6 +26,20 @@ class Comment extends Model
     protected $fillable = ['user_id', 'content'];
 
     /**
+     * Returns true / false if the comment is a resolution.
+     *
+     * @return bool
+     */
+    public function isResolution()
+    {
+        if($this->pivot) {
+            return $this->pivot->resolution;
+        }
+
+        return false;
+    }
+
+    /**
      * Set the comments content.
      *
      * @param $content
@@ -52,7 +66,7 @@ class Comment extends Model
      *
      * @return string
      */
-    public function contentFromMarkdown()
+    public function getContentFromMarkdown()
     {
         return $this->fromMarkdown($this->content);
     }
