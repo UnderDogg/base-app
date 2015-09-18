@@ -1,9 +1,8 @@
-@if($comment->pivot->resolution)
+@if($comment->isResolution())
     <div class="panel panel-success">
 @else
     <div class="panel panel-default">
 @endif
-
 
     <div class="panel-heading">
 
@@ -45,7 +44,11 @@
     </div>
 
     <div class="panel-body">
-        {!! $comment->contentFromMarkdown() !!}
+        {!! $comment->getContentFromMarkdown() !!}
     </div>
 
 </div>
+
+@if($comment->isResolution())
+    <hr>
+@endif

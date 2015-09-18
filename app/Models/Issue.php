@@ -120,7 +120,7 @@ class Issue extends Model
         $comment = $this->comments()->findOrFail($commentId);
 
         // // Make sure we only allow one comment resolution
-        if (!$this->hasCommentResolution() || $comment->pivot->resolution) {
+        if (!$this->hasCommentResolution() || $comment->isResolution()) {
             $this->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
         }
 
