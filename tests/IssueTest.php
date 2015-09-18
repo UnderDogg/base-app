@@ -29,6 +29,8 @@ class IssueTest extends TestCase
         $this->actingAs($user);
 
         $this->visit(route('issues.closed'));
+
+        $this->see('All Issues');
     }
 
     public function test_access_issues_create()
