@@ -6,7 +6,6 @@ use Orchestra\Model\Role;
 use App\Models\Label;
 use App\Models\Comment;
 use App\Models\Issue;
-use App\Http\Presenters\IssueCommentPresenter;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -30,10 +29,17 @@ class IssuePresenter extends Presenter
             $issue->where('user_id', auth()->user()->getKey());
         }
 
-        return $this->table->of('issues', function (TableGrid $table) use ($issue) {
+        return $this->table->of('issues', function (TableGrid $table) use ($issue)
+        {
             $table->with($issue, true);
 
             $table->sortable([
+                'title',
+                'description',
+                'created_at',
+            ]);
+
+            $table->searchable([
                 'title',
                 'description',
             ]);
@@ -69,7 +75,8 @@ class IssuePresenter extends Presenter
      */
     public function form($issue)
     {
-        return $this->form->of('issue', function (FormGrid $form) use ($issue) {
+        return $this->form->of('issue', function (FormGrid $form) use ($issue)
+        {
             if($issue->exists) {
                 $form->setup($this, route('issues.update', [$issue->getKey()]), $issue, [
                     'method' => 'PATCH',
