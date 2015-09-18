@@ -14,9 +14,11 @@
         <section class="container main">
 
             <div class="col-lg-12">
-                @unless(isset($title))
-                    <h3>@yield('title')</h3>
-                @endunless
+                @section('title.header')
+                    @unless(isset($title))
+                        <h3>@yield('title')</h3>
+                    @endunless
+                @show
 
                 @yield('content')
             </div>
