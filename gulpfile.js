@@ -28,6 +28,7 @@ elixir(function(mix) {
         'libs/sweetalert.min.js',
         'libs/bootstrap-editable.min.js',
         'libs/bootstrap-markdown.js',
+        'libs/bootstrap-switch.min.js',
         'libs/markdown.js',
         'libs/to-markdown.js',
         'libs/select2.min.js',
@@ -39,6 +40,7 @@ elixir(function(mix) {
         'libs/sweetalert.css',
         'libs/bootstrap-editable.css',
         'libs/bootstrap-markdown.min.css',
+        'libs/bootstrap-switch.min.css',
         'libs/select2.css',
         'libs/select2-bootstrap.css',
         'app.css'

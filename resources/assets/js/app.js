@@ -3,6 +3,15 @@ $(function ()
     // Markdown
     $("textarea[data-provide='markdown']").markdown();
 
+    // Mark Switches
+    $(".switch-mark").bootstrapSwitch({
+        onText: 'Yes',
+        offText: 'No'
+    });
+
+    // Standard Switches
+    $(".switch").bootstrapSwitch();
+
     // Select2
     $(".select-labels").select2({
         formatResult: formatLabel,

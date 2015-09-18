@@ -191,9 +191,13 @@ class IssueProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->dispatch(new CloseIssue($issue));
+        if ($issue->isOpen()) {
+            $this->dispatch(new CloseIssue($issue));
 
-        return true;
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -207,9 +211,13 @@ class IssueProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->dispatch(new OpenIssue($issue));
+        if ($issue->isClosed()) {
+            $this->dispatch(new OpenIssue($issue));
 
-        return true;
+            return true;
+        }
+
+        return false;
     }
 
     /**

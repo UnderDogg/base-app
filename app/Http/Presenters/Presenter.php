@@ -5,7 +5,6 @@ namespace App\Http\Presenters;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Form\Factory as FormFactory;
 use Orchestra\Html\Table\Factory as TableFactory;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Form\Presenter as PresenterContract;
 
@@ -67,15 +66,5 @@ abstract class Presenter implements PresenterContract
     public function setupForm(FormGrid $form)
     {
         $form->layout('components.form');
-    }
-
-    /**
-     * Sets up a table grid.
-     *
-     * @param TableGrid $table
-     */
-    public function setupTable(TableGrid $table)
-    {
-        $table->layout('components.table');
     }
 }

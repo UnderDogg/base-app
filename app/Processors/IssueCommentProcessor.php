@@ -42,7 +42,7 @@ class IssueCommentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        return $issue->createComment($request->input('content'));
+        return $issue->createComment($request->input('content'), $request->input('resolution', false));
     }
 
     /**
@@ -81,11 +81,10 @@ class IssueCommentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $comment = $issue->comments()->findOrFail($commentId);
+        $content = $request->input('content');
+        $resolution = $request->input('resolution', false);
 
-        $comment->content = $request->input('content', $comment->content);
-
-        return $comment->save();
+        return $issue->updateComment($commentId, $content, $resolution);
     }
 
     /**

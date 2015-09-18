@@ -3,7 +3,9 @@
 namespace App\Http\Presenters;
 
 use App\Models\Label;
+use App\Models\Comment;
 use App\Models\Issue;
+use App\Http\Presenters\IssueCommentPresenter;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -100,21 +102,13 @@ class IssuePresenter extends Presenter
      */
     public function formComment(Issue $issue)
     {
-        return $this->form->of('issue.comment', function (FormGrid $form) use ($issue)
-        {
-            $form->setup($this, route('issues.comments.store', [$issue->getKey()]), $issue);
+        $presenter = app(IssueCommentPresenter::class);
 
-            $form->fieldset(function (Fieldset $fieldset) {
-                $fieldset->control('input:textarea', 'content')
-                    ->label('Comment')
-                    ->attributes([
-                        'placeholder' => 'Leave a comment',
-                        'data-provide' => 'markdown',
-                    ]);
-            });
+        if ($presenter instanceof IssueCommentPresenter) {
+            return $presenter->form($issue, (new Comment()));
+        }
 
-            $form->submit = 'Comment';
-        });
+        return null;
     }
 
     /**

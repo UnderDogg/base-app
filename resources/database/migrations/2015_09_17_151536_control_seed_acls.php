@@ -16,13 +16,13 @@ class ControlSeedAcls extends Migration
     {
         $role = Role::admin();
 
-        $acl  = ACL::make('ithub')->attach(Foundation::memory());
+        $acl = ACL::make('ithub');
+
+        $acl->attach(Foundation::memory());
 
         $actions = ['Manage Issues'];
 
         $acl->actions()->attach($actions);
-
-        $acl->allow($role->name, $actions);
     }
 
     /**

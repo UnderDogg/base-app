@@ -69,24 +69,71 @@ class Issue extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, $this->tableComments);
+        return $this->belongsToMany(Comment::class, $this->tableComments)->withPivot(['resolution']);
     }
 
     /**
      * Adds a comment to an issue.
      *
      * @param string $content
+     * @param bool   $resolution
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function createComment($content)
+    public function createComment($content, $resolution = false)
     {
         $attributes = [
             'content' => $content,
             'user_id' => auth()->user()->getAuthIdentifier(),
         ];
 
-        return $this->comments()->create($attributes);
+        // Make sure we only allow one comment resolution
+        if($this->hasCommentResolution()) $resolution = false;
+
+        return $this->comments()->create($attributes, compact('resolution'));
+    }
+
+    /**
+     * Updates the specified comment.
+     *
+     * @param int|string $commentId
+     * @param int|string $content
+     * @param bool|false $resolution
+     *
+     * @return bool
+     */
+    public function updateComment($commentId, $content, $resolution = false)
+    {
+        $comment = $this->comments()->findOrFail($commentId);
+
+        // // Make sure we only allow one comment resolution
+        if (!$this->hasCommentResolution()) {
+            $this->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
+        }
+
+        $comment->content = $content;
+
+        return $comment->save();
+    }
+
+    /**
+     * Returns the issues comment resolution.
+     *
+     * @return null|Comment
+     */
+    public function findCommentResolution()
+    {
+        return $this->comments()->wherePivot('resolution', true)->first();
+    }
+
+    /**
+     * Returns true / false if the current issue has a resolution.
+     *
+     * @return bool
+     */
+    public function hasCommentResolution()
+    {
+        return ($this->findCommentResolution() ? true : false);
     }
 
     /**
