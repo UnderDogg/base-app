@@ -54,6 +54,7 @@ class IssueCommentPresenter extends Presenter
                             'class' => 'switch-mark',
                             ($isResolution ? 'checked' : null)
                         ])
+                        ->name('resolution')
                         ->value(1);
                 }
             });
