@@ -23,11 +23,15 @@ class IssueCommentPresenter extends Presenter
         {
             // Check if the issue already has a resolution
             $hasResolution = $issue->findCommentResolution();
-
+            
             if ($comment->exists) {
                 $form->setup($this, route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), $comment, ['method' => 'PATCH']);
+
+                $form->submit = 'Save';
             } else {
                 $form->setup($this, route('issues.comments.store', [$issue->getKey()]), $comment);
+
+                $form->submit = 'Comment';
             }
 
             // Setup the form fieldset
@@ -61,8 +65,6 @@ class IssueCommentPresenter extends Presenter
                     });
                 }
             });
-
-            $form->submit = 'Save';
         });
     }
 }
