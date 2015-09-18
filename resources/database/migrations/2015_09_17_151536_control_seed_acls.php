@@ -22,6 +22,8 @@ class ControlSeedAcls extends Migration
 
         $actions = ['Manage Issues'];
 
+        $acl->roles()->attach([$role->name]);
+
         $acl->actions()->attach($actions);
     }
 
