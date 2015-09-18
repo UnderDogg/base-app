@@ -40,7 +40,7 @@ class Comment extends Model
      *
      * @return string
      */
-    public function tagLine()
+    public function getTagLine()
     {
         $daysAgo = $this->createdAtDaysAgo();
 

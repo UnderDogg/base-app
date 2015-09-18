@@ -55,7 +55,7 @@ class Label extends Model
      */
     public function getDisplayAttribute()
     {
-        return (string) $this->display();
+        return (string) $this->getDisplay();
     }
 
     /**
@@ -63,7 +63,7 @@ class Label extends Model
      *
      * @return string
      */
-    public function display()
+    public function getDisplay()
     {
         $color = $this->color;
 
@@ -75,8 +75,8 @@ class Label extends Model
      *
      * @return string
      */
-    public function displayLarge()
+    public function getDisplayLarge()
     {
-        return HTML::create('span', $this->display(), ['class' => 'label-large']);
+        return HTML::create('span', $this->getDisplay(), ['class' => 'label-large']);
     }
 }

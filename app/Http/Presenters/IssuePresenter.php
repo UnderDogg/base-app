@@ -26,7 +26,7 @@ class IssuePresenter extends Presenter
     {
         $issue = $issue->where(compact('closed'))->latest();
 
-        if (! auth()->user()->is(Role::admin())) {
+        if (! auth()->user()->is(Role::admin()->name)) {
             $issue->where('user_id', auth()->user()->getKey());
         }
 
@@ -47,12 +47,12 @@ class IssuePresenter extends Presenter
                     $labels = [];
 
                     foreach($issue->labels as $label) {
-                        $labels[] = $label->display();
+                        $labels[] = $label->getDisplay();
                     }
 
                     $labels = implode(null, $labels);
 
-                    $tagLine = HTML::create('p', $issue->tagLine(), ['class' => 'h5 text-muted']);
+                    $tagLine = HTML::create('p', $issue->getTagLine(), ['class' => 'h5 text-muted']);
 
                     return sprintf('%s %s %s', $link, $labels, $tagLine);
                 };

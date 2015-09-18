@@ -38,7 +38,7 @@
     </div>
 
     <div class="panel-body">
-        {!! $issue->descriptionFromMarkdown() !!}
+        {!! $issue->getDescriptionFromMarkdown() !!}
     </div>
 
 </div>

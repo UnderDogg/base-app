@@ -11,7 +11,7 @@
             {{ $comment->user->fullname }}
 
             <span class="hidden-xs">
-                {!! $comment->tagLine() !!}
+                {!! $comment->getTagLine() !!}
             </span>
 
             <span class="pull-right btn-group">
@@ -38,7 +38,7 @@
             <div class="clearfix"></div>
 
             <div class="visible-xs">
-                {!! $comment->tagLine() !!}
+                {!! $comment->getTagLine() !!}
             </div>
         </h3>
 

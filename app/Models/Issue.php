@@ -73,6 +73,19 @@ class Issue extends Model
     }
 
     /**
+     * Search an issue based on the specified keyword.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string                                 $keyword
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch(Builder $query, $keyword = '')
+    {
+        return $this->setupWildcardQueryFilter($query, $keyword, ['title', 'description']);
+    }
+
+    /**
      * Adds a comment to an issue.
      *
      * @param string $content
@@ -175,7 +188,7 @@ class Issue extends Model
      *
      * @return string
      */
-    public function statusLabel()
+    public function getStatusLabel()
     {
         if ($this->isOpen()) {
             $status = 'Open';
@@ -193,7 +206,7 @@ class Issue extends Model
      *
      * @return string
      */
-    public function tagLine()
+    public function getTagLine()
     {
         $user = $this->user->fullname;
 
@@ -209,21 +222,18 @@ class Issue extends Model
      *
      * @return string
      */
-    public function descriptionFromMarkdown()
+    public function getDescriptionFromMarkdown()
     {
         return $this->fromMarkdown($this->description);
     }
 
     /**
-     * Search an issue based on the specified keyword.
+     * Returns the issues ID with a proceeding hash.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string                                 $keyword
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return string
      */
-    public function scopeSearch(Builder $query, $keyword = '')
+    public function getHashId()
     {
-        return $this->setupWildcardQueryFilter($query, $keyword, ['title', 'description']);
+        return '#'.$this->getKey();
     }
 }

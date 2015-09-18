@@ -2,21 +2,29 @@
 
 @section('title', $issue->title)
 
+@section('title.header')
+    <h3>
+        {{ $issue->title }}
+
+        <span class="text-muted">{{ $issue->getHashId() }}</span>
+    </h3>
+@stop
+
 @section('content')
 
     <div class="row">
 
         <div class="col-md-12">
 
-            {!! $issue->statusLabel() !!}
+            {!! $issue->getStatusLabel() !!}
 
-            <span class="text-muted hidden-xs">{!! $issue->tagLine() !!}</span>
+            <span class="text-muted hidden-xs">{!! $issue->getTagLine() !!}</span>
 
         </div>
 
         <div class="col-md-12 visible-xs">
             <br>
-            <span class="text-muted">{!! $issue->tagLine() !!}</span>
+            <span class="text-muted">{!! $issue->getTagLine() !!}</span>
         </div>
 
     </div>
@@ -27,7 +35,7 @@
 
         <div class="col-md-12">
             @foreach($issue->labels as $label)
-                {!! $label->displayLarge() !!}
+                {!! $label->getDisplayLarge() !!}
             @endforeach
 
             @can('addLabels', $issue)
