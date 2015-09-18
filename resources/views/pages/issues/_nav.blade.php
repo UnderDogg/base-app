@@ -1,7 +1,7 @@
 <ul class="nav navbar-left navbar-nav">
     <li class="{{ isActiveRoute('issues.index') }}">
         <a href="{{ route('issues.index') }}">
-            <i class="fa fa-warning"></i> Open Issues
+            <i class="fa fa-exclamation-circle"></i> Open Issues
         </a>
     </li>
     <li class="{{ isActiveRoute('issues.closed') }}" >

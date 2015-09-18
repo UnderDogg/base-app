@@ -12,8 +12,11 @@
         <nav id="bs-navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 @if(auth()->check())
-                <li>
-                    <a href="{{ route('issues.index') }}">Issues</a>
+                <li class="{{ isActiveRoute('issues.index') }}">
+                    <a href="{{ route('issues.index') }}">
+                        <i class="fa fa-exclamation-circle"></i>
+                        Issues
+                    </a>
                 </li>
                 @endif
                 <li>
