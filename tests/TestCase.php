@@ -27,13 +27,6 @@ abstract class TestCase extends ApplicationTestCase
     {
         parent::setUp();
 
-        $this->app['config']->set('database.default', 'testbench');
-        $this->app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-
         // Call auth migrations
         $this->artisan('migrate', [
             '--database' => 'testbench',

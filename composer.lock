@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "447110d9a8200ae2a65f92449facef9f",
+    "hash": "14d49fdf728e45fe55047a5ca28f29b9",
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v5.1.7",
+            "version": "v5.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "c480a28c2d540257934242c85f406022b91203bf"
+                "reference": "6552c3bd369cd57bf84da454aa85b53d389970ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/c480a28c2d540257934242c85f406022b91203bf",
-                "reference": "c480a28c2d540257934242c85f406022b91203bf",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/6552c3bd369cd57bf84da454aa85b53d389970ad",
+                "reference": "6552c3bd369cd57bf84da454aa85b53d389970ad",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2015-09-10 16:51:43"
+            "time": "2015-09-14 13:52:58"
         },
         {
             "name": "adldap2/adldap2-laravel",
@@ -1241,16 +1241,16 @@
         },
         {
             "name": "orchestra/control",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/control.git",
-                "reference": "83a264ac644aac94ae138af322f8669974c61c8a"
+                "reference": "887f0d4e8412da8fa84f0f3dc2d1213485733ba6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/control/zipball/83a264ac644aac94ae138af322f8669974c61c8a",
-                "reference": "83a264ac644aac94ae138af322f8669974c61c8a",
+                "url": "https://api.github.com/repos/orchestral/control/zipball/887f0d4e8412da8fa84f0f3dc2d1213485733ba6",
+                "reference": "887f0d4e8412da8fa84f0f3dc2d1213485733ba6",
                 "shasum": ""
             },
             "require": {
@@ -1297,7 +1297,7 @@
                 "theme",
                 "timezone"
             ],
-            "time": "2015-09-15 15:27:39"
+            "time": "2015-09-18 16:24:25"
         },
         {
             "name": "orchestra/extension",
@@ -1985,16 +1985,16 @@
         },
         {
             "name": "orchestra/support",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/support.git",
-                "reference": "bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e"
+                "reference": "dff78128d4d101b854d738d28ba5b51bf806553c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/support/zipball/bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e",
-                "reference": "bd8b2bf29207edbba4630215e77fdc8e7d6d8d3e",
+                "url": "https://api.github.com/repos/orchestral/support/zipball/dff78128d4d101b854d738d28ba5b51bf806553c",
+                "reference": "dff78128d4d101b854d738d28ba5b51bf806553c",
                 "shasum": ""
             },
             "require": {
@@ -2051,7 +2051,7 @@
                 "utilities",
                 "validator"
             ],
-            "time": "2015-09-12 16:05:54"
+            "time": "2015-09-18 03:06:25"
         },
         {
             "name": "orchestra/translation",
