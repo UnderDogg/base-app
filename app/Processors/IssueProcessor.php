@@ -111,7 +111,9 @@ class IssueProcessor extends Processor
      */
     public function show($id)
     {
-        $with = ['comments', 'labels'];
+        $with = ['comments' => function ($query) {
+            return $query->orderBy('resolution', 'desc');
+        }, 'labels'];
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
