@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 use App\Models\User;
 
 class IssueTest extends TestCase

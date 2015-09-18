@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 use Orchestra\Testing\ApplicationTestCase;
 
 abstract class TestCase extends ApplicationTestCase
