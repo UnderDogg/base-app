@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters;
 
+use Orchestra\Model\Role;
 use App\Models\Label;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -24,6 +25,10 @@ class IssuePresenter extends Presenter
     public function table($issue, $closed = false)
     {
         $issue = $issue->where(compact('closed'))->latest();
+
+        if (! auth()->user()->is(Role::admin())) {
+            $issue->where('user_id', auth()->user()->getKey());
+        }
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue) {
             $table->with($issue, true);
