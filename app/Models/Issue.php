@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Orchestra\Support\Traits\QueryFilterTrait;
 use Orchestra\Support\Facades\HTML;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\CanPurifyTrait;
 use App\Models\Traits\HasMarkdownTrait;
@@ -12,7 +10,7 @@ use App\Models\Traits\HasUserTrait;
 
 class Issue extends Model
 {
-    use HasUserTrait, CanPurifyTrait, HasMarkdownTrait, QueryFilterTrait, SoftDeletes;
+    use HasUserTrait, CanPurifyTrait, HasMarkdownTrait, SoftDeletes;
 
     /**
      * The issues table.
@@ -70,19 +68,6 @@ class Issue extends Model
     public function comments()
     {
         return $this->belongsToMany(Comment::class, $this->tablePivotComments)->withPivot(['resolution']);
-    }
-
-    /**
-     * Search an issue based on the specified keyword.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string                                 $keyword
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSearch(Builder $query, $keyword = '')
-    {
-        return $this->setupWildcardQueryFilter($query, $keyword, ['title', 'description']);
     }
 
     /**
