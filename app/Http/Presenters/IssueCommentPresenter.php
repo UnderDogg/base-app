@@ -44,25 +44,17 @@ class IssueCommentPresenter extends Presenter
                         'data-provide' => 'markdown',
                     ]);
 
-                // Check if the current comment is the resolution
-                if ($comment->pivot) {
-                    $isResolution = $comment->pivot->resolution;
-                } else {
-                    $isResolution = false;
-                }
+                $isResolution = $comment->isResolution();
 
                 // If the issue doesn't have a resolution, or the current comment
                 // is the resolution, we'll add the mark resolution checkbox
                 if (!$hasResolution || $isResolution) {
-                    $fieldset->control('input:checkbox', 'Mark as Resolution', function ($control) use ($isResolution)
-                    {
-                        $control->field = function () use ($isResolution)
-                        {
-                            $checked = ($isResolution ? 'checked' : null);
-
-                            return "<input name='resolution' class='switch-mark' $checked type='checkbox' value='1'>";
-                        };
-                    });
+                    $fieldset->control('input:checkbox', 'Mark as Resolution')
+                        ->attributes([
+                            'class' => 'switch-mark',
+                            ($isResolution ? 'checked' : null)
+                        ])
+                        ->value(1);
                 }
             });
         });
