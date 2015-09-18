@@ -32,6 +32,8 @@ class IssueLabelProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
+        $this->authorize('addLabels', $issue);
+
         if ($request->has('labels')) {
             $labels = $this->label->find($request->input('labels'));
 

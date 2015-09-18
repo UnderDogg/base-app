@@ -48,4 +48,17 @@ class IssuePolicy extends Policy
     {
         return $user->getKey() === $issue->user_id;
     }
+
+    /**
+     * Returns true / false if the specified user
+     * can add labels to issues.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function addLabels(User $user)
+    {
+        return $user->is(['Administrator']);
+    }
 }

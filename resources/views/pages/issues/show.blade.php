@@ -30,20 +30,22 @@
                 {!! $label->displayLarge() !!}
             @endforeach
 
-            <span class="pull-right">
-                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">
-                    <i class="fa fa-tag"></i>
-                    Labels
-                </a>
-            </span>
+            @can('addLabels', $issue)
+                <span class="pull-right">
+                    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">
+                        <i class="fa fa-tag"></i>
+                        Labels
+                    </a>
+                </span>
 
-            <div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        {!! $formLabels !!}
+                <div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            {!! $formLabels !!}
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endcan
         </div>
 
     </div>

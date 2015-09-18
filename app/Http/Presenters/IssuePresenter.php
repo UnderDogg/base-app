@@ -147,6 +147,7 @@ class IssuePresenter extends Presenter
                     })
                     ->attributes([
                         'class' => 'select-labels form-control',
+                        'placeholder' => 'Start typing to search labels',
                         'multiple' => true,
                     ]);
             });
