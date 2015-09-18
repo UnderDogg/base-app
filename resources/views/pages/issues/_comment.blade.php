@@ -1,4 +1,9 @@
-<div class="panel panel-default">
+@if($comment->pivot->resolution)
+    <div class="panel panel-success">
+@else
+    <div class="panel panel-default">
+@endif
+
 
     <div class="panel-heading">
 
