@@ -38,7 +38,11 @@ abstract class TestCase extends ApplicationTestCase
             'name' => 'control',
         ]);
 
-        
+        // Call application migrations
+        $this->artisan('migrate', [
+            '--database' => 'testbench',
+            '--realpath' => realpath(__DIR__.'/../resources/database/migrations'),
+        ]);
     }
 
     /**
