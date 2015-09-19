@@ -30,7 +30,7 @@ abstract class TestCase extends ApplicationTestCase
         // Call auth migrations
         $this->artisan('migrate', [
             '--database' => 'sqlite',
-            '--realpath' => base_path('vendor/orchestra/auth/resources/database/migrations'),
+            '--path' => 'vendor/orchestra/auth/resources/database/migrations',
         ]);
 
         // Call control extension activation
@@ -41,7 +41,7 @@ abstract class TestCase extends ApplicationTestCase
         // Call application migrations
         $this->artisan('migrate', [
             '--database' => 'sqlite',
-            '--realpath' => base_path('resources/database/migrations'),
+            '--path' => 'resources/database/migrations',
         ]);
     }
 
