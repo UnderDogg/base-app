@@ -44,6 +44,8 @@ $router->group(['middleware' => ['auth']], function ($router)
             'store',
         ],
     ]);
+
+    $router->resource('labels', 'LabelController');
 });
 
 // Authentication Routes

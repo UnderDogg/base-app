@@ -43,26 +43,6 @@ abstract class TestCase extends ApplicationTestCase
             '--database' => 'testbench',
             '--realpath' => realpath(__DIR__.'/../resources/database/migrations'),
         ]);
-
-        // Set the HTML table configuration
-        $this->app['config']->set('orchestra/html::table', [
-            'empty' => 'There are no records to display.',
-            'view' => 'components.table',
-        ]);
-
-        // Set the HTML table configuration
-        $this->app['config']->set('orchestra/html::form', [
-            'view' => 'components.form',
-            'format' => '<span class="label label-danger">:message</span>',
-            'templates' => [
-                'input'    => ['class' => 'col-md-12 input-with-feedback'],
-                'password' => ['class' => 'col-md-12 input-with-feedback'],
-                'select'   => ['class' => 'col-md-12 input-with-feedback'],
-                'textarea' => ['class' => 'col-md-12 input-with-feedback'],
-            ],
-            'submit' => 'orchestra/foundation::label.submit',
-            'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
-        ]);
     }
 
     /**
@@ -89,6 +69,26 @@ abstract class TestCase extends ApplicationTestCase
             'driver'   => 'sqlite',
             'database' => ':memory:',
             'prefix'   => '',
+        ]);
+
+        // Set the HTML table configuration
+        $app['config']->set('orchestra/html::table', [
+            'empty' => 'There are no records to display.',
+            'view' => 'components.table',
+        ]);
+
+        // Set the HTML table configuration
+        $app['config']->set('orchestra/html::form', [
+            'view' => 'components.form',
+            'format' => '<span class="label label-danger">:message</span>',
+            'templates' => [
+                'input'    => ['class' => 'col-md-12 input-with-feedback'],
+                'password' => ['class' => 'col-md-12 input-with-feedback'],
+                'select'   => ['class' => 'col-md-12 input-with-feedback'],
+                'textarea' => ['class' => 'col-md-12 input-with-feedback'],
+            ],
+            'submit' => 'orchestra/foundation::label.submit',
+            'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
         ]);
 
         // $app['router']->disableFilters();

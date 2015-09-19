@@ -1064,16 +1064,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "196f177cfefa0f1f7166c0a05d8255889be12418"
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/196f177cfefa0f1f7166c0a05d8255889be12418",
-                "reference": "196f177cfefa0f1f7166c0a05d8255889be12418",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
+                "reference": "f78af2c9c86107aa1a34cd1dbb5bbe9eeb0d9f51",
                 "shasum": ""
             },
             "require": {
@@ -1105,7 +1105,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2015-07-14 17:31:05"
+            "time": "2015-09-19 14:15:08"
         },
         {
             "name": "orchestra/asset",
@@ -1168,16 +1168,16 @@
         },
         {
             "name": "orchestra/auth",
-            "version": "v3.1.6",
+            "version": "v3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/auth.git",
-                "reference": "d1c922a7074e254624f20f178f208bbf7035c72d"
+                "reference": "9c15e5645bf4104858f69207703ada20b6a25d67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/auth/zipball/d1c922a7074e254624f20f178f208bbf7035c72d",
-                "reference": "d1c922a7074e254624f20f178f208bbf7035c72d",
+                "url": "https://api.github.com/repos/orchestral/auth/zipball/9c15e5645bf4104858f69207703ada20b6a25d67",
+                "reference": "9c15e5645bf4104858f69207703ada20b6a25d67",
                 "shasum": ""
             },
             "require": {
@@ -1237,7 +1237,7 @@
                 "permission",
                 "rbac"
             ],
-            "time": "2015-09-12 19:13:25"
+            "time": "2015-09-19 03:29:17"
         },
         {
             "name": "orchestra/control",
@@ -1445,16 +1445,16 @@
         },
         {
             "name": "orchestra/html",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/html.git",
-                "reference": "210909cfd000b4b5c9b326ad594c543cb638a680"
+                "reference": "ab4bcf6ca669ec1ebdbc9745fe6dbde56c77d20f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/html/zipball/210909cfd000b4b5c9b326ad594c543cb638a680",
-                "reference": "210909cfd000b4b5c9b326ad594c543cb638a680",
+                "url": "https://api.github.com/repos/orchestral/html/zipball/ab4bcf6ca669ec1ebdbc9745fe6dbde56c77d20f",
+                "reference": "ab4bcf6ca669ec1ebdbc9745fe6dbde56c77d20f",
                 "shasum": ""
             },
             "require": {
@@ -1507,20 +1507,20 @@
                 "orchestral",
                 "table"
             ],
-            "time": "2015-09-14 11:27:04"
+            "time": "2015-09-19 16:01:57"
         },
         {
             "name": "orchestra/installer",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/installer.git",
-                "reference": "e8b996a6cc230b1d287ee7c60214088cb0bb6cce"
+                "reference": "9af6fa970a7c0998d0335483930a1b5eb4cd0486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/installer/zipball/e8b996a6cc230b1d287ee7c60214088cb0bb6cce",
-                "reference": "e8b996a6cc230b1d287ee7c60214088cb0bb6cce",
+                "url": "https://api.github.com/repos/orchestral/installer/zipball/9af6fa970a7c0998d0335483930a1b5eb4cd0486",
+                "reference": "9af6fa970a7c0998d0335483930a1b5eb4cd0486",
                 "shasum": ""
             },
             "require": {
@@ -1529,7 +1529,7 @@
             },
             "require-dev": {
                 "mockery/mockery": "0.9.*",
-                "orchestra/foundation": "~3.1.0",
+                "orchestra/foundation": "~3.1.14",
                 "orchestra/testing": "~3.1.0"
             },
             "type": "library",
@@ -1561,7 +1561,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2015-07-12 09:52:06"
+            "time": "2015-09-19 16:24:18"
         },
         {
             "name": "orchestra/kernel",
@@ -4189,16 +4189,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.7",
+            "version": "4.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/521720279261e5b14799cf1bb895d4b55e516f26",
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26",
                 "shasum": ""
             },
             "require": {
@@ -4257,7 +4257,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:57:22"
+            "time": "2015-09-19 05:44:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

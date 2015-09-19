@@ -12,12 +12,21 @@
         <nav id="bs-navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 @if(auth()->check())
-                <li class="{{ isActiveRoute('issues.index') }}">
-                    <a href="{{ route('issues.index') }}">
-                        <i class="fa fa-exclamation-circle"></i>
-                        Issues
-                    </a>
-                </li>
+                    <li class="{{ isActiveRoute('issues.index') }}">
+                        <a href="{{ route('issues.index') }}">
+                            <i class="fa fa-exclamation-circle"></i>
+                            Issues
+                        </a>
+                    </li>
+
+                    @can(auth()->user()->can('index', 'LabelPolicy@index'))
+                        <li class="{{ isActiveRoute('issues.index') }}">
+                            <a href="{{ route('issues.index') }}">
+                                <i class="fa fa-tag"></i>
+                                Labels
+                            </a>
+                        </li>
+                    @endcan
                 @endif
                 <li>
                     <a href="/">Resources</a>
