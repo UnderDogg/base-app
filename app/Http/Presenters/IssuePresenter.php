@@ -170,4 +170,22 @@ class IssuePresenter extends Presenter
             $form->submit = 'Save';
         });
     }
+
+    /**
+     * Returns a new navbar for the issue index.
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbar()
+    {
+        return $this->fluent([
+            'id'    => 'issues',
+            'title' => 'Issues',
+            'url'   => route('issues.index'),
+            'menu'  => view('pages.issues._nav'),
+            'attributes' => [
+                'class' => 'navbar-default'
+            ],
+        ]);
+    }
 }

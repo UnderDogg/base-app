@@ -27,10 +27,10 @@ class LabelPresenter extends Presenter
             ]);
 
             $table->column('name', function ($column) {
-                $column->label = 'Name';
+                $column->label = 'Label';
 
                 $column->value = function (Label $label) {
-                    return link_to_route('labels.show', $label->name, [$label->getKey()]);
+                    return link_to_route('labels.show', $label->getDisplayLarge(), [$label->getKey()]);
                 };
             });
         });
@@ -45,7 +45,8 @@ class LabelPresenter extends Presenter
      */
     public function form(Label $label)
     {
-        return $this->form->of('label', function (FormGrid $form) use ($label) {
+        return $this->form->of('label', function (FormGrid $form) use ($label)
+        {
             if ($label->exists) {
                 $form->setup($this, route('labels.update', [$label->getKey()]), $label, [
                     'method' => 'PATCH',
@@ -60,11 +61,49 @@ class LabelPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $form->fieldset(function (Fieldset $fieldset) {
+            $colors = $label::getColors();
+
+            $options = [];
+
+            foreach ($colors as $color) {
+                $options[$color] = HTML::create('span', ucfirst($color), ['class' => "label label-$color"]);
+            }
+
+            $form->fieldset(function (Fieldset $fieldset) use ($options)
+            {
                 $fieldset->control('input:text', 'name')
                     ->label('Name')
                     ->attributes(['placeholder' => 'Name']);
+
+                $fieldset->control('select', 'color')
+                    ->label('Color')
+                    ->options($options)
+                    ->value(function (Label $label) {
+                        return $label->color;
+                    })
+                    ->attributes([
+                        'class' => 'select-label-color',
+                        'placeholder' => 'Select a color'
+                    ]);
             });
         });
+    }
+
+    /**
+     * Returns a new navbar for the label index.
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbar()
+    {
+        return $this->fluent([
+            'id'    => 'labels',
+            'title' => 'Labels',
+            'url'   => route('labels.index'),
+            'menu'  => view('pages.labels._nav'),
+            'attributes' => [
+                'class' => 'navbar-default'
+            ],
+        ]);
     }
 }

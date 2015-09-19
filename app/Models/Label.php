@@ -14,37 +14,19 @@ class Label extends Model
     protected $table = 'labels';
 
     /**
-     * Returns the default labels.
+     * Returns an array of available label colors.
      *
      * @return array
      */
-    public static function getDefault()
+    public static function getColors()
     {
         return [
-            [
-                'name' => 'Duplicate',
-                'color' => 'default',
-            ],
-            [
-                'name' => 'In Progress',
-                'color' => 'info',
-            ],
-            [
-                'name' => 'Question',
-                'color' => 'info',
-            ],
-            [
-                'name' => 'Working on it',
-                'color' => 'warning',
-            ],
-            [
-                'name' => 'Bug',
-                'color' => 'danger',
-            ],
-            [
-                'name' => 'Critical',
-                'color' => 'danger',
-            ],
+            'default'   => 'default',
+            'info'      => 'info',
+            'primary'   => 'primary',
+            'success'   => 'success',
+            'warning'   => 'warning',
+            'danger'    => 'danger',
         ];
     }
 

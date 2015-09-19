@@ -3254,8 +3254,14 @@ $(function ()
     // Standard Switches
     $(".switch").bootstrapSwitch();
 
-    // Select2
+    // Issue label select
     $(".select-labels").select2({
+        formatResult: formatLabel,
+        formatSelection: formatLabel
+    });
+
+    // Label color select
+    $(".select-label-color").select2({
         formatResult: formatLabel,
         formatSelection: formatLabel
     });

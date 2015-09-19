@@ -42,7 +42,7 @@ class IssueProcessor extends Processor
     {
         $issues = $this->presenter->table($this->issue);
 
-        $navbar = $this->navbar();
+        $navbar = $this->presenter->navbar();
 
         return view('pages.issues.index', compact('issues', 'navbar'));
     }
@@ -56,7 +56,7 @@ class IssueProcessor extends Processor
     {
         $issues = $this->presenter->table($this->issue, $closed = true);
 
-        $navbar = $this->navbar();
+        $navbar = $this->presenter->navbar();
 
         return view('pages.issues.index', compact('issues', 'navbar'));
     }
@@ -206,23 +206,5 @@ class IssueProcessor extends Processor
         }
 
         return false;
-    }
-
-    /**
-     * Returns a new navbar for the issue index.
-     *
-     * @return \Illuminate\Support\Fluent
-     */
-    public function navbar()
-    {
-        return $this->presenter->fluent([
-            'id'    => 'issues',
-            'title' => 'Issues',
-            'url'   => route('issues.index'),
-            'menu'  => view('pages.issues._nav'),
-            'attributes' => [
-                'class' => 'navbar-default'
-            ],
-        ]);
     }
 }

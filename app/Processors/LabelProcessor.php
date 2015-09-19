@@ -2,6 +2,7 @@
 
 namespace App\Processors;
 
+use App\Http\Requests\LabelRequest;
 use App\Http\Presenters\LabelPresenter;
 use App\Models\Label;
 
@@ -38,6 +39,37 @@ class LabelProcessor extends Processor
     {
         $labels = $this->presenter->table($this->label);
 
-        return view('pages.labels.index', compact('labels'));
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.labels.index', compact('labels', 'navbar'));
+    }
+
+    /**
+     * Displays the form for creating a new label.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        $form = $this->presenter->form($this->label);
+
+        return view('pages.labels.create', compact('form'));
+    }
+
+    /**
+     * Creates a new label.
+     *
+     * @param LabelRequest $request
+     *
+     * @return bool
+     */
+    public function store(LabelRequest $request)
+    {
+        $label = $this->label;
+
+        $label->name = $request->input('name');
+        $label->color = $request->input('color');
+
+        return $label->save();
     }
 }

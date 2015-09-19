@@ -13,7 +13,34 @@ class LabelSeeder extends Seeder
      */
     public function run()
     {
-        $labels = Label::getDefault();
+        $colors = Label::getColors();
+
+        $labels = [
+            [
+                'name' => 'Duplicate',
+                'color' => $colors['default'],
+            ],
+            [
+                'name' => 'In Progress',
+                'color' => $colors['info'],
+            ],
+            [
+                'name' => 'Question',
+                'color' => $colors['info'],
+            ],
+            [
+                'name' => 'Working on it',
+                'color' => $colors['warning'],
+            ],
+            [
+                'name' => 'Bug',
+                'color' => $colors['danger'],
+            ],
+            [
+                'name' => 'Critical',
+                'color' => $colors['danger'],
+            ],
+        ];
 
         foreach($labels as $label) {
             Label::create($label);

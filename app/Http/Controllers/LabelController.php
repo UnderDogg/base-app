@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LabelRequest;
 use App\Processors\LabelProcessor;
 
 class LabelController extends Controller
@@ -32,24 +33,33 @@ class LabelController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Displays the form for creating a new label.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        //
+        return $this->processor->create();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Creates a new label.
      *
-     * @param  Request  $request
-     * @return Response
+     * @param LabelRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(LabelRequest $request)
     {
-        //
+        if ($this->processor->store($request)) {
+            flash()->success('Success!', 'Successfully created label.');
+
+            return redirect()->route('labels.index');
+        } else {
+            flash()->error('Error!', 'There was a problem creating a label. Please try again.');
+
+            return redirect()->route('labels.create');
+        }
     }
 
     /**
