@@ -2,6 +2,7 @@
 /public/packages/*
 /vendor/*
 /.idea
+/.htaccess
 Homestead.yaml
 Homestead.json
 .env
