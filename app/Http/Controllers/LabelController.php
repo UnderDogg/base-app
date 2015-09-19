@@ -63,37 +63,36 @@ class LabelController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the form for editing the specified label.
      *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * @param int|string $id
      *
-     * @param  int  $id
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        return $this->processor->edit($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified label.
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param LabelRequest $request
+     * @param int|string   $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(LabelRequest $request, $id)
     {
-        //
+        if ($this->processor->update($request, $id)) {
+            flash()->success('Success!', 'Successfully updated label.');
+
+            return redirect()->route('labels.index');
+        } else {
+            flash()->error('Error!', 'There was a problem updating this label. Please try again.');
+
+            return redirect()->route('labels.edit', [$id]);
+        }
     }
 
     /**

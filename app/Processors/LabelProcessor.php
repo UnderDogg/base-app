@@ -72,4 +72,38 @@ class LabelProcessor extends Processor
 
         return $label->save();
     }
+
+    /**
+     * Displays the form for editing the specified label.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $label = $this->label->findOrFail($id);
+
+        $form = $this->presenter->form($label);
+
+        return view('pages.labels.edit', compact('form'));
+    }
+
+    /**
+     * Updates the specified label.
+     *
+     * @param LabelRequest $request
+     * @param int|string   $id
+     *
+     * @return bool
+     */
+    public function update(LabelRequest $request, $id)
+    {
+        $label = $this->label->findOrFail($id);
+
+        $label->name = $request->input('name', $label->name);
+        $label->color = $request->input('color', $label->color);
+
+        return $label->save();
+    }
 }

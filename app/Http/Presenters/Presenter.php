@@ -25,6 +25,13 @@ abstract class Presenter implements PresenterContract
     protected $table;
 
     /**
+     * The default amount of records to display per page.
+     *
+     * @var int
+     */
+    protected $perPage = 10;
+
+    /**
      * Constructor.
      *
      * @param FormFactory  $form

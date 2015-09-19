@@ -32,7 +32,7 @@ class IssuePresenter extends Presenter
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue)
         {
-            $table->with($issue, true);
+            $table->with($issue)->paginate($this->perPage);
 
             $table->sortable([
                 'title',

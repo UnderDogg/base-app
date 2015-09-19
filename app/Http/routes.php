@@ -32,20 +32,18 @@ $router->group(['middleware' => ['auth']], function ($router)
 
     // The issue comments resource
     $router->resource('issues.comments', 'IssueCommentController', [
-        'except' => [
-            'index',
-            'show',
-        ],
+        'except' => ['index', 'show'],
     ]);
 
     // The issue labels resource
     $router->resource('issues.labels', 'IssueLabelController', [
-        'only' => [
-            'store',
-        ],
+        'only' => ['store'],
     ]);
 
-    $router->resource('labels', 'LabelController');
+    // The labels resource
+    $router->resource('labels', 'LabelController', [
+        'except' => ['show']
+    ]);
 });
 
 // Authentication Routes

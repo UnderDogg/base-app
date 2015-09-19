@@ -16,7 +16,7 @@ class LabelRequest extends Request
         $colors = implode(',', Label::getColors());
 
         return [
-            'name' => 'required|min:3',
+            'name'  => 'required|min:3',
             'color' => "required|in:$colors",
         ];
     }

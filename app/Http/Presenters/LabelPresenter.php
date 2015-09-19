@@ -20,7 +20,7 @@ class LabelPresenter extends Presenter
     public function table(Label $label)
     {
         return $this->table->of('labels', function (TableGrid $table) use ($label) {
-            $table->with($label, true);
+            $table->with($label)->paginate($this->perPage);
 
             $table->sortable([
                 'name',
@@ -30,7 +30,7 @@ class LabelPresenter extends Presenter
                 $column->label = 'Label';
 
                 $column->value = function (Label $label) {
-                    return link_to_route('labels.show', $label->getDisplayLarge(), [$label->getKey()]);
+                    return link_to_route('labels.edit', $label->getDisplayLarge(), [$label->getKey()]);
                 };
             });
         });
