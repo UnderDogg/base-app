@@ -27,21 +27,18 @@ abstract class TestCase extends ApplicationTestCase
     {
         parent::setUp();
 
-        // Call auth migrations
-        $this->artisan('migrate', [
-            '--database' => 'sqlite',
-            '--path' => 'vendor/orchestra/auth/resources/database/migrations',
+        // Run auth migrations
+        $this->artisan('auth:migrate');
+
+        // Run control migrations
+        $this->artisan('extension:migrate', [
+            'control',
         ]);
 
-        // Call control extension activation
-        $this->artisan('extension:activate', [
-            'name' => 'control',
-        ]);
-
-        // Call application migrations
+        // Run application migrations
         $this->artisan('migrate', [
             '--database' => 'sqlite',
-            '--path' => 'resources/database/migrations',
+            '--realpath' => realpath('resources/database/migrations'),
         ]);
     }
 
@@ -63,14 +60,6 @@ abstract class TestCase extends ApplicationTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-
         // Set the HTML table configuration
         $app['config']->set('orchestra/html::table', [
             'empty' => 'There are no records to display.',
