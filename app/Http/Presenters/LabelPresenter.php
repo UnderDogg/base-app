@@ -36,8 +36,35 @@ class LabelPresenter extends Presenter
         });
     }
 
-    public function form()
+    /**
+     * Returns a form for labels.
+     *
+     * @param Label $label
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function form(Label $label)
     {
+        return $this->form->of('label', function (FormGrid $form) use ($label) {
+            if ($label->exists) {
+                $form->setup($this, route('labels.update', [$label->getKey()]), $label, [
+                    'method' => 'PATCH',
+                ]);
 
+                $form->submit = 'Save';
+            } else {
+                $form->setup($this, route('labels.store'), $label, [
+                    'method' => 'POST',
+                ]);
+
+                $form->submit = 'Create';
+            }
+
+            $form->fieldset(function (Fieldset $fieldset) {
+                $fieldset->control('input:text', 'name')
+                    ->label('Name')
+                    ->attributes(['placeholder' => 'Name']);
+            });
+        });
     }
 }

@@ -19,9 +19,9 @@
                         </a>
                     </li>
 
-                    @can(auth()->user()->can('index', 'LabelPolicy@index'))
-                        <li class="{{ isActiveRoute('issues.index') }}">
-                            <a href="{{ route('issues.index') }}">
+                    @can('index', App\Models\Label::class)
+                        <li class="{{ isActiveRoute('labels.index') }}">
+                            <a href="{{ route('labels.index') }}">
                                 <i class="fa fa-tag"></i>
                                 Labels
                             </a>

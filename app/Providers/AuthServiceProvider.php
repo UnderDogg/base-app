@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Policies\LabelPolicy;
 use App\Policies\IssuePolicy;
 use App\Policies\CommentPolicy;
+use App\Models\Label;
 use App\Models\Issue;
 use App\Models\Comment;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
@@ -19,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Issue::class    => IssuePolicy::class,
         Comment::class  => CommentPolicy::class,
+        Label::class    => LabelPolicy::class,
     ];
 
     /**
