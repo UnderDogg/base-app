@@ -32,19 +32,11 @@ function uuid()
 }
 
 /**
- * Compare given route with current route and return output if they match.
+ * Generates a new Active instance.
  *
- * @param string $route
- * @param string $output
- *
- * @return string|null
+ * @return \App\Http\Active
  */
-function isActiveRoute($route, $output = "active")
+function active()
 {
-    if (Route::currentRouteName() == $route) {
-        return $output;
-    }
-
-    return null;
+    return new \App\Http\Active();
 }
-
