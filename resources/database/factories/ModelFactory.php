@@ -19,3 +19,12 @@ $factory[App\Models\User::class] = function (Faker\Generator $faker) {
         'status' => App\Models\User::VERIFIED,
     ];
 };
+
+$factory[App\Models\Issue::class] = function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(App\Models\User::class)->create()->id,
+        'title' => $faker->title,
+        'description' => $faker->sentence(),
+    ];
+};
+
