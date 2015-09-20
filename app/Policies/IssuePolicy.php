@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use Orchestra\Model\Role;
 use App\Models\User;
 use App\Models\Issue;
 
@@ -18,7 +17,21 @@ class IssuePolicy extends Policy
      */
     public function viewAll(User $user)
     {
-        return $user->is(Role::admin()->name);
+        return $user->is($this->admin()->name);
+    }
+
+    /**
+     * Returns true / false if the specified user
+     * can view the specified issue.
+     *
+     * @param User  $user
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function show(User $user, Issue $issue)
+    {
+        return $user->is($this->admin()->name) || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -73,6 +86,6 @@ class IssuePolicy extends Policy
      */
     public function addLabels(User $user)
     {
-        return $user->is(['Administrator']);
+        return $user->is($this->admin()->name);
     }
 }

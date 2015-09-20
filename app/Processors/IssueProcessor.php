@@ -103,6 +103,8 @@ class IssueProcessor extends Processor
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
+        $this->authorize($issue);
+
         $formComment = $this->presenter->formComment($issue);
 
         $formLabels = $this->presenter->formLabels($issue);
