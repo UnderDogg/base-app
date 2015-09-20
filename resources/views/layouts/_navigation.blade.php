@@ -20,21 +20,40 @@
             <ul class="nav navbar-nav">
 
                 @if(auth()->check())
-                    <li class="{{ isActiveRoute('issues.index') }}">
-                        <a href="{{ route('issues.index') }}">
+
+                    <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
+                        <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-exclamation-circle"></i>
                             Issues
+                            <i class="fa fa-caret-down"></i>
                         </a>
-                    </li>
+                        <ul class="dropdown-menu">
 
-                    @can('index', App\Models\Label::class)
-                        <li class="{{ isActiveRoute('labels.index') }}">
-                            <a href="{{ route('labels.index') }}">
-                                <i class="fa fa-tag"></i>
-                                Labels
-                            </a>
-                        </li>
-                    @endcan
+                            <li class="{{ active()->route('issues.index') }}">
+                                <a href="{{ route('issues.index') }}">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                    Open Issues
+                                </a>
+                            </li>
+
+                            <li class="{{ active()->route('issues.closed') }}">
+                                <a href="{{ route('issues.closed') }}">
+                                    <i class="fa fa-check"></i>
+                                    Closed Issues
+                                </a>
+                            </li>
+
+                            @can('index', App\Models\Label::class)
+                            <li class="{{ active()->route('labels.index') }}">
+                                <a href="{{ route('labels.index') }}">
+                                    <i class="fa fa-tag"></i>
+                                    Labels
+                                </a>
+                            </li>
+                            @endcan
+
+                        </ul>
+                    </li>
                 @endif
                 <li>
                     <a href="/">Resources</a>
