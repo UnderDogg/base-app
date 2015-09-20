@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Models\Issue;
 use App\Models\User;
 
 class IssueTest extends TestCase
@@ -44,5 +45,27 @@ class IssueTest extends TestCase
         $this->visit(route('issues.create'));
 
         $this->see('Create an Issue');
+    }
+
+    public function test_access_issues_show()
+    {
+        $issue = factory(Issue::class)->create();
+
+        $this->actingAs($issue->user);
+
+        $this->visit(route('issues.show', [$issue->getKey()]));
+
+        $this->see($issue->title);
+    }
+
+    public function test_access_issues_edit()
+    {
+        $issue = factory(Issue::class)->create();
+
+        $this->actingAs($issue->user);
+
+        $this->visit(route('issues.edit', [$issue->getKey()]));
+
+        $this->see('Edit Issue');
     }
 }

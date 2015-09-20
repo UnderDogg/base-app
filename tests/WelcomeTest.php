@@ -13,7 +13,7 @@ class WelcomeTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function test_home_works()
     {
         $this->visit('/')
             ->see('Welcome');
