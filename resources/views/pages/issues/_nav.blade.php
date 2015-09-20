@@ -1,10 +1,10 @@
 <ul class="nav navbar-left navbar-nav">
-    <li class="{{ isActiveRoute('issues.index') }}">
+    <li class="{{ active()->route('issues.index') }}">
         <a href="{{ route('issues.index') }}">
             <i class="fa fa-exclamation-circle"></i> Open Issues
         </a>
     </li>
-    <li class="{{ isActiveRoute('issues.closed') }}" >
+    <li class="{{ active()->route('issues.closed') }}" >
         <a href="{{ route('issues.closed') }}">
             <i class="fa fa-check"></i> Closed Issues
         </a>
