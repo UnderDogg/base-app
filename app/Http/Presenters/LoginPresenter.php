@@ -30,9 +30,7 @@ class LoginPresenter extends Presenter
 
                 $fieldset->control('input:password', 'password')
                     ->label('Password')
-                    ->attributes([
-                        'placeholder' => 'Enter your Password'
-                    ]);
+                    ->attributes(['placeholder' => 'Enter your Password']);
             });
         });
     }
