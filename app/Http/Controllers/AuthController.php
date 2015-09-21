@@ -17,17 +17,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $username = 'mail';
-
-    /**
-     * Constructor.
-     *
-     * Sets the auth driver to adldap.
-     */
-    public function __construct()
-    {
-        Config::set('auth.driver', 'adldap');
-    }
+    protected $username = 'email';
 
     /**
      * Show the application login form.

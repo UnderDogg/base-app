@@ -131,6 +131,12 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
 
         /*
+         * Active Directory Providers
+         */
+        Adldap\Laravel\AdldapServiceProvider::class,
+        Adldap\Laravel\AdldapAuthServiceProvider::class,
+
+        /*
          * Orchestra Platform Service Providers...
          */
         Orchestra\Foundation\Providers\ArtisanServiceProvider::class,
@@ -169,12 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        /*
-         * Active Directory Providers
-         */
-        Adldap\Laravel\AdldapServiceProvider::class,
-        Adldap\Laravel\AdldapAuthServiceProvider::class,
 
         /*
          * Revision Provider
