@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
@@ -20,13 +20,25 @@ class AuthController extends Controller
     protected $username = 'email';
 
     /**
+     * Constructor.
+     *
+     * @param LoginPresenter $presenter
+     */
+    public function __construct(LoginPresenter $presenter)
+    {
+        $this->presenter = $presenter;
+    }
+
+    /**
      * Show the application login form.
      *
      * @return \Illuminate\View\View
      */
     public function getLogin()
     {
-        return view('auth.login.index');
+        $form = $this->presenter->form();
+
+        return view('auth.login.index', compact('form'));
     }
 
     /**
