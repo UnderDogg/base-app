@@ -18,11 +18,9 @@
         {{-- Fixed row issue on Bootstrap 3 --}}
     </div>
     <div class="row">
-        <div class="pull-right">
-            <button type="submit" class="btn btn-primary">
-                {!! $submit !!}
-            </button>
-        </div>
+        <button type="submit" class="btn btn-lg btn-block btn-primary">
+            {!! $submit !!}
+        </button>
     </div>
 </fieldset>
 
