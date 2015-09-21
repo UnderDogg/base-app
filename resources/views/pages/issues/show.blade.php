@@ -78,6 +78,8 @@
 
         @if($issue->isOpen())
 
+            @can('close', $issue)
+
             {!!
                 Form::open([
                     'url' => route('issues.close', [$issue->getKey()]),
@@ -93,7 +95,11 @@
 
             {!! Form::close() !!}
 
+            @endcan
+
         @else
+
+            @can('open', $issue)
 
             {!!
                 Form::open([
@@ -109,6 +115,8 @@
             </button>
 
             {!! Form::close() !!}
+
+            @endcan
 
         @endif
 

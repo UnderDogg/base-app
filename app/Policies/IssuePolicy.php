@@ -64,6 +64,37 @@ class IssuePolicy extends Policy
 
     /**
      * Returns true / false if the specified user
+     * can re-open issues.
+     *
+     * Only administrators can re-open issues.
+     *
+     * @param User  $user
+     *
+     * @return bool
+     */
+    public function open(User $user)
+    {
+        return $user->is($this->admin()->name);
+    }
+
+    /**
+     * Returns true / false if the specified user
+     * can close issues.
+     *
+     * Only administrators / issue owners can close issues.
+     *
+     * @param User  $user
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function close(User $user, Issue $issue)
+    {
+        return $user->is($this->admin()->name) || $user->getKey() === $issue->user_id;
+    }
+
+    /**
+     * Returns true / false if the specified user
      * can delete the specified issue.
      *
      * @param User  $user

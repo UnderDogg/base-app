@@ -2,7 +2,6 @@
 
 namespace App\Policies\ActiveDirectory;
 
-use Orchestra\Model\Role;
 use App\Models\User;
 use App\Policies\Policy;
 
@@ -18,6 +17,6 @@ class ComputerPolicy extends Policy
      */
     public function index(User $user)
     {
-        return $user->is(Role::admin()->name);
+        return $user->is($this->admin()->name);
     }
 }

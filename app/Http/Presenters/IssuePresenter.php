@@ -26,7 +26,7 @@ class IssuePresenter extends Presenter
 
         // Limit the view if the user isn't
         // allowed to view all issues
-        if (! auth()->user()->can('viewAll', $issue)) {
+        if (! policy($issue->getModel())->viewAll(auth()->user())) {
             $issue->where('user_id', auth()->user()->getKey());
         }
 

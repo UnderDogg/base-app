@@ -4,10 +4,10 @@ namespace App\Processors;
 
 use App\Jobs\CreateIssue;
 use App\Jobs\CloseIssue;
-use App\Http\Requests\IssueRequest;
-use App\Http\Presenters\IssuePresenter;
 use App\Jobs\OpenIssue;
 use App\Models\Issue;
+use App\Http\Requests\IssueRequest;
+use App\Http\Presenters\IssuePresenter;
 
 class IssueProcessor extends Processor
 {
@@ -181,6 +181,8 @@ class IssueProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
+        $this->authorize($issue);
+
         if ($issue->isOpen()) {
             $this->dispatch(new CloseIssue($issue));
 
@@ -191,7 +193,7 @@ class IssueProcessor extends Processor
     }
 
     /**
-     * Opens an issue.
+     * Re-Opens an issue.
      *
      * @param int|string $id
      *
@@ -200,6 +202,8 @@ class IssueProcessor extends Processor
     public function open($id)
     {
         $issue = $this->issue->findOrFail($id);
+
+        $this->authorize($issue);
 
         if ($issue->isClosed()) {
             $this->dispatch(new OpenIssue($issue));

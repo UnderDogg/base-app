@@ -37,6 +37,8 @@ class ComputerProcessor extends Processor
      */
     public function index()
     {
+        $this->authorize('index');
+
         $computers = $this->presenter->table($this->adldap->computers()->all());
 
         return view('pages.active-directory.computers.index', compact('computers'));
