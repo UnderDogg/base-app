@@ -1,13 +1,13 @@
 @inject('formbuilder', 'form')
 @inject('htmlbuilder', 'html')
 
-{!! $formbuilder->open(array_merge($form, ['class' => 'form-horizontal'])) !!}
+{!! $formbuilder->open(array_merge($grid->attributes(), ['class' => 'form-horizontal'])) !!}
 
 @if ($token)
     {!! $formbuilder->token() !!}
 @endif
 
-@foreach ($hiddens as $hidden)
+@foreach ($grid->hiddens() as $hidden)
     {!! $hidden !!}
 @endforeach
 

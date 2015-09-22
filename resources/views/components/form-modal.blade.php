@@ -3,13 +3,13 @@
 
 <div class="modal-body">
 
-    {!! $formbuilder->open($form) !!}
+    {!! $formbuilder->open($grid->attributes()) !!}
 
     @if ($token)
         {!! $formbuilder->token() !!}
     @endif
 
-    @foreach ($hiddens as $hidden)
+    @foreach ($grid->hiddens() as $hidden)
         {!! $hidden !!}
     @endforeach
 
