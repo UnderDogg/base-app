@@ -2438,4 +2438,13 @@ td .label {
     float: none;
 }
 
+.md-editor > textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.md-preview {
+    padding: 10px;
+}
+
 /*# sourceMappingURL=all.css.map */
