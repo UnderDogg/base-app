@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-info">
 
     <div class="panel-heading">
 
@@ -6,7 +6,7 @@
             {{ $issue->user->fullname }}
 
             <span class="text-muted hidden-xs">
-                commented {{ $issue->createdAtDaysAgo() }}
+                created issue {{ $issue->createdAtDaysAgo() }}
             </span>
 
             <span class="pull-right btn-group">

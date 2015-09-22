@@ -2425,7 +2425,7 @@ td .label {
     margin: 3px;
 }
 
-.panel-success .panel-title .text-muted {
+.panel-success .panel-title .text-muted, .panel-info .panel-title .text-muted {
     color: #E3E7EA;
 }
 
