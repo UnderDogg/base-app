@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc209dcd0e6424048a10cb71616b4a4a",
+    "hash": "c060690334c79c42c93d191909131176",
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v5.1.9",
+            "version": "v5.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "78923e879432ed4b5e49eb089905ebb296f4d1b9"
+                "reference": "e2daedca73711e85890d5ccaaf3b117f4059ed53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/78923e879432ed4b5e49eb089905ebb296f4d1b9",
-                "reference": "78923e879432ed4b5e49eb089905ebb296f4d1b9",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/e2daedca73711e85890d5ccaaf3b117f4059ed53",
+                "reference": "e2daedca73711e85890d5ccaaf3b117f4059ed53",
                 "shasum": ""
             },
             "require": {
@@ -54,20 +54,20 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2015-09-22 13:27:20"
+            "time": "2015-09-22 20:07:02"
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "dev-master",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-laravel.git",
-                "reference": "e5257bd5b2b49692ec01c7fee7463249936d94e1"
+                "reference": "07a0dcb1a49cb6f39f6586e9a7cb3fe2680b175d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-laravel/zipball/e5257bd5b2b49692ec01c7fee7463249936d94e1",
-                "reference": "e5257bd5b2b49692ec01c7fee7463249936d94e1",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-laravel/zipball/07a0dcb1a49cb6f39f6586e9a7cb3fe2680b175d",
+                "reference": "07a0dcb1a49cb6f39f6586e9a7cb3fe2680b175d",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +96,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2015-09-22 16:11:42"
+            "time": "2015-09-22 18:22:27"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -816,16 +816,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.13",
+            "version": "1.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "76caed01a57527599b55919f0746104f288b3d56"
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/76caed01a57527599b55919f0746104f288b3d56",
-                "reference": "76caed01a57527599b55919f0746104f288b3d56",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/202c7775d959f377e2e302d93e7127c47604438a",
+                "reference": "202c7775d959f377e2e302d93e7127c47604438a",
                 "shasum": ""
             },
             "require": {
@@ -896,7 +896,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-09-20 13:05:34"
+            "time": "2015-09-22 19:18:28"
         },
         {
             "name": "monolog/monolog",
@@ -4741,9 +4741,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "adldap2/adldap2-laravel": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
