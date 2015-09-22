@@ -44,6 +44,13 @@ $router->group(['middleware' => ['auth']], function ($router)
     $router->resource('labels', 'LabelController', [
         'except' => ['show']
     ]);
+
+    // The active directory route group
+    $router->group(['prefix' => 'active-directory', 'namespace' => 'ActiveDirectory'], function ($router)
+    {
+        // The computers resource
+        $router->resource('computers', 'ComputerController');
+    });
 });
 
 // Authentication Routes

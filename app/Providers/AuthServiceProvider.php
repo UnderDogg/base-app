@@ -2,12 +2,6 @@
 
 namespace App\Providers;
 
-use App\Policies\LabelPolicy;
-use App\Policies\IssuePolicy;
-use App\Policies\CommentPolicy;
-use App\Models\Label;
-use App\Models\Issue;
-use App\Models\Comment;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -19,9 +13,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Issue::class    => IssuePolicy::class,
-        Comment::class  => CommentPolicy::class,
-        Label::class    => LabelPolicy::class,
+        \App\Models\Issue::class            => \App\Policies\IssuePolicy::class,
+        \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
+        \App\Models\Label::class            => \App\Policies\LabelPolicy::class,
+        \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
     ];
 
     /**

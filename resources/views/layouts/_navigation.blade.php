@@ -44,16 +44,39 @@
                             </li>
 
                             @can('index', App\Models\Label::class)
-                            <li class="{{ active()->route('labels.index') }}">
+                            <li class="{{ active()->route('labels.*') }}">
                                 <a href="{{ route('labels.index') }}">
                                     <i class="fa fa-tag"></i>
                                     Labels
                                 </a>
                             </li>
                             @endcan
-
                         </ul>
                     </li>
+
+                    @can('index', Adldap\Models\Computer::class)
+                    <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
+                        <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-users"></i>
+                            Active Directory
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="{{ active()->route('active-directory.users.*') }}">
+                                <a href="#">
+                                    <i class="fa fa-user"></i>
+                                    Users
+                                </a>
+                            </li>
+                            <li class="{{ active()->route('active-directory.computers.*') }}">
+                                <a href="{{ route('active-directory.computers.index') }}">
+                                    <i class="fa fa-desktop"></i>
+                                    Computers
+                                </a>
+                            </li>
+                        </ul>
+                    @endcan
+
                 @endif
                 <li>
                     <a href="/">Resources</a>

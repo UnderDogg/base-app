@@ -6,11 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "orchestra/foundation": "3.1.*",
-        "orchestra/installer": "~3.1",
-        "orchestra/control": "~3.1",
+        "orchestra/foundation"  : "3.1.*",
+        "orchestra/installer": "3.1.*",
+        "orchestra/control": "3.1.*",
         "graham-campbell/markdown": "4.0.*",
-        "adldap2/adldap2-laravel": "1.2.*",
+        "adldap2/adldap2-laravel": "dev-master",
         "stevebauman/revision": "1.1.*",
         "stevebauman/purify": "1.1.*",
         "ramsey/uuid": "2.8.*"

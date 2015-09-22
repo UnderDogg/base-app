@@ -2,12 +2,12 @@
     font-size: 19px;
 }
 
-.panel-success .panel-title .text-muted {
-    color: #E3E7EA;
+td .label {
+    margin: 3px;
 }
 
-a.label-large {
-    text-decoration: none;
+.panel-success .panel-title .text-muted {
+    color: #E3E7EA;
 }
 
 .select2-container-multi .select2-choices .select2-search-choice {

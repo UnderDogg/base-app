@@ -2,7 +2,8 @@
 
 namespace App\Processors\ActiveDirectory;
 
-use Adldap\Laravel\Facades\Adldap;
+use Adldap\Models\Computer;
+use Adldap\Contracts\Adldap;
 use App\Http\Presenters\ActiveDirectory\ComputerPresenter;
 use App\Processors\Processor;
 
@@ -21,7 +22,7 @@ class ComputerProcessor extends Processor
     /**
      * Constructor.
      *
-     * @parma ComputerPresenter $presenter
+     * @param ComputerPresenter $presenter
      * @param Adldap            $adldap
      */
     public function __construct(ComputerPresenter $presenter, Adldap $adldap)
@@ -37,9 +38,11 @@ class ComputerProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize('index');
+        $this->authorize('index', Computer::class);
 
-        $computers = $this->presenter->table($this->adldap->computers()->all());
+        $all = $this->adldap->computers()->all();
+
+        $computers = $this->presenter->table($all->toArray());
 
         return view('pages.active-directory.computers.index', compact('computers'));
     }
