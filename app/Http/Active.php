@@ -63,14 +63,13 @@ class Active
      * routes are the current route.
      *
      * @param array $routes
-     * @param string $output
      *
      * @return null|string
      */
-    public function routes(array $routes = [], $output = '')
+    public function routes(array $routes = [])
     {
         foreach ($routes as $route) {
-            $output = $this->route($route, $output);
+            $output = $this->route($route);
 
             if ($output) return $output;
         }

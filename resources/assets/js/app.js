@@ -12,7 +12,10 @@ $(function ()
     // Standard Switches
     $(".switch").bootstrapSwitch();
 
-    // Issue label select
+    // Issue Users select
+    $(".select-users").select2();
+
+    // Issue Labels select
     $(".select-labels").select2({
         formatResult: formatLabel,
         formatSelection: formatLabel

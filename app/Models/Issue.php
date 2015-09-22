@@ -34,6 +34,13 @@ class Issue extends Model
     protected $tablePivotComments = 'issue_comments';
 
     /**
+     * The issue users pivot table.
+     *
+     * @var string
+     */
+    protected $tablePivotUsers = 'issue_users';
+
+    /**
      * The fillable issue attributes.
      *
      * @var array
@@ -58,6 +65,16 @@ class Issue extends Model
     public function labels()
     {
         return $this->belongsToMany(Label::class, $this->tablePivotLabels);
+    }
+
+    /**
+     * The belongsToMany users relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, $this->tablePivotUsers);
     }
 
     /**

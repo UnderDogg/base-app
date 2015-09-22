@@ -40,6 +40,11 @@ $router->group(['middleware' => ['auth']], function ($router)
         'only' => ['store'],
     ]);
 
+    // The issue users resource
+    $router->resource('issues.users', 'IssueUserController', [
+        'only' => ['store'],
+    ]);
+
     // The labels resource
     $router->resource('labels', 'LabelController', [
         'except' => ['show']

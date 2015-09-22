@@ -46,6 +46,15 @@ class CreateIssuesTable extends Migration
             // Make sure only one resolution can be made per issue
             $table->unique(['issue_id', 'comment_id', 'resolution']);
         });
+
+        Schema::create('issue_users', function(Blueprint $table)
+        {
+            $table->integer('issue_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
+            $table->foreign('issue_id')->references('id')->on('issues');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
     }
 
     /**
@@ -55,6 +64,7 @@ class CreateIssuesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('issue_users');
         Schema::dropIfExists('issue_comments');
         Schema::dropIfExists('issue_labels');
         Schema::dropIfExists('issues');

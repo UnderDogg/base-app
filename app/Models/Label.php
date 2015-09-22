@@ -49,7 +49,11 @@ class Label extends Model
     {
         $color = $this->color;
 
-        return HTML::create('span', $this->name, ['class' => "label label-$color"]);
+        $name = HTML::entities($this->name);
+
+        $icon = HTML::create('i', '', ['class' => 'fa fa-tag']);
+
+        return HTML::raw("<span class='label label-$color'>$icon $name</span>");
     }
 
     /**

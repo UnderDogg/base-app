@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters;
 
+use App\Models\User;
 use App\Models\Label;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -22,7 +23,12 @@ class IssuePresenter extends Presenter
      */
     public function table($issue, $closed = false)
     {
-        $issue = $issue->where(compact('closed'))->latest();
+        $with = [
+            'users',
+            'labels',
+        ];
+
+        $issue = $issue->with($with)->where(compact('closed'))->latest();
 
         // Limit the view if the user isn't
         // allowed to view all issues
@@ -52,16 +58,22 @@ class IssuePresenter extends Presenter
                     $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);
 
                     $labels = [];
+                    $users = [];
 
                     foreach($issue->labels as $label) {
                         $labels[] = $label->getDisplay();
                     }
 
+                    foreach($issue->users as $user) {
+                        $users[] = $user->getLabel();
+                    }
+
                     $labels = implode(null, $labels);
+                    $users = implode(null, $users);
 
                     $tagLine = HTML::create('p', $issue->getTagLine(), ['class' => 'h5 text-muted']);
 
-                    return sprintf('%s %s %s', $link, $labels, $tagLine);
+                    return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
                 };
             });
         });
@@ -163,6 +175,51 @@ class IssuePresenter extends Presenter
                     ->attributes([
                         'class' => 'select-labels form-control',
                         'placeholder' => 'Start typing to search labels',
+                        'multiple' => true,
+                    ]);
+            });
+
+            $form->submit = 'Save';
+        });
+    }
+
+    /**
+     * Returns a new issue users form.
+     *
+     * @param Issue $issue
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formUsers(Issue $issue)
+    {
+        return $this->form->of('issue.users', function (FormGrid $form) use ($issue)
+        {
+            $users = User::all()->lists('fullname', 'id');
+
+            $form->setup($this, route('issues.users.store', [$issue->getKey()]), $issue);
+
+            $form->layout('components.form-modal');
+
+            $form->fieldset(function (Fieldset $fieldset) use ($users)
+            {
+                $fieldset->control('select', 'users[]')
+                    ->label('Users')
+                    ->options($users)
+                    ->value(function(Issue $issue)
+                    {
+                        $users = [];
+
+                        $pivots = $issue->users()->get();
+
+                        foreach($pivots as $row) {
+                            $users[] = $row->id;
+                        }
+
+                        return $users;
+                    })
+                    ->attributes([
+                        'class' => 'select-users form-control',
+                        'placeholder' => 'Start typing to search users',
                         'multiple' => true,
                     ]);
             });

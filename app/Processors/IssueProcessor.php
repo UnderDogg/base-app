@@ -109,7 +109,9 @@ class IssueProcessor extends Processor
 
         $formLabels = $this->presenter->formLabels($issue);
 
-        return view('pages.issues.show', compact('issue', 'formComment', 'formLabels'));
+        $formUsers = $this->presenter->formUsers($issue);
+
+        return view('pages.issues.show', compact('issue', 'formComment', 'formLabels', 'formUsers'));
     }
 
     /**

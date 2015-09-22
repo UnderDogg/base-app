@@ -23,8 +23,11 @@
         </div>
 
         <div class="col-md-12 visible-xs">
+
             <br>
+
             <span class="text-muted">{!! $issue->getTagLine() !!}</span>
+
         </div>
 
     </div>
@@ -34,26 +37,33 @@
     <div class="row">
 
         <div class="col-md-12">
+
             @foreach($issue->labels as $label)
                 {!! $label->getDisplayLarge() !!}
             @endforeach
 
-            @can('addLabels', $issue)
-                <span class="pull-right">
-                    <a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">
-                        <i class="fa fa-tag"></i>
-                        Labels
-                    </a>
-                </span>
+            @foreach($issue->users as $user)
+                {!! $user->getLabelLarge() !!}
+            @endforeach
 
-                <div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            {!! $formLabels !!}
-                        </div>
-                    </div>
-                </div>
-            @endcan
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <br>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            @include('pages.issues._form-labels')
+
+            @include('pages.issues._form-users')
+
         </div>
 
     </div>
@@ -71,7 +81,9 @@
     </div>
 
     <div class="col-md-12">
+
         <hr>
+
     </div>
 
     <div class="col-md-12 text-center">

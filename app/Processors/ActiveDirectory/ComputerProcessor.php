@@ -2,8 +2,8 @@
 
 namespace App\Processors\ActiveDirectory;
 
-use Adldap\Models\Computer;
 use Adldap\Contracts\Adldap;
+use Adldap\Models\Computer;
 use App\Http\Presenters\ActiveDirectory\ComputerPresenter;
 use App\Processors\Processor;
 
@@ -41,7 +41,7 @@ class ComputerProcessor extends Processor
         $this->authorize('index', Computer::class);
 
         $all = $this->adldap->computers()->all();
-
+        
         $computers = $this->presenter->table($all->toArray());
 
         return view('pages.active-directory.computers.index', compact('computers'));
