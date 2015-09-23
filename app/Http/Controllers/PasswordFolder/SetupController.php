@@ -23,9 +23,14 @@ class SetupController extends Controller
         $this->processor = $processor;
     }
 
+    /**
+     * Displays the password setup form.
+     *
+     * @return \Illuminate\View\View
+     */
     public function start()
     {
-        //
+        return $this->processor->start();
     }
 
     public function finish(SetupRequest $request)

@@ -24,17 +24,19 @@ class SetupPresenter extends Presenter
                 'method' => 'POST',
             ]);
 
-            $form->fieldset(function (Fieldset $fieldset) {
-                $fieldset->control('input:text', 'title')
-                    ->label('Title')
-                    ->attributes(['placeholder' => 'Title']);
+            $form->layout('pages.passwords._form');
 
-                $fieldset->control('input:textarea', 'description')
-                    ->label('Description')
+            $form->submit = 'Save';
+
+            $form->fieldset(function (Fieldset $fieldset) {
+                $fieldset->control('input:password', 'pin')
+                    ->label('Pin')
+                    ->attributes(['placeholder' => 'Enter your Pin']);
+
+                $fieldset->control('input:password', 'pin')
+                    ->label('Confirm Pin')
                     ->attributes([
-                        'placeholder' => 'Leave a comment',
-                        'data-provide' => 'markdown',
-                        'data-hidden-buttons' => '["cmdUrl","cmdImage"]',
+                        'placeholder' => 'Confirm your above Pin',
                     ]);
             });
         });
