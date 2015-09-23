@@ -16,7 +16,7 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name');
             $table->string('version')->nullable();
 
@@ -27,9 +27,9 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name');
-            $table->string('version');
+            $table->string('version')->nullable();
             $table->string('service_pack')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -39,7 +39,7 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name');
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -49,10 +49,10 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('type_id')->unsigned();
             $table->integer('os_id')->unsigned();
-            $table->string('dn');
+            $table->string('dn')->nullable();
             $table->string('name');
             $table->string('description');
             $table->string('model')->nullable();
@@ -60,6 +60,15 @@ class CreateComputerTables extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('type_id')->references('id')->on('computer_types');
             $table->foreign('os_id')->references('id')->on('operating_systems');
+        });
+
+        Schema::create('computer_users', function(Blueprint $table)
+        {
+            $table->integer('computer_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+
+            $table->foreign('computer_id')->references('id')->on('computers');
+            $table->foreign('user_id')->references('id')->on('users');
         });
 
         Schema::create('computer_software', function(Blueprint $table)
@@ -129,6 +138,7 @@ class CreateComputerTables extends Migration
         Schema::dropIfExists('computer_hard_disks');
         Schema::dropIfExists('computer_processor_records');
         Schema::dropIfExists('computer_processors');
+        Schema::dropIfExists('computer_users');
         Schema::dropIfExists('computer_software');
         Schema::dropIfExists('computers');
         Schema::dropIfExists('computer_types');
