@@ -22,6 +22,9 @@ class Passwords extends Migration
             $table->string('pin');
 
             $table->foreign('user_id')->references('id')->on('users');
+
+            // Only allow one password folder per user.
+            $table->unique(['user_id']);
         });
 
         Schema::create('passwords', function(Blueprint $table)
