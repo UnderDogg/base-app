@@ -5,7 +5,9 @@ namespace App\Processors\ActiveDirectory;
 use Adldap\Schemas\ActiveDirectory;
 use Adldap\Contracts\Adldap;
 use Adldap\Models\Computer;
+use App\Jobs\ActiveDirectory\CreateComputer;
 use Illuminate\Http\Request;
+use App\Http\Requests\ActiveDirectory\ComputerRequest;
 use App\Http\Presenters\ActiveDirectory\ComputerPresenter;
 use App\Processors\Processor;
 
@@ -62,5 +64,23 @@ class ComputerProcessor extends Processor
         $navbar = $this->presenter->navbar();
 
         return view('pages.active-directory.computers.index', compact('computers', 'navbar'));
+    }
+
+    /**
+     * Creates a computer.
+     *
+     * @param ComputerRequest $request
+     *
+     * @return bool|mixed
+     */
+    public function store(ComputerRequest $request)
+    {
+        $computer = $this->adldap->search()->findByDn($request->input('dn'));
+
+        if ($computer instanceof Computer) {
+            return $this->dispatch(new CreateComputer($computer));
+        }
+
+        return false;
     }
 }

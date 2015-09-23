@@ -3,10 +3,10 @@
 namespace App\Http\Presenters\ActiveDirectory;
 
 use Orchestra\Support\Facades\HTML;
-use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Adldap\Models\Computer as AdComputer;
+use App\Models\Computer;
 use App\Http\Presenters\Presenter;
 
 class ComputerPresenter extends Presenter
@@ -49,12 +49,18 @@ class ComputerPresenter extends Presenter
 
             $table->column('add', function ($column) {
                 $column->attributes(function () {
-                    return ['class' => 'pull-left'];
+                    return ['class' => 'text-center'];
                 });
 
                 $column->label = 'Add';
                 $column->value = function (AdComputer $computer) {
-                    return $this->formAdd($computer);
+                    $exists = Computer::where('dn', $computer->getDn())->first();
+
+                    if($exists) {
+                        return $this->formAdded();
+                    } else {
+                        return $this->formAdd($computer);
+                    }
                 };
             });
         });
@@ -83,6 +89,21 @@ class ComputerPresenter extends Presenter
 
             $form->submit = 'Add';
         });
+    }
+
+    /**
+     * Returns a button displaying that the computer has already been added.
+     *
+     * @return string
+     */
+    public function formAdded()
+    {
+        return HTML::create('input', null, [
+            'type' => 'submit',
+            'class' => 'btn btn-primary',
+            'value' => 'Added',
+            'disabled' => true,
+        ]);
     }
 
     /**
