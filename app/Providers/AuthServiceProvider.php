@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
         \App\Models\Label::class            => \App\Policies\LabelPolicy::class,
         \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
+        \Adldap\Models\User::class          => \App\Policies\ActiveDirectory\UserPolicy::class,
     ];
 
     /**

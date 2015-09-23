@@ -5,9 +5,9 @@ namespace App\Processors\ActiveDirectory;
 use Adldap\Schemas\ActiveDirectory;
 use Adldap\Contracts\Adldap;
 use Adldap\Models\Computer;
-use App\Jobs\ActiveDirectory\CreateComputer;
+use App\Jobs\ActiveDirectory\ImportComputer;
 use Illuminate\Http\Request;
-use App\Http\Requests\ActiveDirectory\ComputerRequest;
+use App\Http\Requests\ActiveDirectory\ComputerImportRequest;
 use App\Http\Presenters\ActiveDirectory\ComputerPresenter;
 use App\Processors\Processor;
 
@@ -67,18 +67,20 @@ class ComputerProcessor extends Processor
     }
 
     /**
-     * Creates a computer.
+     * Imports an active directory computer.
      *
-     * @param ComputerRequest $request
+     * @param ComputerImportRequest $request
      *
      * @return bool|mixed
      */
-    public function store(ComputerRequest $request)
+    public function store(ComputerImportRequest $request)
     {
+        $this->authorize('store', Computer::class);
+
         $computer = $this->adldap->search()->findByDn($request->input('dn'));
 
         if ($computer instanceof Computer) {
-            return $this->dispatch(new CreateComputer($computer));
+            return $this->dispatch(new ImportComputer($computer));
         }
 
         return false;

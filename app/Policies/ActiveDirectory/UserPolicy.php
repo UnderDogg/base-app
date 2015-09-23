@@ -5,7 +5,7 @@ namespace App\Policies\ActiveDirectory;
 use App\Models\User;
 use App\Policies\Policy;
 
-class ComputerPolicy extends Policy
+class UserPolicy extends Policy
 {
     /**
      * Returns true / false if the specified user
@@ -22,7 +22,7 @@ class ComputerPolicy extends Policy
 
     /**
      * Returns true / false if the specified user
-     * can add active directory computers.
+     * can add active directory users.
      *
      * @param User $user
      *

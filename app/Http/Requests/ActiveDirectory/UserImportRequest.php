@@ -4,22 +4,22 @@ namespace App\Http\Requests\ActiveDirectory;
 
 use App\Http\Requests\Request;
 
-class ComputerRequest extends Request
+class UserImportRequest extends Request
 {
     /**
-     * The computer validation rules.
+     * The user import validation rules.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'required' => 'dn',
+            'dn' => 'required',
         ];
     }
 
     /**
-     * Allows all users to add AD computers.
+     * Allows all users to import users from active directory.
      *
      * @return bool
      */

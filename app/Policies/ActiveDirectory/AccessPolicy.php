@@ -5,7 +5,7 @@ namespace App\Policies\ActiveDirectory;
 use App\Models\User;
 use App\Policies\Policy as BasePolicy;
 
-class Policy extends BasePolicy
+class AccessPolicy extends BasePolicy
 {
     /**
      * Returns true / false if the specified

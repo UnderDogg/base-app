@@ -2,7 +2,7 @@
 
 namespace App\Jobs\ActiveDirectory;
 
-use App\Jobs\Computers\Create;
+use App\Jobs\Computers\Create as CreateComputer;
 use App\Jobs\Computers\CreateOs;
 use App\Jobs\Computers\CreateType;
 use App\Jobs\Job;
@@ -10,7 +10,7 @@ use Adldap\Models\Computer as AdComputer;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class CreateComputer extends Job implements SelfHandling
+class ImportComputer extends Job implements SelfHandling
 {
     use DispatchesJobs;
 
@@ -47,7 +47,7 @@ class CreateComputer extends Job implements SelfHandling
         $description = $this->computer->getDescription();
         $dn = $this->computer->getDn();
 
-        $job = new Create($type->getKey(), $os->getKey(), $name, $description, $dn);
+        $job = new CreateComputer($type->getKey(), $os->getKey(), $name, $description, $dn);
 
         return $this->dispatch($job);
     }

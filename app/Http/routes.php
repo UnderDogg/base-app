@@ -54,7 +54,14 @@ $router->group(['middleware' => ['auth']], function ($router)
     $router->group(['prefix' => 'active-directory', 'namespace' => 'ActiveDirectory'], function ($router)
     {
         // The computers resource
-        $router->resource('computers', 'ComputerController');
+        $router->resource('computers', 'ComputerController', [
+            'only' => ['index', 'store']
+        ]);
+
+        // The users resource
+        $router->resource('users', 'UserController', [
+            'only' => ['index', 'store']
+        ]);
     });
 });
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ActiveDirectory;
 
 use Illuminate\Http\Request;
 use App\Models\Computer;
-use App\Http\Requests\ActiveDirectory\ComputerRequest;
+use App\Http\Requests\ActiveDirectory\ComputerImportRequest;
 use App\Processors\ActiveDirectory\ComputerProcessor;
 use App\Http\Controllers\Controller;
 
@@ -35,11 +35,11 @@ class ComputerController extends Controller
     /**
      * Creates a new computer from active directory.
      *
-     * @param ComputerRequest $request
+     * @param ComputerImportRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ComputerRequest $request)
+    public function store(ComputerImportRequest $request)
     {
         $computer = $this->processor->store($request);
 

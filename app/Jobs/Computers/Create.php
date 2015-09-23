@@ -73,21 +73,28 @@ class Create extends Job implements SelfHandling
     /**
      * Creates and returns a new Computer.
      *
+     * @param Computer $computer
+     *
      * @return bool|Computer
      */
-    public function handle()
+    public function handle(Computer $computer)
     {
-        $computer = new Computer();
+        // Verify that the computer doesn't exist already
+        $exists = $computer->where('dn', $this->dn)->first();
 
-        $computer->type_id = $this->typeId;
-        $computer->os_id = $this->osId;
-        $computer->name = $this->name;
-        $computer->description = $this->description;
-        $computer->dn = $this->dn;
-        $computer->model = $this->model;
+        if (!$exists) {
+            $computer = new Computer();
 
-        if ($computer->save()) {
-            return $computer;
+            $computer->type_id = $this->typeId;
+            $computer->os_id = $this->osId;
+            $computer->name = $this->name;
+            $computer->description = $this->description;
+            $computer->dn = $this->dn;
+            $computer->model = $this->model;
+
+            if ($computer->save()) {
+                return $computer;
+            }
         }
 
         return false;

@@ -3,11 +3,11 @@
         <a
                 data-post="POST"
                 data-title="Are you sure?"
-                data-message="Are you sure you want to add all computers?"
-                href="{{ route('active-directory.computers.index') }}">
+                data-message="Are you sure you want to add all users?"
+                href="{{ route('active-directory.users.index') }}">
             <i class="fa fa-plus"></i> Add All
         </a>
     </li>
 </ul>
 
-@include('pages.active-directory.computers._search')
+@include('pages.active-directory.users._search')

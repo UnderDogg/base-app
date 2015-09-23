@@ -12,7 +12,7 @@ use App\Http\Presenters\Presenter;
 class ComputerPresenter extends Presenter
 {
     /**
-     * Returns a new table of all computers.
+     * Returns a new table of all active directory computers.
      *
      * @param array $computers
      *
@@ -20,7 +20,7 @@ class ComputerPresenter extends Presenter
      */
     public function table(array $computers = [])
     {
-        return $this->table->of('computers', function(TableGrid $table) use ($computers)
+        return $this->table->of('active-directory.computers', function(TableGrid $table) use ($computers)
         {
             $table->attributes('class', 'table table-hover');
 
