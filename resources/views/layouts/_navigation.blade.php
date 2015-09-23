@@ -94,6 +94,12 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
+                                <a href="{{ route('passwords.index') }}">
+                                    <i class="fa fa-lock"></i> Passwords
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
                                 <a href="{{ route('auth.logout') }}">
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a>

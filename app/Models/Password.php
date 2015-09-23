@@ -2,18 +2,38 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasUserTrait;
-
 class Password extends Model
 {
-    use HasUserTrait;
-
     /**
      * The passwords table.
      *
      * @var string
      */
     protected $table = 'passwords';
+
+    /**
+     * The hidden password attributes.
+     *
+     * @var array
+     */
+    protected $hidden = ['password'];
+
+    /**
+     * The guarded password attributes.
+     *
+     * @var array
+     */
+    protected $guarded = ['password'];
+
+    /**
+     * The belongsTo folder relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function folder()
+    {
+        return $this->belongsTo(PasswordFolder::class, 'folder_id');
+    }
 
     /**
      * The mutator for the password attribute.

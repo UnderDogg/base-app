@@ -12,15 +12,27 @@ class Passwords extends Migration
      */
     public function up()
     {
-        Schema::create('passwords', function(Blueprint $table)
+        Schema::create('password_folders', function(Blueprint $table)
         {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
+            $table->boolean('locked')->default(false);
+            $table->string('uuid');
+            $table->string('pin');
+
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
+        Schema::create('passwords', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('folder_id')->unsigned();
             $table->string('name');
             $table->string('password')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('folder_id')->references('id')->on('password_folders');
         });
     }
 
@@ -32,5 +44,6 @@ class Passwords extends Migration
     public function down()
     {
         Schema::dropIfExists('passwords');
+        Schema::dropIfExists('password_folders');
     }
 }

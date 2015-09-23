@@ -30,5 +30,7 @@ class Kernel extends HttpKernel
         'can' => \Orchestra\Foundation\Http\Middleware\Can::class,
         'guest' => Middleware\RedirectIfAuthenticated::class,
         'manage' => \Orchestra\Foundation\Http\Middleware\CanManage::class,
+        'passwords.locked' => Middleware\PasswordFolderLocked::class,
+        'passwords.setup' => Middleware\PasswordFolderSetup::class,
     ];
 }

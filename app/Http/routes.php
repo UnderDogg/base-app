@@ -9,6 +9,54 @@ $router->get('/', [
 // Auth Covered Routes
 $router->group(['middleware' => ['auth']], function ($router)
 {
+    // The passwords group
+    $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router)
+    {
+        // Password Gate
+        $router->get('gate', [
+            'as' => 'gate',
+            'uses' => 'PasswordGateController@gate',
+        ]);
+
+        // Password Gate Unlock
+        $router->get('gate/unlock', [
+            'as' => 'gate.unlock',
+            'uses' => 'PasswordGateController@unlock',
+        ]);
+
+        // Password Setup Routes
+        $router->group(['prefix' => 'setup'], function ($router)
+        {
+            // Passwords Already Setup - Invalid Page
+            $router->get('invalid', [
+                'as' => 'setup.invalid',
+                'uses' => 'PasswordController@invalid',
+            ]);
+
+            // Password Setup Covered Routes
+            $router->group(['middleware' => ['passwords.setup']], function ($router)
+            {
+                // Password Setup
+                $router->get('/', [
+                    'as' => 'setup',
+                    'uses' => 'PasswordSetupController@start',
+                ]);
+
+                // Finish Password Setup
+                $router->post('setup', [
+                    'as' => 'setup.finish',
+                    'uses' => 'PasswordSetupController@finish',
+                ]);
+            });
+        });
+    });
+
+    $router->group(['middleware' => ['passwords.locked']], function ($router)
+    {
+        // User Password Resource
+        $router->resource('passwords', 'PasswordController');
+    });
+
     // Display all closed issues.
     $router->get('issues/closed', [
         'as' => 'issues.closed',
