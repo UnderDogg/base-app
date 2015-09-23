@@ -25,12 +25,12 @@ $router->group(['middleware' => ['auth']], function ($router)
         ]);
 
         // Password Setup Routes
-        $router->group(['prefix' => 'setup'], function ($router)
+        $router->group(['prefix' => 'setup', 'namespace' => 'PasswordFolder'], function ($router)
         {
             // Passwords Already Setup - Invalid Page
             $router->get('invalid', [
                 'as' => 'setup.invalid',
-                'uses' => 'PasswordController@invalid',
+                'uses' => 'SetupController@invalid',
             ]);
 
             // Password Setup Covered Routes
@@ -39,13 +39,13 @@ $router->group(['middleware' => ['auth']], function ($router)
                 // Password Setup
                 $router->get('/', [
                     'as' => 'setup',
-                    'uses' => 'PasswordSetupController@start',
+                    'uses' => 'SetupController@start',
                 ]);
 
                 // Finish Password Setup
                 $router->post('setup', [
                     'as' => 'setup.finish',
-                    'uses' => 'PasswordSetupController@finish',
+                    'uses' => 'SetupController@finish',
                 ]);
             });
         });

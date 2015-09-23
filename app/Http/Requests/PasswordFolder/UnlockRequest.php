@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\PasswordFolder;
 
-class PasswordUnlockRequest extends Request
+use App\Http\Requests\Request;
+
+class UnlockRequest extends Request
 {
     /**
      * The password unlock validation rules.
