@@ -1,4 +1,4 @@
-@foreach ($fieldsets as $fieldset)
+@foreach ($grid->fieldsets() as $fieldset)
     <fieldset{!! $htmlbuilder->attributes($fieldset->attributes ?: []) !!}>
         @if ($fieldset->name)
             <legend>{!! $fieldset->name or '' !!}</legend>
@@ -9,7 +9,7 @@
                 {!! $formbuilder->label($control->name, $control->label, ['class' => 'control-label']) !!}
 
                 <div class="nine columns">
-                    <div>{!! $control->getField($row, $control, []) !!}</div>
+                    <div>{!! $control->getField($grid->data(), $control, []) !!}</div>
                     @if ($control->inlineHelp)
                         <span class="help-inline">{!! $control->inlineHelp !!}</span>
                     @endif
