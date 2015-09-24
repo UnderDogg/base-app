@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v5.1.10",
+            "version": "v5.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "e2daedca73711e85890d5ccaaf3b117f4059ed53"
+                "reference": "3b9e00bc46ef293068639bb65f88a185ac7ba130"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/e2daedca73711e85890d5ccaaf3b117f4059ed53",
-                "reference": "e2daedca73711e85890d5ccaaf3b117f4059ed53",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/3b9e00bc46ef293068639bb65f88a185ac7ba130",
+                "reference": "3b9e00bc46ef293068639bb65f88a185ac7ba130",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2015-09-22 20:07:02"
+            "time": "2015-09-24 15:25:21"
         },
         {
             "name": "adldap2/adldap2-laravel",
