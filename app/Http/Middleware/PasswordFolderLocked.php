@@ -35,17 +35,22 @@ class PasswordFolderLocked
     {
         $folder = auth()->user()->load('passwordFolder')->passwordFolder;
 
-        if($folder && $folder->locked && ! $request->session()->has($folder->uuid)) {
-            // If the folder is locked and we can't see the folder
-            // UUID in the users session, we'll redirect
-            // them to the password gate.
-            return redirect()->route('passwords.gate');
+        if($folder instanceof PasswordFolder && $request->session()->has($folder->uuid)) {
+            // Triple check here that the session UUID key contains
+            // the value of the exact UUID as well
+            if ($request->session()->get($folder->uuid) === $folder->uuid) {
+                // User passes all checks. Allow them into the password folder.
+                return $next($request);
+            }
         } else if (!$folder) {
             // If no folder exists for the user, we need
             // to redirect them to the setup page.
             return redirect()->route('passwords.setup');
         }
 
-        return $next($request);
+        // If the folder is locked and we can't see the folder
+        // UUID in the users session, we'll redirect
+        // them to the password gate.
+        return redirect()->route('passwords.gate');
     }
 }
