@@ -17,7 +17,7 @@ class Passwords extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
-            $table->boolean('locked')->default(false);
+            $table->boolean('locked')->default(true);
             $table->string('uuid');
             $table->string('pin');
 
