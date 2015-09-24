@@ -32,6 +32,8 @@ elixir(function(mix) {
         'libs/markdown.js',
         'libs/to-markdown.js',
         'libs/select2.min.js',
+        'libs/bootstrap-show-password.min.js',
+        'libs/bootstrap-password-strength.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',

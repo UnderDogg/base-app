@@ -4,6 +4,8 @@
 
 @section('content')
 
-    Testing
+    @decorator('navbar', $navbar)
+
+    {!! $passwords !!}
 
 @stop

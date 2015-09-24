@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Crypt;
+
 class Password extends Model
 {
     /**
@@ -50,11 +52,15 @@ class Password extends Model
      *
      * @param string $password
      *
-     * @return string
+     * @return null|string
      */
     public function getPasswordAttribute($password)
     {
-        return $this->decrypt($password);
+        if (!is_null($password)) {
+            return $this->decrypt($password);
+        }
+
+        return null;
     }
 
     /**
@@ -66,7 +72,7 @@ class Password extends Model
      */
     protected function encrypt($password)
     {
-        return openssl_encrypt($password, $this->getAlgorithm(), $this->getHash());
+        return Crypt::encrypt($password);
     }
 
     /**
@@ -78,26 +84,6 @@ class Password extends Model
      */
     protected function decrypt($password)
     {
-        return openssl_decrypt($password, $this->getAlgorithm(), $this->getHash());
-    }
-
-    /**
-     * Returns the hash string for encrypting / decrypting passwords.
-     *
-     * @return string
-     */
-    private function getHash()
-    {
-        return $this->folder->uuid.env('APP_KEY');
-    }
-
-    /**
-     * Returns the hashing algorithm for encrypting / decrypting passwords.
-     *
-     * @return string
-     */
-    private function getAlgorithm()
-    {
-        return config('app.cipher', 'AES-256-CBC');
+        return Crypt::decrypt($password);
     }
 }

@@ -63,7 +63,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="{{ active()->route('active-directory.users.*') }}">
-                                <a href="#">
+                                <a href="{{ route('active-directory.users.index') }}">
                                     <i class="fa fa-user"></i>
                                     Users
                                 </a>

@@ -1,5 +1,8 @@
 $(function ()
 {
+    // Show Password Toggle
+    $('.password-show').password();
+
     // Markdown
     $("textarea[data-provide='markdown']").markdown();
 

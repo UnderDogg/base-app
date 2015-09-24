@@ -32,8 +32,11 @@ class Passwords extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('folder_id')->unsigned();
-            $table->string('name');
-            $table->string('password')->nullable();
+            $table->string('title');
+            $table->string('website')->nullable();
+            $table->string('username')->nullable();
+            $table->string('password');
+            $table->text('notes')->nullable();
 
             $table->foreign('folder_id')->references('id')->on('password_folders');
         });
