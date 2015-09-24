@@ -6,6 +6,7 @@ use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class AuthController extends Controller
@@ -113,7 +114,11 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
+        // Log the user out
         Auth::logout();
+
+        // Flush their session
+        Session::flush();
 
         flash()->success('Success!', "You've been logged out!");
 
