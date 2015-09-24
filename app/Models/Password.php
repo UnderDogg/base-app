@@ -18,14 +18,14 @@ class Password extends Model
      *
      * @var array
      */
-    protected $hidden = ['password'];
+    protected $hidden = ['username', 'website', 'password', 'notes'];
 
     /**
      * The guarded password attributes.
      *
      * @var array
      */
-    protected $guarded = ['password'];
+    protected $guarded = ['username', 'website', 'password', 'notes'];
 
     /**
      * The belongsTo folder relationship.
@@ -38,13 +38,49 @@ class Password extends Model
     }
 
     /**
+     * The mutator for the username attribute.
+     *
+     * @param string $username
+     */
+    public function setUsernameAttribute($username)
+    {
+        $this->attributes['username'] = $this->encrypt($username);
+    }
+
+    /**
      * The mutator for the password attribute.
      *
-     * @param $password
+     * @param string $password
      */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = $this->encrypt($password);
+    }
+
+    /**
+     * The mutator for the notes attribute.
+     *
+     * @param string $notes
+     */
+    public function setNotesAttribute($notes)
+    {
+        $this->attributes['notes'] = $this->encrypt($notes);
+    }
+
+    /**
+     * The accessor for the username attribute.
+     *
+     * @param string $username
+     *
+     * @return null|string
+     */
+    public function getUsernameAttribute($username)
+    {
+        if (!is_null($username)) {
+            return $this->decrypt($username);
+        }
+
+        return null;
     }
 
     /**
@@ -58,6 +94,22 @@ class Password extends Model
     {
         if (!is_null($password)) {
             return $this->decrypt($password);
+        }
+
+        return null;
+    }
+
+    /**
+     * The accessor for the notes attribute.
+     *
+     * @param string $notes
+     *
+     * @return null|string
+     */
+    public function getNotesAttribute($notes)
+    {
+        if (!is_null($notes)) {
+            return $this->decrypt($notes);
         }
 
         return null;
