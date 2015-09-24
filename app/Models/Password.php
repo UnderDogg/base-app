@@ -88,7 +88,7 @@ class Password extends Model
      */
     private function getHash()
     {
-        return env('APP_KEY');
+        return $this->folder->uuid.env('APP_KEY');
     }
 
     /**
