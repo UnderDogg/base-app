@@ -10,6 +10,11 @@ use App\Models\PasswordFolder;
 class PasswordProcessor extends Processor
 {
     /**
+     * @var PasswordFolder
+     */
+    protected $folder;
+
+    /**
      * @var Password
      */
     protected $password;
@@ -27,6 +32,7 @@ class PasswordProcessor extends Processor
      */
     public function __construct(Password $password, PasswordPresenter $presenter)
     {
+        $this->folder = auth()->user()->passwordFolder;
         $this->password = $password;
         $this->presenter = $presenter;
     }
@@ -66,19 +72,15 @@ class PasswordProcessor extends Processor
      */
     public function store(PasswordRequest $request)
     {
-        $folder = auth()->user()->passwordFolder;
+        $this->password->folder_id = $this->folder->getKey();
+        $this->password->title = $request->input('title');
+        $this->password->website = $request->input('website');
+        $this->password->username = $request->input('username');
+        $this->password->password = $request->input('password');
+        $this->password->notes = $request->input('notes');
 
-        if ($folder instanceof PasswordFolder) {
-            $this->password->folder_id = $folder->getKey();
-            $this->password->title = $request->input('title');
-            $this->password->website = $request->input('website');
-            $this->password->username = $request->input('username');
-            $this->password->password = $request->input('password');
-            $this->password->notes = $request->input('notes');
-
-            if ($this->password->save()) {
-                return $this->password;
-            }
+        if ($this->password->save()) {
+            return $this->password;
         }
 
         return false;
@@ -93,17 +95,51 @@ class PasswordProcessor extends Processor
      */
     public function show($id)
     {
-        $folder = auth()->user()->passwordFolder;
+        $password = $this->folder->passwords()->findOrFail($id);
 
-        if ($folder instanceof PasswordFolder) {
-            $password = $folder->passwords()->findOrFail($id);
+        $form = $this->presenter->form($password, $viewing = true);
 
-            $form = $this->presenter->form($password, $viewing = true);
+        return view('pages.passwords.show', compact('password', 'form'));
+    }
 
-            return view('pages.passwords.show', compact('password', 'form'));
+    /**
+     * Displays the edit form for the specified user password.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $password = $this->folder->passwords()->findOrFail($id);
+
+        $form = $this->presenter->form($password);
+
+        return view('pages.passwords.edit', compact('password', 'form'));
+    }
+
+    /**
+     * Updates the users specified password.
+     *
+     * @param PasswordRequest $request
+     * @param int|string      $id
+     *
+     * @return bool
+     */
+    public function update(PasswordRequest $request, $id)
+    {
+        $password = $this->folder->passwords()->findOrFail($id);
+
+        $password->title    = $request->input('title', $password->title);
+        $password->website  = $request->input('website', $password->website);
+        $password->username = $request->input('username', $password->username);
+        $password->password = $request->input('password', $password->password);
+        $password->notes    = $request->input('notes', $password->notes);
+
+        if ($password->save()) {
+            return $password;
         }
 
-        // Abort 404 as failsafe
-        abort(404);
+        return false;
     }
 }

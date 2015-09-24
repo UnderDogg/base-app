@@ -6,6 +6,22 @@
 
 @section('content')
 
+    <div class="btn-group pull-right" role="group">
+        <a href="{{ route('passwords.edit', [$password->getKey()]) }}" class="btn btn-warning">
+            Edit
+        </a>
+        <a href="{{ route('passwords.destroy', [$password->getKey()]) }}"
+           class="btn btn-danger"
+           data-post="DELETE"
+           data-title="Delete Password?"
+           data-message="Are you sure you want to delete this password? It cannot be recovered."
+                >
+            Delete
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+
     {!! $form !!}
 
     <script>

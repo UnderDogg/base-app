@@ -87,13 +87,13 @@
             <ul class="nav navbar-nav navbar-right">
 
                 @if(auth()->check())
-                    <li class="dropdown" id="user-menu">
+                    <li class="dropdown {{ active()->routes(['passwords.*']) }}" id="user-menu">
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             {{ auth()->user()->fullname }}
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
+                            <li class="{{ active()->routes(['passwords.*']) }}">
                                 <a href="{{ route('passwords.index') }}">
                                     <i class="fa fa-lock"></i> Passwords
                                 </a>

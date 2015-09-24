@@ -75,14 +75,37 @@ class PasswordController extends Controller
         return $this->processor->show($id);
     }
 
+    /**
+     * Displays the edit form for the specified user password.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
-        //
+        return $this->processor->edit($id);
     }
 
-    public function update($id)
+    /**
+     * Updates the users specified password record.
+     *
+     * @param PasswordRequest $request
+     * @param int|string      $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(PasswordRequest $request, $id)
     {
-        //
+        if ($this->processor->update($request, $id)) {
+            flash()->success('Success!', 'Successfully updated password record.');
+
+            return redirect()->route('passwords.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was a problem updating this password record. Please try again.');
+
+            return redirect()->route('passwords.edit', [$id]);
+        }
     }
 
     public function destroy($id)
