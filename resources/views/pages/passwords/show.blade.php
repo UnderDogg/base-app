@@ -6,8 +6,15 @@
 
 @section('content')
 
-    {!! $formbuilder->label('Title') !!}
+    {!! $form !!}
 
-    {!! $formbuilder->password('password', ['class' => 'form-control password-show']) !!}
+    <script>
+        $(function()
+        {
+            $('.password-show').attr('disabled', 'disabled');
+            $('button[type="submit"]').attr('disabled', 'disabled');
+            $('#password').val('{{ $password->password }}');
+        });
+    </script>
 
 @stop

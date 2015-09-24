@@ -98,7 +98,9 @@ class PasswordProcessor extends Processor
         if ($folder instanceof PasswordFolder) {
             $password = $folder->passwords()->findOrFail($id);
 
-            return view('pages.passwords.show', compact('password'));
+            $form = $this->presenter->form($password, $viewing = true);
+
+            return view('pages.passwords.show', compact('password', 'form'));
         }
 
         // Abort 404 as failsafe

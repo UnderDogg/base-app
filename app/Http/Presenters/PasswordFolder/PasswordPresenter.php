@@ -51,17 +51,22 @@ class PasswordPresenter extends Presenter
      * Returns a new form of the specified password.
      *
      * @param Password  $password
+     * @param bool|true $viewing
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(Password $password)
+    public function form(Password $password, $viewing = false)
     {
-        return $this->form->of('passwords', function(FormGrid $form) use ($password)
+        return $this->form->of('passwords', function(FormGrid $form) use ($password, $viewing)
         {
             if ($password->exists) {
-                $form->setup($this, route('passwords.update', $password->getKey()), $password, [
-                    'method' => 'PATCH',
-                ]);
+                if ($viewing) {
+                    $form->setup($this, null, $password);
+                } else {
+                    $form->setup($this, route('passwords.update', $password->getKey()), $password, [
+                        'method' => 'PATCH',
+                    ]);
+                }
 
                 $form->submit = 'Save';
             } else {
@@ -72,18 +77,20 @@ class PasswordPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $form->fieldset(function (Fieldset $fieldset)
+            $form->fieldset(function (Fieldset $fieldset) use ($viewing)
             {
                 $fieldset->control('input:text', 'title')
                     ->label('Title')
                     ->attributes([
                         'placeholder' => 'Title of the Password',
+                        ($viewing ?'disabled' : null)
                     ]);
 
                 $fieldset->control('input:text', 'website')
                     ->label('Website')
                     ->attributes([
                         'placeholder' => 'Website',
+                        ($viewing ?'disabled' : null)
                     ]);
 
                 $fieldset->control('input:text', 'username')
@@ -91,6 +98,7 @@ class PasswordPresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'The Username for the password',
                         'autocomplete' => 'new-username',
+                        ($viewing ?'disabled' : null)
                     ]);
 
                 $fieldset->control('input:password', 'password')
@@ -105,6 +113,7 @@ class PasswordPresenter extends Presenter
                     ->label('Notes')
                     ->attributes([
                         'placeholder' => 'Notes',
+                        ($viewing ?'disabled' : null)
                     ]);
             });
         });
