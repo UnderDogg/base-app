@@ -2,6 +2,7 @@
 
 namespace App\Processors\PasswordFolder;
 
+use App\Http\Requests\PasswordFolder\LockRequest;
 use App\Http\Requests\PasswordFolder\UnlockRequest;
 use App\Http\Presenters\PasswordFolder\GatePresenter;
 use App\Models\PasswordFolder;
@@ -22,12 +23,11 @@ class GateProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param PasswordFolder $folder
      * @param GatePresenter  $presenter
      */
-    public function __construct(PasswordFolder $folder, GatePresenter $presenter)
+    public function __construct(GatePresenter $presenter)
     {
-        $this->folder = $folder;
+        $this->folder = auth()->user()->passwordFolder;
         $this->presenter = $presenter;
     }
 
@@ -52,12 +52,19 @@ class GateProcessor extends Processor
      */
     public function unlock(UnlockRequest $request)
     {
-        $folder = $this->folder->where('user_id', auth()->user()->getKey())->first();
+        return $this->folder->unlock($request);
+    }
 
-        if ($folder instanceof PasswordFolder) {
-            return $folder->unlock($request);
-        }
 
-        return false;
+    /**
+     * Locks a users password folder.
+     *
+     * @param LockRequest $request
+     *
+     * @return bool
+     */
+    public function lock(LockRequest $request)
+    {
+        return $this->folder->lock($request);
     }
 }

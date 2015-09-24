@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PasswordFolder;
 
+use App\Http\Requests\PasswordFolder\LockRequest;
 use App\Http\Requests\PasswordFolder\UnlockRequest;
 use App\Processors\PasswordFolder\GateProcessor;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,26 @@ class GateController extends Controller
             return redirect()->route('passwords.index');
         } else {
             return redirect()->route('passwords.gate')->withErrors(['pin' => 'Incorrect PIN']);
+        }
+    }
+
+    /**
+     * Locks the current users password folder.
+     *
+     * @param LockRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function lock(LockRequest $request)
+    {
+        if ($this->processor->lock($request)) {
+            flash()->success('Success!', 'Successfully locked passwords.');
+
+            return redirect()->route('welcome.index');
+        } else {
+            flash()->error('Error!', 'There was a problem locking passwords. Please try again.');
+
+            return redirect()->route('welcome.index');
         }
     }
 }

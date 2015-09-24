@@ -108,8 +108,23 @@ class PasswordController extends Controller
         }
     }
 
+    /**
+     * Deletes the specified user password record.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
-        //
+        if ($this->processor->destroy($id)) {
+            flash()->success('Success!', 'Successfully deleted password record.');
+
+            return redirect()->route('passwords.index');
+        } else {
+            flash()->error('Error!', 'There was a problem deleting this password record. Please try again.');
+
+            return redirect()->route('passwords.show', [$id]);
+        }
     }
 }

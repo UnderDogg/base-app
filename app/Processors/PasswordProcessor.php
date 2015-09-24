@@ -142,4 +142,18 @@ class PasswordProcessor extends Processor
 
         return false;
     }
+
+    /**
+     * Deletes the specified user password record.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function destroy($id)
+    {
+        $password = $this->folder->passwords()->findOrFail($id);
+
+        return $password->delete();
+    }
 }

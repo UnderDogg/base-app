@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Requests\PasswordFolder\LockRequest;
 use App\Http\Requests\PasswordFolder\UnlockRequest;
 use App\Models\Traits\HasUserTrait;
 use Illuminate\Hashing\BcryptHasher;
@@ -68,5 +69,20 @@ class PasswordFolder extends Model
         }
 
         return false;
+    }
+
+    /**
+     * Locks the users password folder by removing it's
+     * UUID from the users session.
+     *
+     * @param LockRequest $request
+     *
+     * @return bool
+     */
+    public function lock(LockRequest $request)
+    {
+        $request->session()->remove($this->uuid);
+
+        return true;
     }
 }

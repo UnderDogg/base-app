@@ -27,6 +27,12 @@ $router->group(['middleware' => ['auth']], function ($router)
                 'uses' => 'GateController@unlock',
             ]);
 
+            // Password Gate Lock
+            $router->post('gate/lock', [
+                'as' => 'gate.lock',
+                'uses' => 'GateController@lock',
+            ]);
+
             // Password Setup Routes
             $router->group(['prefix' => 'setup'], function ($router)
             {
