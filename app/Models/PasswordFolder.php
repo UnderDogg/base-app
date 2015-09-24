@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Http\Requests\PasswordUnlockRequest;
+use App\Http\Requests\PasswordFolder\UnlockRequest;
 use App\Models\Traits\HasUserTrait;
 use Illuminate\Hashing\BcryptHasher;
 
@@ -51,11 +51,11 @@ class PasswordFolder extends Model
      * Unlocks a password folder by checking the specified
      * pin against the password folder pin.
      *
-     * @param PasswordUnlockRequest $request
+     * @param UnlockRequest $request
      *
      * @return bool
      */
-    public function unlock(PasswordUnlockRequest $request)
+    public function unlock(UnlockRequest $request)
     {
         $hasher = new BcryptHasher();
 

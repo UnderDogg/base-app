@@ -33,9 +33,24 @@ class SetupController extends Controller
         return $this->processor->start();
     }
 
+    /**
+     * Finishes the users password folder setup.
+     *
+     * @param SetupRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function finish(SetupRequest $request)
     {
-        //
+        if ($this->processor->finish($request)) {
+            flash()->success('Success!', 'Successfully setup passwords.');
+
+            return redirect()->route('passwords.index');
+        } else {
+            flash()->success('Error!', 'There was an error setting up passwords. Please try again.');
+
+            return redirect()->back();
+        }
     }
 
     public function invalid()

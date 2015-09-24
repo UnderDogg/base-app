@@ -4,23 +4,21 @@ namespace App\Http\Presenters\PasswordFolder;
 
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Models\PasswordFolder;
 use App\Http\Presenters\Presenter;
 
-class SetupPresenter extends Presenter
+class GatePresenter extends Presenter
 {
     /**
-     * Returns a new PasswordFolder form.
-     *
-     * @param PasswordFolder $folder
+     * Returns a new PIN form for the password folder gate.
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form($folder)
+    public function form()
     {
-        return $this->form->of('passwords.setup', function (FormGrid $form) use ($folder)
+        return $this->form->of('passwords.gate', function (FormGrid $form)
         {
-            $form->setup($this, route('passwords.setup.finish'), $folder, [
+            $form->attributes([
+                'url' => route('passwords.gate.unlock'),
                 'method' => 'POST',
             ]);
 
@@ -32,12 +30,6 @@ class SetupPresenter extends Presenter
                 $fieldset->control('input:password', 'pin')
                     ->label('Pin')
                     ->attributes(['placeholder' => 'Enter your Pin']);
-
-                $fieldset->control('input:password', 'pin_confirmation')
-                    ->label('Confirm Pin')
-                    ->attributes([
-                        'placeholder' => 'Confirm your above Pin',
-                    ]);
             });
         });
     }

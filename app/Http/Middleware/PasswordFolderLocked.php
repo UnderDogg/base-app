@@ -33,7 +33,7 @@ class PasswordFolderLocked
      */
     public function handle(Request $request, Closure $next)
     {
-        $folder = $this->folder->where('user_id', auth()->user()->getKey())->first();
+        $folder = auth()->user()->load('passwordFolder')->passwordFolder;
 
         if($folder && $folder->locked && ! $request->session()->has($folder->uuid)) {
             // If the folder is locked and we can't see the folder

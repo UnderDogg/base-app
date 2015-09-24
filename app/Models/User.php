@@ -13,6 +13,16 @@ class User extends Eloquent implements AuthorizableContract
     use Authorizable, AdldapUserModelTrait;
 
     /**
+     * The hasOne password folder relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function passwordFolder()
+    {
+        return $this->hasOne(PasswordFolder::class, 'user_id');
+    }
+
+    /**
      * Returns an HTML string of the users label.
      *
      * @return string

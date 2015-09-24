@@ -9,52 +9,56 @@ $router->get('/', [
 // Auth Covered Routes
 $router->group(['middleware' => ['auth']], function ($router)
 {
-    // The passwords group
-    $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router)
+    // The PasswordFolder namespace group
+    $router->group(['namespace' => 'PasswordFolder'], function ($router)
     {
-        // Password Gate
-        $router->get('gate', [
-            'as' => 'gate',
-            'uses' => 'PasswordGateController@gate',
-        ]);
-
-        // Password Gate Unlock
-        $router->get('gate/unlock', [
-            'as' => 'gate.unlock',
-            'uses' => 'PasswordGateController@unlock',
-        ]);
-
-        // Password Setup Routes
-        $router->group(['prefix' => 'setup', 'namespace' => 'PasswordFolder'], function ($router)
+        // The passwords group
+        $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router)
         {
-            // Passwords Already Setup - Invalid Page
-            $router->get('invalid', [
-                'as' => 'setup.invalid',
-                'uses' => 'SetupController@invalid',
+            // Password Gate
+            $router->get('gate', [
+                'as' => 'gate',
+                'uses' => 'GateController@gate',
             ]);
 
-            // Password Setup Covered Routes
-            $router->group(['middleware' => ['passwords.setup']], function ($router)
+            // Password Gate Unlock
+            $router->post('gate/unlock', [
+                'as' => 'gate.unlock',
+                'uses' => 'GateController@unlock',
+            ]);
+
+            // Password Setup Routes
+            $router->group(['prefix' => 'setup'], function ($router)
             {
-                // Password Setup
-                $router->get('/', [
-                    'as' => 'setup',
-                    'uses' => 'SetupController@start',
+                // Passwords Already Setup - Invalid Page
+                $router->get('invalid', [
+                    'as' => 'setup.invalid',
+                    'uses' => 'SetupController@invalid',
                 ]);
 
-                // Finish Password Setup
-                $router->post('setup', [
-                    'as' => 'setup.finish',
-                    'uses' => 'SetupController@finish',
-                ]);
+                // Password Setup Covered Routes
+                $router->group(['middleware' => ['passwords.setup']], function ($router)
+                {
+                    // Password Setup
+                    $router->get('/', [
+                        'as' => 'setup',
+                        'uses' => 'SetupController@start',
+                    ]);
+
+                    // Finish Password Setup
+                    $router->post('setup', [
+                        'as' => 'setup.finish',
+                        'uses' => 'SetupController@finish',
+                    ]);
+                });
             });
         });
-    });
 
-    $router->group(['middleware' => ['passwords.locked']], function ($router)
-    {
-        // User Password Resource
-        $router->resource('passwords', 'PasswordController');
+        $router->group(['middleware' => ['passwords.locked']], function ($router)
+        {
+            // User Password Resource
+            $router->resource('passwords', 'PasswordController');
+        });
     });
 
     // Display all closed issues.

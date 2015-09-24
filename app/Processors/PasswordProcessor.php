@@ -11,6 +11,6 @@ class PasswordProcessor extends Processor
 
     public function index()
     {
-        //
+        return view('pages.passwords.index');
     }
 }
