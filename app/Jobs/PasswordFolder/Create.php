@@ -36,6 +36,7 @@ class Create extends Job implements SelfHandling
     {
         $folder->user_id = auth()->user()->getKey();
         $folder->locked = true;
+        $folder->uuid = uuid();
         $folder->pin = $this->pin;
 
         if ($folder->save()) {
