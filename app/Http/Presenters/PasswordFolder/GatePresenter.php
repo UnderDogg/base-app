@@ -24,7 +24,7 @@ class GatePresenter extends Presenter
 
             $form->layout('pages.passwords._form');
 
-            $form->submit = 'Save';
+            $form->submit = 'Unlock';
 
             $form->fieldset(function (Fieldset $fieldset) {
                 $fieldset->control('input:password', 'pin')

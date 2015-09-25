@@ -45,7 +45,7 @@ class SetupController extends Controller
         if ($this->processor->finish($request)) {
             flash()->success('Success!', 'Successfully setup passwords.');
 
-            return redirect()->route('passwords.index');
+            return redirect()->route('passwords.gate');
         } else {
             flash()->success('Error!', 'There was an error setting up passwords. Please try again.');
 

@@ -31,7 +31,7 @@ class PasswordPresenter extends Presenter
             $table->with($password)->paginate($this->perPage);
 
             $table->column('title', function ($column) {
-                $column->label = 'title';
+                $column->label = 'Title';
                 $column->value = function (Password $password) {
                     return link_to_route('passwords.show', $password->title, [$password->getKey()]);
                 };

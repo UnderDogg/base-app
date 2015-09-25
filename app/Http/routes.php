@@ -15,23 +15,26 @@ $router->group(['middleware' => ['auth']], function ($router)
         // The passwords group
         $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router)
         {
-            // Password Gate
-            $router->get('gate', [
-                'as' => 'gate',
-                'uses' => 'GateController@gate',
-            ]);
+            $router->group(['middleware' => ['passwords.gate']], function ($router)
+            {
+                // Password Gate
+                $router->get('gate', [
+                    'as' => 'gate',
+                    'uses' => 'GateController@gate',
+                ]);
 
-            // Password Gate Unlock
-            $router->post('gate/unlock', [
-                'as' => 'gate.unlock',
-                'uses' => 'GateController@unlock',
-            ]);
+                // Password Gate Unlock
+                $router->post('gate/unlock', [
+                    'as' => 'gate.unlock',
+                    'uses' => 'GateController@unlock',
+                ]);
 
-            // Password Gate Lock
-            $router->post('gate/lock', [
-                'as' => 'gate.lock',
-                'uses' => 'GateController@lock',
-            ]);
+                // Password Gate Lock
+                $router->post('gate/lock', [
+                    'as' => 'gate.lock',
+                    'uses' => 'GateController@lock',
+                ]);
+            });
 
             // Password Setup Routes
             $router->group(['prefix' => 'setup'], function ($router)

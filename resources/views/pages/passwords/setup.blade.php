@@ -18,9 +18,16 @@
         <div class="alert alert-info" role="alert">
             <b>Hey There.</b>
 
-            <br>
+            <p>
+                You have to setup a pin before you can start storing passwords.
+            </p>
 
-            You have to setup a pin before you can start storing passwords.
+            <p>
+                All encrypted usernames, passwords, and notes are encrypted using OpenSSL and the AES-256-CBC cipher.
+                Furthermore, all encrypted values are signed with a message authentication
+                code (MAC) to detect any modifications to the encrypted string.
+            </p>
+
         </div>
     </div>
 

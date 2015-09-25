@@ -32,5 +32,6 @@ class Kernel extends HttpKernel
         'manage' => \Orchestra\Foundation\Http\Middleware\CanManage::class,
         'passwords.locked' => Middleware\PasswordFolderLocked::class,
         'passwords.setup' => Middleware\PasswordFolderSetup::class,
+        'passwords.gate' => Middleware\PasswordGate::class,
     ];
 }
