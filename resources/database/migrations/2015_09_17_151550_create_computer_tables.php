@@ -54,12 +54,23 @@ class CreateComputerTables extends Migration
             $table->integer('os_id')->unsigned();
             $table->string('dn')->nullable();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('model')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('type_id')->references('id')->on('computer_types');
             $table->foreign('os_id')->references('id')->on('operating_systems');
+        });
+
+        Schema::create('computer_access', function (Blueprint $table)
+        {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('computer_id')->unsigned()->nullable();
+            $table->boolean('active_directory')->default(false);
+            $table->boolean('wmi')->default(false);
+
+            $table->foreign('computer_id')->references('id')->on('computers');
         });
 
         Schema::create('computer_users', function(Blueprint $table)
@@ -140,6 +151,7 @@ class CreateComputerTables extends Migration
         Schema::dropIfExists('computer_processors');
         Schema::dropIfExists('computer_users');
         Schema::dropIfExists('computer_software');
+        Schema::dropIfExists('computer_access');
         Schema::dropIfExists('computers');
         Schema::dropIfExists('computer_types');
         Schema::dropIfExists('operating_systems');
