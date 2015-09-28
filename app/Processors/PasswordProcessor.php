@@ -2,6 +2,8 @@
 
 namespace App\Processors;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\PasswordFolder\PasswordRequest;
 use App\Http\Presenters\PasswordFolder\PasswordPresenter;
 use App\Models\Password;
@@ -9,11 +11,6 @@ use App\Models\PasswordFolder;
 
 class PasswordProcessor extends Processor
 {
-    /**
-     * @var PasswordFolder
-     */
-    protected $folder;
-
     /**
      * @var Password
      */
@@ -25,16 +22,22 @@ class PasswordProcessor extends Processor
     protected $presenter;
 
     /**
+     * @var Guard
+     */
+    protected $guard;
+
+    /**
      * Constructor.
      *
-     * @param Password $password
+     * @param Password          $password
      * @param PasswordPresenter $presenter
+     * @param Guard             $guard
      */
-    public function __construct(Password $password, PasswordPresenter $presenter)
+    public function __construct(Password $password, PasswordPresenter $presenter, Guard $guard)
     {
-        $this->folder = auth()->user()->passwordFolder;
         $this->password = $password;
         $this->presenter = $presenter;
+        $this->guard = $guard;
     }
 
     /**
@@ -44,11 +47,21 @@ class PasswordProcessor extends Processor
      */
     public function index()
     {
-        $passwords = $this->presenter->table($this->password);
+        $user = $this->guard->user();
 
-        $navbar = $this->presenter->navbar();
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
 
-        return view('pages.passwords.index', compact('passwords', 'navbar'));
+            if ($folder instanceof PasswordFolder) {
+                $passwords = $this->presenter->table($folder->passwords()->getQuery());
+
+                $navbar = $this->presenter->navbar();
+
+                return view('pages.passwords.index', compact('passwords', 'navbar'));
+            }
+        }
+
+        abort(404);
     }
 
     /**
@@ -72,15 +85,23 @@ class PasswordProcessor extends Processor
      */
     public function store(PasswordRequest $request)
     {
-        $this->password->folder_id = $this->folder->getKey();
-        $this->password->title = $request->input('title');
-        $this->password->website = $request->input('website');
-        $this->password->username = $request->input('username');
-        $this->password->password = $request->input('password');
-        $this->password->notes = $request->input('notes');
+        $user = $this->guard->user();
 
-        if ($this->password->save()) {
-            return $this->password;
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
+
+            if ($folder instanceof PasswordFolder) {
+                $this->password->folder_id = $folder->getKey();
+                $this->password->title = $request->input('title');
+                $this->password->website = $request->input('website');
+                $this->password->username = $request->input('username');
+                $this->password->password = $request->input('password');
+                $this->password->notes = $request->input('notes');
+
+                if ($this->password->save()) {
+                    return $this->password;
+                }
+            }
         }
 
         return false;
@@ -95,11 +116,21 @@ class PasswordProcessor extends Processor
      */
     public function show($id)
     {
-        $password = $this->folder->passwords()->findOrFail($id);
+        $user = $this->guard->user();
 
-        $form = $this->presenter->form($password, $viewing = true);
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
 
-        return view('pages.passwords.show', compact('password', 'form'));
+            if ($folder instanceof PasswordFolder) {
+                $password = $folder->passwords()->findOrFail($id);
+
+                $form = $this->presenter->form($password, $viewing = true);
+
+                return view('pages.passwords.show', compact('password', 'form'));
+            }
+        }
+
+        abort(404);
     }
 
     /**
@@ -111,11 +142,21 @@ class PasswordProcessor extends Processor
      */
     public function edit($id)
     {
-        $password = $this->folder->passwords()->findOrFail($id);
+        $user = $this->guard->user();
 
-        $form = $this->presenter->form($password);
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
 
-        return view('pages.passwords.edit', compact('password', 'form'));
+            if ($folder instanceof PasswordFolder) {
+                $password = $folder->passwords()->findOrFail($id);
+
+                $form = $this->presenter->form($password);
+
+                return view('pages.passwords.edit', compact('password', 'form'));
+            }
+        }
+
+        abort(404);
     }
 
     /**
@@ -128,16 +169,24 @@ class PasswordProcessor extends Processor
      */
     public function update(PasswordRequest $request, $id)
     {
-        $password = $this->folder->passwords()->findOrFail($id);
+        $user = $this->guard->user();
 
-        $password->title    = $request->input('title', $password->title);
-        $password->website  = $request->input('website', $password->website);
-        $password->username = $request->input('username', $password->username);
-        $password->password = $request->input('password', $password->password);
-        $password->notes    = $request->input('notes', $password->notes);
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
 
-        if ($password->save()) {
-            return $password;
+            if ($folder instanceof PasswordFolder) {
+                $password = $folder->passwords()->findOrFail($id);
+
+                $password->title    = $request->input('title', $password->title);
+                $password->website  = $request->input('website', $password->website);
+                $password->username = $request->input('username', $password->username);
+                $password->password = $request->input('password', $password->password);
+                $password->notes    = $request->input('notes', $password->notes);
+
+                if ($password->save()) {
+                    return $password;
+                }
+            }
         }
 
         return false;
@@ -152,8 +201,18 @@ class PasswordProcessor extends Processor
      */
     public function destroy($id)
     {
-        $password = $this->folder->passwords()->findOrFail($id);
+        $user = $this->guard->user();
 
-        return $password->delete();
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
+
+            if ($folder instanceof PasswordFolder) {
+                $password = $folder->passwords()->findOrFail($id);
+
+                return $password->delete();
+            }
+        }
+
+        return false;
     }
 }

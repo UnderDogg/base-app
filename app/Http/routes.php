@@ -9,10 +9,16 @@ $router->get('/', [
 // Auth Covered Routes
 $router->group(['middleware' => ['auth']], function ($router)
 {
+    // The Devices namespace group
+    $router->group(['namespace' => 'Device', 'prefix' => 'devices', 'as' => 'devices.'], function ($router)
+    {
+        $router->resource('computers', 'ComputerController');
+    });
+
     // The PasswordFolder namespace group
     $router->group(['namespace' => 'PasswordFolder'], function ($router)
     {
-        // The passwords group
+        // The Passwords group
         $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router)
         {
             $router->group(['middleware' => ['passwords.gate']], function ($router)

@@ -54,6 +54,22 @@
                         </ul>
                     </li>
 
+                    <li class="dropdown" id="devices-menu">
+                        <a href="#devices-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-desktop"></i>
+                            Devices
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="">
+                                <a href="#">
+                                    <i class="fa fa-desktop"></i>
+                                    Computers
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     @can('index', Adldap\Models\Computer::class)
                     <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
                         <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

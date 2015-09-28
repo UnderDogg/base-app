@@ -7,23 +7,18 @@ use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Models\Password;
 use App\Http\Presenters\Presenter;
-use Orchestra\Support\Facades\HTML;
 
 class PasswordPresenter extends Presenter
 {
     /**
      * Returns a table of all of the users passwords.
      *
-     * @param Password $password
+     * @param \Illuminate\Database\Eloquent\Builder|Password $password
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Password $password)
+    public function table($password)
     {
-        $folder = auth()->user()->passwordFolder;
-
-        $password = $password->where('folder_id', $folder->getKey());
-
         return $this->table->of('passwords', function(TableGrid $table) use ($password)
         {
             $table->attributes('class', 'table table-hover');

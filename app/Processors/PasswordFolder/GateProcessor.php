@@ -2,6 +2,8 @@
 
 namespace App\Processors\PasswordFolder;
 
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\PasswordFolder\LockRequest;
 use App\Http\Requests\PasswordFolder\UnlockRequest;
 use App\Http\Presenters\PasswordFolder\GatePresenter;
@@ -11,9 +13,9 @@ use App\Processors\Processor;
 class GateProcessor extends Processor
 {
     /**
-     * @var PasswordFolder
+     * @var Guard
      */
-    protected $folder;
+    protected $guard;
 
     /**
      * @var GatePresenter
@@ -24,10 +26,11 @@ class GateProcessor extends Processor
      * Constructor.
      *
      * @param GatePresenter  $presenter
+     * @param Guard          $guard
      */
-    public function __construct(GatePresenter $presenter)
+    public function __construct(GatePresenter $presenter, Guard $guard)
     {
-        $this->folder = auth()->user()->passwordFolder;
+        $this->guard = $guard;
         $this->presenter = $presenter;
     }
 
@@ -52,7 +55,17 @@ class GateProcessor extends Processor
      */
     public function unlock(UnlockRequest $request)
     {
-        return $this->folder->unlock($request);
+        $user = $this->guard->user();
+
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
+
+            if ($folder instanceof PasswordFolder) {
+                return $folder->unlock($request);
+            }
+        }
+
+        return false;
     }
 
 
@@ -65,6 +78,16 @@ class GateProcessor extends Processor
      */
     public function lock(LockRequest $request)
     {
-        return $this->folder->lock($request);
+        $user = $this->guard->user();
+
+        if ($user instanceof Authenticatable) {
+            $folder = $user->passwordFolder;
+
+            if ($folder instanceof PasswordFolder) {
+                return $folder->lock($request);
+            }
+        }
+
+        return false;
     }
 }
