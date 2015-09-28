@@ -50,8 +50,8 @@ class CreateComputerTables extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->integer('type_id')->unsigned();
-            $table->integer('os_id')->unsigned();
+            $table->integer('type_id')->unsigned()->nullable();
+            $table->integer('os_id')->unsigned()->nullable();
             $table->string('dn')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
