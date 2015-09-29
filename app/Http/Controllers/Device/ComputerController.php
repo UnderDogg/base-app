@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Device;
 
 use App\Http\Requests\Device\ComputerRequest;
+use App\Models\Computer;
 use App\Processors\Device\ComputerProcessor;
 use App\Http\Controllers\Controller;
 
@@ -52,18 +53,29 @@ class ComputerController extends Controller
      */
     public function store(ComputerRequest $request)
     {
-        //
+        $computer = $this->processor->store($request);
+
+        if ($computer instanceof Computer) {
+            flash()->success('Success!', 'Successfully created computer.');
+
+            return redirect()->route('devices.computers.index');
+        } else {
+            flash()->error('Error!', 'There was an issue creating a computer. Please try again.');
+
+            return redirect()->route('devices.computers.create');
+        }
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified computer.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
-        //
+        return $this->processor->show($id);
     }
 
     /**
@@ -98,5 +110,10 @@ class ComputerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function settings($id)
+    {
+
     }
 }

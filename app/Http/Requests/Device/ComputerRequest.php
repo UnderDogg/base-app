@@ -15,8 +15,8 @@ class ComputerRequest extends Request
     {
         return [
             'name'  => 'required',
-            'os'    => 'required',
-            'type'  => 'required',
+            'os'    => 'required_without:active_directory',
+            'type'  => 'required_without:active_directory',
         ];
     }
 

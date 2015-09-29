@@ -48,9 +48,7 @@ class ComputerPresenter extends Presenter
                 $column->label = 'Access';
                 $column->value = function (Computer $computer)
                 {
-                    if ($computer->access instanceof ComputerAccess) {
-                        return $computer->access->getChecks();
-                    }
+                    return $computer->getAccessChecks();
                 };
             });
 

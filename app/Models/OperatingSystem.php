@@ -21,4 +21,14 @@ class OperatingSystem extends Model
         'version',
         'service_pack',
     ];
+
+    /**
+     * Returns the full operating system name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return implode(' ', [$this->name, $this->version, $this->service_pack]);
+    }
 }

@@ -54,7 +54,7 @@ class CreateOs extends Job implements SelfHandling
             ]);
 
             $os->version = $this->version;
-            $os->servicePack = $this->servicePack;
+            $os->service_pack = $this->servicePack;
 
             if ($os->save()) {
                 return $os;

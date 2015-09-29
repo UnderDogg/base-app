@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Orchestra\Support\Facades\HTML;
 use App\Models\Traits\HasUserTrait;
 
 class Computer extends Model
@@ -90,5 +91,75 @@ class Computer extends Model
         }
 
         return null;
+    }
+
+
+    /**
+     * Returns all access checks.
+     *
+     * @return string
+     */
+    public function getAccessChecks()
+    {
+        $ad = $this->getActiveDirectoryCheck();
+        $wmi = $this->getWmiCheck();
+
+        return implode(' ', [$ad, $wmi]);
+    }
+
+    /**
+     * Returns a check mark or an x depending on
+     * if the computer is accessed by AD.
+     *
+     * @return string
+     */
+    public function getActiveDirectoryCheck()
+    {
+        if ($this->access instanceof ComputerAccess) {
+            $ad = $this->access->active_directory;
+        } else {
+            $ad = false;
+        }
+
+        return $this->createCheck($ad, 'Active Directory');
+    }
+
+    /**
+     * Returns a check mark or an x depending on
+     * if the computer is accessed by WMI.
+     *
+     * @return string
+     */
+    public function getWmiCheck()
+    {
+        if ($this->access instanceof ComputerAccess) {
+            $wmi = $this->access->wmi;
+        } else {
+            $wmi = false;
+        }
+
+        return $this->createCheck($wmi, 'WMI');
+    }
+
+    /**
+     * Creates a check mark or x icon depending if
+     * bool is true or false.
+     *
+     * @param bool|false $bool
+     * @param string     $text
+     *
+     * @return string
+     */
+    private function createCheck($bool = false, $text = '')
+    {
+        if ($bool) {
+            $check =  HTML::create('i', '', ['class' => 'fa fa-check']);
+
+            return HTML::raw("<span class='label label-success'>$check $text</span>");
+        } else {
+            $check = HTML::create('i', '', ['class' => 'fa fa-times']);
+
+            return HTML::raw("<span class='label label-danger'>$check $text</span>");
+        }
     }
 }

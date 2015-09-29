@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\DecoratorServiceProvider::class,
 
         /*
          * Revision Provider
