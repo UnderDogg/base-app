@@ -53,8 +53,13 @@ class SetupController extends Controller
         }
     }
 
+    /**
+     * Displays the invalid setup page.
+     *
+     * @return \Illuminate\View\View
+     */
     public function invalid()
     {
-        //
+        return view('pages.passwords.invalid');
     }
 }
