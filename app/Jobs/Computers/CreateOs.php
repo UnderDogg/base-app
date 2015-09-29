@@ -44,14 +44,23 @@ class CreateOs extends Job implements SelfHandling
     /**
      * Creates an operating system.
      *
-     * @return OperatingSystem
+     * @return OperatingSystem|false
      */
     public function handle()
     {
-        return OperatingSystem::firstOrCreate([
-            'name' => $this->name,
-            'version' => $this->version,
-            'service_pack' => $this->servicePack,
-        ]);
+        if (!is_null ($this->name)) {
+            $os = OperatingSystem::firstOrNew([
+                'name' => $this->name,
+            ]);
+
+            $os->version;
+            $os->servicePack;
+
+            if ($os->save()) {
+                return $os;
+            }
+        }
+
+        return false;
     }
 }

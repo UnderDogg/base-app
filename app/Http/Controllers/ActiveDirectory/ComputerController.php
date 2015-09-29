@@ -33,7 +33,7 @@ class ComputerController extends Controller
     }
 
     /**
-     * Creates a new computer from active directory.
+     * Imports an active directory computer.
      *
      * @param ComputerImportRequest $request
      *
@@ -51,6 +51,26 @@ class ComputerController extends Controller
             return redirect()->back();
         } else {
             flash()->error('Error!', 'There was an error adding this computer. Please try again.');
+
+            return redirect()->back();
+        }
+    }
+
+    /**
+     * Imports all active directory computers.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeAll()
+    {
+        $added = count($this->processor->storeAll());
+
+        if ($added > 0) {
+            flash()->success('Success!', "Successfully added $added computer(s).");
+
+            return redirect()->back();
+        } else {
+            flash()->error('Error!', 'There was an error adding all computers. Please try again.');
 
             return redirect()->back();
         }

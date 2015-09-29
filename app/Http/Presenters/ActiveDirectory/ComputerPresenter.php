@@ -26,10 +26,20 @@ class ComputerPresenter extends Presenter
 
             $table->rows($computers);
 
-            $table->column('name', function ($column) {
+            $table->column('name', function ($column)
+            {
                 $column->label = 'Name';
-                $column->value = function (AdComputer $computer) {
+                $column->value = function (AdComputer $computer)
+                {
                     return $computer->getName();
+                };
+            });
+
+            $table->column('created_at', function ($column)
+            {
+                $column->value = function (AdComputer $computer)
+                {
+                    return $computer->getCreatedAtDate();
                 };
             });
 

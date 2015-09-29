@@ -64,4 +64,21 @@ class Computer extends Model
     {
         return $this->belongsToMany(User::class, $this->tablePivotUsers);
     }
+
+    /**
+     * Returns the complete computers operating system string.
+     *
+     * @return string|null
+     */
+    public function getCompleteOs()
+    {
+        if ($this->os instanceof OperatingSystem) {
+            $os = $this->os->name;
+            $version = $this->os->version;
+
+            return sprintf('%s %s', $os, $version);
+        }
+
+        return null;
+    }
 }

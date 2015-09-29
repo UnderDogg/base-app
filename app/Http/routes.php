@@ -6,16 +6,22 @@ $router->get('/', [
     'uses' => 'WelcomeController@index',
 ]);
 
-// Auth Covered Routes
+// Auth Covered Routes.
 $router->group(['middleware' => ['auth']], function ($router)
 {
-    // The Devices namespace group
-    $router->group(['namespace' => 'Device', 'prefix' => 'devices', 'as' => 'devices.'], function ($router)
+    // The Devices namespace group.
+    $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function ($router)
     {
         $router->resource('computers', 'ComputerController');
+
+        // The devices group.
+        $router->group(['as' => 'devices.'], function ($router)
+        {
+
+        });
     });
 
-    // The PasswordFolder namespace group
+    // The PasswordFolder namespace group.
     $router->group(['namespace' => 'PasswordFolder'], function ($router)
     {
         // The Passwords group
@@ -82,60 +88,74 @@ $router->group(['middleware' => ['auth']], function ($router)
         'uses' => 'IssueController@closed',
     ]);
 
-    // Close an Issue
+    // Close an Issue.
     $router->post('issues/{issues}/close', [
         'as' => 'issues.close',
         'uses' => 'IssueController@close',
     ]);
 
-    // Re-Open an Issue
+    // Re-Open an Issue.
     $router->post('issues/{issues}/open', [
         'as' => 'issues.open',
         'uses' => 'IssueController@open',
     ]);
 
-    // The issue resource
+    // The issue resource.
     $router->resource('issues', 'IssueController');
 
-    // The issue comments resource
+    // The issue comments resource.
     $router->resource('issues.comments', 'IssueCommentController', [
         'except' => ['index', 'show'],
     ]);
 
-    // The issue labels resource
+    // The issue labels resource.
     $router->resource('issues.labels', 'IssueLabelController', [
         'only' => ['store'],
     ]);
 
-    // The issue users resource
+    // The issue users resource.
     $router->resource('issues.users', 'IssueUserController', [
         'only' => ['store'],
     ]);
 
-    // The labels resource
+    // The labels resource.
     $router->resource('labels', 'LabelController', [
         'except' => ['show']
     ]);
 
-    // The active directory route group
+    // The active directory route group.
     $router->group(['prefix' => 'active-directory', 'namespace' => 'ActiveDirectory'], function ($router)
     {
-        // The computers resource
+        // The computers resource.
         $router->resource('computers', 'ComputerController', [
             'only' => ['index', 'store']
         ]);
 
-        // The users resource
+        // The users resource.
         $router->resource('users', 'UserController', [
             'only' => ['index', 'store']
         ]);
+
+        // Active Directory Routes
+        $router->group(['as' => 'active-directory.'], function ($router)
+        {
+            // Active Directory Computer Routes
+            $router->group(['as' => 'computers.'], function ($router)
+            {
+                // Add all computers.
+                $router->post('add-all', [
+                    'as' => 'store.all',
+                    'uses' => 'ComputerController@storeAll',
+                ]);
+            });
+        });
     });
 });
 
-// Authentication Routes
+// Authentication Routes.
 $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
 {
-    // Guest Auth Routes
+    // Guest Auth Routes.
     $router->group(['middleware' => ['guest']], function ($router)
     {
         $router->get('login', [
@@ -149,7 +169,7 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
         ]);
     });
 
-    // Only Auth Routes
+    // Only Auth Routes.
     $router->group(['middleware' => ['auth']], function($router)
     {
         $router->get('logout', [

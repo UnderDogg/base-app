@@ -62,7 +62,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="">
-                                <a href="#">
+                                <a href="{{ route('devices.computers.index') }}">
                                     <i class="fa fa-desktop"></i>
                                     Computers
                                 </a>

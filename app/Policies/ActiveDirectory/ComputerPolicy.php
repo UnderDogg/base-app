@@ -32,4 +32,17 @@ class ComputerPolicy extends Policy
     {
         return $user->is($this->admin()->name);
     }
+
+    /**
+     * Returns true / false if the specified user
+     * can add all active directory computers.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function storeAll(User $user)
+    {
+        return $user->is($this->admin()->name);
+    }
 }

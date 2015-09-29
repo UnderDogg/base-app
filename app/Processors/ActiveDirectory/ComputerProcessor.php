@@ -85,4 +85,26 @@ class ComputerProcessor extends Processor
 
         return false;
     }
+
+    /**
+     * Imports all active directory computers.
+     *
+     * @return array
+     */
+    public function storeAll()
+    {
+        $this->authorize('storeAll', Computer::class);
+
+        $computers = $this->adldap->computers()->all();
+
+        $added = [];
+
+        foreach ($computers as  $computer) {
+            if ($computer instanceof Computer) {
+                $added[] = $this->dispatch(new ImportComputer($computer));
+            }
+        }
+
+        return $added;
+    }
 }
