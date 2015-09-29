@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Device;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Device\ComputerRequest;
 use App\Processors\Device\ComputerProcessor;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +24,7 @@ class ComputerController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all computers.
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,22 +34,23 @@ class ComputerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new computer.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return $this->processor->create();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Creates a computer.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ComputerRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ComputerRequest $request)
     {
         //
     }

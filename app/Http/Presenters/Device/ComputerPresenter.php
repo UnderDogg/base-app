@@ -2,7 +2,12 @@
 
 namespace App\Http\Presenters\Device;
 
+use App\Models\ComputerAccess;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use App\Models\OperatingSystem;
+use App\Models\ComputerType;
 use App\Models\Computer;
 use App\Http\Presenters\Presenter;
 
@@ -38,6 +43,17 @@ class ComputerPresenter extends Presenter
                 };
             });
 
+            $table->column('access', function ($column)
+            {
+                $column->label = 'Access';
+                $column->value = function (Computer $computer)
+                {
+                    if ($computer->access instanceof ComputerAccess) {
+                        return $computer->access->getChecks();
+                    }
+                };
+            });
+
             $table->column('description', function ($column)
             {
                 $column->label = 'Description';
@@ -58,9 +74,98 @@ class ComputerPresenter extends Presenter
         });
     }
 
+    /**
+     * Returns a new form for computers.
+     *
+     * @param Computer $computer
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function form(Computer $computer)
     {
-        //
+        return $this->form->of('computers', function (FormGrid $form) use ($computer)
+        {
+            $operatingSystems = OperatingSystem::lists('name', 'id');
+            $types = ComputerType::lists('name', 'id');
+
+            if($computer->exists) {
+                $form->setup($this, route('devices.computers.update', [$computer->getKey()]), $computer, [
+                    'method' => 'PATCH',
+                ]);
+
+                $form->submit = 'Save';
+            } else {
+                $form->setup($this, route('devices.computers.store'), $computer, [
+                    'method' => 'POST',
+                ]);
+
+                $form->submit = 'Create';
+            }
+
+            $form->fieldset(function (Fieldset $fieldset) use ($operatingSystems, $types)
+            {
+                // The computer name text field
+                $fieldset->control('input:text', 'name')
+                    ->label('Name')
+                    ->attributes(['placeholder' => 'Name']);
+
+                // The computer OS select field
+                $fieldset->control('select', 'os')
+                    ->label('Operating System')
+                    ->options($operatingSystems)
+                    ->value(function(Computer $computer)
+                    {
+                        if ($computer->os instanceof OperatingSystem) {
+                            return $computer->os->getKey();
+                        }
+                    })
+                    ->attributes([
+                        'class' => 'form-control',
+                        'placeholder' => 'Select An Operating System',
+                    ]);
+
+                // The computer type select field
+                $fieldset->control('select', 'type')
+                    ->label('Type')
+                    ->options($types)
+                    ->value(function(Computer $computer)
+                    {
+                        if ($computer->type instanceof ComputerType) {
+                            return $computer->type->getKey();
+                        }
+                    })
+                    ->attributes([
+                        'class' => 'form-control',
+                        'placeholder' => 'Select a Type',
+                    ]);
+
+                // The computer model text field
+                $fieldset->control('input:text', 'model')
+                    ->label('Model')
+                    ->attributes(['placeholder' => 'Model']);
+
+                // The computer description text field
+                $fieldset->control('input:textarea', 'description')
+                    ->label('Description')
+                    ->attributes([
+                        'placeholder' => 'Description',
+                    ]);
+
+                $fieldset->control('input:checkbox', 'Exists in Active Directory?')
+                    ->attributes([
+                        'class' => 'switch-mark',
+                    ])
+                    ->name('active_directory')
+                    ->value(1);
+
+                $fieldset->control('input:checkbox', 'Can be accessed through WMI?')
+                    ->attributes([
+                        'class' => 'switch-mark',
+                    ])
+                    ->name('wmi')
+                    ->value(1);
+            });
+        });
     }
 
     /**

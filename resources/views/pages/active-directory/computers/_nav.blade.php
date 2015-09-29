@@ -1,5 +1,5 @@
 <ul class="nav navbar-left navbar-nav">
-    <li class="{{ active()->route('issues.index') }}">
+    <li>
         <a
                 data-post="POST"
                 data-title="Are you sure?"

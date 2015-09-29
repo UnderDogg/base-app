@@ -7,6 +7,7 @@ use App\Jobs\Computers\CreateOs;
 use App\Jobs\Computers\CreateType;
 use App\Jobs\Job;
 use Adldap\Models\Computer as AdComputer;
+use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
 use Illuminate\Contracts\Bus\SelfHandling;
@@ -34,7 +35,7 @@ class ImportComputer extends Job implements SelfHandling
     /**
      * Creates a computer from an AD Computer model instance.
      *
-     * @return \App\Models\Computer
+     * @return Computer|bool
      */
     public function handle()
     {
@@ -67,6 +68,14 @@ class ImportComputer extends Job implements SelfHandling
 
         $job = new CreateComputer($typeId, $osId, $name, $description, $dn);
 
-        return $this->dispatch($job);
+        $computer = $this->dispatch($job);
+
+        if ($computer instanceof Computer) {
+            $this->dispatch(new CreateComputerAccess($computer->getKey()));
+
+            return $computer;
+        }
+
+        return false;
     }
 }

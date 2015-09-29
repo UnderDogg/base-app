@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Crypt;
+use App\Models\Traits\CanEncryptTrait;
 
 class Password extends Model
 {
+    use CanEncryptTrait;
+
     /**
      * The passwords table.
      *
@@ -113,29 +115,5 @@ class Password extends Model
         }
 
         return null;
-    }
-
-    /**
-     * Encrypts a password.
-     *
-     * @param string $password
-     *
-     * @return string
-     */
-    protected function encrypt($password)
-    {
-        return Crypt::encrypt($password);
-    }
-
-    /**
-     * Decrypts a password.
-     *
-     * @param string $password
-     *
-     * @return string
-     */
-    protected function decrypt($password)
-    {
-        return Crypt::decrypt($password);
     }
 }

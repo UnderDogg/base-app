@@ -31,10 +31,10 @@ class CreateOs extends Job implements SelfHandling
      * Constructor.
      *
      * @param string      $name
-     * @param string      $version
+     * @param null|string $version
      * @param null|string $servicePack
      */
-    public function __construct($name, $version, $servicePack = null)
+    public function __construct($name, $version = null, $servicePack = null)
     {
         $this->name = $name;
         $this->version = $version;
@@ -53,8 +53,8 @@ class CreateOs extends Job implements SelfHandling
                 'name' => $this->name,
             ]);
 
-            $os->version;
-            $os->servicePack;
+            $os->version = $this->version;
+            $os->servicePack = $this->servicePack;
 
             if ($os->save()) {
                 return $os;

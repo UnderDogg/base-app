@@ -56,6 +56,16 @@ class Computer extends Model
     }
 
     /**
+     * The hasOne access relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function access()
+    {
+        return $this->hasOne(ComputerAccess::class, 'computer_id');
+    }
+
+    /**
      * The belongsToMany users relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
