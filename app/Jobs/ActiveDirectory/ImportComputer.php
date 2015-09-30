@@ -3,6 +3,7 @@
 namespace App\Jobs\ActiveDirectory;
 
 use App\Jobs\Computers\Create as CreateComputer;
+use App\Jobs\Computers\CreateAccess;
 use App\Jobs\Computers\CreateOs;
 use App\Jobs\Computers\CreateType;
 use App\Jobs\Job;
@@ -71,7 +72,7 @@ class ImportComputer extends Job implements SelfHandling
         $computer = $this->dispatch($job);
 
         if ($computer instanceof Computer) {
-            $this->dispatch(new CreateComputerAccess($computer->getKey()));
+            $this->dispatch(new CreateAccess($computer->getKey(), $ad = true));
 
             return $computer;
         }

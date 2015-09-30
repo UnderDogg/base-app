@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d80588c7133a840fa3eff4482a384d7d",
+    "hash": "8d5363e8bcd594c58c31d41e014380a7",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -2584,6 +2584,46 @@
             ],
             "description": "Revisions for Eloquent Models.",
             "time": "2015-07-22 13:40:55"
+        },
+        {
+            "name": "stevebauman/wmi",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/wmi.git",
+                "reference": "1d4dc89aa2958e8b7f7b4ecef8a70d97a1b1b5b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/wmi/zipball/1d4dc89aa2958e8b7f7b4ecef8a70d97a1b1b5b1",
+                "reference": "1d4dc89aa2958e8b7f7b4ecef8a70d97a1b1b5b1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\Wmi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com"
+                }
+            ],
+            "description": "A package for WMI manipulation using PHP and COM.",
+            "time": "2015-09-30 14:07:45"
         },
         {
             "name": "swiftmailer/swiftmailer",

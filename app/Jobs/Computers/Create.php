@@ -5,9 +5,12 @@ namespace App\Jobs\Computers;
 use App\Models\Computer;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Create extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     /**
      * The computers type ID.
      *
@@ -93,6 +96,8 @@ class Create extends Job implements SelfHandling
             $computer->model = $this->model;
 
             if ($computer->save()) {
+                $this->dispatch(new CreateAccess($computer->getKey()));
+
                 return $computer;
             }
         }

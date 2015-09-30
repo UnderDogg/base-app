@@ -14,10 +14,24 @@ $router->group(['middleware' => ['auth']], function ($router)
     {
         $router->resource('computers', 'ComputerController');
 
-        // The devices group.
+        // The Devices group.
         $router->group(['as' => 'devices.'], function ($router)
         {
+            // The Computer Device group
+            $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function ($router)
+            {
+                // Edit Computer Settings
+                $router->get('settings', [
+                    'as' => 'settings.edit',
+                    'uses' => 'ComputerSettingController@edit',
+                ]);
 
+                // Update Computer Settings
+                $router->post('settings', [
+                    'as' => 'settings.update',
+                    'uses' => 'ComputerSettingController@update',
+                ]);
+            });
         });
     });
 

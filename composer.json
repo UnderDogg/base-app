@@ -12,6 +12,7 @@
         "graham-campbell/markdown": "4.0.*",
         "adldap2/adldap2-laravel": "1.2.*",
         "stevebauman/revision": "1.1.*",
+        "stevebauman/wmi": "1.1.*",
         "stevebauman/purify": "1.1.*",
         "ramsey/uuid": "2.8.*",
         "geerlingguy/ping": "1.0.*"
