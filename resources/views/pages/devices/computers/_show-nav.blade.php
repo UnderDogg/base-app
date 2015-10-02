@@ -17,10 +17,10 @@
             Software
         </a>
     </li>
-    <li role="presentation" class="{{ active()->route('devices.computers.settings.edit') }}">
-        <a title="Computer Settings" href="{{ route('devices.computers.settings.edit', [$computer->getKey()]) }}">
+    <li role="presentation" class="{{ active()->route('devices.computers.access.edit') }}">
+        <a title="Computer Settings" href="{{ route('devices.computers.access.edit', [$computer->getKey()]) }}">
             <i class="fa fa-cogs"></i>
-            Settings
+            Access
         </a>
     </li>
 </ul>

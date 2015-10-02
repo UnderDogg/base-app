@@ -4,10 +4,10 @@ namespace App\Http\Requests\Device;
 
 use App\Http\Requests\Request;
 
-class ComputerSettingRequest extends Request
+class ComputerAccessRequest extends Request
 {
     /**
-     * The computer setting validation rules.
+     * The computer access validation rules.
      */
     public function rules()
     {
@@ -15,7 +15,7 @@ class ComputerSettingRequest extends Request
     }
 
     /**
-     * Allows all users to update computer settings.
+     * Allows all users to update the computers access.
      *
      * @return bool
      */

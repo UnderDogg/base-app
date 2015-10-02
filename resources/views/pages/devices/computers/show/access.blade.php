@@ -1,7 +1,7 @@
 @extends('pages.devices.computers.show')
 
 @section('show.panel.title')
-    Settings
+    Access
 @stop
 
 @section('show.panel.body')

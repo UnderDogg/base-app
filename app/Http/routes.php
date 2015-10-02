@@ -21,15 +21,15 @@ $router->group(['middleware' => ['auth']], function ($router)
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function ($router)
             {
                 // Edit Computer Settings
-                $router->get('settings', [
-                    'as' => 'settings.edit',
-                    'uses' => 'ComputerSettingController@edit',
+                $router->get('access', [
+                    'as' => 'access.edit',
+                    'uses' => 'ComputerAccessController@edit',
                 ]);
 
                 // Update Computer Settings
-                $router->post('settings', [
-                    'as' => 'settings.update',
-                    'uses' => 'ComputerSettingController@update',
+                $router->post('access', [
+                    'as' => 'access.update',
+                    'uses' => 'ComputerAccessController@update',
                 ]);
             });
         });

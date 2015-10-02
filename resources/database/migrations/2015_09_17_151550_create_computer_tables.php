@@ -67,10 +67,10 @@ class CreateComputerTables extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('computer_id')->unsigned()->nullable();
-            $table->string('username')->nullable();
-            $table->string('password')->nullable();
             $table->boolean('active_directory')->default(false);
             $table->boolean('wmi')->default(false);
+            $table->string('wmi_username')->nullable();
+            $table->string('wmi_password')->nullable();
 
             $table->foreign('computer_id')->references('id')->on('computers');
         });

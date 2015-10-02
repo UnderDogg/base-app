@@ -11,9 +11,9 @@ class ComputerSettingPresenter extends Presenter
 {
     public function form(Computer $computer)
     {
-        return $this->form->of('computers.settings', function (FormGrid $form) use ($computer)
+        return $this->form->of('computers.access', function (FormGrid $form) use ($computer)
         {
-            $form->setup($this, route('devices.computers.settings.update', [$computer->getKey()]), $computer);
+            $form->setup($this, route('devices.computers.access.update', [$computer->getKey()]), $computer);
 
             $form->submit = 'Save';
 

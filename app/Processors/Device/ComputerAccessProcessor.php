@@ -3,12 +3,12 @@
 namespace App\Processors\Device;
 
 use App\Jobs\Computers\CreateAccess;
-use App\Http\Requests\Device\ComputerSettingRequest;
+use App\Http\Requests\Device\ComputerAccessRequest;
 use App\Http\Presenters\Device\ComputerSettingPresenter;
 use App\Models\Computer;
 use App\Processors\Processor;
 
-class ComputerSettingProcessor extends Processor
+class ComputerAccessProcessor extends Processor
 {
     /**
      * @var Computer
@@ -40,18 +40,18 @@ class ComputerSettingProcessor extends Processor
 
         $form = $this->presenter->form($computer);
 
-        return view('pages.devices.computers.show.settings', compact('computer', 'form'));
+        return view('pages.devices.computers.show.access', compact('computer', 'form'));
     }
 
     /**
      * Updates the specified computers settings.
      *
-     * @param ComputerSettingRequest $request
+     * @param ComputerAccessRequest  $request
      * @param int|string             $id
      *
      * @return bool|\App\Models\ComputerAccess
      */
-    public function update(ComputerSettingRequest $request, $id)
+    public function update(ComputerAccessRequest $request, $id)
     {
         $computer = $this->computer->findOrFail($id);
 

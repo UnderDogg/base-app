@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Device;
 
-use App\Http\Requests\Device\ComputerSettingRequest;
-use App\Processors\Device\ComputerSettingProcessor;
+use App\Http\Requests\Device\ComputerAccessRequest;
+use App\Processors\Device\ComputerAccessProcessor;
 use App\Http\Controllers\Controller;
 
-class ComputerSettingController extends Controller
+class ComputerAccessController extends Controller
 {
     /**
-     * @var ComputerSettingProcessor
+     * @var ComputerAccessProcessor
      */
     protected $processor;
 
     /**
      * Constructor.
      *
-     * @param ComputerSettingProcessor $processor
+     * @param ComputerAccessProcessor $processor
      */
-    public function __construct(ComputerSettingProcessor $processor)
+    public function __construct(ComputerAccessProcessor $processor)
     {
         $this->processor = $processor;
     }
@@ -38,12 +38,12 @@ class ComputerSettingController extends Controller
     /**
      * Updates the specified computers settings.
      *
-     * @param ComputerSettingRequest $request
+     * @param ComputerAccessRequest  $request
      * @param int|string             $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ComputerSettingRequest $request, $id)
+    public function update(ComputerAccessRequest $request, $id)
     {
         if ($this->processor->update($request, $id)) {
             flash()->success('Success!', 'Successfully updated settings.');
