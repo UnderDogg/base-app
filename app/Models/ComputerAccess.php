@@ -20,14 +20,14 @@ class ComputerAccess extends Model
      *
      * @var array
      */
-    protected $guarded = ['username', 'password'];
+    protected $guarded = ['wmi_username', 'wmi_password'];
 
     /**
      * The hidden computer access attributes.
      *
      * @var array
      */
-    protected $hidden = ['username', 'password'];
+    protected $hidden = ['wmi_username', 'wmi_password'];
 
     /**
      * The fillable computer access attributes.
@@ -45,9 +45,9 @@ class ComputerAccess extends Model
      *
      * @param string $username
      */
-    public function setUsernameAttribute($username)
+    public function setWmiUsernameAttribute($username)
     {
-        $this->attributes['username'] = $this->encrypt($username);
+        $this->attributes['wmi_username'] = $this->encrypt($username);
     }
 
     /**
@@ -55,9 +55,9 @@ class ComputerAccess extends Model
      *
      * @param string $password
      */
-    public function setPasswordAttribute($password)
+    public function setWmiPasswordAttribute($password)
     {
-        $this->attributes['password'] = $this->encrypt($password);
+        $this->attributes['wmi_password'] = $this->encrypt($password);
     }
 
     /**
@@ -67,7 +67,7 @@ class ComputerAccess extends Model
      *
      * @return null|string
      */
-    public function getUsernameAttribute($username)
+    public function getWmiUsernameAttribute($username)
     {
         if (!is_null($username)) {
             return $this->decrypt($username);
@@ -83,7 +83,7 @@ class ComputerAccess extends Model
      *
      * @return null|string
      */
-    public function getPasswordAttribute($password)
+    public function getWmiPasswordAttribute($password)
     {
         if (!is_null($password)) {
             return $this->decrypt($password);

@@ -28,12 +28,11 @@ elixir(function(mix) {
         'libs/sweetalert.min.js',
         'libs/bootstrap-editable.min.js',
         'libs/bootstrap-markdown.js',
-        'libs/bootstrap-switch.min.js',
+        'libs/bootstrap-toggle.min.js',
         'libs/markdown.js',
         'libs/to-markdown.js',
         'libs/select2.min.js',
         'libs/bootstrap-show-password.min.js',
-        'libs/bootstrap-password-strength.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
@@ -42,7 +41,7 @@ elixir(function(mix) {
         'libs/sweetalert.css',
         'libs/bootstrap-editable.css',
         'libs/bootstrap-markdown.min.css',
-        'libs/bootstrap-switch.min.css',
+        'libs/bootstrap-toggle.min.css',
         'libs/select2.css',
         'libs/select2-bootstrap.css',
         'app.css'

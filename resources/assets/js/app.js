@@ -7,13 +7,13 @@ $(function ()
     $("textarea[data-provide='markdown']").markdown();
 
     // Mark Switches
-    $(".switch-mark").bootstrapSwitch({
-        onText: 'Yes',
-        offText: 'No'
+    $(".switch-mark").bootstrapToggle({
+        on: 'Yes',
+        off: 'No'
     });
 
     // Standard Switches
-    $(".switch").bootstrapSwitch();
+    $(".switch").bootstrapToggle();
 
     // Issue Users select
     $(".select-users").select2();

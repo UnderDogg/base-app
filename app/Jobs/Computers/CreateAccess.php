@@ -32,17 +32,35 @@ class CreateAccess extends Job implements SelfHandling
     protected $wmi = false;
 
     /**
+     * The WMI Username to use to access the computer.
+     *
+     * @var string|null
+     */
+    protected $wmiUsername = null;
+
+    /**
+     * The WMI Password to use to access the computer.
+     *
+     * @var string|null
+     */
+    protected $wmiPassword = null;
+
+    /**
      * Constructor.
      *
-     * @param int|string $computerId
-     * @param bool|false $activeDirectory
-     * @param bool|false $wmi
+     * @param int|string  $computerId
+     * @param bool|false  $activeDirectory
+     * @param bool|false  $wmi
+     * @param string|null $wmiUsername
+     * @param string|null $wmiPassword
      */
-    public function __construct($computerId, $activeDirectory = false, $wmi = false)
+    public function __construct($computerId, $activeDirectory = false, $wmi = false, $wmiUsername = null, $wmiPassword = null)
     {
         $this->computerId = $computerId;
         $this->activeDirectory = $activeDirectory;
         $this->wmi = $wmi;
+        $this->wmiUsername = $wmiUsername;
+        $this->wmiPassword = $wmiPassword;
     }
 
     /**
@@ -58,6 +76,8 @@ class CreateAccess extends Job implements SelfHandling
 
         $access->active_directory = $this->activeDirectory;
         $access->wmi = $this->wmi;
+        $access->wmi_username = $this->wmiUsername;
+        $access->wmi_password = $this->wmiPassword;
 
         if ($access->save()) {
             return $access;

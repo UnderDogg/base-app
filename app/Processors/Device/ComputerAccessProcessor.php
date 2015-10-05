@@ -4,7 +4,7 @@ namespace App\Processors\Device;
 
 use App\Jobs\Computers\CreateAccess;
 use App\Http\Requests\Device\ComputerAccessRequest;
-use App\Http\Presenters\Device\ComputerSettingPresenter;
+use App\Http\Presenters\Device\ComputerAccessPresenter;
 use App\Models\Computer;
 use App\Processors\Processor;
 
@@ -19,9 +19,9 @@ class ComputerAccessProcessor extends Processor
      * Constructor.
      *
      * @param Computer                 $computer
-     * @param ComputerSettingPresenter $presenter
+     * @param ComputerAccessPresenter  $presenter
      */
-    public function __construct(Computer $computer, ComputerSettingPresenter $presenter)
+    public function __construct(Computer $computer, ComputerAccessPresenter $presenter)
     {
         $this->computer = $computer;
         $this->presenter = $presenter;
@@ -58,6 +58,14 @@ class ComputerAccessProcessor extends Processor
         $ad = $request->has('active_directory');
         $wmi = $request->has('wmi');
 
-        return $this->dispatch(new CreateAccess($computer->getKey(), $ad, $wmi));
+        if (!$request->has('wmi_credentials')) {
+            $wmiUsername = $request->input('wmi_username');
+            $wmiPassword = $request->input('wmi_password');
+        } else {
+            $wmiUsername = null;
+            $wmiPassword = null;
+        }
+
+        return $this->dispatch(new CreateAccess($computer->getKey(), $ad, $wmi, $wmiUsername, $wmiPassword));
     }
 }

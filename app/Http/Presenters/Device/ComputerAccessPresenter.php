@@ -7,7 +7,7 @@ use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Models\Computer;
 use App\Http\Presenters\Presenter;
 
-class ComputerSettingPresenter extends Presenter
+class ComputerAccessPresenter extends Presenter
 {
     public function form(Computer $computer)
     {
@@ -22,9 +22,11 @@ class ComputerSettingPresenter extends Presenter
                 if ($computer->access) {
                     $ad = $computer->access->active_directory;
                     $wmi = $computer->access->wmi;
+                    $wmiUsername = $computer->access->wmi_username;
                 } else {
                     $ad = false;
                     $wmi = false;
+                    $wmiUsername = null;
                 }
 
                 $fieldset->control('input:checkbox', 'Exists in Active Directory?')
@@ -42,6 +44,36 @@ class ComputerSettingPresenter extends Presenter
                     ])
                     ->name('wmi')
                     ->value(1);
+
+                // Only if Active Directory connection is available,
+                // we'll show the same credentials as AD checkbox
+                if ($ad) {
+                    $fieldset->control('input:checkbox', 'Same credentials as AD?')
+                        ->attributes([
+                            'class' => 'switch-mark',
+                            ($wmiUsername ? null : 'checked')
+                        ])
+                        ->name('wmi_credentials')
+                        ->value(1);
+                }
+
+                $fieldset->control('input:text', 'WMI Username')
+                    ->label('WMI Username')
+                    ->attributes([
+                        'autocomplete' => 'new-username',
+                        'placeholder' => 'The WMI Username',
+                    ])
+                    ->value($wmiUsername)
+                    ->name('wmi_username');
+
+                $fieldset->control('input:password', 'WMI Password')
+                    ->label('WMI Password')
+                    ->attributes([
+                        'class' => 'password-show',
+                        'autocomplete' => 'new-password',
+                        'placeholder' => 'The WMI Password',
+                    ])
+                    ->name('wmi_password');
             });
         });
     }

@@ -99,7 +99,7 @@ class PasswordPresenter extends Presenter
                 $fieldset->control('input:password', 'password')
                     ->label('Password')
                     ->attributes([
-                        'class' => 'password-show password-strength',
+                        'class' => 'password-show',
                         'placeholder' => 'Enter your Password',
                         'autocomplete' => 'new-password',
                     ]);
