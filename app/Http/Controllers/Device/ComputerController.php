@@ -120,9 +120,4 @@ class ComputerController extends Controller
     {
         //
     }
-
-    public function settings($id)
-    {
-
-    }
 }

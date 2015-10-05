@@ -20,13 +20,19 @@ $router->group(['middleware' => ['auth']], function ($router)
             // The Computer Device group
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function ($router)
             {
-                // Edit Computer Settings
+                // View Computer Hard Disks
+                $router->get('disks', [
+                    'as' => 'disks.index',
+                    'uses' => 'ComputerDiskController@index',
+                ]);
+
+                // Edit Computer Access
                 $router->get('access', [
                     'as' => 'access.edit',
                     'uses' => 'ComputerAccessController@edit',
                 ]);
 
-                // Update Computer Settings
+                // Update Computer Access
                 $router->post('access', [
                     'as' => 'access.update',
                     'uses' => 'ComputerAccessController@update',

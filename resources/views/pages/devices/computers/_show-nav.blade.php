@@ -6,7 +6,7 @@
         </a>
     </li>
     <li role="presentation">
-        <a title="Computer Hard Disks" href="#">
+        <a title="Computer Hard Disks" href="{{ route('devices.computers.disks.index', [$computer->getKey()]) }}">
             <i class="fa fa-hdd-o"></i>
             Disks
         </a>
