@@ -3,17 +3,21 @@
 namespace App\Jobs\Computers;
 
 use App\Models\ComputerAccess;
+use App\Models\Computer;
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class CreateAccess extends Job implements SelfHandling
 {
+    use DispatchesJobs;
+
     /**
-     * The computer ID.
+     * The computer to create an access record on.
      *
-     * @var int
+     * @var Computer
      */
-    protected $computerId;
+    protected $computer;
 
     /**
      * The bool to determine whether the computer
@@ -48,15 +52,15 @@ class CreateAccess extends Job implements SelfHandling
     /**
      * Constructor.
      *
-     * @param int|string  $computerId
+     * @param Computer    $computer
      * @param bool|false  $activeDirectory
      * @param bool|false  $wmi
      * @param string|null $wmiUsername
      * @param string|null $wmiPassword
      */
-    public function __construct($computerId, $activeDirectory = false, $wmi = false, $wmiUsername = null, $wmiPassword = null)
+    public function __construct(Computer $computer, $activeDirectory = false, $wmi = false, $wmiUsername = null, $wmiPassword = null)
     {
-        $this->computerId = $computerId;
+        $this->computer = $computer;
         $this->activeDirectory = $activeDirectory;
         $this->wmi = $wmi;
         $this->wmiUsername = $wmiUsername;
@@ -72,7 +76,7 @@ class CreateAccess extends Job implements SelfHandling
      */
     public function handle(ComputerAccess $access)
     {
-        $access = $access->firstOrNew(['computer_id' => $this->computerId]);
+        $access = $access->firstOrNew(['computer_id' => $this->computer->getKey()]);
 
         $access->active_directory = $this->activeDirectory;
         $access->wmi = $this->wmi;

@@ -66,6 +66,6 @@ class ComputerAccessProcessor extends Processor
             $wmiPassword = null;
         }
 
-        return $this->dispatch(new CreateAccess($computer->getKey(), $ad, $wmi, $wmiUsername, $wmiPassword));
+        return $this->dispatch(new CreateAccess($computer, $ad, $wmi, $wmiUsername, $wmiPassword));
     }
 }

@@ -86,19 +86,28 @@ class ComputerController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $this->processor->edit($id);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified computer.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ComputerRequest $request
+     * @param int|string      $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ComputerRequest $request, $id)
     {
-        //
+        if ($this->processor->update($request, $id)) {
+            flash()->success('Success!', 'Successfully updated computer.');
+
+            return redirect()->route('devices.computers.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was an issue updating this computer. Please try again.');
+
+            return redirect()->route('devices.computers.edit', [$id]);
+        }
     }
 
     /**

@@ -9,6 +9,13 @@ use App\Http\Presenters\Presenter;
 
 class ComputerAccessPresenter extends Presenter
 {
+    /**
+     * Returns a new form of the specified computers access.
+     *
+     * @param Computer $computer
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function form(Computer $computer)
     {
         return $this->form->of('computers.access', function (FormGrid $form) use ($computer)
@@ -69,7 +76,6 @@ class ComputerAccessPresenter extends Presenter
                 $fieldset->control('input:password', 'WMI Password')
                     ->label('WMI Password')
                     ->attributes([
-                        'class' => 'password-show',
                         'autocomplete' => 'new-password',
                         'placeholder' => 'The WMI Password',
                     ])

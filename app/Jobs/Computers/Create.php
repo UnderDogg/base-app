@@ -96,7 +96,7 @@ class Create extends Job implements SelfHandling
             $computer->model = $this->model;
 
             if ($computer->save()) {
-                $this->dispatch(new CreateAccess($computer->getKey()));
+                $this->dispatch(new CreateAccess($computer));
 
                 return $computer;
             }

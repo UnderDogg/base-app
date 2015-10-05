@@ -2,7 +2,6 @@
 
 namespace App\Http\Presenters\Device;
 
-use App\Models\ComputerAccess;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -100,7 +99,7 @@ class ComputerPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $form->fieldset(function (Fieldset $fieldset) use ($operatingSystems, $types)
+            $form->fieldset(function (Fieldset $fieldset) use ($computer, $operatingSystems, $types)
             {
                 // The computer name text field
                 $fieldset->control('input:text', 'name')
@@ -149,19 +148,17 @@ class ComputerPresenter extends Presenter
                         'placeholder' => 'Description',
                     ]);
 
-                $fieldset->control('input:checkbox', 'Exists in Active Directory?')
-                    ->attributes([
-                        'class' => 'switch-mark',
-                    ])
-                    ->name('active_directory')
-                    ->value(1);
-
-                $fieldset->control('input:checkbox', 'Can be accessed through WMI?')
-                    ->attributes([
-                        'class' => 'switch-mark',
-                    ])
-                    ->name('wmi')
-                    ->value(1);
+                if (!$computer->exists) {
+                    // We'll only allow the exists in active directory checkbox if
+                    // the computer hasn't been created yet. This is due to
+                    // the access panel and can be updated there.
+                    $fieldset->control('input:checkbox', 'Exists in Active Directory?')
+                        ->attributes([
+                            'class' => 'switch-mark',
+                        ])
+                        ->name('active_directory')
+                        ->value(1);
+                }
             });
         });
     }

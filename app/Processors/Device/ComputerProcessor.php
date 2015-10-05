@@ -148,4 +148,48 @@ class ComputerProcessor extends Processor
 
         return view('pages.devices.computers.show.details', compact('computer'));
     }
+
+    /**
+     * Displays the form for the specified computer.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $computer = $this->computer->findOrFail($id);
+
+        $form = $this->presenter->form($computer);
+
+        return view('pages.devices.computers.edit', compact('form'));
+    }
+
+    /**
+     * Updates the specified computer.
+     *
+     * @param ComputerRequest $request
+     * @param int|string      $id
+     *
+     * @return bool
+     */
+    public function update(ComputerRequest $request, $id)
+    {
+        $computer = $this->computer->findOrFail($id);
+
+        $os = OperatingSystem::findOrFail($request->input('os'));
+        $type = ComputerType::findOrFail($request->input('type'));
+
+        $computer->name = $request->input('name');
+        $computer->model = $request->input('model');
+        $computer->description = $request->input('description');
+        $computer->os_id = $os->getKey();
+        $computer->type_id = $type->getKey();
+
+        if ($computer->save()) {
+            return $computer;
+        }
+
+        return false;
+    }
 }

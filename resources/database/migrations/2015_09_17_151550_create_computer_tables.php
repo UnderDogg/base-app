@@ -119,14 +119,12 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
             $table->integer('computer_id')->unsigned();
             $table->string('name');
             $table->double('capacity');
             $table->dateTime('installed')->nullable();
             $table->string('description')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('computer_id')->references('id')->on('computers');
         });
 

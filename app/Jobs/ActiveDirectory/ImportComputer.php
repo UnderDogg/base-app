@@ -63,16 +63,21 @@ class ImportComputer extends Job implements SelfHandling
             $typeId = null;
         }
 
+        // Retrieve the computers details
         $name = $this->computer->getCommonName();
         $description = $this->computer->getDescription();
         $dn = $this->computer->getDn();
 
+        // Create the job
         $job = new CreateComputer($typeId, $osId, $name, $description, $dn);
 
+        // Dispatch the CreateComputer job
         $computer = $this->dispatch($job);
 
+        // If a Computer model is returned it must have been
+        // successful, we'll create an access record for it
         if ($computer instanceof Computer) {
-            $this->dispatch(new CreateAccess($computer->getKey(), $ad = true));
+            $this->dispatch(new CreateAccess($computer, $ad = true));
 
             return $computer;
         }

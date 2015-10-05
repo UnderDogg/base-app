@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\ActiveDirectory;
 
+use Carbon\Carbon;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -39,31 +40,38 @@ class ComputerPresenter extends Presenter
             {
                 $column->value = function (AdComputer $computer)
                 {
-                    return $computer->getCreatedAtDate();
+                    return Carbon::createFromTimeStamp($computer->getCreatedAtTimestamp())->diffForHumans();
                 };
             });
 
-            $table->column('description', function ($column) {
+            $table->column('description', function ($column)
+            {
                 $column->label = 'Description';
-                $column->value = function (AdComputer $computer) {
+                $column->value = function (AdComputer $computer)
+                {
                     return $computer->getDescription();
                 };
             });
 
-            $table->column('operating_system', function($column) {
+            $table->column('operating_system', function($column)
+            {
                 $column->label = 'Operating System';
-                $column->value = function (AdComputer $computer) {
+                $column->value = function (AdComputer $computer)
+                {
                     return $computer->getOperatingSystem();
                 };
             });
 
-            $table->column('add', function ($column) {
-                $column->attributes(function () {
+            $table->column('add', function ($column)
+            {
+                $column->attributes(function ()
+                {
                     return ['class' => 'text-center'];
                 });
 
-                $column->label = 'Add';
-                $column->value = function (AdComputer $computer) {
+                $column->label = 'Import';
+                $column->value = function (AdComputer $computer)
+                {
                     $exists = Computer::where('dn', $computer->getDn())->first();
 
                     if($exists) {
@@ -81,7 +89,7 @@ class ComputerPresenter extends Presenter
      *
      * @param AdComputer $computer
      *
-     * @return object|\Orchestra\Contracts\Html\Builder
+     * @return \Orchestra\Contracts\Html\Builder
      */
     public function formAdd(AdComputer $computer)
     {
@@ -97,7 +105,7 @@ class ComputerPresenter extends Presenter
                 $field->value = $computer->getDn();
             });
 
-            $form->submit = 'Add';
+            $form->submit = 'Import';
         });
     }
 
@@ -111,7 +119,7 @@ class ComputerPresenter extends Presenter
         return HTML::create('input', null, [
             'type' => 'submit',
             'class' => 'btn btn-primary',
-            'value' => 'Added',
+            'value' => 'Imported',
             'disabled' => true,
         ]);
     }
