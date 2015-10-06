@@ -12,6 +12,15 @@ class ComputerHardDisk extends Model
     protected $table = 'computer_hard_disks';
 
     /**
+     * The fillable computer hard disk attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'computer_id'
+    ];
+
+    /**
      * The belongsTo computer relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

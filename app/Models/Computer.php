@@ -126,13 +126,22 @@ class Computer extends Model
      */
     public function getActiveDirectoryCheck()
     {
+        return $this->createCheck($this->getActiveDirectoryAccess(), 'Active Directory');
+    }
+
+    /**
+     * Returns true / false if the current computer
+     * can be accessed by Active Directory.
+     *
+     * @return bool
+     */
+    public function getActiveDirectoryAccess()
+    {
         if ($this->access instanceof ComputerAccess) {
-            $ad = $this->access->active_directory;
-        } else {
-            $ad = false;
+            return $this->access->active_directory;
         }
 
-        return $this->createCheck($ad, 'Active Directory');
+        return false;
     }
 
     /**
@@ -143,13 +152,22 @@ class Computer extends Model
      */
     public function getWmiCheck()
     {
+        return $this->createCheck($this->getWmiAccess(), 'WMI');
+    }
+
+    /**
+     * Returns true / false if the current
+     * computer can be accessed by WMI.
+     *
+     * @return bool
+     */
+    public function getWmiAccess()
+    {
         if ($this->access instanceof ComputerAccess) {
-            $wmi = $this->access->wmi;
-        } else {
-            $wmi = false;
+            return $this->access->wmi;
         }
 
-        return $this->createCheck($wmi, 'WMI');
+        return false;
     }
 
     /**
