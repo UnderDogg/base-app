@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use JJG\Ping;
 use Orchestra\Support\Facades\HTML;
 use App\Models\Traits\HasUserTrait;
 
@@ -64,6 +65,16 @@ class Computer extends Model
     public function access()
     {
         return $this->hasOne(ComputerAccess::class, 'computer_id');
+    }
+
+    /**
+     * The hasMany statuses relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statuses()
+    {
+        return $this->hasMany(ComputerStatus::class, 'computer_id');
     }
 
     /**
@@ -139,6 +150,35 @@ class Computer extends Model
         }
 
         return $this->createCheck($wmi, 'WMI');
+    }
+
+    /**
+     * Retrieves the online status of the computer and
+     * displays a label based off the response.
+     *
+     * @return string
+     */
+    public function getOnlineStatus()
+    {
+        $status = $this->statuses()->latest()->first();
+
+        if ($status instanceof ComputerStatus) {
+            $daysAgo = $status->createdAtDaysAgo();
+
+            return $this->createCheck(true, "Online ($daysAgo)");
+        } else {
+            return $this->createCheck(false, 'Offline');
+        }
+    }
+
+    /**
+     * Pings the current computer to see if it's online.
+     *
+     * @return bool|int
+     */
+    public function ping()
+    {
+        return (new Ping($this->name))->ping();
     }
 
     /**

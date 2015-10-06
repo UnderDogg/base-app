@@ -37,6 +37,12 @@ $router->group(['middleware' => ['auth']], function ($router)
                     'as' => 'access.update',
                     'uses' => 'ComputerAccessController@update',
                 ]);
+
+                // Computer Status Check
+                $router->post('status/check', [
+                    'as' => 'status.check',
+                    'uses' => 'ComputerStatusController@check',
+                ]);
             });
         });
     });

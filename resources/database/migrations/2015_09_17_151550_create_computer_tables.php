@@ -132,9 +132,22 @@ class CreateComputerTables extends Migration
         {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned();
+            $table->integer('disk_id')->unsigned();
             $table->double('free');
             $table->string('status')->nullable();
+
+            $table->foreign('disk_id')->references('id')->on('computer_hard_disks');
+        });
+
+        Schema::create('computer_status_records', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->timestamps();
+            $table->integer('computer_id')->unsigned();
+            $table->boolean('online')->default(false);
+            $table->integer('latency')->nullable();
+
+            $table->foreign('computer_id')->references('id')->on('computers');
         });
     }
 
@@ -145,6 +158,7 @@ class CreateComputerTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('computer_status_records');
         Schema::dropIfExists('computer_hard_disk_records');
         Schema::dropIfExists('computer_hard_disks');
         Schema::dropIfExists('computer_processor_records');

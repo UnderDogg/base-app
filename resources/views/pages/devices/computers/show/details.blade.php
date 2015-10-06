@@ -23,6 +23,23 @@ Details
 
 @section('show.panel.body')
 
+<label>Status</label>
+<p>
+    {!! $computer->getOnlineStatus() !!}
+</p>
+
+<p>
+    <a
+            class="btn btn-xs btn-default"
+            data-post="POST"
+            data-title="Check status?"
+            data-message="Are you sure you want to check the status of this computer?"
+            href="{{ route('devices.computers.status.check', [$computer->getKey()]) }}"
+            >
+        <i class="fa fa-refresh"></i> Refresh Status
+    </a>
+</p>
+
 <label>Type</label>
 <p>
     @if($computer->type)
