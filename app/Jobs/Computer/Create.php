@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Computers;
+namespace App\Jobs\Computer;
 
 use App\Models\Computer;
 use App\Jobs\Job;

@@ -26,6 +26,12 @@ $router->group(['middleware' => ['auth']], function ($router)
                     'uses' => 'ComputerDiskController@index',
                 ]);
 
+                // Sync Computer Hard Disks
+                $router->post('disks/synchronize', [
+                    'as' => 'disks.sync',
+                    'uses' => 'ComputerDiskController@synchronize',
+                ]);
+
                 // Edit Computer Access
                 $router->get('access', [
                     'as' => 'access.edit',

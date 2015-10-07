@@ -33,4 +33,28 @@ class ComputerDiskController extends Controller
     {
         return $this->processor->index($id);
     }
+
+    /**
+     * Synchronizes the specified computers hard disks.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function synchronize($id)
+    {
+        $added = $this->processor->synchronize($id);
+
+        if (is_array($added)) {
+            $message = sprintf('Successfully scanned %s drives.', count($added));
+
+            flash()->success('Success!', $message);
+
+            return redirect()->back();
+        } else {
+            flash()->error('Error!', 'There was an issue scanning this computers disks. Please try again.');
+
+            return redirect()->back();
+        }
+    }
 }

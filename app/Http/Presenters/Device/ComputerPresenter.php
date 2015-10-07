@@ -29,7 +29,6 @@ class ComputerPresenter extends Presenter
 
             $table->searchable([
                 'name',
-                'os',
                 'description',
             ]);
 

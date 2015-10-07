@@ -2,7 +2,7 @@
 
 namespace App\Processors\Device;
 
-use App\Jobs\Computers\CreateAccess;
+use App\Jobs\Computer\CreateAccess;
 use App\Http\Requests\Device\ComputerAccessRequest;
 use App\Http\Presenters\Device\ComputerAccessPresenter;
 use App\Models\Computer;

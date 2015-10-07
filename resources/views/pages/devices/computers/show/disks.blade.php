@@ -10,7 +10,7 @@
                 data-post="POST"
                 data-title="Synchronize hard disks?"
                 data-message="Are you sure you want to synchronize this computers hard disks?"
-                href="{{ route('devices.computers.delete', [$computer->getKey()]) }}"
+                href="{{ route('devices.computers.disks.sync', [$computer->getKey()]) }}"
                 >
             <i class="fa fa-refresh"></i>
             Synchronize
@@ -21,6 +21,6 @@
 
 @section('show.panel.body')
 
-
+    {!! $disks !!}
 
 @stop

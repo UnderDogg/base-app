@@ -78,6 +78,16 @@ class Computer extends Model
     }
 
     /**
+     * The hasMany disks relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function disks()
+    {
+        return $this->hasMany(ComputerHardDisk::class, 'computer_id');
+    }
+
+    /**
      * The belongsToMany users relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -183,10 +193,14 @@ class Computer extends Model
         if ($status instanceof ComputerStatus) {
             $daysAgo = $status->createdAtDaysAgo();
 
-            return $this->createCheck(true, "Online ($daysAgo)");
-        } else {
-            return $this->createCheck(false, 'Offline');
+            if ($status->online) {
+                return $this->createCheck(true, "Online ($daysAgo)");
+            } else {
+                return $this->createCheck(false, "Offline ($daysAgo)");
+            }
         }
+
+        return $this->createCheck(false, 'Offline');
     }
 
     /**
@@ -196,7 +210,7 @@ class Computer extends Model
      */
     public function ping()
     {
-        return (new Ping($this->name))->ping();
+        return (new Ping($this->name))->ping(5);
     }
 
     /**

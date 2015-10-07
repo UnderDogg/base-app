@@ -3,6 +3,7 @@
 namespace App\Processors\Device;
 
 use App\Http\Presenters\Device\ComputerDiskPresenter;
+use App\Jobs\Wmi\ScanDisks;
 use App\Models\Computer;
 use App\Processors\Processor;
 
@@ -41,6 +42,22 @@ class ComputerDiskProcessor extends Processor
     {
         $computer = $this->computer->findOrFail($id);
 
-        return view('pages.devices.computers.show.disks', compact('computer'));
+        $disks = $this->presenter->disks($computer);
+
+        return view('pages.devices.computers.show.disks', compact('computer', 'disks'));
+    }
+
+    /**
+     * Scans the specified computer for it's hard disks.
+     *
+     * @param int|string $id
+     *
+     * @return bool|array
+     */
+    public function synchronize($id)
+    {
+        $computer = $this->computer->findOrFail($id);
+
+        return $this->dispatch(new ScanDisks($computer));
     }
 }

@@ -121,7 +121,7 @@ class CreateComputerTables extends Migration
             $table->timestamps();
             $table->integer('computer_id')->unsigned();
             $table->string('name');
-            $table->double('capacity');
+            $table->double('size');
             $table->dateTime('installed')->nullable();
             $table->string('description')->nullable();
 

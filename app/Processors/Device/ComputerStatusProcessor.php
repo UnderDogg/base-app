@@ -2,7 +2,7 @@
 
 namespace App\Processors\Device;
 
-use App\Jobs\Computers\CreateStatus;
+use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
 use App\Processors\Processor;
 
