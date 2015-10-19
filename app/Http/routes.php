@@ -111,6 +111,18 @@ $router->group(['middleware' => ['auth']], function ($router)
         {
             // User Password Resource
             $router->resource('passwords', 'PasswordController');
+
+            // Change Password Folder Pin
+            $router->get('passwords/change-pin', [
+                'as' => 'passwords.pin.change',
+                'uses' => 'PinController@change',
+            ]);
+
+            // Update Password Folder Pin
+            $router->get('passwords/change-pin', [
+                'as' => 'passwords.pin.update',
+                'uses' => 'PinController@update',
+            ]);
         });
     });
 

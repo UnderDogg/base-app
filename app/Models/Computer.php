@@ -210,7 +210,7 @@ class Computer extends Model
      */
     public function ping()
     {
-        return (new Ping($this->name))->ping(5);
+        return (new Ping($this->name, 5))->ping();
     }
 
     /**

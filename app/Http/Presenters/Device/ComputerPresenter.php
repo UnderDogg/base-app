@@ -27,6 +27,11 @@ class ComputerPresenter extends Presenter
 
             $table->attributes('class', 'table table-hover');
 
+            $table->sortable([
+                'name',
+                'description',
+            ]);
+
             $table->searchable([
                 'name',
                 'description',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Processors;
+namespace App\Processors\PasswordFolder;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
@@ -8,6 +8,7 @@ use App\Http\Requests\PasswordFolder\PasswordRequest;
 use App\Http\Presenters\PasswordFolder\PasswordPresenter;
 use App\Models\Password;
 use App\Models\PasswordFolder;
+use App\Processors\Processor;
 
 class PasswordProcessor extends Processor
 {

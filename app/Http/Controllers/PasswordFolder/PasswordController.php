@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\PasswordFolder;
 
 use App\Http\Requests\PasswordFolder\PasswordRequest;
-use App\Processors\PasswordProcessor;
+use App\Processors\PasswordFolder\PasswordProcessor;
 use App\Http\Controllers\Controller;
 
 class PasswordController extends Controller

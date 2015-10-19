@@ -26,9 +26,10 @@ class SetupPresenter extends Presenter
 
             $form->layout('pages.passwords._form');
 
-            $form->submit = 'Save';
+            $form->submit = 'Setup';
 
-            $form->fieldset(function (Fieldset $fieldset) {
+            $form->fieldset(function (Fieldset $fieldset)
+            {
                 $fieldset->control('input:password', 'pin')
                     ->label('Pin')
                     ->attributes(['placeholder' => 'Enter your Pin']);
