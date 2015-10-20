@@ -109,9 +109,6 @@ $router->group(['middleware' => ['auth']], function ($router)
 
         $router->group(['middleware' => ['passwords.locked']], function ($router)
         {
-            // User Password Resource
-            $router->resource('passwords', 'PasswordController');
-
             // Change Password Folder Pin
             $router->get('passwords/change-pin', [
                 'as' => 'passwords.pin.change',
@@ -119,10 +116,13 @@ $router->group(['middleware' => ['auth']], function ($router)
             ]);
 
             // Update Password Folder Pin
-            $router->get('passwords/change-pin', [
+            $router->post('passwords/change-pin', [
                 'as' => 'passwords.pin.update',
                 'uses' => 'PinController@update',
             ]);
+
+            // User Password Resource
+            $router->resource('passwords', 'PasswordController');
         });
     });
 

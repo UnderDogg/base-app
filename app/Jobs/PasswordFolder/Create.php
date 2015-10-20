@@ -22,7 +22,7 @@ class Create extends Job implements SelfHandling
      */
     public function __construct($pin)
     {
-        $this->pin = bcrypt($pin);
+        $this->pin = $pin;
     }
 
     /**

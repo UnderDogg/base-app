@@ -14,7 +14,8 @@ class ChangePinRequest extends Request
     public function rules()
     {
         return [
-            //
+            'pin'       => 'required|min:4',
+            'new_pin'   => 'required|confirmed|min:4',
         ];
     }
 

@@ -19,4 +19,9 @@
             <i class="fa fa-lock"></i> Lock Passwords
         </a>
     </li>
+    <li>
+        <a href="{{ route('passwords.pin.change') }}">
+            <i class="fa fa-refresh"></i> Change PIN
+        </a>
+    </li>
 </ul>
