@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         $form = $this->presenter->form();
 
-        return view('auth.login.index', compact('form'));
+        return view('pages.auth.login.index', compact('form'));
     }
 
     /**

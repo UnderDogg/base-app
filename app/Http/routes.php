@@ -202,14 +202,28 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
     // Guest Auth Routes.
     $router->group(['middleware' => ['guest']], function ($router)
     {
+        // Displays login page
         $router->get('login', [
             'as' => 'login.index',
             'uses' => 'AuthController@getLogin',
         ]);
 
+        // Processes login
         $router->post('login', [
             'as' => 'login.perform',
             'uses' => 'AuthController@postLogin',
+        ]);
+
+        // Displays forgot password page
+        $router->get('forgot-password', [
+            'as' => 'forgot-password',
+            'uses' => 'Com\ForgotPasswordController@reset',
+        ]);
+
+        // Displays the users questions to reset the account password
+        $router->post('forgot-password', [
+            'as' => 'forgot-password',
+            'uses' => 'Com\ForgotPasswordController@questions',
         ]);
     });
 

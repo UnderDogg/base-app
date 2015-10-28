@@ -44,7 +44,7 @@ class PinController extends Controller
     public function update(ChangePinRequest $request)
     {
         if ($this->processor->update($request)) {
-            flash()->success('Success!', 'Successfully updated PIN');
+            flash()->success('Success!', 'Successfully updated PIN.');
 
             return redirect()->route('passwords.index');
         } else {

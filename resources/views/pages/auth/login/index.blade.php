@@ -11,7 +11,11 @@
 
     <div class="col-md-6">
 
-        <h2 class="text-center">Login</h2>
+        <h2 class="text-center">
+            Login
+        </h2>
+
+        <p class="text-muted text-center">Using your windows credentials.</p>
 
         {!! $form !!}
 
