@@ -24,6 +24,8 @@ class QuestionPresenter extends Presenter
         {
             $table->with($question->query())->paginate($this->perPage);
 
+            $table->searchable(['content']);
+
             $table->attributes('class', 'table table-hover');
 
             $table->column('content', function ($column)
