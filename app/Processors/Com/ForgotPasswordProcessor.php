@@ -70,6 +70,8 @@ class ForgotPasswordProcessor extends Processor
         $user = $this->adldap->users()->find($request->input('username'));
 
         if ($user instanceof User) {
+
+
             return view('pages.forgot-password.questions');
         }
 

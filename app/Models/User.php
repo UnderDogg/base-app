@@ -13,6 +13,13 @@ class User extends Eloquent implements AuthorizableContract
     use Authorizable, AdldapUserModelTrait;
 
     /**
+     * The user questions pivot table.
+     *
+     * @var string
+     */
+    protected $tableQuestionsPivot = 'user_questions';
+
+    /**
      * The hasOne password folder relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -20,6 +27,16 @@ class User extends Eloquent implements AuthorizableContract
     public function passwordFolder()
     {
         return $this->hasOne(PasswordFolder::class, 'user_id');
+    }
+
+    /**
+     * The belongsToMany security questions relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer']);
     }
 
     /**

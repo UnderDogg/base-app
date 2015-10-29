@@ -180,6 +180,11 @@ $router->group(['middleware' => ['auth']], function ($router)
             'only' => ['index', 'store']
         ]);
 
+        // The questions resource.
+        $router->resource('questions', 'QuestionController', [
+            'except' => ['show']
+        ]);
+
         // Active Directory Routes
         $router->group(['as' => 'active-directory.'], function ($router)
         {

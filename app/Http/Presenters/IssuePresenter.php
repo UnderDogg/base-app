@@ -31,7 +31,7 @@ class IssuePresenter extends Presenter
         $issue = $issue->with($with)->where(compact('closed'))->latest();
 
         // Limit the view if the user isn't
-        // allowed to view all issues
+        // allowed to view all issues.
         if (! policy($issue->getModel())->viewAll(auth()->user())) {
             $issue->where('user_id', auth()->user()->getKey());
         }

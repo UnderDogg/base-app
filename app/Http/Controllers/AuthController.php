@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Orchestra\Model\Role;
+use App\Models\User;
+use Adldap\Models\User as AdldapUser;
 use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
@@ -91,9 +94,30 @@ class AuthController extends Controller
             $this->clearLoginAttempts($request);
         }
 
+        if ($request->user()->adldapUser instanceof AdldapUser) {
+            $this->handleLdapUserWasAuthenticated($request->user(), $request->user()->adldapUser);
+        }
+
         flash()->success('Success!', "You're logged in!");
 
         return redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Attaches roles depending on the users active directory group.
+     *
+     * @param User $user
+     * @param AdldapUser $adldapUser
+     */
+    protected function handleLdapUserWasAuthenticated(User $user, AdldapUser $adldapUser)
+    {
+        if ($adldapUser->inGroup('Help Desk')) {
+            $admin = Role::admin();
+
+            if ($admin instanceof Role) {
+                $user->attachRole($admin->getKey());
+            }
+        }
     }
 
     /**
