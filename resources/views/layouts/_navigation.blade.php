@@ -90,6 +90,13 @@
                                     Computers
                                 </a>
                             </li>
+                            <li class="divider"></li>
+                            <li class="{{ active()->route('active-directory.questions.*') }}">
+                                <a href="{{ route('active-directory.questions.index') }}">
+                                    <i class="fa fa-question"></i>
+                                    Security Questions
+                                </a>
+                            </li>
                         </ul>
                     @endcan
 
