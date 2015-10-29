@@ -86,7 +86,7 @@ class QuestionProcessor extends Processor
 
         $form = $this->presenter->form($question);
 
-        return view('pages.active-directory.questions.edit', compact('form'));
+        return view('pages.active-directory.questions.edit', compact('form', 'question'));
     }
 
     /**
