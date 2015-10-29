@@ -13,8 +13,10 @@ class QuestionRequest extends Request
      */
     public function rules()
     {
+        $ignore = $this->route('questions');
+
         return [
-            'content' => 'required|min:5',
+            'content' => "required|min:5|unique:questions,content,$ignore",
         ];
     }
 
@@ -26,5 +28,17 @@ class QuestionRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * The custom validation messages for questions.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'unique' => 'This question already exists.',
+        ];
     }
 }

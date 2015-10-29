@@ -17,6 +17,9 @@ class CreateUserQuestionsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('content');
+
+            // Make sure every question is unique.
+            $table->unique(['content']);
         });
 
         Schema::create('user_questions', function(Blueprint $table)
