@@ -43,7 +43,7 @@ class LabelSeeder extends Seeder
         ];
 
         foreach($labels as $label) {
-            Label::create($label);
+            Label::firstOrCreate($label);
         }
     }
 }

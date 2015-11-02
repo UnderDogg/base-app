@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7323386952601c658de9ebea6ab69241",
-    "content-hash": "fa889e82007ecb879e7f85aceb5a1452",
+    "hash": "d7ae0b691d4275126dc4d23728b61b5f",
+    "content-hash": "da514a7feabe8a31e02af55d8e6d341c",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -100,6 +100,61 @@
                 "ldap"
             ],
             "time": "2015-10-21 17:13:54"
+        },
+        {
+            "name": "baum/baum",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etrepat/baum.git",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/9290bed862d329aaaef666a71e0a2734afc28286",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.*",
+                "illuminate/database": "5.*",
+                "illuminate/events": "5.*",
+                "illuminate/filesystem": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "d11wtq/boris": "~1.0.10",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Baum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Estanislau Trepat",
+                    "email": "estanis@etrepat.com",
+                    "homepage": "http://etrepat.com"
+                }
+            ],
+            "description": "Baum is an implementation of the Nested Set pattern for Eloquent models.",
+            "keywords": [
+                "Laravel 4",
+                "database",
+                "eloquent",
+                "laravel",
+                "laravel 5",
+                "nested set"
+            ],
+            "time": "2015-03-04 12:07:54"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -1404,16 +1459,16 @@
         },
         {
             "name": "orchestra/foundation",
-            "version": "v3.1.16",
+            "version": "v3.1.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/foundation.git",
-                "reference": "8ce1018d4cf9fec13a06b244f31ffac637f149d1"
+                "reference": "a6b22a8fe269f20b725c9db52e643eee4fbd76dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/foundation/zipball/8ce1018d4cf9fec13a06b244f31ffac637f149d1",
-                "reference": "8ce1018d4cf9fec13a06b244f31ffac637f149d1",
+                "url": "https://api.github.com/repos/orchestral/foundation/zipball/a6b22a8fe269f20b725c9db52e643eee4fbd76dc",
+                "reference": "a6b22a8fe269f20b725c9db52e643eee4fbd76dc",
                 "shasum": ""
             },
             "require": {
@@ -1482,20 +1537,20 @@
                 "orchestral",
                 "user-management"
             ],
-            "time": "2015-10-03 05:43:27"
+            "time": "2015-10-29 18:03:46"
         },
         {
             "name": "orchestra/html",
-            "version": "v3.1.9",
+            "version": "v3.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/html.git",
-                "reference": "dbd6f94a184d82dbc7f54f3b73cc6fcf873c6429"
+                "reference": "b820d25e806004760768ac5529359720dbd7bfad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/html/zipball/dbd6f94a184d82dbc7f54f3b73cc6fcf873c6429",
-                "reference": "dbd6f94a184d82dbc7f54f3b73cc6fcf873c6429",
+                "url": "https://api.github.com/repos/orchestral/html/zipball/b820d25e806004760768ac5529359720dbd7bfad",
+                "reference": "b820d25e806004760768ac5529359720dbd7bfad",
                 "shasum": ""
             },
             "require": {
@@ -1548,7 +1603,7 @@
                 "orchestral",
                 "table"
             ],
-            "time": "2015-10-28 00:33:03"
+            "time": "2015-10-29 22:56:57"
         },
         {
             "name": "orchestra/installer",
@@ -2544,16 +2599,16 @@
         },
         {
             "name": "stevebauman/purify",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stevebauman/purify.git",
-                "reference": "4a4a414e5fbbbf70540248aab5df3954a892c0fb"
+                "reference": "07b377e102acdca9a93423345794ad6d785725b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/purify/zipball/4a4a414e5fbbbf70540248aab5df3954a892c0fb",
-                "reference": "4a4a414e5fbbbf70540248aab5df3954a892c0fb",
+                "url": "https://api.github.com/repos/stevebauman/purify/zipball/07b377e102acdca9a93423345794ad6d785725b5",
+                "reference": "07b377e102acdca9a93423345794ad6d785725b5",
                 "shasum": ""
             },
             "require": {
@@ -2590,7 +2645,7 @@
                 "purification",
                 "purify"
             ],
-            "time": "2015-09-17 16:14:50"
+            "time": "2015-11-02 14:37:02"
         },
         {
             "name": "stevebauman/revision",
