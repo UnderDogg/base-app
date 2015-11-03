@@ -56,7 +56,7 @@ class Comment extends Model
      */
     public function getTagLine()
     {
-        $daysAgo = $this->createdAtDaysAgo();
+        $daysAgo = $this->createdAtHuman();
 
         return HTML::create('span', "commented $daysAgo", ['class' => 'text-muted']);
     }

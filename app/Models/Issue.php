@@ -212,7 +212,7 @@ class Issue extends Model
     {
         $user = $this->user->fullname;
 
-        $daysAgo = $this->createdAtDaysAgo();
+        $daysAgo = $this->createdAtHuman();
 
         $comments = count($this->comments);
 

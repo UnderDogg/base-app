@@ -66,6 +66,11 @@
                                     <i class="fa fa-desktop"></i>
                                     Computers
                                 </a>
+
+                                <a href="{{ route('devices.drives.index') }}">
+                                    <i class="fa fa-hdd-o"></i>
+                                    Drives
+                                </a>
                             </li>
                         </ul>
                     </li>

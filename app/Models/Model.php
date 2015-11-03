@@ -12,7 +12,7 @@ class Model extends BaseModel
      *
      * @return string
      */
-    public function createdAtDaysAgo()
+    public function createdAtHuman()
     {
         return Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans();
     }

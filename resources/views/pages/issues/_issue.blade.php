@@ -6,7 +6,7 @@
             {{ $issue->user->fullname }}
 
             <span class="text-muted hidden-xs">
-                created issue {{ $issue->createdAtDaysAgo() }}
+                created issue {{ $issue->createdAtHuman() }}
             </span>
 
             <span class="pull-right btn-group">
@@ -30,7 +30,7 @@
 
             <div class="visible-xs">
                 <span class="text-muted">
-                    commented {{ $issue->createdAtDaysAgo() }}
+                    commented {{ $issue->createdAtHuman() }}
                 </span>
             </div>
         </h3>

@@ -191,7 +191,7 @@ class Computer extends Model
         $status = $this->statuses()->latest()->first();
 
         if ($status instanceof ComputerStatus) {
-            $daysAgo = $status->createdAtDaysAgo();
+            $daysAgo = $status->createdAtHuman();
 
             if ($status->online) {
                 return $this->createCheck(true, "Online ($daysAgo)");

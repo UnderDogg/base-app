@@ -12,6 +12,10 @@ $router->group(['middleware' => ['auth']], function ($router)
     // The Devices namespace group.
     $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function ($router)
     {
+        // The drives resource.
+        $router->resource('drives', 'DriveController');
+
+        // The computers resource.
         $router->resource('computers', 'ComputerController');
 
         // The Devices group.

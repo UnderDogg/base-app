@@ -18,6 +18,7 @@ class CreateDriveTables extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('path');
+            $table->boolean('is_network')->default(false);
         });
 
         Schema::create('drive_accounts', function (Blueprint $table)

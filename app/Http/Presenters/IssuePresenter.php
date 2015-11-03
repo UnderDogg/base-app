@@ -129,13 +129,9 @@ class IssuePresenter extends Presenter
      */
     public function formComment(Issue $issue)
     {
-        $presenter = app(IssueCommentPresenter::class);
+        $presenter = new IssueCommentPresenter($this->form, $this->table);
 
-        if ($presenter instanceof IssueCommentPresenter) {
-            return $presenter->form($issue, (new Comment()));
-        }
-
-        return null;
+        return $presenter->form($issue, (new Comment()));
     }
 
     /**

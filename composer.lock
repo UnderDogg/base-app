@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d7ae0b691d4275126dc4d23728b61b5f",
+    "hash": "12f51f447ea1a4185678cc1b47958759",
     "content-hash": "da514a7feabe8a31e02af55d8e6d341c",
     "packages": [
         {
@@ -717,16 +717,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.22",
+            "version": "v5.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "11d9627c7cd4d12b6e884b87daa7a2f898cf54cb"
+                "reference": "a4ea877d2bb6a68796b244a741594968796c1c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/11d9627c7cd4d12b6e884b87daa7a2f898cf54cb",
-                "reference": "11d9627c7cd4d12b6e884b87daa7a2f898cf54cb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a4ea877d2bb6a68796b244a741594968796c1c4e",
+                "reference": "a4ea877d2bb6a68796b244a741594968796c1c4e",
                 "shasum": ""
             },
             "require": {
@@ -842,7 +842,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2015-10-28 21:58:18"
+            "time": "2015-11-03 16:32:33"
         },
         {
             "name": "league/commonmark",
@@ -3837,16 +3837,16 @@
         },
         {
             "name": "orchestra/testing",
-            "version": "v3.1.3",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testing.git",
-                "reference": "90e1fa98995afab6c91e333e3af22ee52009c57a"
+                "reference": "8dab1a269cfa028a3cbf0479beef00f62fa575b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testing/zipball/90e1fa98995afab6c91e333e3af22ee52009c57a",
-                "reference": "90e1fa98995afab6c91e333e3af22ee52009c57a",
+                "url": "https://api.github.com/repos/orchestral/testing/zipball/8dab1a269cfa028a3cbf0479beef00f62fa575b5",
+                "reference": "8dab1a269cfa028a3cbf0479beef00f62fa575b5",
                 "shasum": ""
             },
             "require": {
@@ -3886,7 +3886,7 @@
                 }
             ],
             "description": "Orchestra Platform Testing Helper",
-            "time": "2015-07-26 00:59:59"
+            "time": "2015-11-02 23:14:24"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
