@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Device;
 
+use Illuminate\Support\Facades\Route;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Table\Column;
@@ -47,6 +48,39 @@ class DrivePresenter extends Presenter
                 };
             });
         });
+    }
+
+    /**
+     * Returns a new table of all items inside the specified drive.
+     *
+     * @param Drive       $drive
+     * @param string|null $path
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableItems(Drive $drive, $path = null)
+    {
+        $items = $drive->items($path);
+
+        $current = Route::current()->getParameter('path');
+
+        if (is_array($items)) {
+            return $this->table->of('devices.drives.items', function (TableGrid $table) use ($drive, $items, $current)
+            {
+                $table->rows($items);
+
+                $table->attributes('class', 'table table-hover');
+
+                $table->column('name', function (Column $column) use ($drive, $current)
+                {
+                    $column->value = function ($name) use ($drive, $current) {
+                        return link_to_route('devices.drives.show', $name, [$drive->getKey(), $current.DIRECTORY_SEPARATOR.$name]);
+                    };
+                });
+            });
+        }
+
+        return;
     }
 
     /**

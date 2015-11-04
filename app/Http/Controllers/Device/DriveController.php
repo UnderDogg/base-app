@@ -64,14 +64,16 @@ class DriveController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified drive.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int|string  $id
+     * @param string|null $path
+     *
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show($id, $path = null)
     {
-        return $this->processor->show($id);
+        return $this->processor->show($id, $path);
     }
 
     /**

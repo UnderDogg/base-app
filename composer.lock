@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12f51f447ea1a4185678cc1b47958759",
-    "content-hash": "da514a7feabe8a31e02af55d8e6d341c",
+    "hash": "8f6637bb604d1b9fe75ebf9461b22527",
+    "content-hash": "58549210467f7c673adef6b203876638",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -845,6 +845,69 @@
             "time": "2015-11-03 16:32:33"
         },
         {
+            "name": "laravie/html",
+            "version": "v5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravie/html.git",
+                "reference": "7dc6cdddc8d27faaf0f045dd390f5752c1d140af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravie/html/zipball/7dc6cdddc8d27faaf0f045dd390f5752c1d140af",
+                "reference": "7dc6cdddc8d27faaf0f045dd390f5752c1d140af",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.1.0",
+                "illuminate/routing": "~5.1.0",
+                "illuminate/session": "~5.1.0",
+                "illuminate/support": "~5.1.0",
+                "php": ">=5.5.9"
+            },
+            "replace": {
+                "laravelcollective/html": "*"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Collective\\Html\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                },
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com"
+                },
+                {
+                    "name": "Adam Engebretson",
+                    "email": "adam@laravelcollective.com"
+                }
+            ],
+            "description": "HTML and Form Builders for the Laravel Framework",
+            "time": "2015-11-02 03:52:25"
+        },
+        {
             "name": "league/commonmark",
             "version": "0.10.0",
             "source": {
@@ -1541,19 +1604,20 @@
         },
         {
             "name": "orchestra/html",
-            "version": "v3.1.10",
+            "version": "v3.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/html.git",
-                "reference": "b820d25e806004760768ac5529359720dbd7bfad"
+                "reference": "0fd1ab2b95fef2828d9b7fca1ad6d23b61936469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/html/zipball/b820d25e806004760768ac5529359720dbd7bfad",
-                "reference": "b820d25e806004760768ac5529359720dbd7bfad",
+                "url": "https://api.github.com/repos/orchestral/html/zipball/0fd1ab2b95fef2828d9b7fca1ad6d23b61936469",
+                "reference": "0fd1ab2b95fef2828d9b7fca1ad6d23b61936469",
                 "shasum": ""
             },
             "require": {
+                "laravie/html": "~5.1.0",
                 "orchestra/support": "~3.1.0",
                 "php": ">=5.5.0"
             },
@@ -1577,10 +1641,7 @@
             "autoload": {
                 "psr-4": {
                     "Orchestra\\Html\\": "src/"
-                },
-                "files": [
-                    "src/Support/helpers.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1603,7 +1664,7 @@
                 "orchestral",
                 "table"
             ],
-            "time": "2015-10-29 22:56:57"
+            "time": "2015-11-04 13:35:00"
         },
         {
             "name": "orchestra/installer",
@@ -2689,6 +2750,53 @@
             ],
             "description": "Revisions for Eloquent Models.",
             "time": "2015-07-22 13:40:55"
+        },
+        {
+            "name": "stevebauman/winperm",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/WinPerm.git",
+                "reference": "72dc46d43d801ea413991399902d74bb5b8e33ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/WinPerm/zipball/72dc46d43d801ea413991399902d74bb5b8e33ac",
+                "reference": "72dc46d43d801ea413991399902d74bb5b8e33ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.6.*"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\WinPerm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Windows File / Folder Permission Parser.",
+            "keywords": [
+                "permissions",
+                "windows",
+                "windows acl",
+                "windows permissions"
+            ],
+            "time": "2015-11-02 22:13:57"
         },
         {
             "name": "stevebauman/wmi",

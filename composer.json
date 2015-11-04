@@ -14,6 +14,7 @@
         "stevebauman/revision": "1.1.*",
         "stevebauman/wmi": "1.1.*",
         "stevebauman/purify": "1.1.*",
+        "stevebauman/winperm": "1.0.*",
         "ramsey/uuid": "2.8.*",
         "geerlingguy/ping": "1.0.*",
         "baum/baum": "1.1.*"

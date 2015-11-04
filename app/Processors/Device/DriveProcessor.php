@@ -78,15 +78,20 @@ class DriveProcessor extends Processor
     /**
      * Displays the specified drive.
      *
-     * @param int|string $id
+     * @param int|string  $id
+     * @param string|null $path
      *
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show($id, $path = null)
     {
         $drive = $this->drive->findOrFail($id);
 
-        return view('pages.devices.drives.show', compact('drive'));
+        $accounts = $drive->accounts($path);
+
+        $items = $this->presenter->tableItems($drive, $path);
+
+        return view('pages.devices.drives.show', compact('drive', 'accounts', 'items'));
     }
 
     /**
