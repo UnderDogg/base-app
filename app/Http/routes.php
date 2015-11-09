@@ -198,10 +198,10 @@ $router->group(['middleware' => ['auth']], function ($router)
             'except' => ['show']
         ]);
 
-        // Active Directory Routes
+        // Active Directory Routes.
         $router->group(['as' => 'active-directory.'], function ($router)
         {
-            // Active Directory Computer Routes
+            // Active Directory Computer Routes.
             $router->group(['as' => 'computers.'], function ($router)
             {
                 // Add all computers.
@@ -220,29 +220,41 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
     // Guest Auth Routes.
     $router->group(['middleware' => ['guest']], function ($router)
     {
-        // Displays login page
+        // Displays login page.
         $router->get('login', [
             'as' => 'login.index',
             'uses' => 'AuthController@getLogin',
         ]);
 
-        // Processes login
+        // Processes login.
         $router->post('login', [
             'as' => 'login.perform',
             'uses' => 'AuthController@postLogin',
         ]);
 
-        // Displays forgot password page
-        $router->get('forgot-password', [
-            'as' => 'forgot-password',
-            'uses' => 'Com\ForgotPasswordController@reset',
-        ]);
+        $router->group(['prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
+        {
+            // Displays forgot password page.
+            $router->get('/', [
+                'as' => 'reset',
+                'uses' => 'Com\ForgotPasswordController@reset',
+            ]);
 
-        // Displays the users questions to reset the account password
-        $router->post('forgot-password', [
-            'as' => 'forgot-password',
-            'uses' => 'Com\ForgotPasswordController@questions',
-        ]);
+            // Displays the users questions to reset the account password.
+            $router->post('/', [
+                'as' => 'questions',
+                'uses' => 'Com\ForgotPasswordController@questions',
+            ]);
+
+            $router->group(['prefix' => 'setup', 'as' => 'setup.'], function ($router)
+            {
+                // Displays the security question setup pages per step.
+                $router->get('step-{step}', [
+                    'as' => 'step',
+                    'uses' => 'ActiveDirectory\SetupQuestionController@index',
+                ]);
+            });
+        });
     });
 
     // Only Auth Routes.

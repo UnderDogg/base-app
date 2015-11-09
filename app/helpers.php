@@ -40,3 +40,21 @@ function active()
 {
     return new \App\Http\Active();
 }
+
+/**
+ * Validates that the inserted string is an object SID.
+ *
+ * @param string $sid
+ *
+ * @return bool
+ */
+function isValidSid($sid)
+{
+    preg_match("/S-1-5-21-\d+-\d+\-\d+\-\d+/", $sid, $matches);
+
+    if (count($matches) > 0) {
+        return true;
+    }
+
+    return false;
+}

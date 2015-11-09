@@ -11,6 +11,8 @@
 @section('content')
 
     <div class="col-md-3">
+        <h5>Current Directory Permissions</h5>
+
         @include('pages.devices.drives._show-nav')
     </div>
 

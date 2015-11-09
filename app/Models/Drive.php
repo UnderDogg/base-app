@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Adldap\Models\Entry;
 use App\Exceptions\Devices\UnableToMountDriveException;
 use Adldap\Connections\Configuration;
 use Adldap\Laravel\Facades\Adldap;
+use Stevebauman\WinPerm\Account;
 use Stevebauman\WinPerm\Exceptions\InvalidPathException;
 use Stevebauman\WinPerm\Permission;
 
@@ -51,7 +53,11 @@ class Drive extends Model
         $path = $this->basePath.DIRECTORY_SEPARATOR.$path;
 
         try {
-            return (new Permission($path))->check();
+            $accounts = (new Permission($path))->check();
+
+            if (is_array($accounts)) {
+                return $this->parseAccounts($accounts);
+            }
         } catch (InvalidPathException $e) {
             //
         }
@@ -120,7 +126,7 @@ class Drive extends Model
             }
         }
 
-        $command = sprintf('net use %s: %s %s /user:%s /persistent:no', $drive, $path, $password, $username);
+        $command = sprintf('net use %s: %s %s /user:%s /persistent:no /delete', $drive, $path, $password, $username);
 
         system($command, $returned);
 
@@ -129,7 +135,23 @@ class Drive extends Model
             throw new UnableToMountDriveException(sprintf('Unable to mount drive at path: %s', $path));
         }
 
-        return str_replace($path, sprintf('%s:\\', $drive), $path);
+        return str_replace($path, sprintf('%s:', $drive), $path);
+    }
+
+    /**
+     * Unmounts the specified drive.
+     *
+     * @param string $drive
+     *
+     * @return int
+     */
+    public function unmount($drive = 'Z')
+    {
+        $command = sprintf('net use %s: /delete', $drive);
+
+        system($command, $returned);
+
+        return $returned;
     }
 
     /**
@@ -150,5 +172,35 @@ class Drive extends Model
     public function setBasePath($path)
     {
         $this->basePath = $path;
+    }
+
+    /**
+     * Parses an array of accounts.
+     *
+     * @param array $accounts
+     *
+     * @return array
+     */
+    protected function parseAccounts(array $accounts = [])
+    {
+        $all = [];
+
+        foreach ($accounts as $account) {
+            if ($account instanceof Account) {
+                $name = $account->getName();
+
+                if (isValidSid($name)) {
+                    $entry = Adldap::search()->where(['objectsid' => $name])->first();
+
+                    if ($entry instanceof Entry) {
+                        $name = $entry->getName();
+                    }
+                }
+
+                $all[$name] = $account->getPermissionNames();
+            }
+        }
+
+        return $all;
     }
 }
