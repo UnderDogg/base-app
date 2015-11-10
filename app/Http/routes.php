@@ -212,6 +212,43 @@ $router->group(['middleware' => ['auth']], function ($router)
             });
         });
     });
+
+    $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'security-questions', 'as' => 'security-questions.'], function ($router)
+    {
+        // Displays all the users security questions.
+        $router->get('/', [
+            'as' => 'index',
+            'uses' => 'SetupQuestionController@index',
+        ]);
+
+        // Cover security question routes with setup middleware.
+        $router->group(['middleware' => 'security-questions.setup'], function ($router)
+        {
+            // Displays the security question setup pages per step.
+            $router->get('setup', [
+                'as' => 'setup.step',
+                'uses' => 'SetupQuestionController@setup',
+            ]);
+
+            // Saves the current security question.
+            $router->post('setup/save', [
+                'as' => 'setup.save',
+                'uses' => 'SetupQuestionController@save',
+            ]);
+        });
+
+        // Displays the form to edit a security question.
+        $router->get('{question}', [
+            'as' => 'edit',
+            'uses' => 'SetupQuestionController@edit',
+        ]);
+
+        // Updates the specified security question.
+        $router->post('{question}', [
+            'as' => 'update',
+            'uses' => 'SetupQuestionController@update',
+        ]);
+    });
 });
 
 // Authentication Routes.
@@ -232,6 +269,7 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
             'uses' => 'AuthController@postLogin',
         ]);
 
+        // The forgot password group.
         $router->group(['prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
         {
             // Displays forgot password page.
@@ -245,15 +283,6 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
                 'as' => 'questions',
                 'uses' => 'Com\ForgotPasswordController@questions',
             ]);
-
-            $router->group(['prefix' => 'setup', 'as' => 'setup.'], function ($router)
-            {
-                // Displays the security question setup pages per step.
-                $router->get('step-{step}', [
-                    'as' => 'step',
-                    'uses' => 'ActiveDirectory\SetupQuestionController@index',
-                ]);
-            });
         });
     });
 

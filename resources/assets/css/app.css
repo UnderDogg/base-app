@@ -51,3 +51,8 @@ td .label {
 .fa-6 {
     font-size: 20em;
 }
+
+/* No border rounding, tight corners */
+* {
+    border-radius: 0 !important;
+}

@@ -16,8 +16,7 @@
         "stevebauman/purify": "1.1.*",
         "stevebauman/winperm": "1.0.*",
         "ramsey/uuid": "2.8.*",
-        "geerlingguy/ping": "1.0.*",
-        "baum/baum": "1.1.*"
+        "geerlingguy/ping": "1.0.*"
     },
     "require-dev": {
         "orchestra/testing": "~3.1",

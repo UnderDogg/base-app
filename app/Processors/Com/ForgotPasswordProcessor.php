@@ -2,15 +2,21 @@
 
 namespace App\Processors\Com;
 
-use Adldap\Models\User;
-use App\Http\Requests\Com\ResetRequest;
 use COM;
+use App\Models\User;
+use Adldap\Models\User as AdldapUser;
+use App\Http\Requests\Com\ResetRequest;
 use Adldap\Contracts\Adldap;
 use App\Http\Presenters\Com\ForgotPasswordPresenter;
 use App\Processors\Processor;
 
 class ForgotPasswordProcessor extends Processor
 {
+    /**
+     * @var User
+     */
+    protected $user;
+
     /**
      * @var Adldap
      */
@@ -36,11 +42,13 @@ class ForgotPasswordProcessor extends Processor
     /**
      * Constructor.
      *
+     * @param User                    $user
      * @param Adldap                  $adldap
      * @param ForgotPasswordPresenter $presenter
      */
-    public function __construct(Adldap $adldap, ForgotPasswordPresenter $presenter)
+    public function __construct(User $user, Adldap $adldap, ForgotPasswordPresenter $presenter)
     {
+        $this->user = $user;
         $this->adldap = $adldap;
         $this->presenter = $presenter;
         $this->com = new COM($this->command);
@@ -67,12 +75,14 @@ class ForgotPasswordProcessor extends Processor
      */
     public function questions(ResetRequest $request)
     {
-        $user = $this->adldap->users()->find($request->input('username'));
+        $profile = $this->adldap->users()->find($request->input('username'));
 
-        if ($user instanceof User) {
+        if ($profile instanceof AdldapUser) {
+            $user = $this->user->where('email', $profile->getEmail())->first();
 
-
-            return view('pages.forgot-password.questions');
+            if ($user instanceof User && count($user->questions) > 0) {
+                return view('pages.forgot-password.questions');
+            }
         }
 
         return false;

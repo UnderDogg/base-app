@@ -36,7 +36,7 @@ class User extends Eloquent implements AuthorizableContract
      */
     public function questions()
     {
-        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer']);
+        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
     }
 
     /**

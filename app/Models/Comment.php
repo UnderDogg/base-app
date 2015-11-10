@@ -58,7 +58,13 @@ class Comment extends Model
     {
         $daysAgo = $this->createdAtHuman();
 
-        return HTML::create('span', "commented $daysAgo", ['class' => 'text-muted']);
+        if ($this->isResolution()) {
+            $line = "created resolution $daysAgo";
+        } else {
+            $line = "commented $daysAgo";
+        }
+
+        return HTML::create('span', $line, ['class' => 'text-muted']);
     }
 
     /**

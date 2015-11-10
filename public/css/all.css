@@ -2477,4 +2477,9 @@ td .label {
     font-size: 20em;
 }
 
+/* No border rounding, tight corners */
+* {
+    border-radius: 0 !important;
+}
+
 /*# sourceMappingURL=all.css.map */

@@ -32,6 +32,9 @@ class CreateUserQuestionsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('question_id')->references('id')->on('questions');
+
+            // Allow only unique questions per user.
+            $table->unique(['user_id', 'question_id']);
         });
     }
 

@@ -18,7 +18,7 @@ class ForgotPasswordPresenter extends Presenter
         return $this->form->of('forgot-password', function (FormGrid $form)
         {
             $form->attributes([
-                'url' => '',
+                'url' => route(''),
                 'method' => 'PATCH',
             ]);
 

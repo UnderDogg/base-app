@@ -1,4 +1,6 @@
-<?php namespace App\Http;
+<?php
+
+namespace App\Http;
 
 use Orchestra\Foundation\Http\Kernel as HttpKernel;
 
@@ -33,5 +35,6 @@ class Kernel extends HttpKernel
         'passwords.locked' => Middleware\PasswordFolderLocked::class,
         'passwords.setup' => Middleware\PasswordFolderSetup::class,
         'passwords.gate' => Middleware\PasswordGate::class,
+        'security-questions.setup' => Middleware\ActiveDirectory\SetupQuestionMiddleware::class,
     ];
 }

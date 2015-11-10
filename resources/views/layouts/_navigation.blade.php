@@ -126,6 +126,11 @@
                                     <i class="fa fa-lock"></i> Passwords
                                 </a>
                             </li>
+                            <li class="{{ active()->routes(['security-questions.*']) }}">
+                                <a href="{{ route('security-questions.index') }}">
+                                    <i class="fa fa-question"></i> Security Questions
+                                </a>
+                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('auth.logout') }}">

@@ -3,13 +3,40 @@
 namespace App\Http\Presenters\ActiveDirectory;
 
 use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Contracts\Html\Form\Grid;
+use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use App\Models\Question;
 use App\Models\User;
 use App\Http\Presenters\Presenter;
 
 class SetupQuestionPresenter extends Presenter
 {
+    /**
+     * Returns a table of all the users security questions.
+     *
+     * @param User $user
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function table(User $user)
+    {
+        $questions = $user->questions->toArray();
+
+        return $this->table->of('active-directory.security-questions', function (TableGrid $table) use ($questions)
+        {
+            $table->rows($questions);
+
+            $table->attributes(['class' => 'table table-hover']);
+
+            $table->column('question', function (Column $column) {
+                $column->value = function ($question) {
+                    return link_to_route('security-questions.edit', $question['content'], [$question['id']]);
+                };
+            });
+        });
+    }
+
     /**
      * Returns a new form for setting up a users security questions.
      *
@@ -23,15 +50,45 @@ class SetupQuestionPresenter extends Presenter
         $questions = $question->whereHas('users', function ($query) use ($user)
         {
             $query->where('user_id', '=', $user->getKey());
-        }, '<', 1)->get()->lists('id', 'content');
+        }, '<', 1)->get()->lists('content', 'id');
 
-        return $this->form->of('active-directory.questions.setup', function(Grid $form) use ($questions)
+        return $this->form->of('active-directory.security-questions.setup', function(FormGrid $form) use ($questions, $question)
         {
-            $form->fieldset(function (Fieldset $fieldset) use ($questions)
+            if ($question->exists) {
+                // If the question exists, we'll add it to the questions
+                // collection so it's available for selection.
+                $questions[$question->getKey()] = $question->content;
+
+                // We'll also assume the user is editing the security
+                // question so we'll set the route path to update.
+                $route = route('security-questions.update', [$question->getKey()]);
+
+                $form->submit = 'Save';
+            } else {
+                $route = route('security-questions.setup.save');
+
+                $form->submit = 'Next';
+            }
+
+            $form->attributes([
+                'url' => $route,
+            ]);
+
+            $form->fieldset(function (Fieldset $fieldset) use ($questions, $question)
             {
                 $fieldset->control('input:select', 'question')
                     ->label('Question')
-                    ->options($questions);
+                    ->options($questions)
+                    ->value(function() use ($question) {
+                        return $question->getKey();
+                    });
+
+                $fieldset->control('input:password', 'answer')
+                    ->attributes([
+                        'class' => 'password-show',
+                        'autocomplete' => 'new-answer',
+                        'placeholder' => 'Enter your security question answer.',
+                    ]);
             });
         });
     }

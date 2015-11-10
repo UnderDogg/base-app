@@ -40,6 +40,8 @@ class IssuePresenter extends Presenter
         {
             $table->with($issue)->paginate($this->perPage);
 
+            $table->attributes(['class' => 'table table-hover']);
+
             $table->sortable([
                 'title',
                 'description',
