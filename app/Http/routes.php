@@ -270,18 +270,30 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
         ]);
 
         // The forgot password group.
-        $router->group(['prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
+        $router->group(['namespace' => 'Com', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
         {
             // Displays forgot password page.
             $router->get('/', [
-                'as' => 'reset',
-                'uses' => 'Com\ForgotPasswordController@reset',
+                'as' => 'discover',
+                'uses' => 'ForgotPasswordController@discover',
+            ]);
+
+            // Processes finding the submitted user.
+            $router->post('/', [
+                'as' => 'find',
+                'uses' => 'ForgotPasswordController@find',
             ]);
 
             // Displays the users questions to reset the account password.
-            $router->post('/', [
+            $router->get('{token}', [
                 'as' => 'questions',
-                'uses' => 'Com\ForgotPasswordController@questions',
+                'uses' => 'ForgotPasswordController@questions',
+            ]);
+
+            // Displays the reset password page.
+            $router->post('{token}/reset', [
+                'as' => 'reset',
+                'uses' => 'ForgotPasswordController@reset',
             ]);
         });
     });

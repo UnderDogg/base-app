@@ -64,4 +64,44 @@ class User extends Eloquent implements AuthorizableContract
     {
         return HTML::create('span', $this->getLabel(), ['class' => 'label-large']);
     }
+
+    /**
+     * Locates a user by the specified forgot token.
+     *
+     * @param string $token
+     *
+     * @return null|User
+     */
+    public function locateByForgotToken($token)
+    {
+        return $this->newQuery()->where(['forgot_token' => $token])->first();
+    }
+
+    /**
+     * Generates a forgot token on the current user.
+     *
+     * @return bool
+     */
+    public function generateForgotToken()
+    {
+        $this->forgot_token = uuid();
+
+        if ($this->save()) {
+            return $this->forgot_token;
+        }
+
+        return false;
+    }
+
+    /**
+     * Clears the forgot token on the current user.
+     *
+     * @return bool
+     */
+    public function clearForgotToken()
+    {
+        $this->forgot_token = null;
+
+        return $this->save();
+    }
 }

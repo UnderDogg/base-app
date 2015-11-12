@@ -2478,7 +2478,7 @@ td .label {
 }
 
 /* No border rounding, tight corners */
-* {
+*:not(.sa-icon){
     border-radius: 0 !important;
 }
 

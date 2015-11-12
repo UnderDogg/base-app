@@ -4,22 +4,23 @@ namespace App\Http\Requests\Com;
 
 use App\Http\Requests\Request;
 
-class ResetRequest extends Request
+class FindRequest extends Request
 {
     /**
-     * The reset request validation rules.
+     * The find request validation rules.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'username' => 'required|min:3',
+            'token' => 'required|exists:users,forgot_token',
         ];
     }
 
     /**
-     * Allows all users to reset passwords.
+     * Allows all users to find accounts using
+     * a user ID from active directory.
      *
      * @return bool
      */

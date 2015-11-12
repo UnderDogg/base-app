@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Security Questions')
+@section('title', 'Enter your Security Question Answers')
 
 @section('content')
 

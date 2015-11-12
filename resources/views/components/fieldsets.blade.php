@@ -7,9 +7,7 @@
         @endif
 
         @foreach ($fieldset->controls() as $control)
-
             <div class="form-group{!! $errors->has($control->name) ? ' has-error' : '' !!}">
-
                 {!! $formbuilder->label($control->name, $control->label, ['class' => 'control-label']) !!}
 
                 <div class="nine columns">

@@ -134,7 +134,9 @@ class SetupQuestionProcessor extends Processor
         if ($user instanceof User) {
             $form = $this->presenter->form($user, $this->question);
 
-            $step = count($user->questions)+1;
+            // Add one to the question count to indicate
+            // the current step is in progress.
+            $step = count($user->questions) + 1;
 
             return view('pages.active-directory.questions.setup.step', compact('form', 'step'));
         }
