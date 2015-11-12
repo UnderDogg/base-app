@@ -66,6 +66,19 @@ class User extends Eloquent implements AuthorizableContract
     }
 
     /**
+     * Locates a user by the specified attribute and value.
+     *
+     * @param int|string $attribute
+     * @param mixed      $value
+     *
+     * @return null|User
+     */
+    public function locateBy($attribute, $value)
+    {
+        return $this->newQuery()->where([$attribute => $value])->first();
+    }
+
+    /**
      * Locates a user by the specified forgot token.
      *
      * @param string $token
@@ -74,7 +87,19 @@ class User extends Eloquent implements AuthorizableContract
      */
     public function locateByForgotToken($token)
     {
-        return $this->newQuery()->where(['forgot_token' => $token])->first();
+        return $this->locateBy('forgot_token', $token);
+    }
+
+    /**
+     * Locates a user by the specified reset token.
+     *
+     * @param string $token
+     *
+     * @return User|null
+     */
+    public function locateByResetToken($token)
+    {
+        return $this->locateBy('reset_token', $token);
     }
 
     /**
@@ -94,6 +119,22 @@ class User extends Eloquent implements AuthorizableContract
     }
 
     /**
+     * Generates a reset token on the current user.
+     *
+     * @return bool
+     */
+    public function generateResetToken()
+    {
+        $this->reset_token = uuid();
+
+        if ($this->save()) {
+            return $this->reset_token;
+        }
+
+        return false;
+    }
+
+    /**
      * Clears the forgot token on the current user.
      *
      * @return bool
@@ -101,6 +142,18 @@ class User extends Eloquent implements AuthorizableContract
     public function clearForgotToken()
     {
         $this->forgot_token = null;
+
+        return $this->save();
+    }
+
+    /**
+     * Clears the reset token on the current user.
+     *
+     * @return bool
+     */
+    public function clearResetToken()
+    {
+        $this->reset_token = null;
 
         return $this->save();
     }

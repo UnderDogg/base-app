@@ -16,7 +16,7 @@ class ForgotPasswordPresenter extends Presenter
      */
     public function form()
     {
-        return $this->form->of('forgot-password', function (FormGrid $form)
+        return $this->form->of('forgot-password.discover', function (FormGrid $form)
         {
             $form->attributes([
                 'url' => route('auth.forgot-password.find'),
@@ -44,10 +44,10 @@ class ForgotPasswordPresenter extends Presenter
     {
         $questions = $user->questions;
 
-        return $this->form->of('forgot-password', function (FormGrid $form) use ($user, $questions)
+        return $this->form->of('forgot-password.questions', function (FormGrid $form) use ($user, $questions)
         {
             $form->attributes([
-                'url' => route('auth.forgot-password.reset', [$user->forgot_token]),
+                'url' => route('auth.forgot-password.answer', [$user->forgot_token]),
             ]);
 
             $form->submit = 'Submit';
@@ -61,6 +61,36 @@ class ForgotPasswordPresenter extends Presenter
                         ->label($question->content)
                         ->attributes(['placeholder' => 'Enter your answer']);
                 }
+            });
+        });
+    }
+
+    /**
+     * Returns a new form for resetting the specified users password.
+     *
+     * @param User $user
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formReset(User $user)
+    {
+        return $this->form->of('forgot-password.reset', function (FormGrid $form) use ($user)
+        {
+            $form->attributes([
+                'url' => route('auth.forgot-password.change', [$user->reset_token]),
+            ]);
+
+            $form->submit = 'Submit';
+
+            $form->fieldset(function (Fieldset $fieldset)
+            {
+                $fieldset->control('input:password', 'password')
+                    ->label('Password')
+                    ->attributes(['placeholder' => 'Enter your new password']);
+
+                $fieldset->control('input:password', 'password_confirmation')
+                    ->label('Password Confirmation')
+                    ->attributes(['placeholder' => 'Confirm your new password']);
             });
         });
     }

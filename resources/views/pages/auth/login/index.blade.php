@@ -19,6 +19,11 @@
 
         {!! $form !!}
 
+        <p class="text-center">
+            <br>
+            <a href="{{ route('auth.forgot-password.discover') }}">Forgot Your Password?</a>
+        </p>
+
     </div>
 
     <div class="col-md-3"></div>

@@ -290,10 +290,22 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
                 'uses' => 'ForgotPasswordController@questions',
             ]);
 
-            // Displays the reset password page.
-            $router->post('{token}/reset', [
+            // Processes the users answers for their security questions.
+            $router->post('{token}/answer', [
+                'as' => 'answer',
+                'uses' => 'ForgotPasswordController@answer',
+            ]);
+
+            // Displays the form to reset the users password.
+            $router->get('{token}/reset', [
                 'as' => 'reset',
                 'uses' => 'ForgotPasswordController@reset',
+            ]);
+
+            // Processes changing the users password.
+            $router->post('{token}/reset', [
+                'as' => 'change',
+                'uses' => 'ForgotPasswordController@change',
             ]);
         });
     });

@@ -2,14 +2,15 @@
 
 namespace App\Processors\Com;
 
-use COM;
 use Adldap\Models\User as AdldapUser;
 use Adldap\Contracts\Adldap;
-use App\Models\User;
+use App\Http\Requests\Com\PasswordRequest;
 use App\Http\Requests\Com\QuestionRequest;
 use App\Http\Requests\Com\DiscoverRequest;
 use App\Http\Presenters\Com\ForgotPasswordPresenter;
+use App\Jobs\Com\ChangePassword;
 use App\Processors\Processor;
+use App\Models\User;
 use Illuminate\Contracts\Encryption\Encrypter;
 
 class ForgotPasswordProcessor extends Processor
@@ -35,11 +36,6 @@ class ForgotPasswordProcessor extends Processor
     protected $presenter;
 
     /**
-     * @var COM
-     */
-    protected $com;
-
-    /**
      * The COM command to execute.
      *
      * @var string
@@ -60,7 +56,6 @@ class ForgotPasswordProcessor extends Processor
         $this->adldap = $adldap;
         $this->encrypter = $encrypter;
         $this->presenter = $presenter;
-        $this->com = new COM($this->command);
     }
 
     /**
@@ -76,7 +71,8 @@ class ForgotPasswordProcessor extends Processor
     }
 
     /**
-     *
+     * Finds the AD user by the given username, and
+     * generates a forgot token on success.
      *
      * @param DiscoverRequest $request
      *
@@ -122,16 +118,32 @@ class ForgotPasswordProcessor extends Processor
         return false;
     }
 
-    public function reset(QuestionRequest $request, $token)
+    /**
+     * Checks the users security questions against the given answers
+     * and creates a reset password token which they can then
+     * use to reset their AD password.
+     *
+     * @param QuestionRequest $request
+     * @param string          $token
+     *
+     * @return bool|string
+     */
+    public function answer(QuestionRequest $request, $token)
     {
         $user = $this->user->locateByForgotToken($token);
 
         if ($user instanceof User) {
+            // Get the submitted question answers.
             $answers = $request->input('questions', []);
 
+            // Get the question IDs.
             $ids = array_keys($answers);
 
+            // Try to retrieve all the users questions.
             $questions = $user->questions()->find($ids);
+
+            // The number of correct answers.
+            $correct = 0;
 
             // Go through each found question attached to the user.
             foreach ($questions as $question) {
@@ -143,11 +155,66 @@ class ForgotPasswordProcessor extends Processor
 
                 // Make sure the given answer is identical to he actual answer.
                 if ($given === $actual) {
-                    continue;
+                    $correct++;
                 }
-
-                break;
             }
+
+            // Check that the amount of correct answers equals the amount of questions found.
+            if ($correct === count($questions)) {
+                // If all answers are correct, we'll generate the
+                // reset token for the user and return it.
+                return $user->generateResetToken();
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Displays the form for resetting a users password.
+     *
+     * @param string $token
+     *
+     * @return bool|\Illuminate\View\View
+     */
+    public function reset($token)
+    {
+        $user = $this->user->locateByResetToken($token);
+
+        if ($user instanceof User) {
+            $form = $this->presenter->formReset($user);
+
+            return view('pages.forgot-password.reset', compact('form'));
+        }
+
+        return false;
+    }
+
+    /**
+     * Changes the users password.
+     *
+     * @param PasswordRequest $request
+     * @param string          $token
+     *
+     * @return bool
+     */
+    public function change(PasswordRequest $request, $token)
+    {
+        $user = $this->user->locateByResetToken($token);
+
+        $profile = $this->adldap->users()->search()->where(['mail' => $user->email])->first();
+
+        if ($user instanceof User && $profile instanceof AdldapUser) {
+            $job = new ChangePassword($profile, $request->input('password'));
+
+            $changed = $this->dispatch($job);
+
+            if ($changed) {
+                $user->clearForgotToken();
+                $user->clearResetToken();
+            }
+
+            return $changed;
         }
 
         return false;

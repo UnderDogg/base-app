@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Com;
 
 use App\Http\Requests\Com\FindRequest;
+use App\Http\Requests\Com\PasswordRequest;
 use App\Http\Requests\Com\QuestionRequest;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\Com\DiscoverRequest;
@@ -69,8 +70,66 @@ class ForgotPasswordController extends Controller
         return redirect()->route('auth.forgot-password.discover');
     }
 
-    public function reset(QuestionRequest $request, $token)
+    /**
+     * Processes the submitted question answers and generates
+     * a reset token if all answers are correct.
+     *
+     * @param QuestionRequest $request
+     * @param string          $token
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function answer(QuestionRequest $request, $token)
     {
-        return $this->processor->reset($request, $token);
+        $reset = $this->processor->answer($request, $token);
+
+        if (is_string($reset)) {
+            return redirect()->route('auth.forgot-password.reset', [$reset]);
+        }
+
+        $message = "Hmmm, it looks there was an issue with one of your answers. Try again!";
+
+        flash()->error('Error', $message);
+
+        return redirect()->route('auth.forgot-password.questions', [$token])->withInput($request->all());
+    }
+
+    /**
+     * Displays the form for resetting a users password by the specified token.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function reset($token)
+    {
+        $view = $this->processor->reset($token);
+
+        if ($view instanceof View) {
+            return $view;
+        }
+
+        return redirect()->route('auth.forgot-password.discover');
+    }
+
+    /**
+     * Changes the users password by the specified token.
+     *
+     * @param PasswordRequest $request
+     * @param string          $token
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function change(PasswordRequest $request, $token)
+    {
+        if ($this->processor->change($request, $token)) {
+            flash()->success('Success!', 'Successfully changed password. You can now login with your new password.');
+
+            return redirect()->route('auth.login.index');
+        } else {
+            flash()->error('Error!', 'There was an issue changing your password. Please try again.');
+
+            return redirect()->route('auth.forgot-password.reset', [$token]);
+        }
     }
 }

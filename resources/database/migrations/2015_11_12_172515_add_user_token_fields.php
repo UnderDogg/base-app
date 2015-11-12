@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserForgotToken extends Migration
+class AddUserTokenFields extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,7 @@ class AddUserForgotToken extends Migration
         Schema::table('users', function (Blueprint $table)
         {
             $table->string('forgot_token')->nullable();
+            $table->string('reset_token')->nullable();
         });
     }
 
@@ -28,6 +29,7 @@ class AddUserForgotToken extends Migration
         Schema::table('users', function (Blueprint $table)
         {
             $table->dropColumn('forgot_token');
+            $table->dropColumn('reset_token');
         });
     }
 }
