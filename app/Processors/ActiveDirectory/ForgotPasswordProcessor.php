@@ -36,13 +36,6 @@ class ForgotPasswordProcessor extends Processor
     protected $presenter;
 
     /**
-     * The COM command to execute.
-     *
-     * @var string
-     */
-    protected $command = 'LDAP:';
-
-    /**
      * Constructor.
      *
      * @param User                    $user
