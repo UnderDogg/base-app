@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Processors\Com;
+namespace App\Processors\ActiveDirectory;
 
 use Adldap\Models\User as AdldapUser;
 use Adldap\Contracts\Adldap;
-use App\Http\Requests\Com\PasswordRequest;
-use App\Http\Requests\Com\QuestionRequest;
-use App\Http\Requests\Com\DiscoverRequest;
-use App\Http\Presenters\Com\ForgotPasswordPresenter;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\QuestionRequest;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
+use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
 use App\Jobs\Com\ChangePassword;
 use App\Processors\Processor;
 use App\Models\User;

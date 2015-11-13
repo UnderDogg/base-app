@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Presenters\Com;
+namespace App\Http\Presenters\ActiveDirectory;
 
 use App\Models\User;
 use Orchestra\Contracts\Html\Form\Fieldset;

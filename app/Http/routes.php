@@ -270,7 +270,7 @@ $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router)
         ]);
 
         // The forgot password group.
-        $router->group(['namespace' => 'Com', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
+        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router)
         {
             // Displays forgot password page.
             $router->get('/', [

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Com;
+namespace App\Http\Controllers\ActiveDirectory;
 
-use App\Http\Requests\Com\FindRequest;
-use App\Http\Requests\Com\PasswordRequest;
-use App\Http\Requests\Com\QuestionRequest;
 use Illuminate\Contracts\View\View;
-use App\Http\Requests\Com\DiscoverRequest;
-use App\Processors\Com\ForgotPasswordProcessor;
+use App\Processors\ActiveDirectory\ForgotPasswordProcessor;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\QuestionRequest;
+use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Controllers\Controller;
 
 class ForgotPasswordController extends Controller
@@ -37,6 +36,14 @@ class ForgotPasswordController extends Controller
         return $this->processor->discover();
     }
 
+    /**
+     * Discovers and creates a forgot password
+     * token for the submitted username.
+     *
+     * @param DiscoverRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function find(DiscoverRequest $request)
     {
         $token = $this->processor->find($request);
@@ -45,9 +52,9 @@ class ForgotPasswordController extends Controller
             return redirect()->route('auth.forgot-password.questions', [$token]);
         }
 
-        $message = "Hmmm, it looks like we couldn't locate the user you're looking for. Try again!";
+        $message = "We couldn't locate the user you're looking for. Try again!";
 
-        flash()->error('Error', $message);
+        flash()->setTimer(false)->error('Error', $message);
 
         return redirect()->route('auth.forgot-password.discover');
     }

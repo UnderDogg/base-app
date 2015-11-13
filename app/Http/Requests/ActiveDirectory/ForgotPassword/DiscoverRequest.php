@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Requests\Com;
+namespace App\Http\Requests\ActiveDirectory\ForgotPassword;
 
 use App\Http\Requests\Request;
 
-class FindRequest extends Request
+class DiscoverRequest extends Request
 {
     /**
-     * The find request validation rules.
+     * The reset request validation rules.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'token' => 'required|exists:users,forgot_token',
+            'username' => 'required|min:3',
         ];
     }
 
     /**
-     * Allows all users to find accounts using
-     * a user ID from active directory.
+     * Allows all users to reset passwords.
      *
      * @return bool
      */

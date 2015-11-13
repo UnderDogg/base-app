@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Com;
+namespace App\Http\Requests\ActiveDirectory\ForgotPassword;
 
 use Illuminate\Contracts\Validation\Validator;
 use App\Http\Requests\Request;
