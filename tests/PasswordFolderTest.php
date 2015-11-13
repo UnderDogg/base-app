@@ -27,7 +27,7 @@ class PasswordFolderTest extends TestCase
         $this->visit(route('passwords.setup'))
             ->type('password', 'pin')
             ->type('password', 'pin_confirmation')
-            ->press('Save');
+            ->press('Setup');
 
         $record = PasswordFolder::where('user_id', $user->id)->first();
 
