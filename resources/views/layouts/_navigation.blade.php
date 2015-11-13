@@ -19,6 +19,13 @@
 
             <ul class="nav navbar-nav">
 
+                <li>
+                    <a href="/">
+                        <i class="fa fa-info-circle"></i>
+                        Resources
+                    </a>
+                </li>
+
                 @if(auth()->check())
 
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
@@ -106,9 +113,6 @@
                     @endcan
 
                 @endif
-                <li>
-                    <a href="/">Resources</a>
-                </li>
 
             </ul>
 
