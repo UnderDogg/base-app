@@ -18,54 +18,54 @@ class IssueTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
-
-        $this->visit(route('issues.index'));
-
-        $this->see('All Issues');
+        $this->actingAs($user)
+            ->visit(route('issues.index'))
+            ->see('All Issues');
     }
 
     public function test_access_issues_closed()
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
-
-        $this->visit(route('issues.closed'));
-
-        $this->see('All Issues');
+        $this->actingAs($user)
+            ->visit(route('issues.closed'))
+            ->see('All Issues');
     }
 
     public function test_access_issues_create()
     {
         $user = factory(User::class)->create();
 
-        $this->actingAs($user);
-
-        $this->visit(route('issues.create'));
-
-        $this->see('Create an Issue');
+        $this->actingAs($user)
+            ->visit(route('issues.create'))
+            ->see('Create an Issue');
     }
 
     public function test_access_issues_show()
     {
         $issue = factory(Issue::class)->create();
 
-        $this->actingAs($issue->user);
-
-        $this->visit(route('issues.show', [$issue->getKey()]));
-
-        $this->see($issue->title);
+        $this->actingAs($issue->user)
+            ->visit(route('issues.show', [$issue->getKey()]))
+            ->see($issue->title);
     }
 
     public function test_access_issues_edit()
     {
         $issue = factory(Issue::class)->create();
 
+        $this->actingAs($issue->user)
+            ->visit(route('issues.edit', [$issue->getKey()]))
+            ->see('Edit Issue');
+    }
+
+    public function test_access_issues_delete()
+    {
+        $issue = factory(Issue::class)->create();
+
         $this->actingAs($issue->user);
 
-        $this->visit(route('issues.edit', [$issue->getKey()]));
-
-        $this->see('Edit Issue');
+        $this->delete(route('issues.destroy', [$issue->getKey()]), ['_token' => csrf_token()])
+            ->assertRedirectedToRoute('issues.index');
     }
 }

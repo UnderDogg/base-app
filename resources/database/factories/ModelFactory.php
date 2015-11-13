@@ -11,20 +11,23 @@
 |
 */
 
-$factory[App\Models\User::class] = function (Faker\Generator $faker) {
+use App\Models\User;
+use App\Models\Issue;
+
+$factory[User::class] = function (Faker\Generator $faker) {
     return [
-        'email' => $faker->email,
-        'password' => str_random(10),
+        'email'          => $faker->email,
+        'password'       => str_random(10),
         'remember_token' => str_random(10),
-        'status' => App\Models\User::VERIFIED,
+        'status'         => User::VERIFIED,
     ];
 };
 
-$factory[App\Models\Issue::class] = function (Faker\Generator $faker) {
+$factory[Issue::class] = function (Faker\Generator $faker) {
     return [
-        'user_id' => factory(App\Models\User::class)->create()->id,
-        'title' => $faker->title,
-        'description' => $faker->sentence(),
+        'user_id'       => factory(User::class)->create()->id,
+        'title'         => $faker->title,
+        'description'   => $faker->sentence(),
     ];
 };
 

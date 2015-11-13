@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use Illuminate\Support\Facades\Session;
 use Orchestra\Testing\ApplicationTestCase;
 
 abstract class TestCase extends ApplicationTestCase
@@ -40,6 +41,9 @@ abstract class TestCase extends ApplicationTestCase
             '--database' => 'sqlite',
             '--realpath' => realpath('resources/database/migrations'),
         ]);
+
+        // Start the session.
+        Session::start();
     }
 
     /**
