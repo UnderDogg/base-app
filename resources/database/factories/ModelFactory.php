@@ -11,10 +11,13 @@
 |
 */
 
+use Faker\Generator;
 use App\Models\User;
 use App\Models\Issue;
+use App\Models\PasswordFolder;
+use App\Models\Password;
 
-$factory[User::class] = function (Faker\Generator $faker) {
+$factory[User::class] = function (Generator $faker) {
     return [
         'email'          => $faker->email,
         'password'       => str_random(10),
@@ -23,11 +26,29 @@ $factory[User::class] = function (Faker\Generator $faker) {
     ];
 };
 
-$factory[Issue::class] = function (Faker\Generator $faker) {
+$factory[Issue::class] = function (Generator $faker) {
     return [
-        'user_id'       => factory(User::class)->create()->id,
+        'user_id'       => factory(User::class)->create()->getKey(),
         'title'         => $faker->title,
         'description'   => $faker->sentence(),
     ];
 };
 
+$factory[PasswordFolder::class] = function (Generator $faker) {
+    return [
+        'user_id'   => factory(User::class)->create()->getKey(),
+        'uuid'      => uuid(),
+        'pin'       => $faker->password(),
+    ];
+};
+
+$factory[Password::class] = function (Generator $faker) {
+    return [
+        'folder_id' => factory(PasswordFolder::class)->create()->getKey(),
+        'title'     => $faker->title,
+        'website'   => $faker->url,
+        'username'  => $faker->userName,
+        'password'  => $faker->password(),
+        'notes'     => $faker->text(),
+    ];
+};
