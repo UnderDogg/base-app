@@ -68,4 +68,20 @@ class IssueTest extends TestCase
         $this->delete(route('issues.destroy', [$issue->getKey()]), ['_token' => csrf_token()])
             ->assertRedirectedToRoute('issues.index');
     }
+
+    public function test_issues_search()
+    {
+        $issue = factory(Issue::class)->create();
+
+        $this->actingAs($issue->user);
+
+        // Create another issue under the same user.
+        factory(Issue::class)->create(['user_id' => $issue->user->getKey()]);
+
+        $this->visit(route('issues.index'))
+            ->type($issue->title, 'q')
+            ->press('Search')
+            ->seePageIs(route('issues.index', ['q' => $issue->title]))
+            ->see($issue->title);
+    }
 }
