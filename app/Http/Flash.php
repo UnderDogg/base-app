@@ -5,6 +5,27 @@ namespace App\Http;
 class Flash
 {
     /**
+     * The time in milliseconds of the flash message popup.
+     *
+     * @var bool|int
+     */
+    protected $timer = 2000;
+
+    /**
+     * Sets the popup timer in milliseconds.
+     *
+     * @param int|bool $ms
+     *
+     * @return Flash
+     */
+    public function setTimer($ms = 2000)
+    {
+        $this->timer = $ms;
+
+        return $this;
+    }
+
+    /**
      * Generates a new session flash message.
      *
      * @param string $title
@@ -14,11 +35,9 @@ class Flash
      */
     public function create($title, $message, $level = 'info', $key = 'flash_message')
     {
-        session()->flash($key, [
-            'title' => $title,
-            'message' => $message,
-            'level' => $level,
-        ]);
+        $timer = $this->timer;
+
+        session()->flash($key, compact('title', 'message', 'level', 'info', 'timer'));
     }
 
     /**
