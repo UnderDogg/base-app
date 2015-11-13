@@ -2,12 +2,13 @@
 
 namespace App\Tests;
 
+use App\Models\Password;
 use App\Models\PasswordFolder;
 use App\Models\User;
 
 class PasswordFolderTest extends TestCase
 {
-    public function testRedirectedToSetupUponVisit()
+    public function test_redirected_to_setup_upon_visit()
     {
         $user = factory(User::class)->create();
 
@@ -18,7 +19,7 @@ class PasswordFolderTest extends TestCase
         $this->assertRedirectedToRoute('passwords.setup');
     }
 
-    public function testSetup()
+    public function test_setup()
     {
         $user = factory(User::class)->create();
 
@@ -35,13 +36,47 @@ class PasswordFolderTest extends TestCase
         $this->assertEquals(1, $record->locked);
     }
 
-    public function testAccessAfterSetup()
+    public function test_access_after_setup()
     {
-        $this->testSetup();
+        $this->test_setup();
 
         $this->visit(route('passwords.gate'))
             ->type('password', 'pin')
             ->press('Unlock')
             ->see('All Passwords');
+    }
+
+    public function test_passwords_create()
+    {
+        $this->test_access_after_setup();
+
+        $this->visit(route('passwords.create'))
+            ->type('Title', 'title')
+            ->type('Website', 'website')
+            ->type('Username', 'username')
+            ->type('Password123', 'password')
+            ->type('Notes', 'notes')
+            ->press('Create')
+            ->assertResponseOk();
+    }
+
+    public function test_passwords_show()
+    {
+        $this->test_access_after_setup();
+
+        $user = User::first();
+
+        $folder = PasswordFolder::where('user_id', $user->id)->first();
+
+        $password = factory(Password::class)->create([
+            'folder_id' => $folder->getKey(),
+        ]);
+
+        $this->actingAs($password->folder->user);
+
+        $this->visit(route('passwords.show', [$password->getKey()]))
+            ->see($password->title)
+            ->see('Edit')
+            ->see('Delete');
     }
 }
