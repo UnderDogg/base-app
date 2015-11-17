@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Orchestra\Support\Facades\HTML;
 
 class Guide extends Model
 {
@@ -39,6 +41,20 @@ class Guide extends Model
     }
 
     /**
+     * Returns the published at date in a human readable format.
+     *
+     * @return string|null
+     */
+    public function publishedOnHuman()
+    {
+        if ($this->published) {
+            return Carbon::createFromTimestamp(strtotime($this->published_on))->diffForHumans();
+        }
+
+        return;
+    }
+
+    /**
      * Returns a summary of the guide by limiting the description attribute.
      *
      * @return string
@@ -46,5 +62,21 @@ class Guide extends Model
     public function summary()
     {
         return Str::limit($this->description, 25);
+    }
+
+    /**
+     * Returns an HTML string of the published state of the current guide.
+     *
+     * @return string
+     */
+    public function publishedLabel()
+    {
+        $date = $this->publishedOnHuman();
+
+        $published = ($this->published ? "Yes ($date)": 'No');
+
+        $class = 'label ' . ($this->published ? 'label-success' : 'label-danger');
+
+        return HTML::create('span', $published, compact('class'));
     }
 }

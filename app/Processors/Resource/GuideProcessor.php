@@ -103,7 +103,9 @@ class GuideProcessor extends Processor
             }
         ]);
 
-        return view('pages.resources.guides.show', compact('guide'));
+        $formStep = $this->presenter->formStep($guide);
+
+        return view('pages.resources.guides.show', compact('guide', 'formStep'));
     }
 
     /**

@@ -146,6 +146,9 @@ $router->group(['middleware' => ['auth']], function ($router)
         // The guides resource.
         $router->resource('guides', 'GuideController');
 
+        // The guide steps resource.
+        $router->resource('guides.steps', 'GuideStepController');
+
         $router->group(['as' => 'resources.'], function ($router)
         {
             //
@@ -191,6 +194,12 @@ $router->group(['middleware' => ['auth']], function ($router)
     // The labels resource.
     $router->resource('labels', 'LabelController', [
         'except' => ['show']
+    ]);
+
+    // The attachment image upload route.
+    $router->post('attachments/image', [
+        'uses'  => 'AttachmentController@image',
+        'as'    => 'attachments.image',
     ]);
 
     // The active directory route group.

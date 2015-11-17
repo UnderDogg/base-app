@@ -2,7 +2,6 @@
 
 namespace App\Http\Presenters\Resource;
 
-use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -46,6 +45,13 @@ class GuidePresenter extends Presenter
                 ->value(function (Guide $guide)
                 {
                     return $guide->summary();
+                });
+
+            $table
+                ->column('published')
+                ->value(function (Guide $guide)
+                {
+                    return $guide->publishedLabel();
                 });
 
             $table
@@ -121,6 +127,20 @@ class GuidePresenter extends Presenter
                     ]);
             });
         });
+    }
+
+    /**
+     * Returns a new form of the guide step.
+     *
+     * @param Guide $guide
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formStep(Guide $guide)
+    {
+        $presenter = new GuideStepPresenter($this->form, $this->table);
+
+        return $presenter->form($guide, $guide->steps()->getRelated());
     }
 
     /**
