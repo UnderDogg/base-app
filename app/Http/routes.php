@@ -120,6 +120,7 @@ $router->group(['middleware' => ['auth']], function ($router)
             });
         });
 
+        // The password locked middleware route group.
         $router->group(['middleware' => ['passwords.locked']], function ($router)
         {
             // Change Password Folder Pin
@@ -136,6 +137,18 @@ $router->group(['middleware' => ['auth']], function ($router)
 
             // User Password Resource
             $router->resource('passwords', 'PasswordController');
+        });
+    });
+
+    // The resources route group
+    $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router)
+    {
+        // The guides resource.
+        $router->resource('guides', 'GuideController');
+
+        $router->group(['as' => 'resources.'], function ($router)
+        {
+            //
         });
     });
 
@@ -181,7 +194,7 @@ $router->group(['middleware' => ['auth']], function ($router)
     ]);
 
     // The active directory route group.
-    $router->group(['prefix' => 'active-directory', 'namespace' => 'ActiveDirectory'], function ($router)
+    $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'active-directory'], function ($router)
     {
         // The computers resource.
         $router->resource('computers', 'ComputerController', [

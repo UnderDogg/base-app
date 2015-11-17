@@ -2482,4 +2482,18 @@ td .label {
     border-radius: 0 !important;
 }
 
+/* Guide step numbers */
+.step-number {
+    font-size: 43px;
+    padding: 8px 15px 3px 0;
+    font-weight: bold;
+    float: left;
+}
+
+.step-vertical {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
 /*# sourceMappingURL=all.css.map */

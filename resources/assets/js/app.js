@@ -30,6 +30,17 @@ $(function ()
         formatSelection: formatLabel
     });
 
+    $("input.slug:text").on('change keyup paste', function ()
+    {
+        var self = $(this);
+
+        var field = $(self.data('slug-field'));
+
+        if (field != undefined) {
+            field.val(getSlug(self.val()));
+        }
+    });
+
     /**
      * Formats a select2 label.
      *

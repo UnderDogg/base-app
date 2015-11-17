@@ -79,4 +79,24 @@ class PasswordFolderTest extends TestCase
             ->see('Edit')
             ->see('Delete');
     }
+
+    public function test_passwords_edit()
+    {
+        $this->test_access_after_setup();
+
+        $user = User::first();
+
+        $folder = PasswordFolder::where('user_id', $user->id)->first();
+
+        $password = factory(Password::class)->create([
+            'folder_id' => $folder->getKey(),
+        ]);
+
+        $this->actingAs($password->folder->user);
+
+        $this->visit(route('passwords.edit', [$password->getKey()]))
+            ->see($password->title)
+            ->press('Save')
+            ->assertRedirectedToRoute(route('passwords.index'));
+    }
 }

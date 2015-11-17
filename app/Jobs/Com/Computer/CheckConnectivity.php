@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Jobs\Wmi;
+namespace App\Jobs\Com\Computer;
 
 use App\Models\Computer;
+use App\Jobs\Job;
 use Stevebauman\Wmi\Schemas\Namespaces;
 use Stevebauman\Wmi\Wmi;
-use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class CheckConnectivity extends Job implements SelfHandling

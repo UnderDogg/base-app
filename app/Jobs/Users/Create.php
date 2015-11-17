@@ -39,29 +39,39 @@ class Create extends Job implements SelfHandling
     public function __construct($email, $password, $fullName = null)
     {
         $this->email = $email;
-        $this->password = bcrypt($password);
+        $this->password = $password;
         $this->fullName = $fullName;
     }
 
     /**
      * Creates a new user.
      *
-     * @param User $user
+     * @param User $model
      *
-     * @return User|bool|static
+     * @return User|bool
      */
-    public function handle(User $user)
+    public function handle(User $model)
     {
-        $exists = $user->where('email', $this->email)->first();
+        $exists = $model->where('email', $this->email)->first();
 
-        if (!$exists) {
+        if (is_null($exists)) {
+            $user = $model->newInstance();
+
             $user->email = $this->email;
-            $user->password = $this->password;
             $user->fullname = $this->fullName;
 
-            if ($user->save()) {
-                return $user;
+            if ($user->hasSetMutator('password')) {
+                // If the user model has a password set mutator, we'll assume
+                // the developer is encrypting the passwords themselves.
+                $user->password = $this->password;
+            } else {
+                // Otherwise we'll encrypt the password.
+                $user->password = bcrypt($this->password);
             }
+
+            $user->save();
+
+            return $user;
         }
 
         return false;

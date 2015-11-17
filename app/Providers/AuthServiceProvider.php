@@ -31,6 +31,11 @@ class AuthServiceProvider extends ServiceProvider
     {
         parent::registerPolicies($gate);
 
-        //
+        // Register global policies.
+        foreach (get_class_methods(\App\Policies\GlobalPolicy::class) as $method) {
+            $callback = sprintf('%s@%s', \App\Policies\GlobalPolicy::class, $method);
+
+            $gate->define($method, $callback);
+        }
     }
 }

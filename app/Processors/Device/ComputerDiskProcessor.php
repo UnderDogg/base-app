@@ -3,7 +3,7 @@
 namespace App\Processors\Device;
 
 use App\Http\Presenters\Device\ComputerDiskPresenter;
-use App\Jobs\Wmi\ScanDisks;
+use App\Jobs\Com\Computer\ScanDisks;
 use App\Models\Computer;
 use App\Processors\Processor;
 

@@ -19,11 +19,21 @@
 
             <ul class="nav navbar-nav">
 
-                <li>
-                    <a href="/">
+                <li class="dropdown {{ active()->route('resources.*') }}" id="resources-menu">
+                    <a  href="#resources-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-info-circle"></i>
                         Resources
+                        <i class="fa fa-caret-down"></i>
                     </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="{{ active()->route('resources.guides.*') }}">
+                            <a href="{{ route('resources.guides.index') }}">
+                                <i class="fa fa-info-circle"></i>
+                                Guides
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 @if(auth()->check())
@@ -136,6 +146,15 @@
                                 </a>
                             </li>
                             <li class="divider"></li>
+
+                            @can('backend')
+                                <li>
+                                    <a href="{{ route('orchestra.dashboard') }}">
+                                        <i class="fa fa-user-md"></i> Administration
+                                    </a>
+                                </li>
+                            @endif
+
                             <li>
                                 <a href="{{ route('auth.logout') }}">
                                     <i class="fa fa-sign-out"></i> Logout

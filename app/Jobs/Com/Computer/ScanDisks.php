@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Wmi;
+namespace App\Jobs\Com\Computer;
 
 use Stevebauman\Wmi\ConnectionInterface;
 use Stevebauman\Wmi\Models\Variants\HardDisk;
@@ -90,7 +90,7 @@ class ScanDisks extends Job implements SelfHandling
 
                     return $added;
                 }
-            } catch(\com_exception $e) {
+            } catch(\COM_EXCEPTION $e) {
                 //
             }
         }

@@ -8,14 +8,6 @@ use App\Models\Comment;
 class CommentPolicy extends Policy
 {
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Returns true / false if the specified user
      * can edit the specified comment.
      *

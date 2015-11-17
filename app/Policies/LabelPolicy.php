@@ -17,6 +17,6 @@ class LabelPolicy extends Policy
      */
     public function index(User $user)
     {
-        return $user->is(Role::admin()->name);
+        return $user->is($this->admin()->name);
     }
 }

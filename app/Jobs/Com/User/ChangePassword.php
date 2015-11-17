@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Com;
+namespace App\Jobs\Com\User;
 
 use COM;
 use COM_EXCEPTION;
