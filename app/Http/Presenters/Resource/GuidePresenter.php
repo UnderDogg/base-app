@@ -27,21 +27,35 @@ class GuidePresenter extends Presenter
         {
             $table->with($guide)->paginate($this->perPage);
 
+            $table->searchable([
+                'title',
+                'description',
+            ]);
+
             $table->attributes(['class' => 'table table-hover']);
 
-            $table->column('title')
+            $table
+                ->column('title')
                 ->value(function (Guide $guide)
                 {
                     return link_to_route('resources.guides.show', $guide->title, [$guide->slug]);
                 });
 
-            $table->column('created_at', function (Column $column)
-            {
-                $column->label = 'Created';
-            })->value(function (Guide $guide)
-            {
-                return $guide->createdAtHuman();
-            });
+            $table
+                ->column('summary')
+                ->value(function (Guide $guide)
+                {
+                    return $guide->summary();
+                });
+
+            $table
+                ->column('created_at', function (Column $column)
+                {
+                    $column->label = 'Created';
+                })->value(function (Guide $guide)
+                {
+                    return $guide->createdAtHuman();
+                });
         });
     }
 
@@ -57,7 +71,7 @@ class GuidePresenter extends Presenter
         return $this->form->of('resources.guides', function (FormGrid $form) use ($guide)
         {
             if ($guide->exists) {
-                $route = route('resources.guides.update', [$guide->getKey()]);
+                $route = route('resources.guides.update', [$guide->slug]);
                 $method = 'PATCH';
             } else {
                 $route = route('resources.guides.store');
@@ -92,7 +106,12 @@ class GuidePresenter extends Presenter
                     ->control('input:text', 'slug')
                     ->attributes([
                         'placeholder' => 'Enter the guide slug',
-                    ])->value('how-to');
+                    ])->value(function (Guide $guide)
+                    {
+                        if ($guide->exists) return $guide->slug;
+
+                        return 'how-to';
+                    });
 
                 $fieldset
                     ->control('input:textarea', 'description')

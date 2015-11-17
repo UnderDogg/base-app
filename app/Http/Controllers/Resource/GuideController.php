@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Models\Guide;
 use App\Http\Requests\Resource\GuideRequest;
 use App\Processors\Resource\GuideProcessor;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,9 @@ class GuideController extends Controller
      */
     public function store(GuideRequest $request)
     {
-        if ($this->processor->store($request)) {
+        $guide = $this->processor->store($request);
+
+        if ($guide instanceof Guide) {
             flash()->success('Success!', 'Successfully created guide!');
 
             return redirect()->route('resources.guides.index');
@@ -97,10 +100,12 @@ class GuideController extends Controller
      */
     public function update(GuideRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $guide = $this->processor->update($request, $id);
+
+        if ($guide instanceof Guide) {
             flash()->success('Success!', 'Successfully updated guide!');
 
-            return redirect()->route('resources.guides.show', [$id]);
+            return redirect()->route('resources.guides.show', [$guide->slug]);
         } else {
             flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
 

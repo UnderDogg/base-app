@@ -81,7 +81,11 @@ class GuideProcessor extends Processor
             $guide->published_on = $guide->freshTimestampString();
         }
 
-        return $guide->save();
+        if ($guide->save()) {
+            return $guide;
+        }
+
+        return false;
     }
 
     /**
@@ -144,7 +148,11 @@ class GuideProcessor extends Processor
             $guide->published_on = null;
         }
 
-        return $guide->save();
+        if ($guide->save()) {
+            return $guide;
+        }
+
+        return false;
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+
 class Guide extends Model
 {
     /**
@@ -34,5 +36,15 @@ class Guide extends Model
     public function locate($slug, array $with = [])
     {
         return $this->query()->where(compact('slug'))->with($with)->firstOrFail();
+    }
+
+    /**
+     * Returns a summary of the guide by limiting the description attribute.
+     *
+     * @return string
+     */
+    public function summary()
+    {
+        return Str::limit($this->description, 25);
     }
 }

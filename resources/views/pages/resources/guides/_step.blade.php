@@ -8,7 +8,7 @@
         </div>
 
         <div class="col-sm-11 col-md-10 step-vertical">
-            <p>{{ $step->title }}</p>
+            <p class="lead">{{ $step->title }}</p>
 
             <p>{{ $step->description }}</p>
         </div>
