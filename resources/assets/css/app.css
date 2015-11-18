@@ -65,8 +65,24 @@ td .label {
     float: left;
 }
 
+/* Vertically align step numbers with the step */
 .step-vertical {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+
+/* Override dropzone's border on forms */
+.dropzone {
+    border: none;
+}
+
+/* Override dropzone's cursor on forms */
+.dropzone.dz-clickable * {
+    cursor: auto;
+}
+
+/* Center images in panel headers for guide steps */
+.panel-heading .img-responsive {
+    margin: 0 auto;
 }

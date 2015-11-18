@@ -191,6 +191,11 @@ return [
          * Commonmark Wrapper
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
+
+        /*
+         * Intervention Image Manipulation
+         */
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -254,6 +259,7 @@ return [
         'Adldap'    => Adldap\Laravel\Facades\Adldap::class,
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Purify'    => Stevebauman\Purify\Facades\Purify::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];

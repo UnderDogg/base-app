@@ -16,6 +16,8 @@ class CreateUploadsTable extends Migration
             $table->increments('id');
             $table->timestamps();
 
+            $table->string('uploadable_type');
+            $table->integer('uploadable_id')->unsigned();
             $table->string('uuid');
             $table->string('name');
             $table->string('type');

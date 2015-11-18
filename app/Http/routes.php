@@ -123,24 +123,24 @@ $router->group(['middleware' => ['auth']], function ($router)
         // The password locked middleware route group.
         $router->group(['middleware' => ['passwords.locked']], function ($router)
         {
-            // Change Password Folder Pin
+            // Change Password Folder Pin.
             $router->get('passwords/change-pin', [
                 'as' => 'passwords.pin.change',
                 'uses' => 'PinController@change',
             ]);
 
-            // Update Password Folder Pin
+            // Update Password Folder Pin.
             $router->post('passwords/change-pin', [
                 'as' => 'passwords.pin.update',
                 'uses' => 'PinController@update',
             ]);
 
-            // User Password Resource
+            // User Password Resource.
             $router->resource('passwords', 'PasswordController');
         });
     });
 
-    // The resources route group
+    // The resources route group.
     $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router)
     {
         // The guides resource.
@@ -149,9 +149,22 @@ $router->group(['middleware' => ['auth']], function ($router)
         // The guide steps resource.
         $router->resource('guides.steps', 'GuideStepController');
 
+        // The resources group.
         $router->group(['as' => 'resources.'], function ($router)
         {
-            //
+            // The guides group.
+            $router->group(['as' => 'guides.'], function ($router)
+            {
+                // The guide steps group.
+                $router->group(['as' => 'steps.'], function ($router)
+                {
+                    // The guide step image download route.
+                    $router->get('{guides}/steps/{steps}/images/{images}', [
+                        'as' => 'images.download',
+                        'uses' => 'GuideStepController@download',
+                    ]);
+                });
+            });
         });
     });
 
@@ -194,12 +207,6 @@ $router->group(['middleware' => ['auth']], function ($router)
     // The labels resource.
     $router->resource('labels', 'LabelController', [
         'except' => ['show']
-    ]);
-
-    // The attachment image upload route.
-    $router->post('attachments/image', [
-        'uses'  => 'AttachmentController@image',
-        'as'    => 'attachments.image',
     ]);
 
     // The active directory route group.

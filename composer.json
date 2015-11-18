@@ -17,7 +17,8 @@
         "stevebauman/winperm": "1.0.*",
         "ramsey/uuid": "2.8.*",
         "geerlingguy/ping": "1.0.*",
-        "rutorika/sortable": "2.3.*"
+        "rutorika/sortable": "2.3.*",
+        "intervention/image": "2.3.*"
     },
     "require-dev": {
         "orchestra/testing": "~3.1",

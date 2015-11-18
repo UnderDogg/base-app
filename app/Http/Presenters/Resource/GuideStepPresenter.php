@@ -28,12 +28,12 @@ class GuideStepPresenter extends Presenter
 
             if ($step->exists) {
                 $route = route('resources.guides.steps.update', [$guide->slug, $step->getKey()]);
-                $attributes['method'] = 'POST';
+                $attributes['method'] = 'PATCH';
 
                 $form->submit = 'Update Step';
             } else {
                 $route = route('resources.guides.steps.store', [$guide->slug]);
-                $attributes['method'] = 'PATCH';
+                $attributes['method'] = 'POST';
 
                 $form->submit = 'Add Step';
             }
@@ -42,12 +42,23 @@ class GuideStepPresenter extends Presenter
 
             $form->fieldset(function (Fieldset $fieldset)
             {
-                $fieldset->control('input:text', 'title')
+                $fieldset->control('input:file', 'image');
+
+                $fieldset
+                    ->control('input:checkbox', 'resize')
+                    ->attributes([
+                        'class' => 'switch-mark',
+                    ])
+                    ->label('Resize Uploaded Image?');
+
+                $fieldset
+                    ->control('input:text', 'title')
                     ->attributes([
                         'placeholder' => 'Enter the step title',
                     ]);
 
-                $fieldset->control('input:textarea', 'description')
+                $fieldset
+                    ->control('input:textarea', 'description')
                     ->attributes([
                         'placeholder' => 'Enter the step description',
                     ]);

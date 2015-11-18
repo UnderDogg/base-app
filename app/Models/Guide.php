@@ -16,6 +16,16 @@ class Guide extends Model
     protected $table = 'guides';
 
     /**
+     * The fillable guide attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
+    /**
      * The hasMany steps relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -78,5 +88,18 @@ class Guide extends Model
         $class = 'label ' . ($this->published ? 'label-success' : 'label-danger');
 
         return HTML::create('span', $published, compact('class'));
+    }
+
+    /**
+     * Adds a step to the current guide.
+     *
+     * @param string $title
+     * @param string $description
+     *
+     * @return GuideStep
+     */
+    public function addStep($title, $description)
+    {
+        return $this->steps()->create(compact('title', 'description'));
     }
 }

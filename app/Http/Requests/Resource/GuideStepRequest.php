@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Attachment;
+namespace App\Http\Requests\Resource;
 
 use App\Http\Requests\Request;
 
-class ImageRequest extends Request
+class GuideStepRequest extends Request
 {
     /**
      * The attachment request validation rules.
@@ -14,7 +14,9 @@ class ImageRequest extends Request
     public function rules()
     {
         return [
-            'file' => 'image',
+            'image' => 'image',
+            'title' => 'required|min:5',
+            'description' => 'min:5',
         ];
     }
 

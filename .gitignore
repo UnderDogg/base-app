@@ -4,6 +4,7 @@
 /vendor/*
 /.idea
 /.htaccess
+/storage/*
 Homestead.yaml
 Homestead.json
 .env

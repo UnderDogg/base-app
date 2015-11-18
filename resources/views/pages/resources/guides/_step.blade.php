@@ -1,10 +1,14 @@
-<div class="panel panel-default">
+<div id="step-{{ $step->position }}" class="panel panel-default">
+    @if(count($step->images) > 0)
     <div class="panel-heading">
-        <img class="img-responsive" src="http://placehold.it/670x447">
+        @foreach($step->images as $image)
+            <img class="img-responsive" src="{{ route('resources.guides.steps.images.download', [$step->guide->slug, $step->getKey(), $image->uuid]) }}">
+        @endforeach
     </div>
+    @endif
     <div class="panel-body">
         <div class="col-sm-1 col-md-1 step-vertical">
-            <h1 class="text-bold"><a href="#step-{{ $step->position }}">{{ $step->position }}</a></h1>
+            <h1 class="text-bold"><a class="anchor" href="#step-{{ $step->position }}">{{ $step->position }}</a></h1>
         </div>
 
         <div class="col-sm-11 col-md-10 step-vertical">
