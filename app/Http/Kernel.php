@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
         'passwords.locked' => Middleware\PasswordFolderLocked::class,
         'passwords.setup' => Middleware\PasswordFolderSetup::class,
         'passwords.gate' => Middleware\PasswordGate::class,
-        'security-questions.setup' => Middleware\ActiveDirectory\SetupQuestionMiddleware::class,
+        'security-questions.setup' => Middleware\ActiveDirectory\Questions\AlreadySetupMiddleware::class,
+        'security-questions.setup.finish' => Middleware\ActiveDirectory\Questions\MustSetupMiddleware::class,
     ];
 }

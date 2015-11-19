@@ -89,14 +89,6 @@ class GuidePresenter extends Presenter
             $form->fieldset(function (Fieldset $fieldset) use ($guide)
             {
                 $fieldset
-                    ->control('input:checkbox', 'publish')
-                    ->attributes([
-                        'class' => 'switch-mark',
-                        ($guide->published ? 'checked' : null)
-                    ])
-                    ->value(1);
-
-                $fieldset
                     ->control('input:text', 'title')
                     ->attributes([
                         'class' => 'slug',
@@ -125,6 +117,14 @@ class GuidePresenter extends Presenter
                         'placeholder' => 'Enter the guide description',
                         'data-provide' => 'markdown',
                     ]);
+
+                $fieldset
+                    ->control('input:checkbox', 'publish')
+                    ->attributes([
+                        'class' => 'switch-mark',
+                        ($guide->published ? 'checked' : null)
+                    ])
+                    ->value(1);
             });
         });
     }

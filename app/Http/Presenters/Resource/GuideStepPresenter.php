@@ -45,13 +45,6 @@ class GuideStepPresenter extends Presenter
                 $fieldset->control('input:file', 'image');
 
                 $fieldset
-                    ->control('input:checkbox', 'resize')
-                    ->attributes([
-                        'class' => 'switch-mark',
-                    ])
-                    ->label('Resize Uploaded Image?');
-
-                $fieldset
                     ->control('input:text', 'title')
                     ->attributes([
                         'placeholder' => 'Enter the step title',

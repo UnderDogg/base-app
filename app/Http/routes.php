@@ -248,6 +248,7 @@ $router->group(['middleware' => ['auth']], function ($router)
         $router->get('/', [
             'as' => 'index',
             'uses' => 'SetupQuestionController@index',
+            'middleware' => 'security-questions.setup.finish',
         ]);
 
         // Cover security question routes with setup middleware.

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Middleware\ActiveDirectory;
+namespace App\Http\Middleware\ActiveDirectory\Questions;
 
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
-class SetupQuestionMiddleware
+class AlreadySetupMiddleware
 {
     /**
      * Prevents users from visiting the question setup

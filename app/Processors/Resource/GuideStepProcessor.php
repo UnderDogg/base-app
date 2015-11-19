@@ -8,7 +8,6 @@ use App\Models\GuideStep;
 use App\Models\Upload;
 use App\Processors\Processor;
 use Intervention\Image\Constraint;
-use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -58,7 +57,7 @@ class GuideStepProcessor extends Processor
                 if ($file instanceof UploadedFile) {
                     // Looks like an image was uploaded, we'll move
                     // it into storage and add it to the step.
-                    return $this->handleUpload($guide, $step, $file, $request->has('resize'));
+                    return $this->handleUpload($guide, $step, $file);
                 }
 
                 // No image was uploaded, we'll return the step.
@@ -101,11 +100,10 @@ class GuideStepProcessor extends Processor
      * @param Guide        $guide
      * @param GuideStep    $step
      * @param UploadedFile $file
-     * @param bool         $resize
      *
      * @return GuideStep|bool
      */
-    protected function handleUpload(Guide $guide, GuideStep $step, UploadedFile $file, $resize = false)
+    protected function handleUpload(Guide $guide, GuideStep $step, UploadedFile $file)
     {
         // Validate file name length.
         if(strlen($file->getClientOriginalName()) > 70) {
@@ -118,13 +116,8 @@ class GuideStepProcessor extends Processor
         // Generate the storage path.
         $path = $guide->getKey() . DIRECTORY_SEPARATOR . $name;
 
-        // Make the image from intervention.
-        $image = $this->manager->make($file->getRealPath());
-
-        if ($resize) {
-            // Resize the uploaded image if the user requested it.
-            $image = $this->resizeImage($image);
-        }
+        // Resize the uploaded image if the user requested it.
+        $image = $this->resizeUploadedImage($file);
 
         // Move the file into storage.
         Storage::put($path, $image->stream());
@@ -143,20 +136,24 @@ class GuideStepProcessor extends Processor
     }
 
     /**
-     * Resize's the uploaded image and saves it to the specified path.
+     * Resize's the uploaded image.
      *
-     * @param Image $image
+     * @param UploadedFile $file
      *
      * @return \Intervention\Image\Image
      */
-    protected function resizeImage(Image $image)
+    protected function resizeUploadedImage(UploadedFile $file)
     {
+        // Make the image from intervention.
+        $image = $this->manager->make($file->getRealPath());
+
         // Restrict image to 680 x 480.
         $width = 680;
         $height = 480;
 
-        $image->fit($width, $height, function (Constraint $constraint) {
-            // Prevent image up-sizing.
+        $image->resize($width, $height, function (Constraint $constraint) {
+            // Prevent image up-sizing and keep aspect ratio.
+            $constraint->aspectRatio();
             $constraint->upsize();
         });
 
