@@ -126,7 +126,7 @@ class Drive extends Model
             }
         }
 
-        $command = sprintf('net use %s: %s %s /user:%s /persistent:no /delete', $drive, $path, $password, $username);
+        $command = sprintf('net use %s: %s %s /user:%s /persistent:no', $drive, $path, $password, $username);
 
         system($command, $returned);
 

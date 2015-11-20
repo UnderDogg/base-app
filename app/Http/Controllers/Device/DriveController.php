@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Device;
 
+use Illuminate\Contracts\View\View;
 use App\Http\Requests\Device\DriveRequest;
 use App\Http\Controllers\Controller;
 use App\Processors\Device\DriveProcessor;
@@ -73,7 +74,17 @@ class DriveController extends Controller
      */
     public function show($id, $path = null)
     {
-        return $this->processor->show($id, $path);
+        $view = $this->processor->show($id, $path);
+
+        if ($view instanceof View) {
+            return $view;
+        }
+
+        $message = 'It looks like were having issues displaying the contents of this drive. Please try again.';
+
+        flash()->error('Error!', $message);
+
+        return redirect()->route('devices.drives.index');
     }
 
     /**

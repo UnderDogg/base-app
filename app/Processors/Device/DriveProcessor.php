@@ -81,7 +81,7 @@ class DriveProcessor extends Processor
      * @param int|string  $id
      * @param string|null $path
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|bool
      */
     public function show($id, $path = null)
     {
@@ -89,9 +89,13 @@ class DriveProcessor extends Processor
 
         $accounts = $drive->accounts($path);
 
-        $items = $this->presenter->tableItems($drive, $path);
+        if ($accounts) {
+            $items = $this->presenter->tableItems($drive, $path);
 
-        return view('pages.devices.drives.show', compact('drive', 'accounts', 'items'));
+            return view('pages.devices.drives.show', compact('drive', 'accounts', 'items'));
+        }
+
+        return false;
     }
 
     /**
