@@ -153,15 +153,21 @@ $router->group(['middleware' => ['auth']], function ($router)
         $router->group(['as' => 'resources.'], function ($router)
         {
             // The guides group.
-            $router->group(['as' => 'guides.'], function ($router)
+            $router->group(['prefix' => 'guides', 'as' => 'guides.'], function ($router)
             {
                 // The guide steps group.
-                $router->group(['as' => 'steps.'], function ($router)
+                $router->group(['prefix' => '{guides}/steps/{steps}', 'as' => 'steps.'], function ($router)
                 {
                     // The guide step image download route.
-                    $router->get('{guides}/steps/{steps}/images/{images}', [
+                    $router->get('images/{images}', [
                         'as' => 'images.download',
                         'uses' => 'GuideStepController@download',
+                    ]);
+
+                    // The guide step move route.
+                    $router->post('move', [
+                        'as' => 'move.position',
+                        'uses' => 'GuideStepController@move',
                     ]);
                 });
             });

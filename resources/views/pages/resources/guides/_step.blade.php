@@ -2,7 +2,7 @@
     @if(count($step->images) > 0)
     <div class="panel-heading">
         @foreach($step->images as $image)
-            <img class="img-responsive" src="{{ route('resources.guides.steps.images.download', [$step->guide->slug, $step->getKey(), $image->uuid]) }}">
+            <img class="img-responsive" src="{{ route('resources.guides.steps.images.download', [$step->guide->getSlug(), $step->getKey(), $image->uuid]) }}">
         @endforeach
     </div>
     @endif

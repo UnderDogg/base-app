@@ -105,7 +105,7 @@ class GuideController extends Controller
         if ($guide instanceof Guide) {
             flash()->success('Success!', 'Successfully updated guide!');
 
-            return redirect()->route('resources.guides.show', [$guide->slug]);
+            return redirect()->route('resources.guides.show', [$guide->getSlug()]);
         } else {
             flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
 

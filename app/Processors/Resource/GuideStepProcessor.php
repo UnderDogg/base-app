@@ -2,6 +2,7 @@
 
 namespace App\Processors\Resource;
 
+use App\Http\Requests\Resource\GuideStepMoveRequest;
 use App\Http\Requests\Resource\GuideStepRequest;
 use App\Http\Presenters\Resource\GuideStepPresenter;
 use App\Models\Guide;
@@ -44,17 +45,38 @@ class GuideStepProcessor extends Processor
         $this->presenter = $presenter;
     }
 
+    /**
+     * Displays the specified guide steps.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function index($id)
     {
         $guide = $this->guide->locate($id);
 
-        if ($guide instanceof Guide) {
-            $steps = $this->presenter->table($guide);
+        $steps = $this->presenter->table($guide);
 
-            return view('pages.resources.guides.steps.index', compact('steps'));
-        }
+        $navbar = $this->presenter->navbar($guide);
 
-        return false;
+        return view('pages.resources.guides.steps.index', compact('steps', 'navbar', 'guide'));
+    }
+
+    /**
+     * Displays the form to create a guide step.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($id)
+    {
+        $guide = $this->guide->locate($id);
+
+        $form = $this->presenter->form($guide, $guide->steps()->getRelated());
+
+        return view('pages.resources.guides.steps.create', compact('form'));
     }
 
     /**
@@ -69,21 +91,94 @@ class GuideStepProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
-        if ($guide instanceof Guide) {
-            $step = $guide->addStep($request->input('title'), $request->input('description'));
+        $step = $guide->addStep($request->input('title'), $request->input('description'));
 
-            if ($step instanceof GuideStep) {
-                $file = $request->file('image');
+        if ($step instanceof GuideStep) {
+            $file = $request->file('image');
 
-                if ($file instanceof UploadedFile) {
-                    // Looks like an image was uploaded, we'll move
-                    // it into storage and add it to the step.
-                    return $this->handleUpload($guide, $step, $file);
-                }
-
-                // No image was uploaded, we'll return the step.
-                return $step;
+            if ($file instanceof UploadedFile) {
+                // Looks like an image was uploaded, we'll move
+                // it into storage and add it to the step.
+                return $this->handleUpload($guide, $step, $file);
             }
+
+            // No image was uploaded, we'll return the step.
+            return $step;
+        }
+
+        return false;
+    }
+
+    /**
+     * Displays the form for editing the specified guide step.
+     *
+     * @param int|string $id
+     * @param int        $stepPosition
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id, $stepPosition)
+    {
+        $guide = $this->guide->locate($id);
+
+        $step = $guide->findStepByPosition($stepPosition);
+
+        $form = $this->presenter->form($guide, $step);
+
+        return view('pages.resources.guides.steps.edit', compact('form'));
+    }
+
+    /**
+     * Updates the specified 
+     *
+     * @param GuideStepRequest $request
+     * @param int|string       $id
+     * @param int              $stepPosition
+     *
+     * @return GuideStep|bool
+     */
+    public function update(GuideStepRequest $request, $id, $stepPosition)
+    {
+        $guide = $this->guide->locate($id);
+
+        $step = $guide->findStepByPosition($stepPosition);
+
+        $step->title = $request->input('title', $step->title);
+        $step->description = $request->input('description', $step->description);
+
+        if ($step->save()) {
+            // If saving the step is successful, we'll process the file upload if there is one.
+            $file = $request->file('image');
+
+            if ($file instanceof UploadedFile) {
+                $step->deleteFiles();
+
+                return $this->handleUpload($guide, $step, $file);
+            }
+
+            return $step;
+        }
+
+        return false;
+    }
+
+    /**
+     * Moves the guide step to the specified position.
+     *
+     * @param GuideStepMoveRequest $request
+     * @param int|string           $id
+     * @param int                  $stepId
+     *
+     * @return bool
+     */
+    public function move(GuideStepMoveRequest $request, $id, $stepId)
+    {
+        $guide = $this->guide->locate($id);
+
+        $step = $guide->steps()->findOrFail($stepId);
+
+        if ($step instanceof GuideStep) {
+            return $step->insertAt($request->input('position'));
         }
 
         return false;
@@ -102,14 +197,12 @@ class GuideStepProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
-        if ($guide instanceof Guide) {
-            $step = $guide->steps()->findOrFail($stepId);
+        $step = $guide->steps()->findOrFail($stepId);
 
-            if ($step instanceof GuideStep) {
-                $file = $step->findFile($fileUuid);
+        if ($step instanceof GuideStep) {
+            $file = $step->findFile($fileUuid);
 
-                return response()->download($file->getCompletePath());
-            }
+            return response()->download($file->getCompletePath());
         }
 
         return false;

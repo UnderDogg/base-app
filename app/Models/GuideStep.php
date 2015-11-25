@@ -48,6 +48,16 @@ class GuideStep extends Model
     }
 
     /**
+     * Returns the steps current position.
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
      * The belongsTo guide relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -94,5 +104,15 @@ class GuideStep extends Model
     public function findFile($uuid)
     {
         return $this->images()->where(compact('uuid'))->firstOrFail();
+    }
+
+    /**
+     * Deletes all files attached to the current step.
+     *
+     * @return int
+     */
+    public function deleteFiles()
+    {
+        return $this->images()->delete();
     }
 }

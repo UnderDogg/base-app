@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Http\Requests\Resource\GuideStepMoveRequest;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Processors\Resource\GuideStepProcessor;
 use App\Http\Requests\Resource\GuideStepRequest;
@@ -24,9 +25,28 @@ class GuideStepController extends Controller
         $this->processor = $processor;
     }
 
+    /**
+     * Displays the steps for the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function index($id)
     {
         return $this->processor->index($id);
+    }
+
+    /**
+     * Displays the form for creating a step for the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($id)
+    {
+        return $this->processor->create($id);
     }
 
     /**
@@ -48,6 +68,55 @@ class GuideStepController extends Controller
 
             return redirect()->route('resources.guides.show', [$id]);
         }
+    }
+
+    /**
+     * Displays the form for editing the specified guide step.
+     *
+     * @param int|string $id
+     * @param int        $stepPosition
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id, $stepPosition)
+    {
+        return $this->processor->edit($id, $stepPosition);
+    }
+
+    /**
+     * Updates the specified guide step.
+     *
+     * @param GuideStepRequest $request
+     * @param int|string       $id
+     * @param int              $stepPosition
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(GuideStepRequest $request, $id, $stepPosition)
+    {
+        if ($this->processor->update($request, $id, $stepPosition)) {
+            flash()->success('Success!', 'Successfully updated step.');
+
+            return redirect()->route('resources.guides.steps.index', [$id]);
+        } else {
+            flash()->error('Error!', 'There was an issue updating this step. Please try again.');
+
+            return redirect()->route('resources.guides.steps.edit', [$id, $stepPosition]);
+        }
+    }
+
+    /**
+     * Moves the specified guide step to the specified position.
+     *
+     * @param GuideStepMoveRequest $request
+     * @param int|string           $id
+     * @param int                  $stepId
+     *
+     * @return bool
+     */
+    public function move(GuideStepMoveRequest $request, $id, $stepId)
+    {
+        return $this->processor->move($request, $id, $stepId);
     }
 
     /**

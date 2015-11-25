@@ -13,14 +13,16 @@
     </div>
 
     <div class="col-md-3">
-        <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}" class="btn btn-primary">
-            Steps
-        </a>
+        <span class="btn-group">
+             <a href="{{ route('resources.guides.steps.index', [$guide->getSlug()]) }}" class="btn btn-primary">
+                 Steps
+             </a>
+        </span>
 
-        <a href="{{ route('resources.guides.edit', [$guide->slug]) }}" class="btn btn-warning">
+        <a href="{{ route('resources.guides.edit', [$guide->getSlug()]) }}" class="btn btn-warning">
             Edit
         </a>
-        <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
+        <a href="{{ route('resources.guides.destroy', [$guide->getSlug()]) }}"
            class="btn btn-danger"
            data-post="DELETE"
            data-title="Delete Guide?"

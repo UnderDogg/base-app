@@ -51,6 +51,16 @@ class Guide extends Model
     }
 
     /**
+     * Returns the current guides slug.
+     *
+     * @return string|null
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Returns the published at date in a human readable format.
      *
      * @return string|null

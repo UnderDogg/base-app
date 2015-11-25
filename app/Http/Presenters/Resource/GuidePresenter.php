@@ -37,7 +37,7 @@ class GuidePresenter extends Presenter
                 ->column('title')
                 ->value(function (Guide $guide)
                 {
-                    return link_to_route('resources.guides.show', $guide->title, [$guide->slug]);
+                    return link_to_route('resources.guides.show', $guide->title, [$guide->getSlug()]);
                 });
 
             $table
@@ -77,7 +77,7 @@ class GuidePresenter extends Presenter
         return $this->form->of('resources.guides', function (FormGrid $form) use ($guide)
         {
             if ($guide->exists) {
-                $route = route('resources.guides.update', [$guide->slug]);
+                $route = route('resources.guides.update', [$guide->getSlug()]);
                 $method = 'PATCH';
             } else {
                 $route = route('resources.guides.store');
@@ -106,7 +106,7 @@ class GuidePresenter extends Presenter
                         'placeholder' => 'Enter the guide slug',
                     ])->value(function (Guide $guide)
                     {
-                        if ($guide->exists) return $guide->slug;
+                        if ($guide->exists) return $guide->getSlug();
 
                         return 'how-to';
                     });
@@ -144,7 +144,7 @@ class GuidePresenter extends Presenter
     }
 
     /**
-     * Returns a new navbar for the issue index.
+     * Returns a new navbar for the guide index.
      *
      * @return \Illuminate\Support\Fluent
      */
