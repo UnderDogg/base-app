@@ -23,6 +23,7 @@ dir = {
 elixir(function(mix) {
     mix.scripts([
         'libs/jquery.min.js',
+        'libs/jquery-ui.min.js',
         'libs/bootstrap.min.js',
         'libs/dropzone.min.js',
         'libs/sweetalert.min.js',
@@ -37,6 +38,7 @@ elixir(function(mix) {
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
+        'libs/jquery-ui.min.css',
         'libs/dropzone.min.css',
         'libs/font-awesome.min.css',
         'libs/sweetalert.css',

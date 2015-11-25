@@ -3,6 +3,7 @@
 namespace App\Processors\Resource;
 
 use App\Http\Requests\Resource\GuideStepRequest;
+use App\Http\Presenters\Resource\GuideStepPresenter;
 use App\Models\Guide;
 use App\Models\GuideStep;
 use App\Models\Upload;
@@ -25,15 +26,35 @@ class GuideStepProcessor extends Processor
     protected $manager;
 
     /**
+     * @var GuideStepPresenter
+     */
+    protected $presenter;
+
+    /**
      * Constructor.
      *
-     * @param Guide        $guide
-     * @param ImageManager $manager
+     * @param Guide             $guide
+     * @param ImageManager       $manager
+     * @param GuideStepPresenter $presenter
      */
-    public function __construct(Guide $guide, ImageManager $manager)
+    public function __construct(Guide $guide, ImageManager $manager, GuideStepPresenter $presenter)
     {
         $this->guide = $guide;
         $this->manager = $manager;
+        $this->presenter = $presenter;
+    }
+
+    public function index($id)
+    {
+        $guide = $this->guide->locate($id);
+
+        if ($guide instanceof Guide) {
+            $steps = $this->presenter->table($guide);
+
+            return view('pages.resources.guides.steps.index', compact('steps'));
+        }
+
+        return false;
     }
 
     /**

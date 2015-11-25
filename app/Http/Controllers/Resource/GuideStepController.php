@@ -24,6 +24,11 @@ class GuideStepController extends Controller
         $this->processor = $processor;
     }
 
+    public function index($id)
+    {
+        return $this->processor->index($id);
+    }
+
     /**
      * Creates a step for the specified guide.
      *

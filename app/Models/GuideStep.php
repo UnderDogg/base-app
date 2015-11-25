@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Rutorika\Sortable\SortableTrait;
+use Lookitsatravis\Listify\Listify;
 
 class GuideStep extends Model
 {
-    use SortableTrait;
+    use Listify;
 
     /**
      * The guide steps model.
@@ -14,6 +14,13 @@ class GuideStep extends Model
      * @var string
      */
     protected $table = 'guide_steps';
+
+    /**
+     * The sortable group field.
+     *
+     * @var string
+     */
+    protected $sortableGroupField = 'guide_id';
 
     /**
      * The fillable guide step attributes.
@@ -24,7 +31,21 @@ class GuideStep extends Model
         'guide_id',
         'title',
         'description',
+        'position',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        // Initialize listify with the scope of the current step guide.
+        $this->initListify([
+            'scope' => $this->guide(),
+        ]);
+    }
 
     /**
      * The belongsTo guide relationship.

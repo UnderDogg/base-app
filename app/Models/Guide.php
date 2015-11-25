@@ -102,4 +102,16 @@ class Guide extends Model
     {
         return $this->steps()->create(compact('title', 'description'));
     }
+
+    /**
+     * Finds a guide step by its current position.
+     *
+     * @param int $position
+     *
+     * @return GuideStep|null
+     */
+    public function findStepByPosition($position)
+    {
+        return $this->steps()->where(compact('position'))->firstOrFail();
+    }
 }

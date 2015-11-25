@@ -17,7 +17,7 @@
         "stevebauman/winperm": "1.0.*",
         "ramsey/uuid": "2.8.*",
         "geerlingguy/ping": "1.0.*",
-        "rutorika/sortable": "2.3.*",
+        "lookitsatravis/listify": "1.1.*",
         "intervention/image": "2.3.*"
     },
     "require-dev": {

@@ -4,6 +4,7 @@ namespace App\Http\Presenters\Resource;
 
 use App\Models\Guide;
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Models\GuideStep;
 use App\Http\Presenters\Presenter;
@@ -56,6 +57,53 @@ class GuideStepPresenter extends Presenter
                         'placeholder' => 'Enter the step description',
                     ]);
             });
+        });
+    }
+
+    /**
+     * Returns a new table of the guide steps.
+     *
+     * @param Guide $guide
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function table(Guide $guide)
+    {
+        $steps = $guide->steps()->orderBy('position');
+
+        return $this->table->of('resources.guides', function (TableGrid $table) use ($guide, $steps) {
+            $table->with($steps)->paginate($this->perPage);
+
+            $table->layout('pages.resources.guides.steps._table');
+
+            $table->attributes(['class' => 'table table-hover']);
+
+            $table->column('move')
+                ->attributes(function () {
+                    return ['class' => 'sortable-handle'];
+                })
+                ->value(function () {
+                    return '<i class="fa fa-sort"></i>';
+                });
+
+            $table->column('position')
+                ->label('Step')
+                ->attributes(function ()
+                {
+                    return ['class' => 'position'];
+                });
+
+            $table
+                ->column('title')
+                ->value(function (GuideStep $step) use ($guide) {
+                    return link_to_route('resources.guides.steps.show', $step->title, [$guide->slug, $step->position]);
+                });
+
+            $table
+                ->column('description')
+                ->value(function (GuideStep $step) {
+                    return $step->description;
+                });
         });
     }
 }
