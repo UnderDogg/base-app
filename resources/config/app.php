@@ -176,6 +176,7 @@ return [
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\DecoratorServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
 
         /*
          * Revision Provider
