@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Create a Step')
+@section('title.header')
+    <h2>
+        @section('title') Create Step {{ $steps }} @show
+    </h2>
+@stop
 
 @section('content')
 

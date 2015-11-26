@@ -42,6 +42,8 @@ class GuideStepPresenter extends Presenter
 
             $form->setup($this, $route, $step, $attributes);
 
+            $form->layout('pages.resources.guides.steps._form');
+
             $form->fieldset(function (Fieldset $fieldset) use ($step)
             {
                 $hasImage = count($step->images);

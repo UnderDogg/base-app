@@ -62,11 +62,15 @@ class GuideStepController extends Controller
         if ($this->processor->store($request, $id)) {
             flash()->success('Success!', 'Successfully added step.');
 
-            return redirect()->route('resources.guides.show', [$id]);
+            if ($request->input('action') === 'multiple') {
+                return redirect()->route('resources.guides.steps.create', [$id]);
+            } else {
+                return redirect()->route('resources.guides.show', [$id]);
+            }
         } else {
             flash()->error('Error!', 'There was an issue adding a step to this guide. Please try again.');
 
-            return redirect()->route('resources.guides.show', [$id]);
+            return redirect()->route('resources.guides.create', [$id]);
         }
     }
 

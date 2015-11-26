@@ -13,28 +13,30 @@
     </div>
 
     <div class="col-md-3">
-        <span class="btn-group">
-             <a href="{{ route('resources.guides.steps.index', [$guide->getSlug()]) }}" class="btn btn-primary">
-                 Steps
-             </a>
-            <a href="{{ route('resources.guides.steps.create', [$guide->getSlug()]) }}" class="btn btn-primary">
-                <i class="fa fa-plus"></i>
+        <p>
+            <span class="btn-group">
+                 <a href="{{ route('resources.guides.steps.index', [$guide->getSlug()]) }}" class="btn btn-primary">
+                     Steps
+                 </a>
+                <a href="{{ route('resources.guides.steps.create', [$guide->getSlug()]) }}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </span>
+        </p>
+
+        <p>
+            <a href="{{ route('resources.guides.edit', [$guide->getSlug()]) }}" class="btn btn-warning">
+                Edit
             </a>
-        </span>
-
-        <br> <br>
-
-        <a href="{{ route('resources.guides.edit', [$guide->getSlug()]) }}" class="btn btn-warning">
-            Edit
-        </a>
-        <a href="{{ route('resources.guides.destroy', [$guide->getSlug()]) }}"
-           class="btn btn-danger"
-           data-post="DELETE"
-           data-title="Delete Guide?"
-           data-message="Are you sure you want to delete this guide? It cannot be recovered."
-        >
-            Delete
-        </a>
+            <a href="{{ route('resources.guides.destroy', [$guide->getSlug()]) }}"
+               class="btn btn-danger"
+               data-post="DELETE"
+               data-title="Delete Guide?"
+               data-message="Are you sure you want to delete this guide? It cannot be recovered."
+            >
+                Delete
+            </a>
+        </p>
     </div>
 
 @stop
