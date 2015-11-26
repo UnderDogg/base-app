@@ -103,9 +103,11 @@ class GuideProcessor extends Processor
             }
         ]);
 
+        $navbar = $this->presenter->navbarShow($guide);
+
         $formStep = $this->presenter->formStep($guide);
 
-        return view('pages.resources.guides.show', compact('guide', 'formStep'));
+        return view('pages.resources.guides.show', compact('guide', 'navbar', 'formStep'));
     }
 
     /**

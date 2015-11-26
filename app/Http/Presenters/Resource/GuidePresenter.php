@@ -164,4 +164,24 @@ class GuidePresenter extends Presenter
             ],
         ]);
     }
+
+    /**
+     * Returns a new navbar for the guide step show page.
+     *
+     * @param Guide     $guide
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarShow(Guide $guide)
+    {
+        return $this->fluent([
+            'id'    => 'guide-steps-show',
+            'title' => 'Actions',
+            'url'   => route('resources.guides.show', [$guide->getSlug()]),
+            'menu'  => view('pages.resources.guides._nav-show', compact('guide')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
 }

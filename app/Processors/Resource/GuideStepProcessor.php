@@ -78,7 +78,7 @@ class GuideStepProcessor extends Processor
 
         $form = $this->presenter->form($guide, $guide->steps()->getRelated());
 
-        return view('pages.resources.guides.steps.create', compact('form', 'steps'));
+        return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
     }
 
     /**
