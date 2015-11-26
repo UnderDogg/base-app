@@ -17,7 +17,12 @@
              <a href="{{ route('resources.guides.steps.index', [$guide->getSlug()]) }}" class="btn btn-primary">
                  Steps
              </a>
+            <a href="{{ route('resources.guides.steps.create', [$guide->getSlug()]) }}" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+            </a>
         </span>
+
+        <br> <br>
 
         <a href="{{ route('resources.guides.edit', [$guide->getSlug()]) }}" class="btn btn-warning">
             Edit
