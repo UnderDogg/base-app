@@ -46,7 +46,7 @@ class PinProcessor extends Processor
             $folder = $user->passwordFolder;
 
             if ($folder instanceof PasswordFolder) {
-                $form = $this->presenter->form($folder);
+                $form = $this->presenter->form();
 
                 return view('pages.passwords.pin.change', compact('form'));
             }

@@ -12,15 +12,14 @@ class PinPresenter extends Presenter
     /**
      * Returns a new form for changing the users password folder PIN.
      *
-     * @param PasswordFolder $folder
-     *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(PasswordFolder $folder)
+    public function form()
     {
-        return $this->form->of('passwords.change-pin', function(FormGrid $form) use ($folder)
+        return $this->form->of('passwords.change-pin', function(FormGrid $form)
         {
-            $form->setup($this, route('passwords.pin.update'), $folder, [
+            $form->attributes([
+                'url' => route('passwords.pin.update'),
                 'method' => 'POST',
             ]);
 
