@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "38605329c12d4e7ce086a3e48794de06",
-    "content-hash": "7a19e480c7aadfb83b002b58f0a2902f",
+    "hash": "b43d86b1d5c4e57f280a3870a3b8e8b8",
+    "content-hash": "b713d3f2ddd4d0e7b93e2c2a69cec2e6",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -1522,6 +1522,66 @@
             "time": "2015-10-02 23:38:16"
         },
         {
+            "name": "orchestra/avatar",
+            "version": "v3.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/avatar.git",
+                "reference": "bad825d2263647d501b602faeccd8cfbb7d82611"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/avatar/zipball/bad825d2263647d501b602faeccd8cfbb7d82611",
+                "reference": "bad825d2263647d501b602faeccd8cfbb7d82611",
+                "shasum": ""
+            },
+            "require": {
+                "orchestra/support-facades": "~3.1.0",
+                "orchestra/support-providers": "~3.1.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "illuminate/container": "~5.1.0",
+                "illuminate/database": "~5.1.0",
+                "mockery/mockery": "^0.9.1"
+            },
+            "suggest": {
+                "laravel/framework": "Allow using orchestra/avatar component outside of Orchestra Platform (~5.1).",
+                "orchestra/foundation": "Allow using orchestra/avatar with Orchestra Platform (~3.1)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Avatar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Avatar Component for Orchestra Platform",
+            "keywords": [
+                "avatar",
+                "gravatar",
+                "laravel",
+                "orchestra-platform",
+                "orchestral"
+            ],
+            "time": "2015-07-06 07:56:48"
+        },
+        {
             "name": "orchestra/control",
             "version": "v3.1.6",
             "source": {
@@ -2332,6 +2392,51 @@
             "time": "2015-11-25 07:01:32"
         },
         {
+            "name": "orchestra/theme-installer",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/theme-installer.git",
+                "reference": "e66de77bd08a0e2d84cb4b2bcc64bcc9ff2c7f91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/theme-installer/zipball/e66de77bd08a0e2d84cb4b2bcc64bcc9ff2c7f91",
+                "reference": "e66de77bd08a0e2d84cb4b2bcc64bcc9ff2c7f91",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0.0",
+                "illuminate/support": "~4.2|~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "class": "Orchestra\\ThemeInstaller\\InstallerPlugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\ThemeInstaller\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Theme Installer for Orchestra Platform",
+            "time": "2015-06-11 15:58:46"
+        },
+        {
             "name": "orchestra/translation",
             "version": "v3.1.2",
             "source": {
@@ -2830,6 +2935,47 @@
                 "uuid"
             ],
             "time": "2015-08-31 13:34:50"
+        },
+        {
+            "name": "stackie/adminlte-theme",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stackie/adminlte-theme.git",
+                "reference": "d5bb49c966a3b157cd594c5ea997506fdbd503b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stackie/adminlte-theme/zipball/d5bb49c966a3b157cd594c5ea997506fdbd503b8",
+                "reference": "d5bb49c966a3b157cd594c5ea997506fdbd503b8",
+                "shasum": ""
+            },
+            "require": {
+                "orchestra/avatar": "~3.1",
+                "orchestra/contracts": "~3.1",
+                "orchestra/theme-installer": "~1.0",
+                "php": ">=5.4.0"
+            },
+            "type": "orchestra-theme",
+            "extra": {
+                "theme-name": "adminlte",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "AdminLTE Theme for Orchestra Platform",
+            "time": "2015-09-13 05:23:58"
         },
         {
             "name": "stevebauman/purify",
