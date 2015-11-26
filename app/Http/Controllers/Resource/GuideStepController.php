@@ -106,6 +106,27 @@ class GuideStepController extends Controller
     }
 
     /**
+     * Deletes the specified guide step.
+     *
+     * @param int|string $id
+     * @param int        $stepPosition
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id, $stepPosition)
+    {
+        if ($this->processor->destroy($id, $stepPosition)) {
+            flash()->success('Success!', 'Successfully deleted step.');
+
+            return redirect()->route('resources.guides.steps.index', [$id]);
+        } else {
+            flash()->error('Error!', 'There was an issue deleting this step. Please try again.');
+
+            return redirect()->route('resources.guides.steps.index', [$id]);
+        }
+    }
+
+    /**
      * Moves the specified guide step to the specified position.
      *
      * @param GuideStepMoveRequest $request
