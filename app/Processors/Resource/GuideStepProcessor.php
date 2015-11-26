@@ -129,7 +129,7 @@ class GuideStepProcessor extends Processor
     }
 
     /**
-     * Updates the specified 
+     * Updates the specified guide step.
      *
      * @param GuideStepRequest $request
      * @param int|string       $id
@@ -160,6 +160,23 @@ class GuideStepProcessor extends Processor
         }
 
         return false;
+    }
+
+    /**
+     * Deletes the specified guide step.
+     *
+     * @param int|string $id
+     * @param int        $stepPosition
+     *
+     * @return bool|null
+     */
+    public function destroy($id, $stepPosition)
+    {
+        $guide = $this->guide->locate($id);
+
+        $step = $guide->findStepByPosition($stepPosition);
+
+        return $step->delete();
     }
 
     /**
@@ -202,7 +219,9 @@ class GuideStepProcessor extends Processor
         if ($step instanceof GuideStep) {
             $file = $step->findFile($fileUuid);
 
-            return response()->download($file->getCompletePath());
+            $headers = ['Content-Type' => $file->type];
+
+            return response()->download($file->getCompletePath(), null, $headers);
         }
 
         return false;
@@ -228,7 +247,7 @@ class GuideStepProcessor extends Processor
         $name = uuid() . "." . $file->getClientOriginalExtension();
 
         // Generate the storage path.
-        $path = $guide->getKey() . DIRECTORY_SEPARATOR . $name;
+        $path = sprintf('%s%s%s%s%s', 'uploads', DIRECTORY_SEPARATOR, $guide->getKey(), DIRECTORY_SEPARATOR, $name);
 
         // Resize the uploaded image if the user requested it.
         $image = $this->resizeUploadedImage($file);
