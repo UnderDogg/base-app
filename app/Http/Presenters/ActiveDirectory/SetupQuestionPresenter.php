@@ -70,13 +70,11 @@ class SetupQuestionPresenter extends Presenter
                 $form->submit = 'Next';
             }
 
-            $form->attributes([
-                'url' => $route,
-            ]);
+            $form->attributes(['url' => $route]);
 
             $form->fieldset(function (Fieldset $fieldset) use ($questions, $question)
             {
-                $fieldset->control('input:select', 'question')
+                $fieldset->control('select', 'question')
                     ->label('Question')
                     ->options($questions)
                     ->value(function() use ($question) {
