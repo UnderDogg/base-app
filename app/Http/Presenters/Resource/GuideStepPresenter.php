@@ -42,9 +42,12 @@ class GuideStepPresenter extends Presenter
 
             $form->setup($this, $route, $step, $attributes);
 
-            $form->fieldset(function (Fieldset $fieldset)
+            $form->fieldset(function (Fieldset $fieldset) use ($step)
             {
-                $fieldset->control('input:file', 'image');
+                $hasImage = count($step->images);
+
+                $fieldset->control('input:file', 'image')
+                    ->label(($hasImage ? 'Replace Image': 'Image'));
 
                 $fieldset
                     ->control('input:text', 'title')
@@ -73,7 +76,7 @@ class GuideStepPresenter extends Presenter
         $steps = $guide->steps()->orderBy('position');
 
         return $this->table->of('resources.guides', function (TableGrid $table) use ($guide, $steps) {
-            $table->with($steps)->paginate($this->perPage);
+            $table->with($steps);
 
             $table->layout('pages.resources.guides.steps._table');
 
@@ -105,7 +108,19 @@ class GuideStepPresenter extends Presenter
             $table
                 ->column('description')
                 ->value(function (GuideStep $step) {
-                    return $step->description;
+                    return ($step->description ? $step->description : '<em>None</em>');
+                });
+
+            $table->column('delete')
+                ->value(function (GuideStep $step) use ($guide) {
+                    $attribues = [
+                        'class' => 'btn btn-sm btn-danger',
+                        'data-title' => 'Delete Step?',
+                        'data-message' => 'Are you sure you want to delete this step?',
+                        'data-post' => 'DELETE',
+                    ];
+
+                     return link_to_route('resources.guides.steps.destroy', 'Delete', [$guide->getSlug(), $step->getPosition()], $attribues);
                 });
         });
     }

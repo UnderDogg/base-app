@@ -79,9 +79,13 @@ class GuidePresenter extends Presenter
             if ($guide->exists) {
                 $route = route('resources.guides.update', [$guide->getSlug()]);
                 $method = 'PATCH';
+
+                $form->submit = 'Save';
             } else {
                 $route = route('resources.guides.store');
                 $method = 'POST';
+
+                $form->submit = 'Create';
             }
 
             $form->setup($this, $route, $guide, compact('method'));
