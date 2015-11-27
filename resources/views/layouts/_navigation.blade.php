@@ -29,6 +29,7 @@
                     <ul class="dropdown-menu">
                         <li class="{{ active()->route('resources.guides.*') }}">
                             <a href="{{ route('resources.guides.index') }}">
+                                <i class="fa fa-book"></i>
                                 Guides
                             </a>
                         </li>
