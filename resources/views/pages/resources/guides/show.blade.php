@@ -6,12 +6,14 @@
 
     @decorator('navbar', $navbar)
 
+    @if ($guide->description)
     <div class="panel panel-default">
         <div class="panel-body">
             <span class="text-muted">Description:</span>
             {{ $guide->description }}
         </div>
     </div>
+    @endif
 
     @if(count($guide->steps) > 0)
         <hr>
