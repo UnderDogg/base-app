@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Resource;
 
+use App\Models\GuideStep;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -51,7 +52,8 @@ class GuidePresenter extends Presenter
                 });
 
             $table
-                ->column('created_at', 'Created')
+                ->column('created_at')
+                ->label('Created')
                 ->value(function (Guide $guide) {
                     return $guide->createdAtHuman();
                 });
@@ -132,7 +134,7 @@ class GuidePresenter extends Presenter
     {
         $presenter = new GuideStepPresenter($this->form, $this->table);
 
-        return $presenter->form($guide, $guide->steps()->getRelated());
+        return $presenter->form($guide, new GuideStep());
     }
 
     /**

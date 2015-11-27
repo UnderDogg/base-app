@@ -2519,4 +2519,9 @@ td .label {
     margin: 0 auto;
 }
 
+/* White text */
+.text-white {
+    color: white;
+}
+
 /*# sourceMappingURL=all.css.map */

@@ -117,8 +117,7 @@ class GuideStepPresenter extends Presenter
                 });
 
             $table->column('Step', 'position')
-                ->attributes(function ()
-                {
+                ->attributes(function () {
                     return ['class' => 'position'];
                 });
 
@@ -131,7 +130,7 @@ class GuideStepPresenter extends Presenter
             $table
                 ->column('description')
                 ->value(function (GuideStep $step) {
-                    return ($step->description ? $step->description : '<em>None</em>');
+                    return ($step->description ? str_limit($step->description, 25) : '<em>None</em>');
                 });
 
             $table->column('delete')

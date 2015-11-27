@@ -11,21 +11,25 @@
 
         @include('layouts._flash')
 
-        <section class="container main">
+        @section('container')
+            <section class="container main">
 
-            <div class="col-lg-12">
-                @section('title.header')
-                    @unless(isset($title))
-                        <h3>@yield('title')</h3>
-                    @endunless
-                @show
+                <div class="col-lg-12">
+                    @section('title.header')
+                        @unless(isset($title))
+                            <h3>@yield('title')</h3>
+                        @endunless
+                    @show
 
-                @yield('content')
-            </div>
+                    @yield('content')
+                </div>
 
-        </section>
+            </section>
+        @show
 
-        @include('layouts._footer')
+        @section('footer')
+            @include('layouts._footer')
+        @show
 
     </body>
 </html>

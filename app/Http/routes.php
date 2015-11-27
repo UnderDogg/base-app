@@ -1,5 +1,7 @@
 <?php
 
+
+
 // Welcome Page
 $router->get('/', [
     'as' => 'welcome.index',

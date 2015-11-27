@@ -34,6 +34,7 @@ elixir(function(mix) {
         'libs/to-markdown.js',
         'libs/select2.min.js',
         'libs/bootstrap-show-password.min.js',
+        'libs/show-password.min.js',
         'libs/speakingurl.min.js',
         'app.js'
     ]).styles([

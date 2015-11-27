@@ -86,3 +86,8 @@ td .label {
 .panel-heading .img-responsive {
     margin: 0 auto;
 }
+
+/* White text */
+.text-white {
+    color: white;
+}
