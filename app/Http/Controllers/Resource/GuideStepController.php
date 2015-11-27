@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Requests\Resource\GuideStepMoveRequest;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use App\Processors\Resource\GuideStepProcessor;
 use App\Http\Requests\Resource\GuideStepRequest;
 use App\Http\Controllers\Controller;
@@ -101,7 +100,11 @@ class GuideStepController extends Controller
         if ($this->processor->update($request, $id, $stepPosition)) {
             flash()->success('Success!', 'Successfully updated step.');
 
-            return redirect()->route('resources.guides.steps.index', [$id]);
+            if ($request->input('action') === 'multiple') {
+                return redirect()->route('resources.guides.steps.create', [$id]);
+            } else {
+                return redirect()->route('resources.guides.steps.index', [$id]);
+            }
         } else {
             flash()->error('Error!', 'There was an issue updating this step. Please try again.');
 
@@ -142,25 +145,5 @@ class GuideStepController extends Controller
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
         return $this->processor->move($request, $id, $stepId);
-    }
-
-    /**
-     * Returns a download response for the specified guide step image.
-     *
-     * @param int|string $id
-     * @param int|string $stepId
-     * @param string     $fileUuid
-     *
-     * @return BinaryFileResponse
-     */
-    public function download($id, $stepId, $fileUuid)
-    {
-        $response = $this->processor->download($id, $stepId, $fileUuid);
-
-        if ($response instanceof BinaryFileResponse) {
-            return $response;
-        }
-
-        abort(404);
     }
 }

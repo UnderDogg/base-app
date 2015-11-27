@@ -2,10 +2,8 @@
 
 namespace App\Http\Presenters\Resource;
 
-use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use App\Models\Guide;
 use App\Http\Presenters\Presenter;
@@ -36,31 +34,25 @@ class GuidePresenter extends Presenter
 
             $table
                 ->column('title')
-                ->value(function (Guide $guide)
-                {
+                ->value(function (Guide $guide) {
                     return link_to_route('resources.guides.show', $guide->title, [$guide->getSlug()]);
                 });
 
             $table
                 ->column('summary')
-                ->value(function (Guide $guide)
-                {
+                ->value(function (Guide $guide) {
                     return $guide->summary();
                 });
 
             $table
                 ->column('published')
-                ->value(function (Guide $guide)
-                {
+                ->value(function (Guide $guide) {
                     return $guide->publishedLabel();
                 });
 
             $table
-                ->column('created_at', function (Column $column)
-                {
-                    $column->label = 'Created';
-                })->value(function (Guide $guide)
-                {
+                ->column('created_at', 'Created')
+                ->value(function (Guide $guide) {
                     return $guide->createdAtHuman();
                 });
         });

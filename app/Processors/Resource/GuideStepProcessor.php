@@ -34,7 +34,7 @@ class GuideStepProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param Guide             $guide
+     * @param Guide              $guide
      * @param ImageManager       $manager
      * @param GuideStepPresenter $presenter
      */
@@ -76,7 +76,7 @@ class GuideStepProcessor extends Processor
 
         $steps = count($guide->steps) + 1;
 
-        $form = $this->presenter->form($guide, $guide->steps()->getRelated());
+        $form = $this->presenter->form($guide, new GuideStep());
 
         return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
     }
@@ -194,36 +194,10 @@ class GuideStepProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
-        $step = $guide->steps()->findOrFail($stepId);
+        $step = $guide->findStep($stepId);
 
         if ($step instanceof GuideStep) {
             return $step->insertAt($request->input('position'));
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns a download response for the specified guide step image.
-     *
-     * @param int|string $id
-     * @param int|string $stepId
-     * @param string     $fileUuid
-     *
-     * @return bool|\Symfony\Component\HttpFoundation\BinaryFileResponse
-     */
-    public function download($id, $stepId, $fileUuid)
-    {
-        $guide = $this->guide->locate($id);
-
-        $step = $guide->steps()->findOrFail($stepId);
-
-        if ($step instanceof GuideStep) {
-            $file = $step->findFile($fileUuid);
-
-            $headers = ['Content-Type' => $file->type];
-
-            return response()->download($file->getCompletePath(), null, $headers);
         }
 
         return false;

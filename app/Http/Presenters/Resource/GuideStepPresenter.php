@@ -3,6 +3,7 @@
 namespace App\Http\Presenters\Resource;
 
 use App\Models\Guide;
+use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -30,23 +31,46 @@ class GuideStepPresenter extends Presenter
             if ($step->exists) {
                 $route = route('resources.guides.steps.update', [$guide->getSlug(), $step->getPosition()]);
                 $attributes['method'] = 'PATCH';
+
+                $form->submit = 'Save';
             } else {
                 $route = route('resources.guides.steps.store', [$guide->getSlug()]);
                 $attributes['method'] = 'POST';
-            }
 
-            $form->submit = 'Save';
+                $form->submit = 'Create';
+            }
 
             $form->setup($this, $route, $step, $attributes);
 
             $form->layout('pages.resources.guides.steps._form');
 
-            $form->fieldset(function (Fieldset $fieldset) use ($step)
+            $form->fieldset(function (Fieldset $fieldset) use ($guide, $step)
             {
-                $hasImage = count($step->images);
+                $hasImage = (count($step->images) > 0 ? true : false);
+
+                foreach ($step->images as $image) {
+                    $fieldset->control('input:text', 'remove', function ($control) use ($guide, $step, $image) {
+                        $control->label = 'Image(s)';
+
+                        $control->field = function () use ($guide, $step, $image) {
+                            $url = route('resources.guides.steps.images.download', [$guide->getSlug(), $step->getKey(), $image->uuid]);
+
+                            $photo = HTML::image($url, null, ['class' => 'img-responsive']);
+
+                            $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->getSlug(), $step->getKey(), $image->uuid]), 'Delete', [
+                                'class' => 'btn btn-danger',
+                                'data-post' => 'DELETE',
+                                'data-title' => 'Delete Image?',
+                                'data-message' => 'Are you sure you want to delete this image?',
+                            ]);
+
+                            return HTML::raw("<div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo <br> $button</div>");
+                        };
+                    });
+                }
 
                 $fieldset->control('input:file', 'image')
-                    ->label(($hasImage ? 'Replace Image': 'Image'));
+                    ->label(($hasImage ? 'Replace Image(s)': 'Image'));
 
                 $fieldset
                     ->control('input:text', 'title')

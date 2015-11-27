@@ -114,6 +114,18 @@ class Guide extends Model
     }
 
     /**
+     * Finds the guide step by the specified ID.
+     *
+     * @param int|string $id
+     *
+     * @return null|GuideStep
+     */
+    public function findStep($id)
+    {
+        return $this->steps()->findOrFail($id);
+    }
+
+    /**
      * Finds a guide step by its current position.
      *
      * @param int $position

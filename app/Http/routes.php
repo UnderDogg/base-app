@@ -161,7 +161,13 @@ $router->group(['middleware' => ['auth']], function ($router)
                     // The guide step image download route.
                     $router->get('images/{images}', [
                         'as' => 'images.download',
-                        'uses' => 'GuideStepController@download',
+                        'uses' => 'GuideStepImageController@download',
+                    ]);
+
+                    // The guide step delete route.
+                    $router->delete('images/{images}', [
+                        'as' => 'images.destroy',
+                        'uses' => 'GuideStepImageController@destroy',
                     ]);
 
                     // The guide step move route.
