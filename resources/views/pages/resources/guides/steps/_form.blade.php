@@ -28,7 +28,7 @@
             </button>
 
             <button type="submit" name="action" value="multiple" class="btn btn-primary">
-                Save & Add Another
+                {!! $submit !!} & Add Another
             </button>
 
         </div>

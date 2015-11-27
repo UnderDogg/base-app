@@ -6,12 +6,19 @@
 
     @decorator('navbar', $navbar)
 
-    {{ $guide->description }}
-
-    <hr>
-
-    <div class="col-md-offset-2 col-md-8 sortable">
-        @each('pages.resources.guides._step', $guide->steps, 'step')
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <span class="text-muted">Description:</span>
+            {{ $guide->description }}
+        </div>
     </div>
+
+    @if(count($guide->steps) > 0)
+        <hr>
+
+        <div class="col-md-offset-2 col-md-8 sortable">
+            @each('pages.resources.guides._step', $guide->steps, 'step')
+        </div>
+    @endif
 
 @stop

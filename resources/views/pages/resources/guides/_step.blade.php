@@ -16,6 +16,5 @@
 
             <p>{{ $step->description }}</p>
         </div>
-
     </div>
 </div>
