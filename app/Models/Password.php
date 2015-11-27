@@ -40,6 +40,42 @@ class Password extends Model
     }
 
     /**
+     * Returns the encryption key.
+     *
+     * @return string
+     */
+    public function getEncryptionKey()
+    {
+        $folder = $this->folder;
+
+        $user = $folder->user;
+
+        $key = $user->getKey() . config('app.key') . $folder->pin;
+
+        return substr($key, 0, 32);
+    }
+
+    /**
+     * The mutator for the title attribute.
+     *
+     * @param string $title
+     */
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $this->encrypt($title);
+    }
+
+    /**
+     * The mutator for the website attribute.
+     *
+     * @param string $website
+     */
+    public function setWebsiteAttribute($website)
+    {
+        $this->attributes['website'] = $this->encrypt($website);
+    }
+
+    /**
      * The mutator for the username attribute.
      *
      * @param string $username
@@ -70,6 +106,34 @@ class Password extends Model
     }
 
     /**
+     * The accessor for the title attribute.
+     *
+     * @param string $title
+     *
+     * @return null|string
+     */
+    public function getTitleAttribute($title)
+    {
+        if (!is_null($title)) return $this->decrypt($title);
+
+        return null;
+    }
+
+    /**
+     * The accessor for the website attribute.
+     *
+     * @param string $website
+     *
+     * @return null|string
+     */
+    public function getWebsiteAttribute($website)
+    {
+        if (!is_null($website)) return $this->decrypt($website);
+
+        return null;
+    }
+
+    /**
      * The accessor for the username attribute.
      *
      * @param string $username
@@ -78,9 +142,7 @@ class Password extends Model
      */
     public function getUsernameAttribute($username)
     {
-        if (!is_null($username)) {
-            return $this->decrypt($username);
-        }
+        if (!is_null($username)) return $this->decrypt($username);
 
         return null;
     }
@@ -94,9 +156,7 @@ class Password extends Model
      */
     public function getPasswordAttribute($password)
     {
-        if (!is_null($password)) {
-            return $this->decrypt($password);
-        }
+        if (!is_null($password)) return $this->decrypt($password);
 
         return null;
     }
@@ -110,9 +170,7 @@ class Password extends Model
      */
     public function getNotesAttribute($notes)
     {
-        if (!is_null($notes)) {
-            return $this->decrypt($notes);
-        }
+        if (!is_null($notes)) return $this->decrypt($notes);
 
         return null;
     }

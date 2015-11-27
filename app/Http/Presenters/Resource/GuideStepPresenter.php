@@ -30,14 +30,12 @@ class GuideStepPresenter extends Presenter
             if ($step->exists) {
                 $route = route('resources.guides.steps.update', [$guide->getSlug(), $step->getPosition()]);
                 $attributes['method'] = 'PATCH';
-
-                $form->submit = 'Update Step';
             } else {
                 $route = route('resources.guides.steps.store', [$guide->getSlug()]);
                 $attributes['method'] = 'POST';
-
-                $form->submit = 'Add Step';
             }
+
+            $form->submit = 'Save';
 
             $form->setup($this, $route, $step, $attributes);
 

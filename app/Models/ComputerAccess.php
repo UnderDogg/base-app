@@ -41,6 +41,28 @@ class ComputerAccess extends Model
     ];
 
     /**
+     * Returns the encryption key.
+     *
+     * @return string
+     */
+    public function getEncryptionKey()
+    {
+        $key = $this->computer->getKey() . config('app.key');
+
+        return substr($key, 0, 32);
+    }
+
+    /**
+     * The belongsTo computer relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function computer()
+    {
+        return $this->belongsTo(Computer::class, 'computer_id');
+    }
+
+    /**
      * The mutator for the notes attribute.
      *
      * @param string $username
@@ -69,9 +91,7 @@ class ComputerAccess extends Model
      */
     public function getWmiUsernameAttribute($username)
     {
-        if (!is_null($username)) {
-            return $this->decrypt($username);
-        }
+        if (!is_null($username)) return $this->decrypt($username);
 
         return null;
     }
@@ -85,9 +105,7 @@ class ComputerAccess extends Model
      */
     public function getWmiPasswordAttribute($password)
     {
-        if (!is_null($password)) {
-            return $this->decrypt($password);
-        }
+        if (!is_null($password)) return $this->decrypt($password);
 
         return null;
     }

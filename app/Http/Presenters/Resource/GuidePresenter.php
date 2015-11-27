@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Resource;
 
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -99,20 +100,15 @@ class GuidePresenter extends Presenter
                         'placeholder' => 'Enter the guide title',
                         'data-slug-field' => '#slug',
                     ])->value(function (Guide $guide) {
-                        if ($guide->exists) return $guide->title;
-
-                        return 'How To:';
+                        return ($guide->exists ? $guide->title : 'How To:');
                     });
 
                 $fieldset
                     ->control('input:text', 'slug')
                     ->attributes([
                         'placeholder' => 'Enter the guide slug',
-                    ])->value(function (Guide $guide)
-                    {
-                        if ($guide->exists) return $guide->getSlug();
-
-                        return 'how-to';
+                    ])->value(function (Guide $guide) {
+                        return ($guide->exists ? $guide->getSlug() : 'how-to');
                     });
 
                 $fieldset
