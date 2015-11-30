@@ -96,7 +96,8 @@ class PasswordFolderTest extends TestCase
 
         $this->visit(route('passwords.edit', [$password->getKey()]))
             ->see($password->title)
+            ->type(str_random(), 'password')
             ->press('Save')
-            ->assertRedirectedToRoute(route('passwords.index'));
+            ->see('Success!');
     }
 }

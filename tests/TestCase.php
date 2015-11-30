@@ -32,9 +32,7 @@ abstract class TestCase extends ApplicationTestCase
         $this->artisan('auth:migrate');
 
         // Run control migrations
-        $this->artisan('extension:migrate', [
-            'control',
-        ]);
+        $this->artisan('extension:migrate');
 
         // Run application migrations
         $this->artisan('migrate', [
