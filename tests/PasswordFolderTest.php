@@ -98,6 +98,30 @@ class PasswordFolderTest extends TestCase
             ->see($password->title)
             ->type(str_random(), 'password')
             ->press('Save')
-            ->see('Success!');
+            ->see('Success!')
+            ->assertResponseOk();
+    }
+
+    public function test_passwords_delete()
+    {
+        $this->test_access_after_setup();
+
+        $user = User::first();
+
+        $folder = PasswordFolder::where('user_id', $user->id)->first();
+
+        $password = factory(Password::class)->create([
+            'folder_id' => $folder->getKey(),
+        ]);
+
+        $this->actingAs($password->folder->user);
+
+        $token = [
+            '_token' => \Session::token(),
+        ];
+
+        $this->delete(route('passwords.destroy', [$password->getKey()]), $token);
+
+        $this->assertRedirectedToRoute('passwords.index');
     }
 }
