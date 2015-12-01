@@ -4,9 +4,33 @@ namespace App\Policies;
 
 use App\Models\User;
 use Orchestra\Model\Role;
+use Orchestra\Support\Facades\Foundation;
+use Orchestra\Authorization\Policy as AuthorizationPolicy;
 
-abstract class Policy
+abstract class Policy extends AuthorizationPolicy
 {
+    /**
+     * The policy actions.
+     *
+     * @var array
+     */
+    public $actions = [];
+
+    /**
+     * The authorization name.
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = Foundation::memory()->get('site.name');
+    }
+
     /**
      * Intercepts all checks and allows administrators
      * to perform all tasks.

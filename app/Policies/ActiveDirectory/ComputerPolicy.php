@@ -8,6 +8,14 @@ use App\Policies\Policy;
 class ComputerPolicy extends Policy
 {
     /**
+     * {@inheritdoc}
+     */
+    public $actions = [
+        'View Computers',
+        'Create Computer',
+    ];
+
+    /**
      * Returns true / false if the specified user
      * can view all active directory computers.
      *

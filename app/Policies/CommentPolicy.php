@@ -8,6 +8,16 @@ use App\Models\Comment;
 class CommentPolicy extends Policy
 {
     /**
+     * {@inheritdoc}
+     */
+    public $actions = [
+        'Create Comment',
+        'Edit Comment',
+        'Update Comment',
+        'Delete Comment',
+    ];
+
+    /**
      * Returns true / false if the specified user
      * can edit the specified comment.
      *

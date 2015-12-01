@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Policies\GlobalPolicy;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -23,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any application authentication / authorization services.
      *
-     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * @param \Illuminate\Contracts\Auth\Access\Gate $gate
      *
      * @return void
      */
@@ -32,8 +33,8 @@ class AuthServiceProvider extends ServiceProvider
         parent::registerPolicies($gate);
 
         // Register global policies.
-        foreach (get_class_methods(\App\Policies\GlobalPolicy::class) as $method) {
-            $callback = sprintf('%s@%s', \App\Policies\GlobalPolicy::class, $method);
+        foreach (get_class_methods(GlobalPolicy::class) as $method) {
+            $callback = sprintf('%s@%s', GlobalPolicy::class, $method);
 
             $gate->define($method, $callback);
         }

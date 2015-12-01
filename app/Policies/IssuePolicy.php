@@ -8,6 +8,21 @@ use App\Models\Issue;
 class IssuePolicy extends Policy
 {
     /**
+     * {@inheritdoc}
+     */
+    public $actions = [
+        'View All Issues',
+        'View Issue',
+        'Create Issue',
+        'Display Issue',
+        'Edit Issue',
+        'Open Issue',
+        'Delete Issue',
+        'Add Labels',
+        'Add Users',
+    ];
+
+    /**
      * Returns true / false if the specified
      * user can view all issues.
      *
@@ -16,6 +31,19 @@ class IssuePolicy extends Policy
      * @return bool
      */
     public function viewAll(User $user)
+    {
+        return $user->is($this->admin()->name);
+    }
+
+    /**
+     * Returns true / false if the specified
+     * user can view their own issues.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function index(User $user)
     {
         return $user->is($this->admin()->name);
     }
