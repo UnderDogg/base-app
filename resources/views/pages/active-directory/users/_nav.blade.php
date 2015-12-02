@@ -1,4 +1,10 @@
 <ul class="nav navbar-left navbar-nav">
+    <li>
+        <a href="{{ route('active-directory.users.create') }}">
+            <i class="fa fa-plus"></i>
+            Create
+        </a>
+    </li>
     <li class="{{ active()->route('issues.index') }}">
         <a
                 data-post="POST"

@@ -232,9 +232,7 @@ $router->group(['middleware' => ['auth']], function ($router)
         ]);
 
         // The users resource.
-        $router->resource('users', 'UserController', [
-            'only' => ['index', 'store']
-        ]);
+        $router->resource('users', 'UserController');
 
         // The questions resource.
         $router->resource('questions', 'QuestionController', [
@@ -244,6 +242,16 @@ $router->group(['middleware' => ['auth']], function ($router)
         // Active Directory Routes.
         $router->group(['as' => 'active-directory.'], function ($router)
         {
+            // Active Directory User Routes
+            $router->group(['as' => 'users.'], function ($router)
+            {
+                // Import an AD user.
+                $router->post('users/import',[
+                    'as' => 'import',
+                    'uses' => 'USerController@import',
+                ]);
+            });
+
             // Active Directory Computer Routes.
             $router->group(['as' => 'computers.'], function ($router)
             {

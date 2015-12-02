@@ -2,11 +2,12 @@
 
 namespace App\Processors\ActiveDirectory;
 
-use Adldap\Schemas\ActiveDirectory;
+use Illuminate\Http\Request;
 use Adldap\Models\User;
 use Adldap\Contracts\Adldap;
+use Adldap\Schemas\ActiveDirectory;
 use App\Jobs\ActiveDirectory\ImportUser;
-use Illuminate\Http\Request;
+use App\Http\Requests\ActiveDirectory\UserRequest;
 use App\Http\Requests\ActiveDirectory\UserImportRequest;
 use App\Http\Presenters\ActiveDirectory\UserPresenter;
 use App\Processors\Processor;
@@ -68,6 +69,86 @@ class UserProcessor extends Processor
         return view('pages.active-directory.users.index', compact('users', 'navbar'));
     }
 
+    public function create()
+    {
+        $user = $this->adldap->users()->newInstance();
+
+        $form = $this->presenter->form($user);
+
+        return view('pages.active-directory.users.create', compact('form'));
+    }
+
+    /**
+     * Creates a new active directory user.
+     *
+     * @param UserRequest $request
+     *
+     * @return bool
+     */
+    public function store(UserRequest $request)
+    {
+        $user = $this->adldap->users()->newInstance();
+
+        $user->setAccountName($request->input('username'));
+        $user->setEmail($request->input('email'));
+        $user->setFirstName($request->input('first_name'));
+        $user->setLastName($request->input('last_name'));
+        $user->setDisplayName($request->input('display_name'));
+        $user->setDescription($request->input('description'));
+        $user->setProfilePath($request->input('profile_path'));
+        $user->setScriptPath($request->input('logon_script'));
+
+        return $user->save();
+    }
+
+    /**
+     * Displays the form for editing the specified active directory user.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($username)
+    {
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User) {
+            $form = $this->presenter->form($user);
+
+            return view('pages.active-directory.users.edit', compact('form'));
+        }
+
+        abort(404);
+    }
+
+    /**
+     * Updates the specified active directory user.
+     *
+     * @param UserRequest $request
+     * @param string      $username
+     *
+     * @return bool
+     */
+    public function update(UserRequest $request, $username)
+    {
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User) {
+            $user->setAccountName($request->input('username', $user->getAccountName()));
+            $user->setEmail($request->input('email', $user->getEmail()));
+            $user->setFirstName($request->input('first_name', $user->getFirstName()));
+            $user->setLastName($request->input('last_name', $user->getLastName()));
+            $user->setDisplayName($request->input('display_name', $user->getDisplayName()));
+            $user->setDescription($request->input('description', $user->getDescription()));
+            $user->setProfilePath($request->input('profile_path', $user->getProfilePath()));
+            $user->setScriptPath($request->input('logon_script', $user->getScriptPath()));
+
+            return $user->save();
+        }
+
+        abort(404);
+    }
+
     /**
      * Imports an active directory user.
      *
@@ -75,7 +156,7 @@ class UserProcessor extends Processor
      *
      * @return bool|mixed
      */
-    public function store(UserImportRequest $request)
+    public function import(UserImportRequest $request)
     {
         $this->authorize('store', User::class);
 

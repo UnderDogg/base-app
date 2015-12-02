@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\ActiveDirectory;
 
+use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -29,7 +30,7 @@ class UserPresenter extends Presenter
             $table->column('name', function ($column) {
                 $column->label = 'Name';
                 $column->value = function (AdUser $user) {
-                    return $user->getName();
+                    return link_to_route('active-directory.users.edit', $user->getName(), [$user->getAccountName()]);
                 };
             });
 
@@ -67,6 +68,72 @@ class UserPresenter extends Presenter
     }
 
     /**
+     * Returns a new form for the specified active directory user.
+     *
+     * @param AdUser $user
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function form(AdUser $user)
+    {
+        return $this->form->of('active-directory.users', function (FormGrid $form) use ($user) {
+            if ($user->exists) {
+                $url = route('active-directory.users.update', [$user->getAccountName()]);
+                $method = 'PATCH';
+                $form->submit = 'Save';
+            } else {
+                $url = route('active-directory.users.store');
+                $method = 'POST';
+                $form->submit = 'Create';
+            }
+
+            $form->attributes(compact('url', 'method'));
+
+            $form->fieldset(function (Fieldset $fieldset) use ($user) {
+                $fieldset
+                    ->control('input:text', 'username')
+                    ->value($user->getAccountName())
+                    ->attributes(['placeholder' => 'The users SAMAccountName']);
+
+                $fieldset
+                    ->control('input:text', 'email')
+                    ->value($user->getEmail())
+                    ->attributes(['placeholder' => 'The users email']);
+
+                $fieldset
+                    ->control('input:text', 'first_name')
+                    ->value($user->getFirstName())
+                    ->attributes(['placeholder' => 'The users first name']);
+
+                $fieldset
+                    ->control('input:text', 'last_name')
+                    ->value($user->getLastName())
+                    ->attributes(['placeholder' => 'The users last name']);
+
+                $fieldset
+                    ->control('input:text', 'display_name')
+                    ->value($user->getDisplayName())
+                    ->attributes(['placeholder' => 'The users display name']);
+
+                $fieldset
+                    ->control('input:text', 'description')
+                    ->value($user->getDescription())
+                    ->attributes(['placeholder' => 'The users description']);
+
+                $fieldset
+                    ->control('input:text', 'profile_path')
+                    ->value($user->getProfilePath())
+                    ->attributes(['placeholder' => 'The users profile path']);
+
+                $fieldset
+                    ->control('input:text', 'logon_script')
+                    ->value($user->getScriptPath())
+                    ->attributes(['placeholder' => 'The users logon script']);
+            });
+        });
+    }
+
+    /**
      * Returns a form for adding an AD computer.
      *
      * @param AdUser $user
@@ -75,11 +142,11 @@ class UserPresenter extends Presenter
      */
     public function formAdd(AdUser $user)
     {
-        $key = $user->getDn();
+        $key = sprintf('active-directory.users.%s', $user->getAccountName());
 
         return $this->form->of($key, function(FormGrid $form) use ($user) {
             $form->attributes([
-                'url' => route('active-directory.users.store'),
+                'url' => route('active-directory.users.import'),
                 'method' => 'POST',
             ]);
 
