@@ -7,7 +7,7 @@
     <style>
         .jumbotron {
             position: relative;
-            background: #000 url("jumbotron-bg.png") center center;
+            background: #000 url('{{ asset('jumbotron-bg.png') }}') center center;
             width: 100%;
             height: 100vh;
             background-size: cover;
@@ -23,7 +23,7 @@
         }
 
         .navbar {
-            margin-bottom: 0px;
+            margin-bottom: 0;
         }
     </style>
 
@@ -31,7 +31,9 @@
 
         <div class="container text-white text-center">
 
-            <h1>Welcome.</h1>
+            <h1 class="hidden-xs">Welcome.</h1>
+
+            <h2 class="visible-xs">Welcome.</h2>
 
             <div class="col-md-4">
 

@@ -115,4 +115,22 @@ class QuestionController extends Controller
             return redirect()->route('active-directory.questions.edit', [$id]);
         }
     }
+
+    /**
+     * Creates default security questions.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function seed()
+    {
+        if ($this->processor->seed()) {
+            flash()->success('Success!', 'Successfully created questions.');
+
+            return redirect()->route('active-directory.questions.index');
+        } else {
+            flash()->error('Error!', 'There was an issue creating questions. Please try again.');
+
+            return redirect()->route('active-directory.questions.index');
+        }
+    }
 }

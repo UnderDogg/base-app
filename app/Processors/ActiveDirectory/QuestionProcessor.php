@@ -2,6 +2,8 @@
 
 namespace App\Processors\ActiveDirectory;
 
+use QuestionSeeder;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Requests\ActiveDirectory\QuestionRequest;
 use App\Http\Presenters\ActiveDirectory\QuestionPresenter;
 use App\Models\Question;
@@ -122,5 +124,17 @@ class QuestionProcessor extends Processor
         $question->users()->detach();
 
         return $question->delete();
+    }
+
+    /**
+     * Creates default security questions.
+     *
+     * @return mixed
+     */
+    public function seed()
+    {
+        return Artisan::call('db:seed', [
+            'class' => QuestionSeeder::class,
+        ]);
     }
 }
