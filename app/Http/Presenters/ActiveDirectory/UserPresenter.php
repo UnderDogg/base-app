@@ -6,6 +6,7 @@ use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use Adldap\Objects\AccountControl;
 use Adldap\Models\User as AdUser;
 use App\Models\User;
 use App\Http\Presenters\Presenter;
@@ -124,11 +125,54 @@ class UserPresenter extends Presenter
                     ->control('input:text', 'profile_path')
                     ->value($user->getProfilePath())
                     ->attributes(['placeholder' => 'The users profile path']);
+            });
+
+            $form->fieldset('User Account Control', function (Fieldset $fieldset) use ($user) {
+                $ac = new AccountControl($user->getUserAccountControl());
+
+                $values = $ac->getValues();
 
                 $fieldset
-                    ->control('input:text', 'logon_script')
-                    ->value($user->getScriptPath())
-                    ->attributes(['placeholder' => 'The users logon script']);
+                    ->control('input:checkbox', 'control_normal_account')
+                    ->label('User account is normal')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::NORMAL_ACCOUNT, $values))
+                    ->attributes(['class' => 'switch-mark']);
+
+                $fieldset
+                    ->control('input:checkbox', 'control_password_is_expired')
+                    ->label('User must change password on next logon')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::PASSWORD_EXPIRED, $values))
+                    ->attributes(['class' => 'switch-mark']);
+
+                $fieldset
+                    ->control('input:checkbox', 'control_password_does_not_expire')
+                    ->label('User password does not expire')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::DONT_EXPIRE_PASSWORD, $values))
+                    ->attributes(['class' => 'switch-mark']);
+
+                $fieldset
+                    ->control('input:checkbox', 'control_locked')
+                    ->label('Users account is locked')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::LOCKOUT, $values))
+                    ->attributes(['class' => 'switch-mark']);
+
+                $fieldset
+                    ->control('input:checkbox', 'control_disabled')
+                    ->label('Users account is disabled')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::ACCOUNTDISABLE, $values))
+                    ->attributes(['class' => 'switch-mark']);
+
+                $fieldset
+                    ->control('input:checkbox', 'control_smartcard_required')
+                    ->label('Smart card is required for interactive logon')
+                    ->value('1')
+                    ->checked(in_array(AccountControl::SMARTCARD_REQUIRED, $values))
+                    ->attributes(['class' => 'switch-mark']);
             });
         });
     }

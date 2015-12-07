@@ -2,6 +2,7 @@
 
 namespace App\Processors\ActiveDirectory;
 
+use Adldap\Objects\AccountControl;
 use Illuminate\Http\Request;
 use Adldap\Models\User;
 use Adldap\Contracts\Adldap;
@@ -28,7 +29,7 @@ class UserProcessor extends Processor
      * Constructor.
      *
      * @param UserPresenter $presenter
-     * @parma Adldap        $adldap
+     * @param Adldap        $adldap
      */
     public function __construct(UserPresenter $presenter, Adldap $adldap)
     {
@@ -98,7 +99,29 @@ class UserProcessor extends Processor
         $user->setProfilePath($request->input('profile_path'));
         $user->setScriptPath($request->input('logon_script'));
 
+        $ac = $this->createUserAccountControl($request, $user);
+
+        $user->setUserAccountControl($ac);
+
         return $user->save();
+    }
+
+    /**
+     * Displays the information page for the specified user.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($username)
+    {
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User) {
+            return view('pages.active-directory.users.show', compact('user'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -143,6 +166,10 @@ class UserProcessor extends Processor
             $user->setProfilePath($request->input('profile_path', $user->getProfilePath()));
             $user->setScriptPath($request->input('logon_script', $user->getScriptPath()));
 
+            $ac = $this->createUserAccountControl($request, $user);
+
+            $user->setUserAccountControl($ac);
+
             return $user->save();
         }
 
@@ -167,5 +194,44 @@ class UserProcessor extends Processor
         }
 
         return false;
+    }
+
+    /**
+     * Creates an account control object by the specified requests parameters.
+     *
+     * @param UserRequest $request
+     * @param User        $user
+     *
+     * @return AccountControl
+     */
+    protected function createUserAccountControl(UserRequest $request, User $user)
+    {
+        $ac = new AccountControl($user->getUserAccountControl());
+
+        if ($request->has('control_normal_account')) {
+            $ac->accountIsNormal();
+        }
+
+        if ($request->has('control_password_is_expired')) {
+            $ac->passwordIsExpired();
+        }
+
+        if ($request->has('control_password_does_not_expire')) {
+            $ac->passwordDoesNotExpire();
+        }
+
+        if ($request->has('control_locked')) {
+            $ac->accountIsLocked();
+        }
+
+        if ($request->has('control_disabled')) {
+            $ac->accountIsDisabled();
+        }
+
+        if ($request->has('control_smartcard_required')) {
+            $ac->accountRequiresSmartCard();
+        }
+
+        return $ac;
     }
 }

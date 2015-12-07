@@ -15,8 +15,8 @@ class UserRequest extends Request
     {
         return [
             'username'      => 'required|min:3',
-            'first_name'    => 'required',
-            'last_name'     => 'required',
+            'first_name'    => 'min:3',
+            'last_name'     => 'min:3',
             'display_name'  => 'required',
             'description'   => '',
             'profile_path'  => '',

@@ -69,6 +69,18 @@ class UserController extends Controller
     }
 
     /**
+     * Displays information about the specified user.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($username)
+    {
+        return $this->processor->show($username);
+    }
+
+    /**
      * Displays the form for editing the specified user.
      *
      * @param string $username

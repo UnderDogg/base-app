@@ -30,6 +30,8 @@ class QuestionPresenter extends Presenter
 
             $table->column('content', function ($column)
             {
+                $column->label = 'Question';
+
                 $column->value = function (Question $question) {
                     return link_to_route('active-directory.questions.edit', $question->content, [$question->getKey()]);
                 };
