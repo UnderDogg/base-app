@@ -197,6 +197,11 @@ return [
          * Intervention Image Manipulation
          */
         Intervention\Image\ImageServiceProvider::class,
+
+        /*
+         * RSS Feed Fetcher
+         */
+        Vinelab\Rss\RssServiceProvider::class,
     ],
 
     /*

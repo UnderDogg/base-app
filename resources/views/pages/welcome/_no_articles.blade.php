@@ -1,0 +1,1 @@
+<p class="text-center">There are no recent articles to display.</p>
