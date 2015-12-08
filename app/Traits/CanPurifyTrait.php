@@ -10,11 +10,12 @@ trait CanPurifyTrait
      * Cleans the specified HTML input.
      *
      * @param string|array $input
+     * @param array        $options
      *
      * @return mixed
      */
-    protected function clean($input)
+    protected function clean($input, array $options = [])
     {
-        return Purify::clean($input);
+        return Purify::clean($input, $options);
     }
 }

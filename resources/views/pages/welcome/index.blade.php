@@ -9,7 +9,7 @@
             position: relative;
             background: #000 url('{{ asset('jumbotron-bg.png') }}') center center;
             width: 100%;
-            height: 100vh;
+            height: 100%;
             background-size: cover;
             overflow: hidden;
             margin-bottom: 0;
@@ -73,7 +73,27 @@
 
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-6">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+
+                        <div class="text-center panel-title">
+                            Forecast
+                        </div>
+
+                    </div>
+
+                    <div class="text-center panel-body">
+                        @each('pages.welcome._entry', $forecast, 'entry')
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
 
                 <div class="panel panel-default">
 
