@@ -6,7 +6,6 @@ use COM;
 use COM_EXCEPTION;
 use App\Jobs\Job;
 use Adldap\Models\User;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Bus\SelfHandling;
 
 class ChangePassword extends Job implements SelfHandling
@@ -84,7 +83,7 @@ class ChangePassword extends Job implements SelfHandling
             'account_suffix'     => null,
         ];
 
-        $config = Config::get('adldap.connection_settings', $default);
+        $config = config('adldap.connection_settings', $default);
 
         $this->server               = $config['domain_controllers'][0];
         $this->adminUsername        = $config['admin_username'];
