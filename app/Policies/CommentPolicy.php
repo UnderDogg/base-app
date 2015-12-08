@@ -28,7 +28,7 @@ class CommentPolicy extends Policy
      */
     public function edit(User $user, Comment $comment)
     {
-        return $user->getKey() === $comment->user_id;
+        return $this->can('edit-comment') && $user->getKey() === $comment->user_id;
     }
 
     /**

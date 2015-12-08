@@ -3,33 +3,24 @@
 namespace App\Providers;
 
 use App\Policies\GlobalPolicy;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Orchestra\Contracts\Foundation\Foundation;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        \App\Models\Issue::class            => \App\Policies\IssuePolicy::class,
-        \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
-        \App\Models\Label::class            => \App\Policies\LabelPolicy::class,
-        \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
-        \Adldap\Models\User::class          => \App\Policies\ActiveDirectory\UserPolicy::class,
-    ];
-
-    /**
      * Register any application authentication / authorization services.
      *
-     * @param \Illuminate\Contracts\Auth\Access\Gate $gate
+     * @param Gate         $gate
+     * @param Foundation   $foundation
      *
      * @return void
      */
-    public function boot(GateContract $gate)
+    public function boot(Gate $gate, Foundation $foundation)
     {
+        $this->policies = config('authorization.policies');
+
         parent::registerPolicies($gate);
 
         // Register global policies.
@@ -38,5 +29,13 @@ class AuthServiceProvider extends ServiceProvider
 
             $gate->define($method, $callback);
         }
+
+        $this->app->booted(function () use ($foundation) {
+            if ($foundation->installed()) {
+                // If foundation is installed, we can register the
+                // Authorization Service Provider.
+                $this->app->register(AuthorizationServiceProvider::class, $this->policies);
+            }
+        });
     }
 }

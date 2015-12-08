@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use Orchestra\Model\Role;
-use Orchestra\Support\Facades\Foundation;
 use Orchestra\Authorization\Policy as AuthorizationPolicy;
 
 abstract class Policy extends AuthorizationPolicy
@@ -28,7 +27,7 @@ abstract class Policy extends AuthorizationPolicy
      */
     public function __construct()
     {
-        $this->name = Foundation::memory()->get('site.name');
+        $this->name = static::class;
     }
 
     /**
