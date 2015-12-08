@@ -10,6 +10,7 @@
             background: #000 url('{{ asset('jumbotron-bg.png') }}') center center;
             width: 100%;
             height: 100%;
+            min-height: 100vh;
             background-size: cover;
             overflow: hidden;
             margin-bottom: 0;
@@ -86,7 +87,7 @@
                     </div>
 
                     <div class="text-center panel-body">
-                        @each('pages.welcome._entry', $forecast, 'entry')
+                        @each('pages.welcome._entry', $forecast, 'entry', 'pages.welcome._no_forecast')
                     </div>
 
                 </div>

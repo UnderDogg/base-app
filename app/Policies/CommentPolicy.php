@@ -21,6 +21,17 @@ class CommentPolicy extends Policy
      * Returns true / false if the specified user
      * can edit the specified comment.
      *
+     * @return bool
+     */
+    public function store()
+    {
+        return $this->can('create-comment');
+    }
+
+    /**
+     * Returns true / false if the specified user
+     * can edit the specified comment.
+     *
      * @param User    $user
      * @param Comment $comment
      *

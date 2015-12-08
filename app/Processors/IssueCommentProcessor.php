@@ -42,6 +42,8 @@ class IssueCommentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
+        $this->authorize($issue->comments()->getRelated());
+
         return $issue->createComment($request->input('content'), $request->input('resolution', false));
     }
 
@@ -61,9 +63,9 @@ class IssueCommentProcessor extends Processor
 
         $comment = $issue->comments()->findOrFail($commentId);
 
-        $form = $this->presenter->form($issue, $comment);
-
         $this->authorize($comment);
+
+        $form = $this->presenter->form($issue, $comment);
 
         return view('pages.issues.comments.edit', compact('form'));
     }
