@@ -8,7 +8,7 @@ use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\QuestionRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
-use App\Jobs\Com\ChangePassword;
+use App\Jobs\Com\User\ChangePassword;
 use App\Processors\Processor;
 use App\Models\User;
 use Illuminate\Contracts\Encryption\Encrypter;
