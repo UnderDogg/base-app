@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
             if ($foundation->installed()) {
                 // If foundation is installed, we can register the
                 // Authorization Service Provider.
-                $this->app->register(AuthorizationServiceProvider::class, $this->policies);
+                $this->app->register(AuthorizationServiceProvider::class);
             }
         });
     }

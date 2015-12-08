@@ -9,7 +9,7 @@ return [
     |
     | Here you can register your authorization policies.
     |
-    | The key represents the model and the vlaue represents the policy.
+    | The key represents the model and the value represents the policy.
     |
     */
 
