@@ -91,3 +91,14 @@ td .label {
 .text-white {
     color: white;
 }
+
+/* Specific styling for issue title links */
+.issue-title-link {
+    padding-right: 3px;
+    margin-bottom: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.2;
+    color: #333;
+    text-decoration: none !important;
+}
