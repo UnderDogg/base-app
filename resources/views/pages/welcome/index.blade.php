@@ -40,7 +40,7 @@
                 <h1 class="hidden-xs">Welcome.</h1>
 
                 <h2 class="visible-xs">Welcome.</h2>
-            </div>
+            </div>d
 
             <div class="text-center">
 
@@ -81,13 +81,13 @@
                     <div class="panel-heading">
 
                         <div class="text-center panel-title">
-                            Forecast
+                            {{ $forecast->title }}
                         </div>
 
                     </div>
 
                     <div class="text-center panel-body">
-                        @each('pages.welcome._entry', $forecast, 'entry', 'pages.welcome._no_forecast')
+                        @each('pages.welcome._entry', $forecast->articles, 'entry', 'pages.welcome._no_forecast')
                     </div>
 
                 </div>
@@ -101,13 +101,13 @@
                     <div class="panel-heading">
 
                         <div class="text-center panel-title">
-                            Most Recent Information Technology Articles
+                            {{ $news->title }}
                         </div>
 
                     </div>
 
                     <div class="panel-body">
-                        @each('pages.welcome._article', $articles, 'article', 'pages.welcome._no_articles')
+                        @each('pages.welcome._article', $news->articles->take(5), 'article', 'pages.welcome._no_articles')
                     </div>
 
                 </div>
