@@ -1,12 +1,12 @@
-@if($comment->isResolution())
-    <div class="panel panel-success">
-@else
-    <div class="panel panel-default">
-@endif
+<div class="panel panel-{{ $comment->isResolution() ? 'success': 'default' }}">
 
     <div class="panel-heading">
 
         <h3 class="panel-title">
+            @if($comment->isResolution())
+                <i class="fa fa-check-square"></i>
+            @endif
+
             {{ $comment->user->fullname }}
 
             <span class="hidden-xs">
@@ -48,7 +48,3 @@
     </div>
 
 </div>
-
-@if($comment->isResolution())
-    <hr>
-@endif

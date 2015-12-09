@@ -72,7 +72,7 @@
 
     <div class="clearfix"></div>
 
-    @include('pages.issues._issue')
+    @include('pages.issues._issue', compact('resolution'))
 
     @each('pages.issues._comment',  $issue->comments, 'comment')
 

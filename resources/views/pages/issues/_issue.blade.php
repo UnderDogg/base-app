@@ -39,6 +39,11 @@
 
     <div class="panel-body">
         {!! $issue->getDescriptionFromMarkdown() !!}
+
+        @if(isset($resolution))
+            <hr>
+            @include('pages.issues._comment', ['comment' => $resolution])
+        @endif
     </div>
 
 </div>

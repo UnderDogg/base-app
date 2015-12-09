@@ -46,14 +46,17 @@ class WelcomeProcessor extends Processor
     {
         $feeds = config('rss.feeds');
 
+        $weatherFeed = $feeds['weather'];
+        $articleFeed = $feeds['articles'];
+
         $minutes = 30;
 
-        $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($feeds) {
-            return $this->feed($feeds['weather']);
+        $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
+            return $this->feed($weatherFeed);
         });
 
-        $news =  $this->cache->remember('feeds.articles', $minutes, function () use ($feeds) {
-            return $this->feed($feeds['articles']);
+        $news =  $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
+            return $this->feed($articleFeed);
         });
 
         return view('pages.welcome.index', compact('forecast', 'news'));

@@ -97,11 +97,13 @@ class IssueProcessor extends Processor
      */
     public function show($id)
     {
-        $with = ['comments' => function ($query) {
-            return $query->orderBy('resolution', 'desc');
-        }, 'labels'];
+        $with = ['comments', 'labels'];
 
         $issue = $this->issue->with($with)->findOrFail($id);
+
+        $resolution = $issue->comments->first(function ($key, $comment) {
+            return $comment->isResolution();
+        });
 
         $this->authorize($issue);
 
@@ -111,7 +113,7 @@ class IssueProcessor extends Processor
 
         $formUsers = $this->presenter->formUsers($issue);
 
-        return view('pages.issues.show', compact('issue', 'formComment', 'formLabels', 'formUsers'));
+        return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
     }
 
     /**
