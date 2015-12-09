@@ -13,7 +13,7 @@ class LoginRequest extends Request
     {
         return [
             'email'     => 'required',
-            'password'  => 'required',
+            'password'  => 'required|min:4',
         ];
     }
 

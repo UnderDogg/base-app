@@ -103,12 +103,12 @@ class Guide extends Model
     /**
      * Adds a step to the current guide.
      *
-     * @param string $title
-     * @param string $description
+     * @param string      $title
+     * @param string|null $description
      *
      * @return GuideStep
      */
-    public function addStep($title, $description)
+    public function addStep($title, $description = null)
     {
         return $this->steps()->create(compact('title', 'description'));
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Presenters\Resource;
 
 use App\Models\Guide;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Support\Facades\HTML;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -83,6 +84,38 @@ class GuideStepPresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'Enter the step description',
                     ]);
+            });
+        });
+    }
+
+    /**
+     * Returns a new form to upload multiple images to the specified guide.
+     *
+     * @param Guide $guide
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formImages($guide)
+    {
+        return $this->form->of('resources.guides.images', function (FormGrid $form) use ($guide) {
+            $attributes = [
+                'files' => true,
+                'method' => 'POST',
+                'url' => route('resources.guides.images.upload', [$guide->getSlug()]),
+            ];
+
+            $form->attributes($attributes);
+
+            $form->submit = 'Upload';
+
+            $form->fieldset(function (Fieldset $fieldset) {
+                $fieldset->control('input:file', 'images[]', function (Field $field) {
+                    $field->label = 'Images';
+
+                    $field->attributes([
+                        'multiple' => true,
+                    ]);
+                });
             });
         });
     }

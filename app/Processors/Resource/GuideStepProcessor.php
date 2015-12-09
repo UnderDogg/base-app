@@ -2,6 +2,7 @@
 
 namespace App\Processors\Resource;
 
+use App\Http\Requests\Resource\GuideStepImagesRequest;
 use App\Http\Requests\Resource\GuideStepMoveRequest;
 use App\Http\Requests\Resource\GuideStepRequest;
 use App\Http\Presenters\Resource\GuideStepPresenter;
@@ -197,10 +198,59 @@ class GuideStepProcessor extends Processor
         $step = $guide->findStep($stepId);
 
         if ($step instanceof GuideStep) {
-            return $step->insertAt($request->input('position'));
+            $position = (int) $request->input('position', 1);
+
+            return $step->insertAt($position);
         }
 
         return false;
+    }
+
+    /**
+     * Displays the page for uploading multiple images for the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function images($id)
+    {
+        $guide = $this->guide->locate($id);
+
+        $form = $this->presenter->formImages($guide);
+
+        return view('pages.resources.guides.steps.upload', compact('form'));
+    }
+
+    /**
+     * Creates a step for the specified guide per uploaded image.
+     *
+     * @param GuideStepImagesRequest $request
+     * @param int|string             $id
+     *
+     * @return int
+     */
+    public function upload(GuideStepImagesRequest $request, $id)
+    {
+        $guide = $this->guide->locate($id);
+
+        $images = $request->file('images');
+
+        $uploaded = 0;
+
+        foreach ($images as $image) {
+            if ($image instanceof UploadedFile) {
+                $step = $guide->addStep($image->getClientOriginalName());
+
+                if ($step instanceof GuideStep) {
+                    if ($this->handleUpload($guide, $step, $image)) {
+                        $uploaded++;
+                    }
+                }
+            }
+        }
+
+        return $uploaded;
     }
 
     /**
@@ -223,7 +273,15 @@ class GuideStepProcessor extends Processor
         $name = uuid() . "." . $file->getClientOriginalExtension();
 
         // Generate the storage path.
-        $path = sprintf('%s%s%s%s%s', 'uploads', DIRECTORY_SEPARATOR, $guide->getKey(), DIRECTORY_SEPARATOR, $name);
+        $path = sprintf('%s%s%s%s%s%s%s',
+            'uploads',
+            DIRECTORY_SEPARATOR,
+            'guides',
+            DIRECTORY_SEPARATOR,
+            $guide->getKey(),
+            DIRECTORY_SEPARATOR,
+            $name
+        );
 
         // Resize the uploaded image if the user requested it.
         $image = $this->resizeUploadedImage($file);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Http\Requests\Resource\GuideStepImagesRequest;
 use App\Http\Requests\Resource\GuideStepMoveRequest;
 use App\Processors\Resource\GuideStepProcessor;
 use App\Http\Requests\Resource\GuideStepRequest;
@@ -145,5 +146,40 @@ class GuideStepController extends Controller
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
         return $this->processor->move($request, $id, $stepId);
+    }
+
+    /**
+     * Displays the page for uploading multiple images for the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function images($id)
+    {
+        return $this->processor->images($id);
+    }
+
+    /**
+     * Creates steps for the specified guide per image.
+     *
+     * @param GuideStepImagesRequest $request
+     * @param int|string             $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function upload(GuideStepImagesRequest $request, $id)
+    {
+        $uploaded = $this->processor->upload($request, $id);
+
+        if ($uploaded > 0) {
+            flash()->success('Success!', "Successfully uploaded: $uploaded images.");
+
+            return redirect()->route('resources.guides.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was an issue uploading images. Please try again.');
+
+            return redirect()->route('resources.guides.images.upload', [$id]);
+        }
     }
 }

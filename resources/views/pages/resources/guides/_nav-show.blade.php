@@ -5,6 +5,12 @@
         </a>
     </li>
     <li>
+        <a href="{{ route('resources.guides.images', [$guide->getSlug()]) }}">
+            <i class="fa fa-plus"></i>
+            Add Steps by Images
+        </a>
+    </li>
+    <li>
         <a href="{{ route('resources.guides.steps.create', [$guide->getSlug()]) }}">
             <i class="fa fa-plus"></i>
             New Step
