@@ -40,9 +40,16 @@
     <div class="panel-body">
         {!! $issue->getDescriptionFromMarkdown() !!}
 
-        @if(isset($resolution))
-            <hr>
-            @include('pages.issues._comment', ['comment' => $resolution])
+        {{--
+         We'll make sure a resolution exists and that we have more than
+         one comment before display the resolution here.
+         --}}
+        @if(isset($resolution) && count($issue->comments) > 1)
+            {{-- We'll also make sure that the first comment is not a resolution. --}}
+            @if(!$issue->comments->first()->isResolution())
+                <hr>
+                @include('pages.issues._comment', ['comment' => $resolution])
+            @endif
         @endif
     </div>
 
