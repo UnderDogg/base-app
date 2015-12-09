@@ -116,7 +116,6 @@ class IssuePresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'Leave a comment',
                         'data-provide' => 'markdown',
-                        'data-hidden-buttons' => '["cmdUrl","cmdImage"]',
                     ]);
             });
         });
