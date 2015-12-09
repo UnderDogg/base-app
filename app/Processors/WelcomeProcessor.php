@@ -80,12 +80,14 @@ class WelcomeProcessor extends Processor
 
             if ($feed->articles instanceof Collection) {
                 $articles = $feed->articles->take(5)->each(function ($article) {
-                    $date = Carbon::createFromTimestamp(strtotime($article->pubDate));
-
-                    // We'll clean the articles description of any HTML.
-                    $article->description = $this->clean($article->description, [
+                    $cleaned = $this->clean($article->description, [
                         'HTML.Allowed' => '',
                     ]);
+
+                    // We'll clean the articles description of any HTML.
+                    $article->description = str_limit($cleaned);
+
+                    $date = Carbon::createFromTimestamp(strtotime($article->pubDate));
 
                     // Reformat the publish date for clearer
                     // indication of how old the article is.

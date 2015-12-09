@@ -46,20 +46,12 @@
                         </a>
                         <ul class="dropdown-menu">
 
-                            <li class="{{ active()->route('issues.index') }}">
+                            <li class="{{ active()->route('issues.*') }}">
                                 <a href="{{ route('issues.index') }}">
                                     <i class="fa fa-exclamation-circle"></i>
-                                    Open Issues
+                                    Issues
                                 </a>
                             </li>
-
-                            <li class="{{ active()->route('issues.closed') }}">
-                                <a href="{{ route('issues.closed') }}">
-                                    <i class="fa fa-check"></i>
-                                    Closed Issues
-                                </a>
-                            </li>
-
                             @can('index', App\Models\Label::class)
                             <li class="{{ active()->route('labels.*') }}">
                                 <a href="{{ route('labels.index') }}">
