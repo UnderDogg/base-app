@@ -1,4 +1,4 @@
-<div class="panel panel-{{ $comment->isResolution() ? 'success': 'default' }}">
+<div class="panel panel-{{ $comment->isResolution() ? 'success': 'default' }}" id="comment-{{ $comment->getKey() }}">
 
     <div class="panel-heading">
 

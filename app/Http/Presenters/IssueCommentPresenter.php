@@ -23,16 +23,22 @@ class IssueCommentPresenter extends Presenter
         {
             // Check if the issue already has a resolution
             $hasResolution = $issue->findCommentResolution();
-            
+
+            $attributes = [];
+
             if ($comment->exists) {
-                $form->setup($this, route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), $comment, ['method' => 'PATCH']);
+                $hash = sprintf('#comment-%s', $comment->getKey());
+                $url = route('issues.comments.update', [$issue->getKey(), $comment->getKey(), $hash]);
+                $attributes = ['method' => 'PATCH'];
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('issues.comments.store', [$issue->getKey()]), $comment);
+                $url = route('issues.comments.store', [$issue->getKey(), '#comment']);
 
                 $form->submit = 'Comment';
             }
+
+            $form->setup($this, $url, $comment, $attributes);
 
             // Setup the form fieldset
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution)
@@ -42,6 +48,7 @@ class IssueCommentPresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'Leave a comment',
                         'data-provide' => 'markdown',
+                        'id' => 'comment',
                     ]);
 
                 $isResolution = $comment->isResolution();
