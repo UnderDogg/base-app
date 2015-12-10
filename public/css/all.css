@@ -2524,14 +2524,10 @@ td .label {
     color: white;
 }
 
-/* Specific styling for issue title links */
-.issue-title-link {
-    padding-right: 3px;
-    margin-bottom: 2px;
-    font-size: 15px;
+/* Blue and bold links inside table data rows */
+tr td a {
+    color: #337ab7;
     font-weight: bold;
-    line-height: 1.2;
-    color: #333;
     text-decoration: none !important;
 }
 

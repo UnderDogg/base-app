@@ -11,7 +11,9 @@
                 <span class="icon-bar"></span>
             </button>
 
-            <a href="{{ route('welcome.index') }}" class="navbar-brand">{{ memorize('site.name', 'IT Hub') }}</a>
+            <a href="{{ route('welcome.index') }}" class="navbar-brand">
+                {{ memorize('site.name', 'IT Hub') }}
+            </a>
 
         </div>
 

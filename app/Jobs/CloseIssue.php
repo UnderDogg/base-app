@@ -28,6 +28,7 @@ class CloseIssue extends Job implements SelfHandling
     public function handle()
     {
         $this->issue->closed = true;
+        $this->issue->closed_at = $this->issue->freshTimestamp();
 
         $this->issue->save();
     }

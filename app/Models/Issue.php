@@ -48,6 +48,18 @@ class Issue extends Model
     protected $fillable = ['title', 'description'];
 
     /**
+     * The fields that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'closed_at',
+    ];
+
+    /**
      * Sets the issue's description attribute.
      *
      * @param $description
@@ -237,5 +249,19 @@ class Issue extends Model
     public function getHashId()
     {
         return '#'.$this->getKey();
+    }
+
+    /**
+     * Returns the created at time in a human readable format.
+     *
+     * @return string|null
+     */
+    public function closedAtHuman()
+    {
+        if ($this->closed_at) {
+            return $this->closed_at->diffForHumans();
+        }
+
+        return;
     }
 }

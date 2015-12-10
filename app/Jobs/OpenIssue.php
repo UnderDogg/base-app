@@ -28,6 +28,7 @@ class OpenIssue extends Job implements SelfHandling
     public function handle()
     {
         $this->issue->closed = false;
+        $this->issue->closed_at = null;
 
         $this->issue->save();
     }

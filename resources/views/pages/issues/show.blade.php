@@ -76,6 +76,10 @@
 
     @each('pages.issues._comment',  $issue->comments, 'comment')
 
+    @if($issue->isClosed())
+        @include('pages.issues._closed', compact('issue'))
+    @endif
+
     <div class="col-md-12">
         {!! $formComment !!}
     </div>

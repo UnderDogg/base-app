@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 
 class Model extends BaseModel
@@ -14,6 +13,6 @@ class Model extends BaseModel
      */
     public function createdAtHuman()
     {
-        return Carbon::createFromTimeStamp(strtotime($this->created_at))->diffForHumans();
+        return $this->created_at->diffForHumans();
     }
 }
