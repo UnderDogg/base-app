@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('title.header')
-@stop
+@endsection
 
 @section('content')
 
@@ -28,4 +28,4 @@
 
     <div class="col-md-3"></div>
 
-@stop
+@endsection

@@ -4,7 +4,7 @@
     <h2>
         @section('title') Create Step {{ $steps }} @show
     </h2>
-@stop
+@endsection
 
 @section('content')
 
@@ -19,4 +19,4 @@
         </a>
     </div>
 
-@stop
+@endsection

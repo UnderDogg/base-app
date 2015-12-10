@@ -6,7 +6,7 @@
     <h3>@yield('title') <span class="text-muted">created {{ $computer->createdAtHuman() }}</span></h3>
 
     <hr>
-@stop
+@endsection
 
 @section('content')
 
@@ -42,4 +42,4 @@
 
     </div>
 
-@stop
+@endsection

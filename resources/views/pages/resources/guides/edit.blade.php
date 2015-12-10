@@ -6,4 +6,4 @@
 
     {!! $form !!}
 
-@stop
+@endsection

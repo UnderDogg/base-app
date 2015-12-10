@@ -6,7 +6,7 @@
     <h3 class="text-center">
         @yield('title')
     </h3>
-@stop
+@endsection
 
 @section('content')
 
@@ -30,4 +30,4 @@
 
     {!! $form !!}
 
-@stop
+@endsection

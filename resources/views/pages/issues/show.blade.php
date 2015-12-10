@@ -8,7 +8,7 @@
 
         <span class="text-muted">{{ $issue->getHashId() }}</span>
     </h3>
-@stop
+@endsection
 
 @section('content')
 
@@ -138,4 +138,4 @@
 
     </div>
 
-@stop
+@endsection

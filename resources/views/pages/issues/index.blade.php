@@ -8,4 +8,4 @@
 
     {!! $issues !!}
 
-@stop
+@endsection

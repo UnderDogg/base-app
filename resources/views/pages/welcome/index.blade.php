@@ -117,7 +117,7 @@
         </div>
 
     </div>
-@stop
+@endsection
 
 @section('footer')
-@stop
+@endsection

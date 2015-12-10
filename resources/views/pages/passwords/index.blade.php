@@ -8,4 +8,4 @@
 
     {!! $passwords !!}
 
-@stop
+@endsection

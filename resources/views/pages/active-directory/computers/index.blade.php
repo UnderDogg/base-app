@@ -8,4 +8,4 @@
 
     {!! $computers !!}
 
-@stop
+@endsection

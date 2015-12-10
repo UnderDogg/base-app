@@ -4,7 +4,7 @@
 
     <h3 class="text-center"> @section('title') Forgot Password @show </h3>
 
-@stop
+@endsection
 
 @section('content')
 
@@ -16,4 +16,4 @@
 
     </div>
 
-@stop
+@endsection

@@ -17,10 +17,10 @@
         </a>
     </span>
 
-@stop
+@endsection
 
 @section('show.panel.body')
 
     {!! $disks !!}
 
-@stop
+@endsection

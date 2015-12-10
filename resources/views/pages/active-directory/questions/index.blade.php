@@ -8,4 +8,4 @@
 
     {!! $questions !!}
 
-@stop
+@endsection

@@ -2,7 +2,7 @@
 
 @section('show.panel.title')
     Access
-@stop
+@endsection
 
 @section('show.panel.body')
 
@@ -94,4 +94,4 @@
 
     </script>
 
-@stop
+@endsection

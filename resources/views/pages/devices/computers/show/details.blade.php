@@ -19,7 +19,7 @@ Details
     </a>
 </span>
 
-@stop
+@endsection
 
 @section('show.panel.body')
 
@@ -79,4 +79,4 @@ Details
 <label>Access</label>
 <p>{!! $computer->getAccessChecks() !!}</p>
 
-@stop
+@endsection

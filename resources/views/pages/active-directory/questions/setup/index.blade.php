@@ -10,10 +10,10 @@
         </p>
     @endif
 
-@stop
+@endsection
 
 @section('content')
 
     {!! $questions !!}
 
-@stop
+@endsection

@@ -6,10 +6,10 @@
 
     <span class="text-muted">(Question {{ $step }} of 3)</span>
 
-@stop
+@endsection
 
 @section('content')
 
     {!! $form !!}
 
-@stop
+@endsection

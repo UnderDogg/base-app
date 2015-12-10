@@ -6,7 +6,7 @@
 
         <span class="text-muted">for {{ $guide->title }}</span>
     </h2>
-@stop
+@endsection
 
 @section('content')
 
@@ -60,4 +60,4 @@
         });
     </script>
 
-@stop
+@endsection

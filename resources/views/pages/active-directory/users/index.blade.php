@@ -8,4 +8,4 @@
 
     {!! $users !!}
 
-@stop
+@endsection

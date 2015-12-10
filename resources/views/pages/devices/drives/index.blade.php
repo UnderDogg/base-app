@@ -8,4 +8,4 @@
 
     {!! $drives !!}
 
-@stop
+@endsection
