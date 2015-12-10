@@ -39,6 +39,12 @@ class AuthorizationServiceProvider extends ServiceProvider
                 $acl->roles()->attach($roles);
 
                 $acl->actions()->attach($actions);
+
+                $admin = Role::admin();
+
+                if ($admin instanceof Role) {
+                    $acl->allow($admin->name, $actions);
+                }
             }
         });
     }

@@ -2,10 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Guide;
-use App\Models\GuideStep;
-use App\Models\Observers\GuideObserver;
-use App\Models\Observers\GuideStepObserver;
 use Illuminate\Support\ServiceProvider;
 
 class ObserverServiceProvider extends ServiceProvider
@@ -16,8 +12,10 @@ class ObserverServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observers = [
-        Guide::class => GuideObserver::class,
-        GuideStep::class => GuideStepObserver::class,
+        \App\Models\Guide::class            => \App\Models\Observers\GuideObserver::class,
+        \App\Models\GuideStep::class        => \App\Models\Observers\GuideStepObserver::class,
+        \App\Models\Computer::class         => \App\Models\Observers\ComputerObserver::class,
+        \App\Models\ComputerHardDisk::class => \App\Models\Observers\ComputerHardDiskObserver::class,
     ];
 
     /**

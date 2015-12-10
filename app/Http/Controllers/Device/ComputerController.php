@@ -111,13 +111,22 @@ class ComputerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified computer.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        if ($this->processor->destroy($id)) {
+            flash()->success('Success!', 'Successfully deleted computer.');
+
+            return redirect()->route('devices.computers.index');
+        } else {
+            flash()->error('Error!', 'There was an issue deleting this computer. Please try again.');
+
+            return redirect()->route('devices.computers.show', [$id]);
+        }
     }
 }

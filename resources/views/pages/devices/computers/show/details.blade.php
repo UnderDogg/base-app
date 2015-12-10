@@ -13,7 +13,7 @@ Details
             data-post="DELETE"
             data-title="Delete Computer?"
             data-message="Are you sure you want to delete this computer?"
-            href="{{ route('devices.computers.delete', [$computer->getKey()]) }}"
+            href="{{ route('devices.computers.destroy', [$computer->getKey()]) }}"
             >
         Delete
     </a>
