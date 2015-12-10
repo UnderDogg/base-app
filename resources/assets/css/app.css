@@ -98,3 +98,8 @@ tr td a {
     font-weight: bold;
     text-decoration: none !important;
 }
+
+/* Break the words in panels for wrapping */
+.panel-body {
+    word-wrap: break-word;
+}
