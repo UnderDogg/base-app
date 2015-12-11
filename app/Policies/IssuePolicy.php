@@ -17,6 +17,7 @@ class IssuePolicy extends Policy
         'Display Issue',
         'Edit Issue',
         'Open Issue',
+        'Close Issue',
         'Delete Issue',
         'Add Labels',
         'Add Users',
@@ -26,26 +27,32 @@ class IssuePolicy extends Policy
      * Returns true / false if the specified
      * user can view all issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public function viewAll(User $user)
+    public function viewAll()
     {
-        return $user->is($this->admin()->name);
+        return $this->can('view-all-issues');
     }
 
     /**
-     * Returns true / false if the specified
+     * Returns true / false if the current
      * user can view their own issues.
-     *
-     * @param User $user
      *
      * @return bool
      */
-    public function index(User $user)
+    public function index()
     {
-        return $user->is($this->admin()->name);
+        return $this->can('view-issue');
+    }
+
+    /**
+     * Returns true / false if the current user can create issues.
+     *
+     * @return bool
+     */
+    public function create()
+    {
+        return $this->can('create-issue');
     }
 
     /**
@@ -59,7 +66,7 @@ class IssuePolicy extends Policy
      */
     public function show(User $user, Issue $issue)
     {
-        return $user->is($this->admin()->name) || $user->getKey() === $issue->user_id;
+        return $user->can('display-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -73,7 +80,7 @@ class IssuePolicy extends Policy
      */
     public function edit(User $user, Issue $issue)
     {
-        return $user->getKey() === $issue->user_id;
+        return $user->can('edit-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -87,7 +94,7 @@ class IssuePolicy extends Policy
      */
     public function update(User $user, Issue $issue)
     {
-        return $user->getKey() === $issue->user_id;
+        return $user->can('edit-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -102,7 +109,7 @@ class IssuePolicy extends Policy
      */
     public function open(User $user)
     {
-        return $user->is($this->admin()->name);
+        return $user->can('open-issue');
     }
 
     /**
@@ -118,7 +125,7 @@ class IssuePolicy extends Policy
      */
     public function close(User $user, Issue $issue)
     {
-        return $user->is($this->admin()->name) || $user->getKey() === $issue->user_id;
+        return $user->can('close-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -132,7 +139,7 @@ class IssuePolicy extends Policy
      */
     public function destroy(User $user, Issue $issue)
     {
-        return $user->getKey() === $issue->user_id;
+        return $user->can('delete-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -145,7 +152,7 @@ class IssuePolicy extends Policy
      */
     public function addLabels(User $user)
     {
-        return $user->is($this->admin()->name);
+        return $user->can('add-labels');
     }
 
     /**
@@ -158,6 +165,6 @@ class IssuePolicy extends Policy
      */
     public function addUsers(User $user)
     {
-        return $user->is($this->admin()->name);
+        return $user->can('add-users');
     }
 }
