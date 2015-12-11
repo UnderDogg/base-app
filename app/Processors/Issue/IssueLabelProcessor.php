@@ -3,8 +3,8 @@
 namespace App\Processors\Issue;
 
 use App\Http\Requests\IssueLabelRequest;
-use App\Models\Label;
 use App\Models\Issue;
+use App\Models\Label;
 use App\Processors\Processor;
 
 class IssueLabelProcessor extends Processor
