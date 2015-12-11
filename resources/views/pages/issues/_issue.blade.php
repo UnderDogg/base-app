@@ -55,8 +55,10 @@
         @endif
     </div>
 
+    @if($issue->occurred_at)
     <div class="panel-footer text-muted">
         Issue occurred {{ $issue->occurredAtHuman() }}
     </div>
+    @endif
 
 </div>
