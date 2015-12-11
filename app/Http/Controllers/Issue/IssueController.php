@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Issue;
 
 use App\Http\Requests\IssueRequest;
 use App\Processors\IssueProcessor;
+use App\Http\Controllers\Controller;
 
 class IssueController extends Controller
 {

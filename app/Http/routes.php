@@ -192,41 +192,45 @@ $router->group(['middleware' => ['auth']], function ($router)
         });
     });
 
-    // Display all closed issues.
-    $router->get('issues/closed', [
-        'as' => 'issues.closed',
-        'uses' => 'IssueController@closed',
-    ]);
+    // The issue router group.
+    $router->group(['namespace' => 'Issue'], function ($router)
+    {
+        // Display all closed issues.
+        $router->get('issues/closed', [
+            'as' => 'issues.closed',
+            'uses' => 'IssueController@closed',
+        ]);
 
-    // Close an Issue.
-    $router->post('issues/{issues}/close', [
-        'as' => 'issues.close',
-        'uses' => 'IssueController@close',
-    ]);
+        // Close an Issue.
+        $router->post('issues/{issues}/close', [
+            'as' => 'issues.close',
+            'uses' => 'IssueController@close',
+        ]);
 
-    // Re-Open an Issue.
-    $router->post('issues/{issues}/open', [
-        'as' => 'issues.open',
-        'uses' => 'IssueController@open',
-    ]);
+        // Re-Open an Issue.
+        $router->post('issues/{issues}/open', [
+            'as' => 'issues.open',
+            'uses' => 'IssueController@open',
+        ]);
 
-    // The issue resource.
-    $router->resource('issues', 'IssueController');
+        // The issue resource.
+        $router->resource('issues', 'IssueController');
 
-    // The issue comments resource.
-    $router->resource('issues.comments', 'IssueCommentController', [
-        'except' => ['index', 'show'],
-    ]);
+        // The issue comments resource.
+        $router->resource('issues.comments', 'IssueCommentController', [
+            'except' => ['index', 'show'],
+        ]);
 
-    // The issue labels resource.
-    $router->resource('issues.labels', 'IssueLabelController', [
-        'only' => ['store'],
-    ]);
+        // The issue labels resource.
+        $router->resource('issues.labels', 'IssueLabelController', [
+            'only' => ['store'],
+        ]);
 
-    // The issue users resource.
-    $router->resource('issues.users', 'IssueUserController', [
-        'only' => ['store'],
-    ]);
+        // The issue users resource.
+        $router->resource('issues.users', 'IssueUserController', [
+            'only' => ['store'],
+        ]);
+    });
 
     // The labels resource.
     $router->resource('labels', 'LabelController', [
