@@ -77,10 +77,12 @@ class Issue extends Model
      */
     public function setOccurredAtAttribute($occurredAt)
     {
-        $date = $this->freshTimestamp();
-        $date->modify($occurredAt);
+        if (!empty($occurredAt)) {
+            $date = $this->freshTimestamp();
+            $date->modify($occurredAt);
 
-        $this->attributes['occurred_at'] = $date;
+            $this->attributes['occurred_at'] = $date;
+        }
     }
 
     /**
@@ -296,16 +298,14 @@ class Issue extends Model
     /**
      * Returns the occurred at time for the date selector input.
      *
-     * @return string
+     * @return string|null
      */
     public function occurredAtForInput()
     {
-        $format = 'm/d/Y g:i A';
-
         if ($this->occurred_at) {
-            return $this->occurred_at->format($format);
+            return $this->occurred_at->format('m/d/Y g:i A');
         }
 
-        return $this->freshTimestamp()->format($format);
+        return;
     }
 }
