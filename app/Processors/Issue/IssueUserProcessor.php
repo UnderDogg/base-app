@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Processors;
+namespace App\Processors\Issue;
 
 use App\Models\User;
 use App\Models\Issue;
 use App\Http\Requests\IssueUserRequest;
+use App\Processors\Processor;
 
 class IssueUserProcessor extends Processor
 {

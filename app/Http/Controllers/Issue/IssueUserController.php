@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Issue;
 
-use App\Processors\IssueUserProcessor;
 use App\Http\Requests\IssueUserRequest;
+use App\Processors\Issue\IssueUserProcessor;
 use App\Http\Controllers\Controller;
 
 class IssueUserController extends Controller

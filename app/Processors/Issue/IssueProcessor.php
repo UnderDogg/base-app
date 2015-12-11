@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Processors;
+namespace App\Processors\Issue;
 
 use App\Jobs\CreateIssue;
 use App\Jobs\CloseIssue;
@@ -8,6 +8,7 @@ use App\Jobs\OpenIssue;
 use App\Models\Issue;
 use App\Http\Requests\IssueRequest;
 use App\Http\Presenters\IssuePresenter;
+use App\Processors\Processor;
 
 class IssueProcessor extends Processor
 {

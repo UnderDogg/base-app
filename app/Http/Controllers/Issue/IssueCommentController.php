@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Issue;
 
-use App\Processors\IssueCommentProcessor;
+use App\Processors\Issue\IssueCommentProcessor;
 use App\Http\Requests\IssueCommentRequest;
 use App\Http\Controllers\Controller;
 

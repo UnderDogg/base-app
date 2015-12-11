@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Processors;
+namespace App\Processors\Issue;
 
 use App\Http\Presenters\IssueCommentPresenter;
 use App\Http\Requests\IssueCommentRequest;
 use App\Models\Issue;
+use App\Processors\Processor;
 
 class IssueCommentProcessor extends Processor
 {
