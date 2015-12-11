@@ -40,12 +40,15 @@
 
                 @if(auth()->check())
 
+                    @can('view-all-issues', App\Models\Issue::class)
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
+
                         <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-exclamation-circle"></i>
                             Issues
                             <i class="fa fa-caret-down"></i>
                         </a>
+
                         <ul class="dropdown-menu">
 
                             <li class="{{ active()->route('issues.*') }}">
@@ -54,6 +57,7 @@
                                     Issues
                                 </a>
                             </li>
+
                             @can('index', App\Models\Label::class)
                             <li class="{{ active()->route('labels.*') }}">
                                 <a href="{{ route('labels.index') }}">
@@ -62,15 +66,20 @@
                                 </a>
                             </li>
                             @endcan
+
                         </ul>
+
                     </li>
+                    @endcan
 
                     <li class="dropdown" id="devices-menu">
+
                         <a href="#devices-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-desktop"></i>
                             Devices
                             <i class="fa fa-caret-down"></i>
                         </a>
+
                         <ul class="dropdown-menu">
                             <li class="{{ active()->route('devices.*') }}">
                                 @can('view-all-computers', App\Models\Computer::class)
@@ -88,35 +97,43 @@
                                 @endcan
                             </li>
                         </ul>
+
                     </li>
 
                     @can('index', Adldap\Models\Computer::class)
                     <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
+
                         <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-users"></i>
                             Active Directory
                             <i class="fa fa-caret-down"></i>
                         </a>
+
                         <ul class="dropdown-menu">
+
                             <li class="{{ active()->route('active-directory.users.*') }}">
                                 <a href="{{ route('active-directory.users.index') }}">
                                     <i class="fa fa-user"></i>
                                     Users
                                 </a>
                             </li>
+
                             <li class="{{ active()->route('active-directory.computers.*') }}">
                                 <a href="{{ route('active-directory.computers.index') }}">
                                     <i class="fa fa-desktop"></i>
                                     Computers
                                 </a>
                             </li>
+
                             <li class="divider"></li>
+
                             <li class="{{ active()->route('active-directory.questions.*') }}">
                                 <a href="{{ route('active-directory.questions.index') }}">
                                     <i class="fa fa-question-circle"></i>
                                     Security Questions
                                 </a>
                             </li>
+
                         </ul>
                     @endcan
 
