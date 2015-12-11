@@ -113,7 +113,7 @@
                             <li class="divider"></li>
                             <li class="{{ active()->route('active-directory.questions.*') }}">
                                 <a href="{{ route('active-directory.questions.index') }}">
-                                    <i class="fa fa-question"></i>
+                                    <i class="fa fa-question-circle"></i>
                                     Security Questions
                                 </a>
                             </li>
@@ -127,22 +127,29 @@
             <ul class="nav navbar-nav navbar-right">
 
                 @if(auth()->check())
+
                     <li class="dropdown {{ active()->routes(['passwords.*']) }}" id="user-menu">
+
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user"></i>
                             {{ auth()->user()->fullname }}
                             <i class="fa fa-caret-down"></i>
                         </a>
+
                         <ul class="dropdown-menu">
+
                             <li class="{{ active()->routes(['passwords.*']) }}">
                                 <a href="{{ route('passwords.index') }}">
                                     <i class="fa fa-lock"></i> Passwords
                                 </a>
                             </li>
+
                             <li class="{{ active()->routes(['security-questions.*']) }}">
                                 <a href="{{ route('security-questions.index') }}">
-                                    <i class="fa fa-question"></i> Security Questions
+                                    <i class="fa fa-question-circle"></i> Security Questions
                                 </a>
                             </li>
+
                             <li class="divider"></li>
 
                             @can('backend')
@@ -158,14 +165,19 @@
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a>
                             </li>
+
                         </ul>
+
                     </li>
+
                 @else
+
                     <li>
                         <a href="{{ route('auth.login.index') }}">
                             Login
                         </a>
                     </li>
+
                 @endif
 
             </ul>

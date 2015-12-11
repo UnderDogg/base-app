@@ -6,10 +6,10 @@
     </li>
     <li class="{{ active()->route('issues.closed') }}" >
         <a href="{{ route('issues.closed') }}">
-            <i class="fa fa-check"></i> Closed Issues
+            <i class="fa fa-check-square"></i> Closed Issues
         </a>
     </li>
-    <li><a href="{{ route('issues.create') }}"><i class="fa fa-plus"></i> New Issue</a></li>
+    <li><a href="{{ route('issues.create') }}"><i class="fa fa-plus-square"></i> New Issue</a></li>
 </ul>
 
 @include('pages.issues._search')

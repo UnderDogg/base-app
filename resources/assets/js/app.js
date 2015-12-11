@@ -11,30 +11,34 @@ $(function ()
         format: "L LT"
     });
 
+    // Lazy load all responsive images.
+    $('.img-responsive').lazyload();
+
     // Mark Switches
     $(".switch-mark").bootstrapToggle({
         on: 'Yes',
         off: 'No'
     });
 
-    // Standard Switches
+    // Standard Switches.
     $(".switch").bootstrapToggle();
 
-    // Issue Users select
+    // Issue Users select.
     $(".select-users").select2();
 
-    // Issue Labels select
+    // Issue Labels select.
     $(".select-labels").select2({
         formatResult: formatLabel,
         formatSelection: formatLabel
     });
 
-    // Label color select
+    // Label color select.
     $(".select-label-color").select2({
         formatResult: formatLabel,
         formatSelection: formatLabel
     });
 
+    // Compute slug whenever a key is pressed.
     $("input.slug:text").on('change keyup paste', function ()
     {
         var self = $(this);
