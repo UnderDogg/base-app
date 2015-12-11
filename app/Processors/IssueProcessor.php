@@ -84,8 +84,9 @@ class IssueProcessor extends Processor
     {
         $title = $request->input('title');
         $description = $request->input('description');
+        $occurredAt = $request->input('occurred_at');
 
-        return $this->dispatch(new CreateIssue($title, $description));
+        return $this->dispatch(new CreateIssue($title, $description, $occurredAt));
     }
 
     /**
@@ -150,6 +151,7 @@ class IssueProcessor extends Processor
 
         $issue->title = $request->input('title', $issue->title);
         $issue->description = $request->input('description', $issue->description);
+        $issue->occurred_at = $request->input('occurred_at', $issue->occurred_at);
 
         if($issue->save()) {
             return $issue;

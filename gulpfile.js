@@ -26,10 +26,12 @@ elixir(function(mix) {
         'libs/jquery-ui.min.js',
         'libs/bootstrap.min.js',
         'libs/dropzone.min.js',
+        'libs/moment.min.js',
         'libs/sweetalert.min.js',
         'libs/bootstrap-editable.min.js',
         'libs/bootstrap-markdown.js',
         'libs/bootstrap-toggle.min.js',
+        'libs/bootstrap-datetimepicker.min.js',
         'libs/markdown.js',
         'libs/to-markdown.js',
         'libs/select2.min.js',
@@ -48,6 +50,7 @@ elixir(function(mix) {
         'libs/bootstrap-toggle.min.css',
         'libs/select2.css',
         'libs/select2-bootstrap.css',
+        'libs/bootstrap-datetimepicker.min.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')

@@ -3,6 +3,7 @@
     <div class="panel-heading">
 
         <h3 class="panel-title">
+
             {{ $issue->user->fullname }}
 
             <span class="text-muted hidden-xs">
@@ -30,9 +31,10 @@
 
             <div class="visible-xs">
                 <span class="text-muted">
-                    commented {{ $issue->createdAtHuman() }}
+                    created issue {{ $issue->createdAtHuman() }}
                 </span>
             </div>
+
         </h3>
 
     </div>
@@ -51,6 +53,10 @@
                 @include('pages.issues._comment', ['comment' => $resolution])
             @endif
         @endif
+    </div>
+
+    <div class="panel-footer text-muted">
+        Issue occurred {{ $issue->occurredAtHuman() }}
     </div>
 
 </div>

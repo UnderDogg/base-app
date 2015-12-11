@@ -111,6 +111,16 @@ class IssuePresenter extends Presenter
                     ->label('Title')
                     ->attributes(['placeholder' => 'Title']);
 
+                $fieldset->control('input:text', 'occurred_at')
+                    ->label('Occurred At')
+                    ->attributes([
+                        'class' => 'date-picker',
+                        'placeholder' => 'Click to select a date / time',
+                    ])
+                    ->value(function (Issue $issue) {
+                        return $issue->occurredAtForInput();
+                    });
+
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
                     ->attributes([

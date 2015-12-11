@@ -22,15 +22,24 @@ class CreateIssue extends Job implements SelfHandling
     protected $description;
 
     /**
+     * The issues occurred at date.
+     *
+     * @var string
+     */
+    protected $occurredAt;
+
+    /**
      * Constructor.
      *
      * @param string $title
      * @param string $description
+     * @param string $occurredAt
      */
-    public function __construct($title, $description)
+    public function __construct($title, $description, $occurredAt)
     {
         $this->title = $title;
         $this->description = $description;
+        $this->occurredAt = $occurredAt;
     }
 
     /**
@@ -45,6 +54,7 @@ class CreateIssue extends Job implements SelfHandling
         $issue->user_id = auth()->user()->getAuthIdentifier();
         $issue->title = $this->title;
         $issue->description = $this->description;
+        $issue->occurred_at = $this->occurredAt;
 
         return $issue->save();
     }

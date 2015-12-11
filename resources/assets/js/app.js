@@ -6,6 +6,11 @@ $(function ()
     // Markdown
     $("textarea[data-provide='markdown']").markdown();
 
+    // Convert all instances of the date input type to datetime pickers.
+    $(".date-picker").datetimepicker({
+        format: "L LT"
+    });
+
     // Mark Switches
     $(".switch-mark").bootstrapToggle({
         on: 'Yes',

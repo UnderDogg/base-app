@@ -57,16 +57,30 @@ class Issue extends Model
         'updated_at',
         'deleted_at',
         'closed_at',
+        'occurred_at',
     ];
 
     /**
      * Sets the issue's description attribute.
      *
-     * @param $description
+     * @param string $description
      */
     public function setDescriptionAttribute($description)
     {
         $this->attributes['description'] = $this->clean($description);
+    }
+
+    /**
+     * Sets the issue's occurred at date.
+     *
+     * @param string $occurredAt
+     */
+    public function setOccurredAtAttribute($occurredAt)
+    {
+        $date = $this->freshTimestamp();
+        $date->modify($occurredAt);
+
+        $this->attributes['occurred_at'] = $date;
     }
 
     /**
@@ -263,5 +277,35 @@ class Issue extends Model
         }
 
         return;
+    }
+
+    /**
+     * Returns the occurred at time in a human readable format.
+     *
+     * @return string|null
+     */
+    public function occurredAtHuman()
+    {
+        if ($this->occurred_at) {
+            return $this->occurred_at->diffForHumans();
+        }
+
+        return;
+    }
+
+    /**
+     * Returns the occurred at time for the date selector input.
+     *
+     * @return string
+     */
+    public function occurredAtForInput()
+    {
+        $format = 'm/d/Y g:i A';
+
+        if ($this->occurred_at) {
+            return $this->occurred_at->format($format);
+        }
+
+        return $this->freshTimestamp()->format($format);
     }
 }
