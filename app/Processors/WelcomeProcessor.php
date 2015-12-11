@@ -55,7 +55,7 @@ class WelcomeProcessor extends Processor
             return $this->feed($weatherFeed);
         });
 
-        $news =  $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
+        $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
             return $this->feed($articleFeed);
         });
 

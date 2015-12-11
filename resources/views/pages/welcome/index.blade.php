@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="panel-body">
-                        @each('pages.welcome._article', $news->articles->take(5), 'article', 'pages.welcome._no_articles')
+                        @each('pages.welcome._article', $news->articles, 'article', 'pages.welcome._no_articles')
                     </div>
 
                 </div>
