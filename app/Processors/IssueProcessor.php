@@ -40,6 +40,8 @@ class IssueProcessor extends Processor
      */
     public function index()
     {
+        $this->authorize($this->issue);
+
         $issues = $this->presenter->table($this->issue);
 
         $navbar = $this->presenter->navbar();
@@ -54,6 +56,8 @@ class IssueProcessor extends Processor
      */
     public function closed()
     {
+        $this->authorize($this->issue);
+
         $issues = $this->presenter->table($this->issue, $closed = true);
 
         $navbar = $this->presenter->navbar();
@@ -68,6 +72,8 @@ class IssueProcessor extends Processor
      */
     public function create()
     {
+        $this->authorize($this->issue);
+
         $form = $this->presenter->form($this->issue);
 
         return view('pages.issues.create', compact('form'));
@@ -82,6 +88,8 @@ class IssueProcessor extends Processor
      */
     public function store(IssueRequest $request)
     {
+        $this->authorize($this->issue);
+
         $title = $request->input('title');
         $description = $request->input('description');
         $occurredAt = $request->input('occurred_at');
@@ -100,13 +108,16 @@ class IssueProcessor extends Processor
     {
         $with = ['comments', 'labels'];
 
+        // Find the issue.
         $issue = $this->issue->with($with)->findOrFail($id);
 
+        // Check user authorization.
+        $this->authorize($issue);
+
+        // Retrieve the issue resolution if there is one.
         $resolution = $issue->comments->first(function ($key, $comment) {
             return $comment->isResolution();
         });
-
-        $this->authorize($issue);
 
         $formComment = $this->presenter->formComment($issue);
 
@@ -126,8 +137,10 @@ class IssueProcessor extends Processor
      */
     public function edit($id)
     {
+        // Find the issue.
         $issue = $this->issue->findOrFail($id);
 
+        // Check user authorization.
         $this->authorize($issue);
 
         $form = $this->presenter->form($issue);
@@ -145,8 +158,10 @@ class IssueProcessor extends Processor
      */
     public function update(IssueRequest $request, $id)
     {
+        // Find the issue.
         $issue = $this->issue->findOrFail($id);
 
+        // Check user authorization.
         $this->authorize($issue);
 
         $issue->title = $request->input('title', $issue->title);
@@ -169,8 +184,10 @@ class IssueProcessor extends Processor
      */
     public function destroy($id)
     {
+        // Find the issue.
         $issue = $this->issue->findOrFail($id);
 
+        // Check user authorization.
         $this->authorize($issue);
 
         return $issue->delete();
@@ -185,8 +202,10 @@ class IssueProcessor extends Processor
      */
     public function close($id)
     {
+        // Find the issue.
         $issue = $this->issue->findOrFail($id);
 
+        // Check user authorization.
         $this->authorize($issue);
 
         if ($issue->isOpen()) {
@@ -207,8 +226,10 @@ class IssueProcessor extends Processor
      */
     public function open($id)
     {
+        // Find the issue.
         $issue = $this->issue->findOrFail($id);
 
+        // Check user authorization.
         $this->authorize($issue);
 
         if ($issue->isClosed()) {
