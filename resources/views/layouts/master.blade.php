@@ -13,23 +13,29 @@
         @include('layouts._flash')
 
         @section('container')
+
             <section class="container main">
 
                 <div class="col-lg-12">
                     @section('title.header')
+
                         @unless(isset($title))
                             <h3>@yield('title')</h3>
                         @endunless
+
                     @show
 
                     @yield('content')
                 </div>
 
             </section>
+
         @show
 
         @section('footer')
+
             @include('layouts._footer')
+
         @show
 
     </body>
