@@ -41,8 +41,8 @@
     </li>
     @endcan
     <li>
-        <a href="#">
-            <i class="fa fa-star-o"></i>
+        <a href="{{ route('resources.guides.favorite', [$guide->getSlug()]) }}">
+            {!! $guide->getFavoriteIcon() !!}
             Favorite
         </a>
     </li>

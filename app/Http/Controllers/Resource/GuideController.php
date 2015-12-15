@@ -35,6 +35,16 @@ class GuideController extends Controller
     }
 
     /**
+     * Displays all favorited guides.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function favorites()
+    {
+        return $this->processor->index($favorites = true);
+    }
+
+    /**
      * Displays the form for creating a new guide.
      *
      * @return \Illuminate\View\View
@@ -125,11 +135,9 @@ class GuideController extends Controller
         $guide = $this->processor->favorite($id);
 
         if ($guide instanceof Guide) {
-            flash()->success('Success!', 'Successfully updated guide!');
-
             return redirect()->route('resources.guides.show', [$guide->getSlug()]);
         } else {
-            flash()->error('Error!', 'There was an issue adding this guide to your favorites. Please try again.');
+            flash()->error('Error!', 'There was an issue with adding this guide to your favorites. Please try again.');
 
             return redirect()->route('resources.guides.show', [$id]);
         }

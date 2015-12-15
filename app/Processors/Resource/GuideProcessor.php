@@ -36,11 +36,13 @@ class GuideProcessor extends Processor
     /**
      * Displays a table of all guides.
      *
+     * @param bool|false $favorites
+     *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($favorites = false)
     {
-        $guides = $this->presenter->table($this->guide);
+        $guides = $this->presenter->table($this->guide, $favorites);
 
         $navbar = $this->presenter->navbar();
 
@@ -184,7 +186,11 @@ class GuideProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
-        if ($guide->favorite()) {
+        if ($guide->hasFavorite() && $guide->unFavorite()) {
+            // If the guide is currently favorited, we'll assume
+            // the user is wanting to 'un-favorite' the guide.
+            return $guide;
+        } else if ($guide->favorite()) {
             return $guide;
         }
 

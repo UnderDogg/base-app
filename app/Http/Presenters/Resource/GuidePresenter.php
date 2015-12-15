@@ -14,18 +14,26 @@ class GuidePresenter extends Presenter
     /**
      * Returns a new table of all guides.
      *
-     * @param Guide $guide
+     * @param Guide      $guide
+     * @param bool|false $favorites
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Guide $guide)
+    public function table(Guide $guide, $favorites = false)
     {
-        $guide = $guide->query()->latest();
+        $guide = $guide->latest();
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy($guide->getModel())->viewUnpublished(auth()->user())) {
+        if (!policy($guide->getModel())->viewUnpublished()) {
             $guide->where('published', true);
+        }
+
+        // Limit the view to favorites only if specified.
+        if ($favorites) {
+            $guide->whereHas('favorites', function ($query) {
+                $query->where('user_id', auth()->user()->getKey());
+            });
         }
 
         return $this->table->of('resources.guides', function (TableGrid $table) use ($guide) {

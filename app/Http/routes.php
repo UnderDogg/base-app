@@ -8,50 +8,66 @@ $router->get('/', [
 
 // The resources route group. Unprotected by auth, but by policies.
 $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router) {
+    // The resources group.
+    $router->group(['as' => 'resources.'], function ($router) {
+        // The guides group.
+        $router->group(['prefix' => 'guides', 'as' => 'guides.'], function ($router) {
+            // The guide favorites route.
+            $router->get('favorites', [
+                'as' => 'favorites',
+                'uses' => 'GuideController@favorites',
+            ]);
+
+            // The specific guides group.
+            $router->group(['prefix' =>'{guides}'], function ($router)
+            {
+                // The guide favorite route.
+                $router->get('favorite', [
+                    'as' => 'favorite',
+                    'uses' => 'GuideController@favorite',
+                ]);
+
+                // The guide step images route.
+                $router->get('images', [
+                    'as'   => 'images',
+                    'uses' => 'GuideStepController@images',
+                ]);
+
+                // The guide step images upload route.
+                $router->post('images/upload', [
+                    'as'   => 'images.upload',
+                    'uses' => 'GuideStepController@upload',
+                ]);
+
+                // The guide steps group.
+                $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function ($router) {
+                    // The guide step image download route.
+                    $router->get('images/{images}', [
+                        'as'   => 'images.download',
+                        'uses' => 'GuideStepImageController@download',
+                    ]);
+
+                    // The guide step delete route.
+                    $router->delete('images/{images}', [
+                        'as'   => 'images.destroy',
+                        'uses' => 'GuideStepImageController@destroy',
+                    ]);
+
+                    // The guide step move route.
+                    $router->post('move', [
+                        'as'   => 'move.position',
+                        'uses' => 'GuideStepController@move',
+                    ]);
+                });
+            });
+        });
+    });
+
     // The guides resource.
     $router->resource('guides', 'GuideController');
 
     // The guide steps resource.
     $router->resource('guides.steps', 'GuideStepController');
-
-    // The resources group.
-    $router->group(['as' => 'resources.'], function ($router) {
-        // The guides group.
-        $router->group(['prefix' => 'guides/{guides}', 'as' => 'guides.'], function ($router) {
-            // The guide step images route.
-            $router->get('images', [
-                'as'   => 'images',
-                'uses' => 'GuideStepController@images',
-            ]);
-
-            // The guide step images upload route.
-            $router->post('images/upload', [
-                'as'   => 'images.upload',
-                'uses' => 'GuideStepController@upload',
-            ]);
-
-            // The guide steps group.
-            $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function ($router) {
-                // The guide step image download route.
-                $router->get('images/{images}', [
-                    'as'   => 'images.download',
-                    'uses' => 'GuideStepImageController@download',
-                ]);
-
-                // The guide step delete route.
-                $router->delete('images/{images}', [
-                    'as'   => 'images.destroy',
-                    'uses' => 'GuideStepImageController@destroy',
-                ]);
-
-                // The guide step move route.
-                $router->post('move', [
-                    'as'   => 'move.position',
-                    'uses' => 'GuideStepController@move',
-                ]);
-            });
-        });
-    });
 });
 
 // Auth Covered Routes.
