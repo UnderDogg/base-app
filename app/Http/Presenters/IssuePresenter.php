@@ -72,7 +72,7 @@ class IssuePresenter extends Presenter
                     $labels = implode(null, $labels);
                     $users = implode(null, $users);
 
-                    $tagLine = HTML::create('p', $issue->getTagLine(), ['class' => 'h5 text-muted']);
+                    $tagLine = sprintf('<p class="h5 text-muted">%s</p>',$issue->getTagLine());
 
                     return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
                 };

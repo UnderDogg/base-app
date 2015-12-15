@@ -246,7 +246,9 @@ class Issue extends Model
 
         $comments = count($this->comments);
 
-        return "$user opened this issue $daysAgo - $comments Comment(s)";
+        $icon = '<i class="fa fa-comments"></i>';
+
+        return "$user opened this issue $daysAgo - $icon $comments";
     }
 
     /**
