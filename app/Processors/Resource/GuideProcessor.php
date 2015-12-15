@@ -109,7 +109,7 @@ class GuideProcessor extends Processor
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy($guide)->viewUnpublished(auth()->user())) {
+        if (!policy($guide)->viewUnpublished($guide)) {
             $this->unauthorized();
         }
 
@@ -167,6 +167,24 @@ class GuideProcessor extends Processor
         }
 
         if ($guide->save()) {
+            return $guide;
+        }
+
+        return false;
+    }
+
+    /**
+     * Favorites the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return Guide|bool
+     */
+    public function favorite($id)
+    {
+        $guide = $this->guide->locate($id);
+
+        if ($guide->favorite()) {
             return $guide;
         }
 

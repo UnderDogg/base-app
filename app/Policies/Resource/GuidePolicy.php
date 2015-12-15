@@ -2,6 +2,7 @@
 
 namespace App\Policies\Resource;
 
+use App\Models\Guide;
 use App\Policies\Policy;
 
 class GuidePolicy extends Policy
@@ -21,10 +22,16 @@ class GuidePolicy extends Policy
      * Allows only users with specific permission
      * to view guides that are unpublished.
      *
+     * @param Guide|null $guide
+     *
      * @return bool
      */
-    public function viewUnpublished()
+    public function viewUnpublished($guide = null)
     {
+        if ($guide instanceof Guide && $guide->isPublished()) {
+            return true;
+        }
+
         return $this->can('view-unpublished');
     }
 

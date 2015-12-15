@@ -57,6 +57,8 @@ class GuideStepProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
+        $this->authorize($guide->steps()->getRelated());
+
         $steps = $this->presenter->table($guide);
 
         $navbar = $this->presenter->navbar($guide);
@@ -74,6 +76,8 @@ class GuideStepProcessor extends Processor
     public function create($id)
     {
         $guide = $this->guide->locate($id);
+
+        $this->authorize($guide->steps()->getRelated());
 
         $steps = count($guide->steps) + 1;
 
@@ -93,6 +97,8 @@ class GuideStepProcessor extends Processor
     public function store(GuideStepRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
+
+        $this->authorize($guide->steps()->getRelated());
 
         $step = $guide->addStep($request->input('title'), $request->input('description'));
 
@@ -126,6 +132,8 @@ class GuideStepProcessor extends Processor
 
         $step = $guide->findStepByPosition($stepPosition);
 
+        $this->authorize($step);
+
         $form = $this->presenter->form($guide, $step);
 
         return view('pages.resources.guides.steps.edit', compact('form'));
@@ -145,6 +153,8 @@ class GuideStepProcessor extends Processor
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStepByPosition($stepPosition);
+
+        $this->authorize($step);
 
         $step->title = $request->input('title', $step->title);
         $step->description = $request->input('description', $step->description);
@@ -179,6 +189,8 @@ class GuideStepProcessor extends Processor
 
         $step = $guide->findStepByPosition($stepPosition);
 
+        $this->authorize($step);
+
         return $step->delete();
     }
 
@@ -196,6 +208,8 @@ class GuideStepProcessor extends Processor
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStep($stepId);
+
+        $this->authorize($step);
 
         if ($step instanceof GuideStep) {
             $position = (int) $request->input('position', 1);
@@ -217,6 +231,8 @@ class GuideStepProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
+        $this->authorize($guide->steps()->getRelated());
+
         $form = $this->presenter->formImages($guide);
 
         return view('pages.resources.guides.steps.upload', compact('form'));
@@ -233,6 +249,8 @@ class GuideStepProcessor extends Processor
     public function upload(GuideStepImagesRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
+
+        $this->authorize('images', $guide->steps()->getRelated());
 
         $images = $request->file('images');
 

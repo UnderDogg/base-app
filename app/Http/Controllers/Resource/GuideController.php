@@ -114,6 +114,28 @@ class GuideController extends Controller
     }
 
     /**
+     * Favorites the specified guide.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function favorite($id)
+    {
+        $guide = $this->processor->favorite($id);
+
+        if ($guide instanceof Guide) {
+            flash()->success('Success!', 'Successfully updated guide!');
+
+            return redirect()->route('resources.guides.show', [$guide->getSlug()]);
+        } else {
+            flash()->error('Error!', 'There was an issue adding this guide to your favorites. Please try again.');
+
+            return redirect()->route('resources.guides.show', [$id]);
+        }
+    }
+
+    /**
      * Deletes the specified guide.
      *
      * @param int|string $id

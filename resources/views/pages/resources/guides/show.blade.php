@@ -4,7 +4,9 @@
 
 @section('content')
 
-    @decorator('navbar', $navbar)
+    @if(auth()->user())
+        @decorator('navbar', $navbar)
+    @endif
 
     @if ($guide->description)
     <div class="panel panel-default">

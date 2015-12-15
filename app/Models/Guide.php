@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFavoritesTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Orchestra\Support\Facades\HTML;
 
 class Guide extends Model
 {
+    use HasFavoritesTrait;
+
     /**
      * The guides table.
      *
@@ -82,6 +85,16 @@ class Guide extends Model
     public function summary()
     {
         return Str::limit($this->description, 25);
+    }
+
+    /**
+     * Returns true / false if the current guide is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**
