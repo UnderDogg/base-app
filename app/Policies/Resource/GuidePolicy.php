@@ -26,7 +26,7 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function viewUnpublished($guide = null)
+    public function viewUnpublished(Guide $guide = null)
     {
         if ($guide instanceof Guide && $guide->isPublished()) {
             return true;
