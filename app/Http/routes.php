@@ -16,6 +16,7 @@ $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($
             $router->get('favorites', [
                 'as' => 'favorites',
                 'uses' => 'GuideController@favorites',
+                'middleware' => ['auth'],
             ]);
 
             // The specific guides group.
