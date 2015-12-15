@@ -14,18 +14,17 @@ $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($
         $router->group(['prefix' => 'guides', 'as' => 'guides.'], function ($router) {
             // The guide favorites route (guarded by auth).
             $router->get('favorites', [
-                'as' => 'favorites',
-                'uses' => 'GuideController@favorites',
+                'as'         => 'favorites',
+                'uses'       => 'GuideController@favorites',
                 'middleware' => ['auth'],
             ]);
 
             // The specific guides group.
-            $router->group(['prefix' =>'{guides}'], function ($router)
-            {
+            $router->group(['prefix' => '{guides}'], function ($router) {
                 // The guide favorite route (guarded by auth).
                 $router->get('favorite', [
-                    'as' => 'favorite',
-                    'uses' => 'GuideController@favorite',
+                    'as'         => 'favorite',
+                    'uses'       => 'GuideController@favorite',
                     'middleware' => ['auth'],
                 ]);
 

@@ -2,8 +2,8 @@
 
 namespace App\Models\Traits;
 
-use Orchestra\Support\Facades\HTML;
 use App\Models\Favorite;
+use Orchestra\Support\Facades\HTML;
 
 trait HasFavoritesTrait
 {

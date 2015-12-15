@@ -9,7 +9,6 @@ use App\Models\User;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Support\Facades\HTML;
 
 class IssuePresenter extends Presenter
 {
@@ -72,7 +71,7 @@ class IssuePresenter extends Presenter
                     $labels = implode(null, $labels);
                     $users = implode(null, $users);
 
-                    $tagLine = sprintf('<p class="h5 text-muted">%s</p>',$issue->getTagLine());
+                    $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->getTagLine());
 
                     return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
                 };
