@@ -14,6 +14,23 @@ class Label extends Model
     protected $table = 'labels';
 
     /**
+     * The issue labels pivot table.
+     *
+     * @var string
+     */
+    protected $tablePivotLabels = 'issue_labels';
+
+    /**
+     * The belongsToMany labels relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function issues()
+    {
+        return $this->belongsToMany(Issue::class, $this->tablePivotLabels);
+    }
+
+    /**
      * Returns an array of available label colors.
      *
      * @return array
