@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use Orchestra\Support\Facades\HTML;
 use App\Models\Favorite;
 
 trait HasFavoritesTrait
@@ -35,10 +36,26 @@ trait HasFavoritesTrait
     }
 
     /**
+     * Un-favorites the current model by deleting the favorite.
+     *
+     * @return bool
+     */
+    public function unFavorite()
+    {
+        $favorite = $this->hasFavorite();
+
+        if ($favorite instanceof Favorite) {
+            return $favorite->delete();
+        }
+
+        return false;
+    }
+
+    /**
      * Returns true / false if the current model
      * is favorited by the current user.
      *
-     * @return bool
+     * @return bool|Favorite
      */
     public function hasFavorite()
     {
@@ -47,9 +64,25 @@ trait HasFavoritesTrait
             ->first();
 
         if ($favorite instanceof  Favorite) {
-            return true;
+            return $favorite;
         }
 
         return false;
+    }
+
+    /**
+     * Returns the favorite icon.
+     *
+     * @return string
+     */
+    public function getFavoriteIcon()
+    {
+        if ($this->hasFavorite()) {
+            $class = 'fa fa-star';
+        } else {
+            $class = 'fa fa-star-o';
+        }
+
+        return HTML::raw("<i class='$class'></i>");
     }
 }
