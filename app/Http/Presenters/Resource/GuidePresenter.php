@@ -64,12 +64,16 @@ class GuidePresenter extends Presenter
                     return $guide->publishedLabel();
                 });
 
-            $table
-                ->column('created_at')
-                ->label('Created')
-                ->value(function (Guide $guide) {
-                    return $guide->createdAtHuman();
-                });
+            // Only allow users with create guide permissions
+            // to see the created date.
+            if (policy($guide->getModel())->create()) {
+                $table
+                    ->column('created_at')
+                    ->label('Created')
+                    ->value(function (Guide $guide) {
+                        return $guide->createdAtHuman();
+                    });
+            }
         });
     }
 
