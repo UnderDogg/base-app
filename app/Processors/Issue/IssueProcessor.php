@@ -41,8 +41,6 @@ class IssueProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize($this->issue);
-
         $issues = $this->presenter->table($this->issue);
 
         $navbar = $this->presenter->navbar();
@@ -57,8 +55,6 @@ class IssueProcessor extends Processor
      */
     public function closed()
     {
-        $this->authorize($this->issue);
-
         $issues = $this->presenter->table($this->issue, $closed = true);
 
         $navbar = $this->presenter->navbar();
@@ -73,8 +69,6 @@ class IssueProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize($this->issue);
-
         $form = $this->presenter->form($this->issue);
 
         return view('pages.issues.create', compact('form'));
@@ -89,8 +83,6 @@ class IssueProcessor extends Processor
      */
     public function store(IssueRequest $request)
     {
-        $this->authorize($this->issue);
-
         $title = $request->input('title');
         $description = $request->input('description');
         $occurredAt = $request->input('occurred_at');

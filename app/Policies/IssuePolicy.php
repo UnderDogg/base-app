@@ -12,8 +12,6 @@ class IssuePolicy extends Policy
      */
     public $actions = [
         'View Users Issues',
-        'View All Issues',
-        'Create Issue',
         'View Issue',
         'Edit Issue',
         'Open Issue',
@@ -32,28 +30,6 @@ class IssuePolicy extends Policy
     public function viewAll()
     {
         return $this->can('view-users-issues');
-    }
-
-    /**
-     * Returns true / false if the current
-     * user can view their own issues.
-     *
-     * @return bool
-     */
-    public function index()
-    {
-        return $this->can('view-all-issues');
-    }
-
-    /**
-     * Returns true / false if the current
-     * user can create issues.
-     *
-     * @return bool
-     */
-    public function create()
-    {
-        return $this->can('create-issue');
     }
 
     /**
@@ -95,7 +71,7 @@ class IssuePolicy extends Policy
      */
     public function update(User $user, Issue $issue)
     {
-        return $user->can('edit-issue') || $user->getKey() === $issue->user_id;
+        return $this->edit($user, $issue);
     }
 
     /**
