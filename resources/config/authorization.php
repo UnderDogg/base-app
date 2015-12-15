@@ -18,7 +18,8 @@ return [
         \App\Models\Issue::class            => \App\Policies\IssuePolicy::class,
         \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
         \App\Models\Label::class            => \App\Policies\LabelPolicy::class,
-        \App\Models\Computer::class         => \App\Policies\Devices\ComputerPolicy::class,
+        \App\Models\Computer::class         => \App\Policies\Device\ComputerPolicy::class,
+        \App\Models\Guide::class            => \App\Policies\Resource\GuidePolicy::class,
         \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
         \Adldap\Models\User::class          => \App\Policies\ActiveDirectory\UserPolicy::class,
 

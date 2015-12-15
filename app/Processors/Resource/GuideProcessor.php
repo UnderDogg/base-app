@@ -40,6 +40,8 @@ class GuideProcessor extends Processor
      */
     public function index()
     {
+        $this->authorize($this->guide);
+
         $guides = $this->presenter->table($this->guide);
 
         $navbar = $this->presenter->navbar();
@@ -54,6 +56,8 @@ class GuideProcessor extends Processor
      */
     public function create()
     {
+        $this->authorize($this->guide);
+
         $form = $this->presenter->form($this->guide);
 
         return view('pages.resources.guides.create', compact('form'));
@@ -68,6 +72,8 @@ class GuideProcessor extends Processor
      */
     public function store(GuideRequest $request)
     {
+        $this->authorize($this->guide);
+
         $guide = $this->guide->newInstance();
 
         $guide->slug = Str::slug($request->input('title'));
@@ -103,6 +109,8 @@ class GuideProcessor extends Processor
             },
         ]);
 
+        $this->authorize($guide);
+
         $navbar = $this->presenter->navbarShow($guide);
 
         $formStep = $this->presenter->formStep($guide);
@@ -121,6 +129,8 @@ class GuideProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
+        $this->authorize($guide);
+
         $form = $this->presenter->form($guide);
 
         return view('pages.resources.guides.edit', compact('form'));
@@ -137,6 +147,8 @@ class GuideProcessor extends Processor
     public function update(GuideRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
+
+        $this->authorize($guide);
 
         $guide->slug = Str::slug($request->input('title'));
         $guide->title = $request->input('title');
@@ -169,6 +181,8 @@ class GuideProcessor extends Processor
     public function destroy($id)
     {
         $guide = $this->guide->locate($id);
+
+        $this->authorize($guide);
 
         return $guide->delete();
     }

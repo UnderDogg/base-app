@@ -21,7 +21,7 @@ class IssuePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table($issue, $closed = false)
+    public function table(Issue $issue, $closed = false)
     {
         $with = [
             'users',

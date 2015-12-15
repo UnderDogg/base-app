@@ -11,10 +11,10 @@ class IssuePolicy extends Policy
      * {@inheritdoc}
      */
     public $actions = [
+        'View Users Issues',
         'View All Issues',
-        'View Issue',
         'Create Issue',
-        'Display Issue',
+        'View Issue',
         'Edit Issue',
         'Open Issue',
         'Close Issue',
@@ -25,13 +25,13 @@ class IssuePolicy extends Policy
 
     /**
      * Returns true / false if the specified
-     * user can view all issues.
+     * user can view everyones issues.
      *
      * @return bool
      */
     public function viewAll()
     {
-        return $this->can('view-all-issues');
+        return $this->can('view-users-issues');
     }
 
     /**
@@ -42,11 +42,12 @@ class IssuePolicy extends Policy
      */
     public function index()
     {
-        return $this->can('view-issue');
+        return $this->can('view-all-issues');
     }
 
     /**
-     * Returns true / false if the current user can create issues.
+     * Returns true / false if the current
+     * user can create issues.
      *
      * @return bool
      */
@@ -66,7 +67,7 @@ class IssuePolicy extends Policy
      */
     public function show(User $user, Issue $issue)
     {
-        return $user->can('display-issue') || $user->getKey() === $issue->user_id;
+        return $user->can('view-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**

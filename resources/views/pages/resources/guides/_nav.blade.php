@@ -4,7 +4,9 @@
             All Guides
         </a>
     </li>
+    @can('create', App\Models\Guide::class)
     <li><a href="{{ route('resources.guides.create') }}"><i class="fa fa-plus"></i> New Guide</a></li>
+    @endcan
 </ul>
 
 @include('pages.issues._search')

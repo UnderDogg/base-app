@@ -27,6 +27,7 @@ abstract class Policy extends AuthorizationPolicy
      */
     public function __construct()
     {
+        // Set the ACL name to the current classes name.
         $this->name = static::class;
     }
 

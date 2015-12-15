@@ -6,6 +6,54 @@ $router->get('/', [
     'uses' => 'WelcomeController@index',
 ]);
 
+// The resources route group. Unprotected by auth, but by policies.
+$router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router) {
+    // The guides resource.
+    $router->resource('guides', 'GuideController');
+
+    // The guide steps resource.
+    $router->resource('guides.steps', 'GuideStepController');
+
+    // The resources group.
+    $router->group(['as' => 'resources.'], function ($router) {
+        // The guides group.
+        $router->group(['prefix' => 'guides/{guides}', 'as' => 'guides.'], function ($router) {
+            // The guide step images route.
+            $router->get('images', [
+                'as'   => 'images',
+                'uses' => 'GuideStepController@images',
+            ]);
+
+            // The guide step images upload route.
+            $router->post('images/upload', [
+                'as'   => 'images.upload',
+                'uses' => 'GuideStepController@upload',
+            ]);
+
+            // The guide steps group.
+            $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function ($router) {
+                // The guide step image download route.
+                $router->get('images/{images}', [
+                    'as'   => 'images.download',
+                    'uses' => 'GuideStepImageController@download',
+                ]);
+
+                // The guide step delete route.
+                $router->delete('images/{images}', [
+                    'as'   => 'images.destroy',
+                    'uses' => 'GuideStepImageController@destroy',
+                ]);
+
+                // The guide step move route.
+                $router->post('move', [
+                    'as'   => 'move.position',
+                    'uses' => 'GuideStepController@move',
+                ]);
+            });
+        });
+    });
+});
+
 // Auth Covered Routes.
 $router->group(['middleware' => ['auth']], function ($router) {
     // The Devices namespace group.
@@ -126,54 +174,6 @@ $router->group(['middleware' => ['auth']], function ($router) {
 
             // User Password Resource.
             $router->resource('passwords', 'PasswordController');
-        });
-    });
-
-    // The resources route group.
-    $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router) {
-        // The guides resource.
-        $router->resource('guides', 'GuideController');
-
-        // The guide steps resource.
-        $router->resource('guides.steps', 'GuideStepController');
-
-        // The resources group.
-        $router->group(['as' => 'resources.'], function ($router) {
-            // The guides group.
-            $router->group(['prefix' => 'guides/{guides}', 'as' => 'guides.'], function ($router) {
-                // The guide step images route.
-                $router->get('images', [
-                    'as'   => 'images',
-                    'uses' => 'GuideStepController@images',
-                ]);
-
-                // The guide step images upload route.
-                $router->post('images/upload', [
-                    'as'   => 'images.upload',
-                    'uses' => 'GuideStepController@upload',
-                ]);
-
-                // The guide steps group.
-                $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function ($router) {
-                    // The guide step image download route.
-                    $router->get('images/{images}', [
-                        'as'   => 'images.download',
-                        'uses' => 'GuideStepImageController@download',
-                    ]);
-
-                    // The guide step delete route.
-                    $router->delete('images/{images}', [
-                        'as'   => 'images.destroy',
-                        'uses' => 'GuideStepImageController@destroy',
-                    ]);
-
-                    // The guide step move route.
-                    $router->post('move', [
-                        'as'   => 'move.position',
-                        'uses' => 'GuideStepController@move',
-                    ]);
-                });
-            });
         });
     });
 

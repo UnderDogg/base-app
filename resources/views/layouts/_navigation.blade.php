@@ -40,7 +40,7 @@
 
                 @if(auth()->check())
 
-                    @can('view-all-issues', App\Models\Issue::class)
+                    @can('index', App\Models\Issue::class)
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
 
                         <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

@@ -22,6 +22,12 @@ class GuidePresenter extends Presenter
     {
         $guide = $guide->query()->latest();
 
+        // Limit the view if the user isn't allowed
+        // to view unpublished guides.
+        if (!policy($guide->getModel())->viewUnpublished(auth()->user())) {
+            $guide->where('published', true);
+        }
+
         return $this->table->of('resources.guides', function (TableGrid $table) use ($guide) {
             $table->with($guide)->paginate($this->perPage);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies\Devices;
+namespace App\Policies\Device;
 
 use App\Policies\Policy;
 

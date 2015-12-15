@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Active;
+use App\Http\Flash;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -8,11 +10,11 @@ use Rhumsaa\Uuid\Uuid;
  * @param null|string $title
  * @param null|string $message
  *
- * @return null|\App\Http\Flash
+ * @return null|Flash
  */
 function flash($title = null, $message = null)
 {
-    $flash = new \App\Http\Flash();
+    $flash = new Flash();
 
     if (func_num_args() === 0) {
         return $flash;
@@ -34,11 +36,11 @@ function uuid()
 /**
  * Generates a new Active instance.
  *
- * @return \App\Http\Active
+ * @return Active
  */
 function active()
 {
-    return new \App\Http\Active();
+    return new Active();
 }
 
 /**
