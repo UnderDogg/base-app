@@ -50,10 +50,10 @@ class LabelPresenter extends Presenter
                 $table->column('delete', function ($column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [
-                            'data-post' => 'DELETE',
-                            'data-title' => 'Delete Label?',
+                            'data-post'    => 'DELETE',
+                            'data-title'   => 'Delete Label?',
                             'data-message' => 'Are you sure you want to delete this label?',
-                            'class' => 'btn btn-xs btn-danger'
+                            'class'        => 'btn btn-xs btn-danger',
                         ]);
                     };
                 });

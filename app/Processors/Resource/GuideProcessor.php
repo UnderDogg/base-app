@@ -190,7 +190,7 @@ class GuideProcessor extends Processor
             // If the guide is currently favorited, we'll assume
             // the user is wanting to 'un-favorite' the guide.
             return $guide;
-        } else if ($guide->favorite()) {
+        } elseif ($guide->favorite()) {
             return $guide;
         }
 
