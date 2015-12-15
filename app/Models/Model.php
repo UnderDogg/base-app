@@ -15,4 +15,14 @@ class Model extends BaseModel
     {
         return $this->created_at->diffForHumans();
     }
+
+    /**
+     * Returns the updated at time in a human readable format.
+     *
+     * @return string
+     */
+    public function updatedAtHuman()
+    {
+        return $this->updated_at->diffForHumans();
+    }
 }
