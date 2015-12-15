@@ -40,8 +40,6 @@ class GuideProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize($this->guide);
-
         $guides = $this->presenter->table($this->guide);
 
         $navbar = $this->presenter->navbar();
@@ -109,7 +107,11 @@ class GuideProcessor extends Processor
             },
         ]);
 
-        $this->authorize($guide);
+        // Limit the view if the user isn't allowed
+        // to view unpublished guides.
+        if (!policy($guide)->viewUnpublished(auth()->user())) {
+            $this->unauthorized();
+        }
 
         $navbar = $this->presenter->navbarShow($guide);
 

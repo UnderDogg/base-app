@@ -10,7 +10,6 @@ class GuidePolicy extends Policy
      * {@inheritdoc}
      */
     public $actions = [
-        'View All Guides',
         'View Unpublished',
         'View Guide',
         'Create Guide',
@@ -27,16 +26,6 @@ class GuidePolicy extends Policy
     public function viewUnpublished()
     {
         return $this->can('view-unpublished');
-    }
-
-    /**
-     * Allows all guests and users to view guides.
-     *
-     * @return bool
-     */
-    public function index()
-    {
-        return auth()->user() || auth()->guest();
     }
 
     /**
@@ -57,16 +46,6 @@ class GuidePolicy extends Policy
     public function store()
     {
         return $this->create();
-    }
-
-    /**
-     * Allows all guests and users to view guides.
-     *
-     * @return bool
-     */
-    public function show()
-    {
-        return auth()->user() || auth()->guest();
     }
 
     /**

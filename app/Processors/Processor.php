@@ -2,6 +2,7 @@
 
 namespace App\Processors;
 
+use Illuminate\Auth\Access\UnauthorizedException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -15,4 +16,16 @@ abstract class Processor
      * @var object
      */
     protected $presenter;
+
+    /**
+     * Throws an unauthorized exception.
+     *
+     * @param string|null $error
+     *
+     * @throws UnauthorizedException
+     */
+    public function unauthorized($error = null)
+    {
+        throw new UnauthorizedException($error);
+    }
 }
