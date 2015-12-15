@@ -37,6 +37,8 @@ class LabelProcessor extends Processor
      */
     public function index()
     {
+        $this->authorize($this->label);
+
         $labels = $this->presenter->table($this->label);
 
         $navbar = $this->presenter->navbar();
@@ -51,6 +53,8 @@ class LabelProcessor extends Processor
      */
     public function create()
     {
+        $this->authorize($this->label);
+
         $form = $this->presenter->form($this->label);
 
         return view('pages.labels.create', compact('form'));
@@ -65,7 +69,9 @@ class LabelProcessor extends Processor
      */
     public function store(LabelRequest $request)
     {
-        $label = $this->label;
+        $this->authorize($this->label);
+
+        $label = $this->label->newInstance();
 
         $label->name = $request->input('name');
         $label->color = $request->input('color');
@@ -84,6 +90,8 @@ class LabelProcessor extends Processor
     {
         $label = $this->label->findOrFail($id);
 
+        $this->authorize($label);
+
         $form = $this->presenter->form($label);
 
         return view('pages.labels.edit', compact('form'));
@@ -101,9 +109,27 @@ class LabelProcessor extends Processor
     {
         $label = $this->label->findOrFail($id);
 
+        $this->authorize($label);
+
         $label->name = $request->input('name', $label->name);
         $label->color = $request->input('color', $label->color);
 
         return $label->save();
+    }
+
+    /**
+     * Deletes the specified label.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function destroy($id)
+    {
+        $label = $this->label->findOrFail($id);
+
+        $this->authorize($label);
+
+        return $label->delete();
     }
 }

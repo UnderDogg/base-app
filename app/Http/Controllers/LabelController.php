@@ -96,14 +96,22 @@ class LabelController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified label.
      *
-     * @param int $id
+     * @param int|string $id
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        if ($this->processor->destroy($id)) {
+            flash()->success('Success!', 'Successfully deleted label.');
+
+            return redirect()->route('labels.index');
+        } else {
+            flash()->error('Error!', 'There was a problem deleting this label. Please try again.');
+
+            return redirect()->route('labels.edit', [$id]);
+        }
     }
 }

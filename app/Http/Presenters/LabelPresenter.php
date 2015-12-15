@@ -34,9 +34,30 @@ class LabelPresenter extends Presenter
                 $column->label = 'Label';
 
                 $column->value = function (Label $label) {
-                    return link_to_route('labels.edit', $label->getDisplayLarge(), [$label->getKey()]);
+                    // Check if the current user has access to edit
+                    // labels before rendering the label as a link.
+                    if (policy($label)->edit()) {
+                        return link_to_route('labels.edit', $label->getDisplayLarge(), [$label->getKey()]);
+                    }
+
+                    return $label->getDisplayLarge();
                 };
             });
+
+            // Check if the current user has access to delete
+            // labels before rendering the delete column.
+            if (policy($label)->destroy()) {
+                $table->column('delete', function ($column) {
+                    $column->value = function (Label $label) {
+                        return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [
+                            'data-post' => 'DELETE',
+                            'data-title' => 'Delete Label?',
+                            'data-message' => 'Are you sure you want to delete this label?',
+                            'class' => 'btn btn-xs btn-danger'
+                        ]);
+                    };
+                });
+            }
         });
     }
 

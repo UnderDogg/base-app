@@ -2,27 +2,81 @@
 
 namespace App\Policies;
 
-use App\Models\User;
-
 class LabelPolicy extends Policy
 {
     /**
      * {@inheritdoc}
      */
     public $actions = [
-        'View Labels',
+        'View All Labels',
+        'Create Label',
+        'Edit Label',
+        'Delete Label',
     ];
 
     /**
-     * Returns true / false if the specified user is
-     * allowed to view the label index.
-     *
-     * @param User $user
+     * Allows users with specific permission
+     * to view all labels.
      *
      * @return bool
      */
-    public function index(User $user)
+    public function index()
     {
-        return $user->is($this->admin()->name);
+        return $this->can('view-all-labels');
+    }
+
+    /**
+     * Allows users with specific permission
+     * to create labels.
+     *
+     * @return bool
+     */
+    public function create()
+    {
+        return $this->can('create-label');
+    }
+
+    /**
+     * Allows users with specific permission
+     * to create labels.
+     *
+     * @return bool
+     */
+    public function store()
+    {
+        return $this->create();
+    }
+
+    /**
+     * Allows users with specific permission
+     * to edit labels.
+     *
+     * @return bool
+     */
+    public function edit()
+    {
+        return $this->can('edit-label');
+    }
+
+    /**
+     * Allows users with specific permission
+     * to update labels.
+     *
+     * @return bool
+     */
+    public function update()
+    {
+        return $this->edit();
+    }
+
+    /**
+     * Allows users with specific permission
+     * to delete labels.
+     *
+     * @return bool
+     */
+    public function destroy()
+    {
+        return $this->can('delete-label');
     }
 }
