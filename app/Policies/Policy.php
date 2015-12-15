@@ -51,7 +51,7 @@ abstract class Policy extends AuthorizationPolicy
      *
      * @return null|Role
      */
-    public function admin()
+    protected function admin()
     {
         return Role::admin();
     }
