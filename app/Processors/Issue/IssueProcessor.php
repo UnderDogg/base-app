@@ -2,11 +2,12 @@
 
 namespace App\Processors\Issue;
 
-use App\Http\Presenters\IssuePresenter;
+use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Requests\IssueRequest;
 use App\Jobs\CloseIssue;
 use App\Jobs\CreateIssue;
 use App\Jobs\OpenIssue;
+use App\Models\Label;
 use App\Models\Issue;
 use App\Processors\Processor;
 
@@ -18,6 +19,11 @@ class IssueProcessor extends Processor
     protected $issue;
 
     /**
+     * @var Label
+     */
+    protected $label;
+
+    /**
      * @var IssuePresenter
      */
     protected $presenter;
@@ -26,11 +32,13 @@ class IssueProcessor extends Processor
      * Constructor.
      *
      * @param Issue          $issue
+     * @param Label          $label
      * @param IssuePresenter $presenter
      */
-    public function __construct(Issue $issue, IssuePresenter $presenter)
+    public function __construct(Issue $issue, Label $label, IssuePresenter $presenter)
     {
         $this->issue = $issue;
+        $this->label = $label;
         $this->presenter = $presenter;
     }
 
@@ -43,7 +51,9 @@ class IssueProcessor extends Processor
     {
         $issues = $this->presenter->table($this->issue);
 
-        $navbar = $this->presenter->navbar();
+        $labels = $this->label->all();
+
+        $navbar = $this->presenter->navbar($labels);
 
         return view('pages.issues.index', compact('issues', 'navbar'));
     }
@@ -57,7 +67,9 @@ class IssueProcessor extends Processor
     {
         $issues = $this->presenter->table($this->issue, $closed = true);
 
-        $navbar = $this->presenter->navbar();
+        $labels = $this->label->all();
+
+        $navbar = $this->presenter->navbar($labels);
 
         return view('pages.issues.index', compact('issues', 'navbar'));
     }

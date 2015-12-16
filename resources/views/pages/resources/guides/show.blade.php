@@ -4,7 +4,7 @@
 
 @section('content')
 
-    @if(auth()->user())
+    @if(auth()->check())
         @decorator('navbar', $navbar)
     @endif
 

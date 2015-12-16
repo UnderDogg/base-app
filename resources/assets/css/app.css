@@ -103,3 +103,8 @@ tr td a {
 .panel-body {
     word-wrap: break-word;
 }
+
+/* Alter dropdown menu padding for labels */
+.dropdown-menu-labels > li > a {
+    padding: 0 20px 5px;
+}

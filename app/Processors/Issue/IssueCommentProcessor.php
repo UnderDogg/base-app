@@ -2,7 +2,7 @@
 
 namespace App\Processors\Issue;
 
-use App\Http\Presenters\IssueCommentPresenter;
+use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\IssueCommentRequest;
 use App\Models\Issue;
 use App\Processors\Processor;

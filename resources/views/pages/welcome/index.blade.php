@@ -40,39 +40,35 @@
                 <h1 class="hidden-xs">Welcome.</h1>
 
                 <h2 class="visible-xs">Welcome.</h2>
-            </div>d
-
-            <div class="text-center">
-
-                <div class="col-md-6">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Support
-                        </div>
-                        <div class="panel-body">
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-6">
-
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading">
-                            Issues
-                        </div>
-                        <div class="panel-body">
-
-                        </div>
-
-                    </div>
-
-                </div>
-
             </div>
+
+            @if(auth()->check())
+                <div class="col-md-12">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading text-center">
+                            <div class="panel-title">
+                                Issues
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            <a class="btn btn-lg btn-default" href="{{ route('issues.create') }}">
+                                <i class="fa fa-exclamation-circle"></i>
+                                Create An Issue
+                            </a>
+
+                            <a class="btn btn-lg btn-default" href="{{ route('issues.index') }}">
+                                <i class="fa fa-exclamation-circle"></i>
+                                View My Issues
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+            @endif
 
             <div class="col-md-6">
 

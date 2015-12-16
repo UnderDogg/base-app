@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Presenters;
+namespace App\Http\Presenters\Issue;
 
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use App\Http\Presenters\Presenter;
 
 class IssuePresenter extends Presenter
 {
@@ -227,15 +229,17 @@ class IssuePresenter extends Presenter
     /**
      * Returns a new navbar for the issue index.
      *
+     * @param Collection $labels
+     *
      * @return \Illuminate\Support\Fluent
      */
-    public function navbar()
+    public function navbar(Collection $labels)
     {
         return $this->fluent([
             'id'         => 'issues',
             'title'      => 'Issues',
             'url'        => route('issues.index'),
-            'menu'       => view('pages.issues._nav'),
+            'menu'       => view('pages.issues._nav', compact('labels')),
             'attributes' => [
                 'class' => 'navbar-default',
             ],

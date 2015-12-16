@@ -6,7 +6,7 @@
         </a>
     </li>
 
-    @if(auth()->user())
+    @if(auth()->check())
         <li class="{{ active()->route('resources.guides.favorites') }}">
             <a href="{{ route('resources.guides.favorites') }}">
                 <i class="fa fa-star"></i>
