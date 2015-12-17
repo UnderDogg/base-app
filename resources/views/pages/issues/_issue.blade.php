@@ -40,6 +40,7 @@
     </div>
 
     <div class="panel-body">
+
         {!! $issue->getDescriptionFromMarkdown() !!}
 
         {{--
@@ -53,12 +54,13 @@
                 @include('pages.issues._comment', ['comment' => $resolution])
             @endif
         @endif
+
     </div>
 
     @if($issue->occurred_at)
-    <div class="panel-footer text-muted">
-        {{ $issue->getOccurredAtTagLine() }}
-    </div>
+        <div class="panel-footer text-muted">
+            {{ $issue->getOccurredAtTagLine() }}
+        </div>
     @endif
 
 </div>
