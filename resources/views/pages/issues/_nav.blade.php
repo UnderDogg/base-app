@@ -8,16 +8,18 @@
 
     <li class="{{ active()->route('issues.closed') }}" >
         <a href="{{ route('issues.closed') }}">
-            <i class="fa fa-check-square"></i> Closed Issues
+            <i class="fa fa-check-circle"></i> Closed Issues
         </a>
     </li>
 
     <li class="dropdown">
+
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-tags"></i>
             Labels
             <i class="fa fa-caret-down"></i>
         </a>
+
         <ul class="dropdown-menu dropdown-menu-labels">
             @foreach($labels as $label)
                 <li>
@@ -27,6 +29,7 @@
                 </li>
             @endforeach
         </ul>
+
     </li>
 
     <li>
