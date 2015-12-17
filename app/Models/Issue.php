@@ -270,6 +270,32 @@ class Issue extends Model
     }
 
     /**
+     * Returns the created at issue tag line.
+     *
+     * @return string
+     */
+    public function getCreatedAtTagLine()
+    {
+        $user = $this->user->fullname;
+
+        $daysAgo = $this->createdAtHuman();
+
+        return "$user created issue $daysAgo";
+    }
+
+    /**
+     * Returns the occurred at issue tag line.
+     *
+     * @return string
+     */
+    public function getOccurredAtTagLine()
+    {
+        $daysAgo = $this->occurredAtHuman();
+
+        return "Issue occurred $daysAgo";
+    }
+
+    /**
      * Returns the description from markdown to HTML.
      *
      * @return string

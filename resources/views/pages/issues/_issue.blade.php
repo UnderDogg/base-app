@@ -7,7 +7,7 @@
             {{ $issue->user->fullname }}
 
             <span class="text-muted hidden-xs">
-                created issue {{ $issue->createdAtHuman() }}
+                {{ $issue->getCreatedAtTagLine() }}
             </span>
 
             <span class="pull-right btn-group">
@@ -31,7 +31,7 @@
 
             <div class="visible-xs">
                 <span class="text-muted">
-                    created issue {{ $issue->createdAtHuman() }}
+                    {{ $issue->getCreatedAtTagLine() }}
                 </span>
             </div>
 
@@ -57,7 +57,7 @@
 
     @if($issue->occurred_at)
     <div class="panel-footer text-muted">
-        Issue occurred {{ $issue->occurredAtHuman() }}
+        {{ $issue->getOccurredAtTagLine() }}
     </div>
     @endif
 
