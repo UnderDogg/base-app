@@ -2,6 +2,8 @@
 
 namespace App\Http\Presenters;
 
+use App\Models\Issue;
+use App\Http\Presenters\Issue\IssuePresenter;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
@@ -31,5 +33,19 @@ class WelcomePresenter extends Presenter
                     return str_limit($article->description);
                 });
         });
+    }
+
+    /**
+     * Displays the last issue created for the welcome page.
+     *
+     * @param Issue $issue
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function issue(Issue $issue)
+    {
+        $presenter = new IssuePresenter($this->form, $this->table);
+
+        return $presenter->tableLast($issue);
     }
 }

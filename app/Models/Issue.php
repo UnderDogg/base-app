@@ -248,7 +248,9 @@ class Issue extends Model
 
         $icon = '<i class="fa fa-comments"></i>';
 
-        return "$user opened this issue $daysAgo - $icon $comments";
+        $hash = $this->getHashId();
+
+        return "$hash opened $daysAgo by $user - $icon $comments";
     }
 
     /**

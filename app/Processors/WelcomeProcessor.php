@@ -3,6 +3,7 @@
 namespace App\Processors;
 
 use App\Http\Presenters\WelcomePresenter;
+use App\Models\Issue;
 use App\Traits\CanPurifyTrait;
 use Carbon\Carbon;
 use Exception;
@@ -21,6 +22,11 @@ class WelcomeProcessor extends Processor
     protected $presenter;
 
     /**
+     * @var Issue
+     */
+    protected $issue;
+
+    /**
      * @var Cache
      */
     protected $cache;
@@ -29,11 +35,13 @@ class WelcomeProcessor extends Processor
      * Constructor.
      *
      * @param WelcomePresenter $presenter
+     * @param Issue            $issue
      * @param Cache            $cache
      */
-    public function __construct(WelcomePresenter $presenter, Cache $cache)
+    public function __construct(WelcomePresenter $presenter, Issue $issue, Cache $cache)
     {
         $this->presenter = $presenter;
+        $this->issue = $issue;
         $this->cache = $cache;
     }
 
@@ -59,7 +67,11 @@ class WelcomeProcessor extends Processor
             return $this->feed($articleFeed);
         });
 
-        return view('pages.welcome.index', compact('forecast', 'news'));
+        if (auth()->check()) {
+            $issues = $this->presenter->issue($this->issue);
+        }
+
+        return view('pages.welcome.index', compact('forecast', 'news', 'issues'));
     }
 
     /**

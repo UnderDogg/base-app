@@ -54,15 +54,53 @@
                         </div>
 
                         <div class="panel-body">
-                            <a class="btn btn-lg btn-default" href="{{ route('issues.create') }}">
-                                <i class="fa fa-exclamation-circle"></i>
-                                Create An Issue
-                            </a>
 
-                            <a class="btn btn-lg btn-default" href="{{ route('issues.index') }}">
-                                <i class="fa fa-exclamation-circle"></i>
-                                View My Issues
-                            </a>
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="visible-xs">
+                                        <a class="btn btn-sm btn-success pull-left" href="{{ route('issues.create') }}">
+                                            <i class="fa fa-exclamation-circle"></i>
+                                            Create An Issue
+                                        </a>
+
+                                        <a class="btn btn-sm btn-default pull-right" href="{{ route('issues.index') }}">
+                                            <i class="fa fa-exclamation-circle"></i>
+                                            View My Issues
+                                        </a>
+                                    </div>
+
+                                    <div class="hidden-xs">
+                                        <a class="btn btn-md btn-success pull-left" href="{{ route('issues.create') }}">
+                                            <i class="fa fa-exclamation-circle"></i>
+                                            Create An Issue
+                                        </a>
+
+                                        <a class="btn btn-md btn-default pull-right" href="{{ route('issues.index') }}">
+                                            <i class="fa fa-exclamation-circle"></i>
+                                            View My Issues
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    {!! $issues !!}
+                                </div>
+
+                            </div>
+
                         </div>
 
                     </div>

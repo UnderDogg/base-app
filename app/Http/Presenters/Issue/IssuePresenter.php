@@ -6,7 +6,9 @@ use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Orchestra\Html\Table\Column;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -17,25 +19,16 @@ class IssuePresenter extends Presenter
     /**
      * Returns a new Issue table.
      *
-     * @param Issue $issue
-     * @param bool  $closed
+     * @param Issue|Builder $issue
+     * @param array         $with
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Issue $issue, $closed = false)
+    public function table($issue, array $with = ['users', 'labels'])
     {
-        $with = [
-            'users',
-            'labels',
-        ];
+        $issue = $this->applyPolicy($issue);
 
-        $issue = $issue->with($with)->where(compact('closed'))->latest();
-
-        // Limit the view if the user isn't
-        // allowed to view all issues.
-        if (!policy($issue->getModel())->viewAll(auth()->user())) {
-            $issue->where('user_id', auth()->user()->getKey());
-        }
+        $issue->with($with)->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue) {
             $table->with($issue)->paginate($this->perPage);
@@ -53,32 +46,61 @@ class IssuePresenter extends Presenter
                 'description',
             ]);
 
-            $table->column('title', function ($column) {
-                $column->label = 'Issue';
-
-                $column->value = function (Issue $issue) {
-                    $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);
-
-                    $labels = [];
-                    $users = [];
-
-                    foreach ($issue->labels as $label) {
-                        $labels[] = $label->getDisplay();
-                    }
-
-                    foreach ($issue->users as $user) {
-                        $users[] = $user->getLabel();
-                    }
-
-                    $labels = implode(null, $labels);
-                    $users = implode(null, $users);
-
-                    $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->getTagLine());
-
-                    return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
-                };
+            $table->column('title', function (Column $column) {
+                return $this->tableTitle($column);
             });
         });
+    }
+
+    /**
+     * Returns a new table of all open issues.
+     *
+     * @param Issue $issue
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableOpen(Issue $issue)
+    {
+        $issue = $issue->where('closed', false);
+
+        return $this->table($issue);
+    }
+
+    /**
+     * Returns a new table of all closed issues.
+     *
+     * @param Issue $issue
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableClosed(Issue $issue)
+    {
+        $issue = $issue->where('closed', true);
+
+        return $this->table($issue);
+    }
+
+    /**
+     * Displays the last created issue.
+     *
+     * @param Issue $model
+     * @param array $with
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableLast(Issue $model, array $with = ['users', 'labels'])
+    {
+        $model = $this->applyPolicy($model);
+
+        $issue = $model->with($with)->latest()->first();
+
+        if ($issue instanceof Issue) {
+            $column = new Column(['value' => $issue]);
+
+            $column = $this->tableTitle($column);
+        }
+
+        return view('pages.issues._compact', compact('column', 'issue'));
     }
 
     /**
@@ -244,5 +266,67 @@ class IssuePresenter extends Presenter
                 'class' => 'navbar-default',
             ],
         ]);
+    }
+
+    /**
+     * Modifies and returns the table title column.
+     *
+     * @param Column $column
+     *
+     * @return Column
+     */
+    protected function tableTitle(Column $column)
+    {
+        $column->label = 'Issue';
+
+        $column->value = function (Issue $issue) {
+            $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);
+
+            $labels = [];
+            $users = [];
+
+            foreach ($issue->labels as $label) {
+                /* @var \App\Models\Label $label */
+                $labels[] = $label->getDisplay();
+            }
+
+            foreach ($issue->users as $user) {
+                /* @var \App\Models\User $user */
+                $users[] = $user->getLabel();
+            }
+
+            $labels = implode(null, $labels);
+            $users = implode(null, $users);
+
+            $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->getTagLine());
+
+            return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
+        };
+
+        return $column;
+    }
+
+    /**
+     * Applies the issue policy to the issue query.
+     *
+     * @param Issue|Builder $issue
+     *
+     * @return Builder
+     */
+    protected function applyPolicy($issue)
+    {
+        if ($issue instanceof Builder) {
+            $model = $issue->getModel();
+        } else {
+            $model = $issue;
+        }
+
+        // Limit the view if the user isn't
+        // allowed to view all issues.
+        if (!policy($model)->viewAll(auth()->user())) {
+            $issue->where('user_id', auth()->user()->getKey());
+        }
+
+        return $issue;
     }
 }

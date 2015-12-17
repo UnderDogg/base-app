@@ -49,7 +49,7 @@ class IssueProcessor extends Processor
      */
     public function index()
     {
-        $issues = $this->presenter->table($this->issue);
+        $issues = $this->presenter->tableOpen($this->issue);
 
         $labels = $this->label->all();
 
@@ -65,7 +65,7 @@ class IssueProcessor extends Processor
      */
     public function closed()
     {
-        $issues = $this->presenter->table($this->issue, $closed = true);
+        $issues = $this->presenter->tableClosed($this->issue);
 
         $labels = $this->label->all();
 
