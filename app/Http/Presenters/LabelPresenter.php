@@ -5,6 +5,7 @@ namespace App\Http\Presenters;
 use App\Models\Label;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Support\Facades\HTML;
 
@@ -30,24 +31,38 @@ class LabelPresenter extends Presenter
                 'class' => 'table table-hover',
             ]);
 
-            $table->column('name', function ($column) {
+            $table->column('name', function (Column $column) {
                 $column->label = 'Label';
 
                 $column->value = function (Label $label) {
-                    // Check if the current user has access to edit
-                    // labels before rendering the label as a link.
-                    if (policy($label)->edit()) {
-                        return link_to_route('labels.edit', $label->getDisplayLarge(), [$label->getKey()]);
-                    }
-
                     return $label->getDisplayLarge();
                 };
             });
 
+            $table->column('issues', function (Column $column) {
+                $column->label = 'Open Issues';
+
+                $column->value = function (Label $label) {
+                    return $label->numberOfOpenIssues();
+                };
+            });
+
+            // Check if the current user has access to edit
+            // labels before rendering the label as a link.
+            if (policy($label)->edit()) {
+                $table->column('edit', function (Column $column) {
+                    $column->value = function (Label $label) {
+                        return link_to_route('labels.edit', 'Edit', [$label->getKey()], [
+                            'class'  => 'btn btn-xs btn-warning',
+                        ]);
+                    };
+                });
+            }
+
             // Check if the current user has access to delete
             // labels before rendering the delete column.
             if (policy($label)->destroy()) {
-                $table->column('delete', function ($column) {
+                $table->column('delete', function (Column $column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [
                             'data-post'    => 'DELETE',
