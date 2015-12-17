@@ -46,6 +46,19 @@ class IssuePresenter extends Presenter
                 'description',
             ]);
 
+            $table->column('status', function (Column $column)
+            {
+                $column->label = '';
+
+                $column->value = function (Issue $issue) {
+                    return $issue->getStatusIcon();
+                };
+
+                $column->attributes(function () {
+                    return ['width' => '5'];
+                });
+            });
+
             $table->column('title', function (Column $column) {
                 return $this->tableTitle($column);
             });

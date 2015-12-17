@@ -59,11 +59,11 @@ trait HasFavoritesTrait
      */
     public function hasFavorite()
     {
-        $favorite = $this->favorites()
+        $favorite = $this->favorites
             ->where('user_id', auth()->user()->getKey())
             ->first();
 
-        if ($favorite instanceof  Favorite) {
+        if ($favorite instanceof Favorite) {
             return $favorite;
         }
 

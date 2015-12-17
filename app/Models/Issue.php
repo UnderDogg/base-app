@@ -234,6 +234,22 @@ class Issue extends Model
     }
 
     /**
+     * Returns the status icon of the issue.
+     *
+     * @return string
+     */
+    public function getStatusIcon()
+    {
+        if ($this->isOpen()) {
+            $class = 'text-success fa fa-exclamation-circle';
+        } else {
+            $class = 'text-danger fa fa-check-circle';
+        }
+
+        return HTML::create('i', null, compact('class'));
+    }
+
+    /**
      * Returns the tag line of the issue.
      *
      * @return string
