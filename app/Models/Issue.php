@@ -121,7 +121,7 @@ class Issue extends Model
      * @param string $content
      * @param bool   $resolution
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Comment
      */
     public function createComment($content, $resolution = false)
     {
