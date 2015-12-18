@@ -1842,16 +1842,16 @@
         },
         {
             "name": "orchestra/html",
-            "version": "v3.1.13",
+            "version": "v3.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/html.git",
-                "reference": "2878c5dfa1914fec1f403d3020b4e7b8e24f46f0"
+                "reference": "68315a22dd42a06f6786f8122aa9afc6c42df522"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/html/zipball/2878c5dfa1914fec1f403d3020b4e7b8e24f46f0",
-                "reference": "2878c5dfa1914fec1f403d3020b4e7b8e24f46f0",
+                "url": "https://api.github.com/repos/orchestral/html/zipball/68315a22dd42a06f6786f8122aa9afc6c42df522",
+                "reference": "68315a22dd42a06f6786f8122aa9afc6c42df522",
                 "shasum": ""
             },
             "require": {
@@ -1900,7 +1900,7 @@
                 "orchestral",
                 "table"
             ],
-            "time": "2015-12-01 15:15:45"
+            "time": "2015-12-17 23:39:26"
         },
         {
             "name": "orchestra/installer",
