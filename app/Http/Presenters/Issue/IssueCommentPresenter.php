@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\Issue;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
 
 class IssueCommentPresenter extends Presenter
 {
