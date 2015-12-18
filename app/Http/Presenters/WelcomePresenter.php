@@ -2,8 +2,8 @@
 
 namespace App\Http\Presenters;
 
-use App\Models\Issue;
 use App\Http\Presenters\Issue\IssuePresenter;
+use App\Models\Issue;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 

@@ -7,8 +7,8 @@ use App\Http\Requests\IssueRequest;
 use App\Jobs\CloseIssue;
 use App\Jobs\CreateIssue;
 use App\Jobs\OpenIssue;
-use App\Models\Label;
 use App\Models\Issue;
+use App\Models\Label;
 use App\Processors\Processor;
 
 class IssueProcessor extends Processor

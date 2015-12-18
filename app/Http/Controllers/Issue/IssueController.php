@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Issue;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\IssueRequest;
 use App\Processors\Issue\IssueProcessor;
-use Illuminate\Http\Request;
 
 class IssueController extends Controller
 {

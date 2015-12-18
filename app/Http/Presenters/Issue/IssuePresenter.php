@@ -2,17 +2,17 @@
 
 namespace App\Http\Presenters\Issue;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Orchestra\Html\Table\Column;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
+use Orchestra\Html\Table\Column;
 
 class IssuePresenter extends Presenter
 {
@@ -46,8 +46,7 @@ class IssuePresenter extends Presenter
                 'description',
             ]);
 
-            $table->column('status', function (Column $column)
-            {
+            $table->column('status', function (Column $column) {
                 $column->label = '';
 
                 $column->value = function (Issue $issue) {
