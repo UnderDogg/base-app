@@ -143,7 +143,7 @@
 
                 @if(auth()->check())
 
-                    <li class="dropdown {{ active()->routes(['passwords.*']) }}" id="user-menu">
+                    <li class="dropdown {{ active()->routes(['profile.*', 'passwords.*', 'security-questions.*']) }}" id="user-menu">
 
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-user"></i>
@@ -153,13 +153,19 @@
 
                         <ul class="dropdown-menu">
 
-                            <li class="{{ active()->routes(['passwords.*']) }}">
+                            <li class="{{ active()->route('profile.*') }}">
+                                <a href="{{ route('profile.show') }}">
+                                    <i class="fa fa-user"></i> Profile
+                                </a>
+                            </li>
+
+                            <li class="{{ active()->route('passwords.*') }}">
                                 <a href="{{ route('passwords.index') }}">
                                     <i class="fa fa-lock"></i> Passwords
                                 </a>
                             </li>
 
-                            <li class="{{ active()->routes(['security-questions.*']) }}">
+                            <li class="{{ active()->route('security-questions.*') }}">
                                 <a href="{{ route('security-questions.index') }}">
                                     <i class="fa fa-question-circle"></i> Security Questions
                                 </a>

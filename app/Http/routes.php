@@ -73,6 +73,13 @@ $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($
 
 // Auth Covered Routes.
 $router->group(['middleware' => ['auth']], function ($router) {
+    $router->group(['prefix' => 'profile', 'as' => 'profile.'], function ($router) {
+        $router->get('/', [
+            'as' => 'show',
+            'uses' => 'ProfileController@show',
+        ]);
+    });
+
     // The Devices namespace group.
     $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function ($router) {
         // The drives resource.

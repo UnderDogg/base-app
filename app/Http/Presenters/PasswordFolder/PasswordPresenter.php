@@ -44,8 +44,8 @@ class PasswordPresenter extends Presenter
     /**
      * Returns a new form of the specified password.
      *
-     * @param Password  $password
-     * @param bool|true $viewing
+     * @param Password   $password
+     * @param bool|false $viewing
      *
      * @return \Orchestra\Contracts\Html\Builder
      */

@@ -49,7 +49,7 @@
 
                         <div class="panel-heading text-center">
                             <div class="panel-title">
-                                Issues
+                                Your Last Issue
                             </div>
                         </div>
 

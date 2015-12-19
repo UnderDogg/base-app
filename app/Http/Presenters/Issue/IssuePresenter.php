@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Issue;
 
+use Closure;
 use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Column;
 
 class IssuePresenter extends Presenter
 {
@@ -24,14 +25,18 @@ class IssuePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table($issue, array $with = ['users', 'labels'])
+    public function table($issue, array $with = ['users', 'labels'], Closure $closure = null)
     {
         $issue = $this->applyPolicy($issue);
 
         $issue->with($with)->latest();
 
-        return $this->table->of('issues', function (TableGrid $table) use ($issue) {
-            $table->with($issue)->paginate($this->perPage);
+        return $this->table->of('issues', function (TableGrid $table) use ($issue, $closure) {
+            if ($closure instanceof Closure) {
+                $table = call_user_func($closure, $table, $issue);
+            } else {
+                $table->with($issue)->paginate($this->perPage);
+            }
 
             $table->attributes(['class' => 'table table-hover']);
 
@@ -102,17 +107,13 @@ class IssuePresenter extends Presenter
      */
     public function tableLast(Issue $model, array $with = ['users', 'labels'])
     {
-        $model = $this->applyPolicy($model);
+        return $this->table($model, $with, function (TableGrid $table, Issue $issue) {
+            $table->with($issue)->paginate(1);
 
-        $issue = $model->with($with)->latest()->first();
+            $table->layout('pages.welcome._issue');
 
-        if ($issue instanceof Issue) {
-            $column = new Column(['value' => $issue]);
-
-            $column = $this->tableTitle($column);
-        }
-
-        return view('pages.issues._compact', compact('column', 'issue'));
+            return $table;
+        });
     }
 
     /**
