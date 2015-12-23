@@ -5,4 +5,10 @@
             Details
         </a>
     </li>
+    <li role="presentation" class="{{ active()->route('profile.password') }}">
+        <a title="Change Password" href="{{ route('profile.password') }}">
+            <i class="fa fa-lock"></i>
+            Change Password
+        </a>
+    </li>
 </ul>

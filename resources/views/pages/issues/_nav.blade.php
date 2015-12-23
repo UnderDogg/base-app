@@ -21,13 +21,29 @@
         </a>
 
         <ul class="dropdown-menu dropdown-menu-labels">
-            @foreach($labels as $label)
-                <li>
-                    <a href="#">
-                        {!! $label->getDisplayLarge() !!}
-                    </a>
-                </li>
-            @endforeach
+            @if(count($labels) > 0)
+                @foreach($labels as $label)
+                    <li>
+                        <a href="#">
+                            {!! $label->getDisplayLarge() !!}
+                        </a>
+                    </li>
+                @endforeach
+            @else
+                @can('create', App\Models\Label::class)
+                    <li>
+                        <a href="{{ route('labels.create') }}">
+                            <i class="fa fa-plus-square"></i> Create a Label
+                        </a>
+                    </li>
+                @else
+                    <li>
+                        <a>
+                            No Labels
+                        </a>
+                    </li>
+                @endcan
+            @endif
         </ul>
 
     </li>
