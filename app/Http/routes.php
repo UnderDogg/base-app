@@ -73,10 +73,23 @@ $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($
 
 // Auth Covered Routes.
 $router->group(['middleware' => ['auth']], function ($router) {
-    $router->group(['prefix' => 'profile', 'as' => 'profile.'], function ($router) {
+    $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function ($router) {
+        // The user profile details route.
         $router->get('/', [
             'as' => 'show',
             'uses' => 'ProfileController@show',
+        ]);
+
+        // The user profile password route.
+        $router->get('password', [
+            'as' => 'password',
+            'uses' => 'PasswordController@change',
+        ]);
+
+        // The user profile change password route.
+        $router->post('password/change', [
+            'as' => 'password.change',
+            'uses' => 'PasswordController@update'
         ]);
     });
 

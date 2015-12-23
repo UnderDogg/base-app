@@ -157,4 +157,14 @@ class User extends Eloquent implements AuthorizableContract
 
         return $this->save();
     }
+
+    /**
+     * Returns true / false if the current user was imported from active directory.
+     *
+     * @return bool
+     */
+    public function isFromAd()
+    {
+        return $this->from_ad;
+    }
 }

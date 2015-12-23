@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Processors;
+namespace App\Processors\Profile;
 
-use App\Http\Presenters\ProfilePresenter;
 use Illuminate\Contracts\Auth\Guard;
+use App\Http\Presenters\Profile\ProfilePresenter;
+use App\Processors\Processor;
 
 class ProfileProcessor extends Processor
 {

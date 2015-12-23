@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profile;
 
-use App\Processors\ProfileProcessor;
+use App\Processors\Profile\ProfileProcessor;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {

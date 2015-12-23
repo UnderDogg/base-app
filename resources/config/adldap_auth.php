@@ -76,6 +76,8 @@ return [
 
         'fullname' => 'cn',
 
+        'from_ad' => 'App\Handlers\LdapAttributeHandler@fromAd',
+
     ],
 
     /*

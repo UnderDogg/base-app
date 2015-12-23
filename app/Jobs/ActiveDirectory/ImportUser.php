@@ -4,7 +4,7 @@ namespace App\Jobs\ActiveDirectory;
 
 use Adldap\Models\User as AdUser;
 use App\Jobs\Job;
-use App\Jobs\Users\Create as CreateUser;
+use App\Jobs\User\Create as CreateUser;
 use App\Models\User;
 use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
