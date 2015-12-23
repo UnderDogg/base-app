@@ -82,7 +82,6 @@ class ChangePassword extends Job implements SelfHandling
             'admin_password'     => null,
             'account_suffix'     => null,
         ];
-
         $config = config('adldap.connection_settings', $default);
 
         $this->server = $config['domain_controllers'][0];

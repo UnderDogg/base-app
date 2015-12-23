@@ -12,6 +12,7 @@ use App\Jobs\Com\User\ChangePassword as ChangeAdPassword;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
 use App\Processors\Processor;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordProcessor extends Processor
 {
@@ -56,6 +57,7 @@ class PasswordProcessor extends Processor
      *
      * @throws InvalidPasswordException
      * @throws UnableToChangePasswordException
+     * @throws NotFoundHttpException
      */
     public function update(PasswordRequest $request)
     {
@@ -80,9 +82,11 @@ class PasswordProcessor extends Processor
                 if ($result !== true) {
                     throw new UnableToChangePasswordException();
                 }
+            } else {
+                throw new InvalidPasswordException();
             }
-
-            throw new InvalidPasswordException();
+        } else {
+            throw new NotFoundHttpException();
         }
     }
 }
