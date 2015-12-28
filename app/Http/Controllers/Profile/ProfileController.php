@@ -32,9 +32,16 @@ class ProfileController extends Controller
         return $this->processor->show();
     }
 
+    /**
+     * Displays the form for editing the current users
+     *
+     * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function edit()
     {
-        //
+        return $this->processor->edit();
     }
 
     public function update()

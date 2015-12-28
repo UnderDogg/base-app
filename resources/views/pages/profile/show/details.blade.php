@@ -5,9 +5,12 @@
     Details
 
     <span class="pull-right btn-group">
-        <a class="btn btn-xs btn-warning" href="#">
-            Edit
-        </a>
+        {{-- Only allow users to edit their profile if they're not from Active Directory --}}
+        @if(!$user->isFromAd())
+            <a class="btn btn-xs btn-warning" href="#">
+                Edit
+            </a>
+        @endif
         <a
                 class="btn btn-xs btn-danger"
                 data-post="DELETE"

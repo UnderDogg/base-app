@@ -80,6 +80,12 @@ $router->group(['middleware' => ['auth']], function ($router) {
             'uses' => 'ProfileController@show',
         ]);
 
+        // The user profile edit details route.
+        $router->get('edit', [
+            'as' => 'edit',
+            'uses' => 'ProfileController@edit',
+        ]);
+
         // The user profile password route.
         $router->get('password', [
             'as' => 'password',
