@@ -131,7 +131,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
 
         /*
-         * Active Directory Providers
+         * Active Directory Providers...
          */
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,

@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'adldap',
+            'provider' => env('AUTH_DRIVER', 'users'),
         ],
 
         'api' => [
