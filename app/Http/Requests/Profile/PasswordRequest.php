@@ -14,8 +14,8 @@ class PasswordRequest extends Request
     public function rules()
     {
         return [
-            'current_password' => 'required',
-            'password' => 'required|confirmed|min:8',
+            'current_password'      => 'required',
+            'password'              => 'required|confirmed|min:8',
             'password_confirmation' => 'required|min:8',
         ];
     }

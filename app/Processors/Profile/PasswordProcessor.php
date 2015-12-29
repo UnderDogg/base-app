@@ -7,11 +7,11 @@ use App\Exceptions\Profile\InvalidPasswordException;
 use App\Exceptions\Profile\UnableToChangePasswordException;
 use App\Http\Presenters\Profile\PasswordPresenter;
 use App\Http\Requests\Profile\PasswordRequest;
-use App\Jobs\User\ChangePassword;
 use App\Jobs\Com\User\ChangePassword as ChangeAdPassword;
+use App\Jobs\User\ChangePassword;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Guard;
 use App\Processors\Processor;
+use Illuminate\Contracts\Auth\Guard;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordProcessor extends Processor

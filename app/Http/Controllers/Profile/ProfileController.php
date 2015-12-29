@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Processors\Profile\ProfileProcessor;
 use App\Http\Controllers\Controller;
+use App\Processors\Profile\ProfileProcessor;
 
 class ProfileController extends Controller
 {
@@ -33,11 +33,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays the form for editing the current users
-     *
-     * @return \Illuminate\View\View
+     * Displays the form for editing the current users.
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
