@@ -3,7 +3,6 @@
 namespace App\Http\Presenters;
 
 use App\Models\Label;
-use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
