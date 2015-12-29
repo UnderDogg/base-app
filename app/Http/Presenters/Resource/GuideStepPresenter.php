@@ -45,17 +45,21 @@ class GuideStepPresenter extends Presenter
             $form->layout('pages.resources.guides.steps._form');
 
             $form->fieldset(function (Fieldset $fieldset) use ($guide, $step) {
-                $hasImage = (count($step->images) > 0 ? true : false);
+                $hasImage = (count($step->images) > 0);
 
                 foreach ($step->images as $image) {
                     $fieldset->control('input:text', 'remove', function ($control) use ($guide, $step, $image) {
                         $control->label = 'Image(s)';
 
+                        // Generate a field for removing images from the current step.
                         $control->field = function () use ($guide, $step, $image) {
+                            // Generate the url of the image.
                             $url = route('resources.guides.steps.images.download', [$guide->getSlug(), $step->getKey(), $image->uuid]);
 
+                            // Generate the HTML image tag
                             $photo = HTML::image($url, null, ['class' => 'img-responsive']);
 
+                            // Generate the button for deleting the current image.
                             $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->getSlug(), $step->getKey(), $image->uuid]), 'Delete', [
                                 'class'        => 'btn btn-danger',
                                 'data-post'    => 'DELETE',
@@ -63,6 +67,7 @@ class GuideStepPresenter extends Presenter
                                 'data-message' => 'Are you sure you want to delete this image?',
                             ]);
 
+                            // Return the result as raw HTML.
                             return HTML::raw("<div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo <br> $button</div>");
                         };
                     });
