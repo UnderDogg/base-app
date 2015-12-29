@@ -93,17 +93,41 @@ $router->group(['middleware' => ['web']], function ($router) {
                 'uses' => 'ProfileController@edit',
             ]);
 
-            // The user profile password route.
-            $router->get('password', [
-                'as'   => 'password',
-                'uses' => 'PasswordController@change',
-            ]);
+            // The profile avatar route group.
+            $router->group(['prefix' => 'avatar'], function ($router) {
+                // The profile avatar route.
+                $router->get('/', [
+                    'as'    => 'avatar',
+                    'uses'  => 'AvatarController@change',
+                ]);
 
-            // The user profile change password route.
-            $router->post('password/change', [
-                'as'   => 'password.change',
-                'uses' => 'PasswordController@update',
-            ]);
+                // The profile avatar change route.
+                $router->post('change', [
+                    'as'    => 'avatar.change',
+                    'uses'  => 'AvatarController@update',
+                ]);
+
+                // The profile avatar download route.
+                $router->get('download', [
+                    'as'    => 'avatar.download',
+                    'uses'  => 'AvatarController@download',
+                ]);
+            });
+
+            // The profile password route group.
+            $router->group(['prefix' => 'password'], function ($router) {
+                // The user profile password route.
+                $router->get('/', [
+                    'as'   => 'password',
+                    'uses' => 'PasswordController@change',
+                ]);
+
+                // The user profile change password route.
+                $router->post('change', [
+                    'as'   => 'password.change',
+                    'uses' => 'PasswordController@update',
+                ]);
+            });
         });
 
         // The Devices namespace group.

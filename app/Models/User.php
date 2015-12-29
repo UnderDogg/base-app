@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use Adldap\Laravel\Traits\AdldapUserModelTrait;
+use App\Models\Traits\HasFilesTrait;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Support\Arr;
 use Orchestra\Model\User as Eloquent;
 use Orchestra\Support\Facades\HTML;
 
 class User extends Eloquent implements AuthorizableContract
 {
-    use Authorizable, AdldapUserModelTrait;
+    use Authorizable, AdldapUserModelTrait, HasFilesTrait;
 
     /**
      * The user questions pivot table.
@@ -30,6 +32,48 @@ class User extends Eloquent implements AuthorizableContract
     }
 
     /**
+     * The morphMany images relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function images()
+    {
+        return $this->files();
+    }
+
+    /**
+     * Returns the users avatar upload if it exists.
+     *
+     * @return Upload|null
+     */
+    public function avatar()
+    {
+        return $this->images()->first();
+    }
+
+    /**
+     * Returns true / false if the current user has an avatar.
+     *
+     * @return bool
+     */
+    public function hasAvatar()
+    {
+        return $this->avatar() instanceof Upload;
+    }
+
+    /**
+     * Adds an avatar by the specified file path.
+     *
+     * @param string $path
+     *
+     * @return Upload
+     */
+    public function addAvatar($path)
+    {
+        return $this->addFile('avatar', 'image/jpeg', 2000, $path);
+    }
+
+    /**
      * The belongsToMany security questions relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -37,6 +81,31 @@ class User extends Eloquent implements AuthorizableContract
     public function questions()
     {
         return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
+    }
+
+    /**
+     * Returns the users initials.
+     *
+     * @return string
+     */
+    public function getInitials()
+    {
+        $fullName = preg_replace('/[^ \w]+/', '', $this->fullname);
+
+        $name = explode(' ', $fullName);
+
+        $first = '';
+        $last = '';
+
+        if (array_key_exists(0, $name)) {
+            $first = substr(strtoupper($name[0]), 0, 1);
+        }
+
+        if (array_key_exists(1, $name)) {
+            $last = substr(strtoupper($name[1]), 0, 1);
+        }
+
+        return strtoupper($first.$last);
     }
 
     /**
