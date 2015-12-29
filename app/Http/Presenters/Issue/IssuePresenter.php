@@ -324,7 +324,7 @@ class IssuePresenter extends Presenter
             ->attributes([
                 'class'             => 'select-users form-control',
                 'data-placeholder'  => 'Select Users',
-                'multiple' => true,
+                'multiple'          => true,
             ]);
     }
 

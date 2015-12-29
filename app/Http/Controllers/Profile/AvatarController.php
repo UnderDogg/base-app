@@ -24,7 +24,7 @@ class AvatarController extends Controller
     }
 
     /**
-     * Processes changing
+     * Processes changing.
      *
      * @return \Illuminate\View\View
      */

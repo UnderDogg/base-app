@@ -6,7 +6,6 @@ use Adldap\Laravel\Traits\AdldapUserModelTrait;
 use App\Models\Traits\HasFilesTrait;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Support\Arr;
 use Orchestra\Model\User as Eloquent;
 use Orchestra\Support\Facades\HTML;
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\Profile;
 
-use Orchestra\Support\Facades\HTML;
+use App\Http\Presenters\Presenter;
+use App\Models\User;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Models\User;
-use App\Http\Presenters\Presenter;
+use Orchestra\Support\Facades\HTML;
 
 class AvatarPresenter extends Presenter
 {
@@ -46,7 +46,7 @@ class AvatarPresenter extends Presenter
                 $fieldset->control('input:checkbox', 'generate')
                     ->label('Generate me an Avatar')
                     ->attributes([
-                        'class' => 'switch-mark'
+                        'class' => 'switch-mark',
                     ]);
             });
         });

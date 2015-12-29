@@ -6,10 +6,10 @@ use App\Http\Presenters\Profile\AvatarPresenter;
 use App\Http\Requests\Profile\AvatarRequest;
 use App\Models\Upload;
 use App\Models\User;
-use RunMyBusiness\Initialcon\Initialcon;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Contracts\Auth\Guard;
 use App\Processors\Processor;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Support\Facades\Storage;
+use RunMyBusiness\Initialcon\Initialcon;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AvatarProcessor extends Processor
@@ -46,9 +46,9 @@ class AvatarProcessor extends Processor
     /**
      * Displays the page to edit the current users avatar.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function change()
     {
@@ -68,7 +68,6 @@ class AvatarProcessor extends Processor
         if ($request->has('generate')) {
             return $this->generate();
         } else {
-
         }
     }
 
@@ -92,21 +91,19 @@ class AvatarProcessor extends Processor
         throw new NotFoundHttpException();
     }
 
-
     /**
      * Generates an avatar based on the current users initials.
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     protected function generate()
     {
         $user = $this->guard->user();
 
         if ($user instanceof User) {
-            if ($user->hasAvatar())
-            {
+            if ($user->hasAvatar()) {
                 // If the user has an avatar already, we'll make sure
                 // we delete it before generating another.
                 $user->avatar()->delete();
