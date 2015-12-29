@@ -139,7 +139,6 @@ return [
         /*
          * Orchestra Platform Service Providers...
          */
-        Orchestra\Foundation\Providers\ArtisanServiceProvider::class,
         Orchestra\Asset\AssetServiceProvider::class,
         Orchestra\Auth\AuthServiceProvider::class,
         Orchestra\Authorization\AuthorizationServiceProvider::class,
