@@ -61,24 +61,24 @@ class PasswordProcessor extends Processor
      */
     public function update(PasswordRequest $request)
     {
-        $credentials = ['password' => $request->input('password')];
+        $credentials = ['password' => $request->input('current_password')];
 
         $user = $this->guard->user();
 
         // Check if we have the correct model instance.
         if ($user instanceof User) {
-            $credentials['email'] = $user->email;
-
+            $credentials['email'] = $user->getRecipientEmail();
             // Validate the users credentials.
             if ($this->guard->validate($credentials)) {
+                $newPassword = $request->input('password');
+
                 // We'll check if the user is from active directory
                 // so we can change the password correctly if so.
                 if ($user->isFromAd() && $user->adldapUser instanceof AdldapUser) {
-                    $result = $this->dispatch(new ChangeAdPassword($user->adldapUser, $credentials['password']));
+                    $result = $this->dispatch(new ChangeAdPassword($user->adldapUser, $newPassword));
                 } else {
-                    $result = $this->dispatch(new ChangePassword($user, $credentials['password']));
+                    $result = $this->dispatch(new ChangePassword($user, $newPassword));
                 }
-
                 if ($result !== true) {
                     throw new UnableToChangePasswordException();
                 }
