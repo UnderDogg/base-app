@@ -34,7 +34,7 @@ class AuthorizationServiceProvider extends ServiceProvider
                     $actions = array_merge($actions, $policy->actions);
                 }
 
-                $roles = Role::lists('name')->all();
+                $roles = Role::all()->pluck('name');
 
                 $acl->roles()->attach($roles);
 

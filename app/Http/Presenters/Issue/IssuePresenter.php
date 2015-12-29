@@ -189,7 +189,7 @@ class IssuePresenter extends Presenter
     public function formLabels(Issue $issue)
     {
         return $this->form->of('issue.labels', function (FormGrid $form) use ($issue) {
-            $labels = Label::all()->lists('display', 'id');
+            $labels = Label::all()->pluck('display', 'id');
 
             $form->setup($this, route('issues.labels.store', [$issue->getKey()]), $issue);
 
@@ -230,7 +230,7 @@ class IssuePresenter extends Presenter
     public function formUsers(Issue $issue)
     {
         return $this->form->of('issue.users', function (FormGrid $form) use ($issue) {
-            $users = User::all()->lists('fullname', 'id');
+            $users = User::all()->pluck('fullname', 'id');
 
             $form->setup($this, route('issues.users.store', [$issue->getKey()]), $issue);
 

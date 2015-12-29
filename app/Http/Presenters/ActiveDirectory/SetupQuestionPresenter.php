@@ -48,7 +48,7 @@ class SetupQuestionPresenter extends Presenter
     {
         $questions = $question->whereHas('users', function ($query) use ($user) {
             $query->where('user_id', '=', $user->getKey());
-        }, '<', 1)->get()->lists('content', 'id');
+        }, '<', 1)->get()->pluck('content', 'id');
 
         return $this->form->of('active-directory.security-questions.setup', function (FormGrid $form) use ($questions, $question) {
             if ($question->exists) {

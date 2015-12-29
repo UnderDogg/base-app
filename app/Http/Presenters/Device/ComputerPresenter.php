@@ -76,8 +76,8 @@ class ComputerPresenter extends Presenter
     public function form(Computer $computer)
     {
         return $this->form->of('computers', function (FormGrid $form) use ($computer) {
-            $operatingSystems = OperatingSystem::lists('name', 'id');
-            $types = ComputerType::lists('name', 'id');
+            $operatingSystems = OperatingSystem::all()->pluck('name', 'id');
+            $types = ComputerType::all()->pluck('name', 'id');
 
             if ($computer->exists) {
                 $form->setup($this, route('devices.computers.update', [$computer->getKey()]), $computer, [
