@@ -7,6 +7,7 @@ use App\Http\Requests\IssueRequest;
 use App\Jobs\CloseIssue;
 use App\Jobs\CreateIssue;
 use App\Jobs\OpenIssue;
+use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Processors\Processor;
@@ -124,7 +125,7 @@ class IssueProcessor extends Processor
         $this->authorize($issue);
 
         // Retrieve the issue resolution if there is one.
-        $resolution = $issue->comments->first(function ($key, $comment) {
+        $resolution = $issue->comments->first(function ($key, Comment $comment) {
             return $comment->isResolution();
         });
 
