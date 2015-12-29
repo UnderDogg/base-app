@@ -47,7 +47,7 @@ class ProfileProcessor extends Processor
         if ($user instanceof User) {
             $form = $this->presenter->form($user, $viewing = true);
 
-            return view('pages.profile.show.details', compact('user', 'form'));
+            return view('pages.profile.show.details.show', compact('user', 'form'));
         }
 
         throw new NotFoundHttpException();
@@ -67,7 +67,7 @@ class ProfileProcessor extends Processor
         if ($user instanceof User && !$user->isFromAd()) {
             $form = $this->presenter->form($user);
 
-            return view('pages.profile.show.edit-details', compact('user', 'form'));
+            return view('pages.profile.show.details.edit', compact('user', 'form'));
         }
 
         throw new NotFoundHttpException();
