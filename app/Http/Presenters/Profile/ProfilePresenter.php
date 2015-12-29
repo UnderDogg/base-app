@@ -2,10 +2,10 @@
 
 namespace App\Http\Presenters\Profile;
 
+use App\Http\Presenters\Presenter;
+use App\Models\User;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Models\User;
-use App\Http\Presenters\Presenter;
 
 class ProfilePresenter extends Presenter
 {

@@ -76,7 +76,7 @@ $router->group(['middleware' => ['auth']], function ($router) {
     $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function ($router) {
         // The user profile details route.
         $router->get('/', [
-            'as' => 'show',
+            'as'   => 'show',
             'uses' => 'ProfileController@show',
         ]);
 
@@ -88,20 +88,20 @@ $router->group(['middleware' => ['auth']], function ($router) {
 
         // The user profile edit details route.
         $router->get('edit', [
-            'as' => 'edit',
+            'as'   => 'edit',
             'uses' => 'ProfileController@edit',
         ]);
 
         // The user profile password route.
         $router->get('password', [
-            'as' => 'password',
+            'as'   => 'password',
             'uses' => 'PasswordController@change',
         ]);
 
         // The user profile change password route.
         $router->post('password/change', [
-            'as' => 'password.change',
-            'uses' => 'PasswordController@update'
+            'as'   => 'password.change',
+            'uses' => 'PasswordController@update',
         ]);
     });
 

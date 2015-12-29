@@ -2,9 +2,9 @@
 
 namespace App\Http\Presenters\Profile;
 
+use App\Http\Presenters\Presenter;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
 
 class PasswordPresenter extends Presenter
 {
@@ -15,8 +15,7 @@ class PasswordPresenter extends Presenter
      */
     public function form()
     {
-        return $this->form->of('profile.password', function (FormGrid $form)
-        {
+        return $this->form->of('profile.password', function (FormGrid $form) {
             $form->submit = 'Update';
 
             $form->attributes([
