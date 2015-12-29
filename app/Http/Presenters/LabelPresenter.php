@@ -100,17 +100,7 @@ class LabelPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $colors = $label::getColors();
-
-            $options = [];
-
-            foreach ($colors as $color) {
-                $name = ucfirst($color);
-
-                // Cast the raw HTML to string before giving it to the
-                // array due to unintentional escaping of it's HTML.
-                $options[$color] = (string) HTML::raw("<span class='label label-$color'>$name</span>");
-            }
+            $options = $label::getColors();
 
             $form->fieldset(function (Fieldset $fieldset) use ($options) {
                 $fieldset->control('input:text', 'name')

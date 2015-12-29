@@ -48,12 +48,12 @@ class Label extends Model
     public static function getColors()
     {
         return [
-            'default'   => 'default',
-            'info'      => 'info',
-            'primary'   => 'primary',
-            'success'   => 'success',
-            'warning'   => 'warning',
-            'danger'    => 'danger',
+            'default'   => static::formatColorLabel('default'),
+            'info'      => static::formatColorLabel('info'),
+            'primary'   => static::formatColorLabel('primary'),
+            'success'   => static::formatColorLabel('success'),
+            'warning'   => static::formatColorLabel('warning'),
+            'danger'    => static::formatColorLabel('danger'),
         ];
     }
 
@@ -91,5 +91,21 @@ class Label extends Model
     public function getDisplayLarge()
     {
         return HTML::create('span', $this->getDisplay(), ['class' => 'label-large']);
+    }
+
+    /**
+     * Returns the specified color as an HTML label.
+     *
+     * @param $color
+     *
+     * @return string
+     */
+    protected static function formatColorLabel($color)
+    {
+        $name = ucfirst($color);
+
+        // Cast the raw HTML to string before giving it to the
+        // array due to unintentional escaping of it's HTML.
+        return (string) HTML::raw("<span class='label label-$color'>$name</span>");
     }
 }
