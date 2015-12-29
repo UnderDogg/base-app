@@ -2,12 +2,12 @@
 
 namespace App\Http\Presenters\Issue;
 
+use Closure;
 use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
@@ -140,7 +140,7 @@ class IssuePresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $form->fieldset(function (Fieldset $fieldset) {
+            $form->fieldset(function (Fieldset $fieldset) use ($issue) {
                 $fieldset->control('input:text', 'title')
                     ->label('Title')
                     ->attributes(['placeholder' => 'Title']);
@@ -154,6 +154,22 @@ class IssuePresenter extends Presenter
                     ->value(function (Issue $issue) {
                         return $issue->occurredAtForInput();
                     });
+
+                // If the user can add labels we'll allow them to
+                // add them during the creation of the ticket.
+                if (policy($issue)->addLabels()) {
+                    $labels = Label::all()->pluck('display', 'id');
+
+                    $this->labelField($fieldset, $labels);
+                }
+
+                // If the user can add users we'll allow them to
+                // add them during the creation of the ticket.
+                if (policy($issue)->addUsers()) {
+                    $labels = User::all()->pluck('fullname', 'id');
+
+                    $this->userField($fieldset, $labels);
+                }
 
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
@@ -196,24 +212,7 @@ class IssuePresenter extends Presenter
             $form->layout('components.form-modal');
 
             $form->fieldset(function (Fieldset $fieldset) use ($labels) {
-                $fieldset->control('select', 'labels[]')
-                    ->label('Labels')
-                    ->options($labels)
-                    ->value(function (Issue $issue) {
-                        $labels = [];
-
-                        $pivots = $issue->labels()->get();
-
-                        foreach ($pivots as $row) {
-                            $labels[] = $row->id;
-                        }
-
-                        return $labels;
-                    })
-                    ->attributes([
-                        'class'    => 'select-labels form-control',
-                        'multiple' => true,
-                    ]);
+                $this->labelField($fieldset, $labels);
             });
 
             $form->submit = 'Save';
@@ -237,24 +236,7 @@ class IssuePresenter extends Presenter
             $form->layout('components.form-modal');
 
             $form->fieldset(function (Fieldset $fieldset) use ($users) {
-                $fieldset->control('select', 'users[]')
-                    ->label('Users')
-                    ->options($users)
-                    ->value(function (Issue $issue) {
-                        $users = [];
-
-                        $pivots = $issue->users()->get();
-
-                        foreach ($pivots as $row) {
-                            $users[] = $row->id;
-                        }
-
-                        return $users;
-                    })
-                    ->attributes([
-                        'class'    => 'select-users form-control',
-                        'multiple' => true,
-                    ]);
+                $this->userField($fieldset, $users);
             });
 
             $form->submit = 'Save';
@@ -279,6 +261,66 @@ class IssuePresenter extends Presenter
                 'class' => 'navbar-default',
             ],
         ]);
+    }
+
+    /**
+     * Prepares a fieldset for the specified labels.
+     *
+     * @param Fieldset $fieldset
+     * @param array    $labels
+     *
+     * @return mixed
+     */
+    protected function labelField(Fieldset $fieldset, $labels = [])
+    {
+        return $fieldset->control('select', 'labels[]')
+            ->label('Labels')
+            ->options($labels)
+            ->value(function (Issue $issue) {
+                $labels = [];
+
+                $pivots = $issue->labels()->get();
+
+                foreach ($pivots as $row) {
+                    $labels[] = $row->id;
+                }
+
+                return $labels;
+            })
+            ->attributes([
+                'class'    => 'select-labels form-control',
+                'multiple' => true,
+            ]);
+    }
+
+    /**
+     * Prepares a fieldset for the specified users.
+     *
+     * @param Fieldset $fieldset
+     * @param array    $users
+     *
+     * @return mixed
+     */
+    protected function userField(Fieldset $fieldset, $users = [])
+    {
+        return $fieldset->control('select', 'users[]')
+            ->label('Users')
+            ->options($users)
+            ->value(function (Issue $issue) {
+                $users = [];
+
+                $pivots = $issue->users()->get();
+
+                foreach ($pivots as $row) {
+                    $users[] = $row->id;
+                }
+
+                return $users;
+            })
+            ->attributes([
+                'class'    => 'select-users form-control',
+                'multiple' => true,
+            ]);
     }
 
     /**

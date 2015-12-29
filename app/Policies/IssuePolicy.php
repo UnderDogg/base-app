@@ -116,32 +116,28 @@ class IssuePolicy extends Policy
      */
     public function destroy(User $user, Issue $issue)
     {
-        return $user->can('delete-issue') || $user->getKey() === $issue->user_id;
+        return $this->can('delete-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
      * Returns true / false if the specified user
      * can add labels to issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public function addLabels(User $user)
+    public function addLabels()
     {
-        return $user->can('add-labels');
+        return $this->can('add-labels');
     }
 
     /**
      * Returns true / false if the specified user
      * can add users to issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public function addUsers(User $user)
+    public function addUsers()
     {
-        return $user->can('add-users');
+        return $this->can('add-users');
     }
 }

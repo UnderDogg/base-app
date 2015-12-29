@@ -3,6 +3,7 @@
 namespace App\Http\Presenters;
 
 use App\Models\Label;
+use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -105,7 +106,11 @@ class LabelPresenter extends Presenter
             $options = [];
 
             foreach ($colors as $color) {
-                $options[$color] = HTML::create('span', ucfirst($color), ['class' => "label label-$color"]);
+                $name = ucfirst($color);
+
+                // Cast the raw HTML to string before giving it to the
+                // array due to unintentional escaping of it's HTML.
+                $options[$color] = (string) HTML::raw("<span class='label label-$color'>$name</span>");
             }
 
             $form->fieldset(function (Fieldset $fieldset) use ($options) {
@@ -120,7 +125,7 @@ class LabelPresenter extends Presenter
                         return $label->color;
                     })
                     ->attributes([
-                        'class'       => 'select-label-color',
+                        'class'       => 'select-label-color form-control',
                         'placeholder' => 'Select a color',
                     ]);
             });
