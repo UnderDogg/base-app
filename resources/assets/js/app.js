@@ -24,12 +24,15 @@ $(function ()
     $(".switch").bootstrapToggle();
 
     // Issue Users select.
-    $(".select-users").select2();
+    $(".select-users").select2({
+        placeholder: formatPlaceholder
+    });
 
     // Issue Labels select.
     $(".select-labels").select2({
         formatResult: formatLabel,
-        formatSelection: formatLabel
+        formatSelection: formatLabel,
+        placeholder: formatPlaceholder
     });
 
     // Label color select.
@@ -60,6 +63,18 @@ $(function ()
     function formatLabel(label)
     {
         return $(label.element).text();
+    }
+
+    /**
+     * Formats a select2 placeholder.
+     *
+     * @param label
+     *
+     * @returns {*|jQuery}
+     */
+    function formatPlaceholder(label)
+    {
+        return $(label.element).data('placeholder');
     }
 
     // Form Confirmation window

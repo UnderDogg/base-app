@@ -29,17 +29,35 @@ class CreateIssue extends Job implements SelfHandling
     protected $occurredAt;
 
     /**
+     * The labels to be attached to the issue upon creation.
+     *
+     * @var array
+     */
+    protected $labels = [];
+
+    /**
+     * The users to be attached to the issue upon creation.
+     *
+     * @var array
+     */
+    protected $users = [];
+
+    /**
      * Constructor.
      *
      * @param string $title
      * @param string $description
      * @param string $occurredAt
+     * @param array $labels
+     * @param array $users
      */
-    public function __construct($title, $description, $occurredAt)
+    public function __construct($title, $description, $occurredAt, array $labels = [], array $users = [])
     {
         $this->title = $title;
         $this->description = $description;
         $this->occurredAt = $occurredAt;
+        $this->labels = $labels;
+        $this->users = $users;
     }
 
     /**
@@ -56,6 +74,16 @@ class CreateIssue extends Job implements SelfHandling
         $issue->description = $this->description;
         $issue->occurred_at = $this->occurredAt;
 
-        return $issue->save();
+        if ($issue->save()) {
+            // Sync the issues labels.
+            $issue->labels()->sync($this->labels);
+
+            // Sync the issues users.
+            $issue->users()->sync($this->users);
+
+            return true;
+        }
+
+        return false;
     }
 }

@@ -98,8 +98,12 @@ class IssueProcessor extends Processor
         $title = $request->input('title');
         $description = $request->input('description');
         $occurredAt = $request->input('occurred_at');
+        $labels = $request->input('labels', []);
+        $users = $request->input('users', []);
 
-        return $this->dispatch(new CreateIssue($title, $description, $occurredAt));
+        $job = new CreateIssue($title, $description, $occurredAt, $labels, $users);
+
+        return $this->dispatch($job);
     }
 
     /**
