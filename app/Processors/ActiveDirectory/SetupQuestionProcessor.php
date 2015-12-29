@@ -54,10 +54,9 @@ class SetupQuestionProcessor extends Processor
      *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      *
      * @return \Illuminate\View\View
-     *
-     * @throws NotFoundHttpException
      */
     public function index()
     {
@@ -124,9 +123,9 @@ class SetupQuestionProcessor extends Processor
     /**
      * Displays the form to setup security questions.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function setup()
     {

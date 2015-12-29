@@ -37,9 +37,9 @@ class PinProcessor extends Processor
     /**
      * Displays the form to change the users password folder PIN.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function change()
     {
