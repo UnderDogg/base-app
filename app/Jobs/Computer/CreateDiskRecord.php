@@ -5,9 +5,8 @@ namespace App\Jobs\Computer;
 use App\Jobs\Job;
 use App\Models\ComputerHardDisk;
 use App\Models\ComputerHardDiskRecord;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class CreateDiskRecord extends Job implements SelfHandling
+class CreateDiskRecord extends Job
 {
     /**
      * @var ComputerHardDisk

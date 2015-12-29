@@ -4,10 +4,9 @@ namespace App\Jobs\Computer;
 
 use App\Jobs\Job;
 use App\Models\Computer;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Create extends Job implements SelfHandling
+class Create extends Job
 {
     use DispatchesJobs;
 

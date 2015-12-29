@@ -4,9 +4,8 @@ namespace App\Jobs\User;
 
 use App\Jobs\Job;
 use App\Models\User;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class Create extends Job implements SelfHandling
+class Create extends Job
 {
     /**
      * The users email;.

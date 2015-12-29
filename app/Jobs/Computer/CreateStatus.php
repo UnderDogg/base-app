@@ -5,9 +5,8 @@ namespace App\Jobs\Computer;
 use App\Jobs\Job;
 use App\Models\Computer;
 use App\Models\ComputerStatus;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class CreateStatus extends Job implements SelfHandling
+class CreateStatus extends Job
 {
     /**
      * @var Computer

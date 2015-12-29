@@ -4,10 +4,9 @@ namespace App\Jobs\Computer;
 
 use App\Jobs\Job;
 use App\Models\ComputerType;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Support\Str;
 
-class CreateType extends Job implements SelfHandling
+class CreateType extends Job
 {
     /**
      * The name of the type.

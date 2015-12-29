@@ -6,9 +6,8 @@ use Adldap\Models\User;
 use App\Jobs\Job;
 use COM;
 use COM_EXCEPTION;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class ChangePassword extends Job implements SelfHandling
+class ChangePassword extends Job
 {
     /**
      * The current COM instance.

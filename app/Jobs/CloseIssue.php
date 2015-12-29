@@ -3,9 +3,8 @@
 namespace App\Jobs;
 
 use App\Models\Issue;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class CloseIssue extends Job implements SelfHandling
+class CloseIssue extends Job
 {
     /**
      * @var Issue

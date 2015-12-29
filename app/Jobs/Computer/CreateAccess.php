@@ -5,10 +5,9 @@ namespace App\Jobs\Computer;
 use App\Jobs\Job;
 use App\Models\Computer;
 use App\Models\ComputerAccess;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class CreateAccess extends Job implements SelfHandling
+class CreateAccess extends Job
 {
     use DispatchesJobs;
 

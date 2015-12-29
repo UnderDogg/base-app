@@ -3,9 +3,8 @@
 namespace App\Jobs;
 
 use App\Models\Issue;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class CreateIssue extends Job implements SelfHandling
+class CreateIssue extends Job
 {
     /**
      * The issues title.

@@ -2,10 +2,10 @@
 
 namespace App\Jobs\User;
 
+use App\Jobs\Job;
 use App\Models\User;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class ChangePassword implements SelfHandling
+class ChangePassword extends Job
 {
     /**
      * @var User

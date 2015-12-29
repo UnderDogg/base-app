@@ -4,9 +4,8 @@ namespace App\Jobs\Computer;
 
 use App\Jobs\Job;
 use App\Models\OperatingSystem;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class CreateOs extends Job implements SelfHandling
+class CreateOs extends Job
 {
     /**
      * @var string

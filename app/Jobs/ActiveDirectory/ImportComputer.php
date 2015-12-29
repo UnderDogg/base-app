@@ -12,10 +12,9 @@ use App\Jobs\Job;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class ImportComputer extends Job implements SelfHandling
+class ImportComputer extends Job
 {
     use DispatchesJobs;
 

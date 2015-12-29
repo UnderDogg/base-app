@@ -163,7 +163,7 @@ class IssueProcessor extends Processor
      * @param IssueRequest $request
      * @param int|string   $id
      *
-     * @return bool
+     * @return Issue|false
      */
     public function update(IssueRequest $request, $id)
     {
