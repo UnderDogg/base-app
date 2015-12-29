@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Constraint;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GuideStepProcessor extends Processor
 {
@@ -279,12 +280,14 @@ class GuideStepProcessor extends Processor
      * @param UploadedFile $file
      *
      * @return GuideStep|bool
+     *
+     * @throws HttpException
      */
     protected function handleUpload(Guide $guide, GuideStep $step, UploadedFile $file)
     {
         // Validate file name length.
         if (strlen($file->getClientOriginalName()) > 70) {
-            abort(422, 'File name is too large');
+            throw new HttpException(422, 'File name is too large');
         }
 
         // Generate a file name with UUID and its extension.

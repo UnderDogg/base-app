@@ -12,6 +12,7 @@ use App\Http\Requests\ActiveDirectory\UserRequest;
 use App\Jobs\ActiveDirectory\ImportUser;
 use App\Processors\Processor;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UserProcessor extends Processor
 {
@@ -112,6 +113,8 @@ class UserProcessor extends Processor
      * @param string $username
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function show($username)
     {
@@ -121,7 +124,7 @@ class UserProcessor extends Processor
             return view('pages.active-directory.users.show', compact('user'));
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -130,6 +133,8 @@ class UserProcessor extends Processor
      * @param string $username
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function edit($username)
     {
@@ -141,7 +146,7 @@ class UserProcessor extends Processor
             return view('pages.active-directory.users.edit', compact('form'));
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -151,6 +156,8 @@ class UserProcessor extends Processor
      * @param string      $username
      *
      * @return bool
+     *
+     * @throws NotFoundHttpException
      */
     public function update(UserRequest $request, $username)
     {
@@ -173,7 +180,7 @@ class UserProcessor extends Processor
             return $user->save();
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**

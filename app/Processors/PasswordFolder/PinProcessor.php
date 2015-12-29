@@ -8,6 +8,7 @@ use App\Models\PasswordFolder;
 use App\Processors\Processor;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PinProcessor extends Processor
 {
@@ -37,6 +38,8 @@ class PinProcessor extends Processor
      * Displays the form to change the users password folder PIN.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function change()
     {
@@ -52,7 +55,7 @@ class PinProcessor extends Processor
             }
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**

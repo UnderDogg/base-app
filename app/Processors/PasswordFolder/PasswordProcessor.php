@@ -9,6 +9,7 @@ use App\Models\PasswordFolder;
 use App\Processors\Processor;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordProcessor extends Processor
 {
@@ -45,6 +46,8 @@ class PasswordProcessor extends Processor
      * Displays all of the users passwords.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function index()
     {
@@ -62,7 +65,7 @@ class PasswordProcessor extends Processor
             }
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -114,6 +117,8 @@ class PasswordProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function show($id)
     {
@@ -131,7 +136,7 @@ class PasswordProcessor extends Processor
             }
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -140,6 +145,8 @@ class PasswordProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function edit($id)
     {
@@ -157,7 +164,7 @@ class PasswordProcessor extends Processor
             }
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**

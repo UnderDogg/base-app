@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Processors\Processor;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SetupQuestionProcessor extends Processor
 {
@@ -55,6 +56,8 @@ class SetupQuestionProcessor extends Processor
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function index()
     {
@@ -68,7 +71,7 @@ class SetupQuestionProcessor extends Processor
             return view('pages.active-directory.questions.setup.index', compact('questions', 'finished'));
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -76,8 +79,7 @@ class SetupQuestionProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      *
      * @return \Illuminate\View\View
      */
@@ -95,7 +97,7 @@ class SetupQuestionProcessor extends Processor
             return view('pages.active-directory.questions.setup.edit', compact('form', 'answer'));
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -122,10 +124,9 @@ class SetupQuestionProcessor extends Processor
     /**
      * Displays the form to setup security questions.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
      */
     public function setup()
     {
@@ -141,7 +142,7 @@ class SetupQuestionProcessor extends Processor
             return view('pages.active-directory.questions.setup.step', compact('form', 'step'));
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**

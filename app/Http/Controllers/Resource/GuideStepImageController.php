@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resource;
 use App\Http\Controllers\Controller;
 use App\Processors\Resource\GuideStepImageProcessor;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GuideStepImageController extends Controller
 {
@@ -31,6 +32,8 @@ class GuideStepImageController extends Controller
      * @param string     $fileUuid
      *
      * @return BinaryFileResponse
+     *
+     * @throws NotFoundHttpException
      */
     public function download($id, $stepId, $fileUuid)
     {
@@ -40,7 +43,7 @@ class GuideStepImageController extends Controller
             return $response;
         }
 
-        abort(404);
+        throw new NotFoundHttpException();
     }
 
     /**
