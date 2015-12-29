@@ -2,18 +2,18 @@
 
 namespace App\Http\Presenters\Issue;
 
-use Closure;
 use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class IssuePresenter extends Presenter
 {
