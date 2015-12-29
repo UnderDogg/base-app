@@ -45,10 +45,23 @@ class ProfileController extends Controller
         return $this->processor->edit();
     }
 
+    /**
+     * Updates the current users profile.
+     *
+     * @param UpdateRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(UpdateRequest $request)
     {
         if ($this->processor->update($request)) {
+            flash()->success('Success!', 'Your profile has been updated.');
+
+            return redirect()->route('profile.show');
         } else {
+            flash()->error('Error!', 'There was an issue updating your profile. Please try again.');
+
+            return redirect()->route('profile.edit');
         }
     }
 }
