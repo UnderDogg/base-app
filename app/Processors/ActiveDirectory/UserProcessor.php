@@ -112,9 +112,9 @@ class UserProcessor extends Processor
      *
      * @param string $username
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show($username)
     {
@@ -132,9 +132,9 @@ class UserProcessor extends Processor
      *
      * @param string $username
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($username)
     {
@@ -155,9 +155,9 @@ class UserProcessor extends Processor
      * @param UserRequest $request
      * @param string      $username
      *
-     * @return bool
-     *
      * @throws NotFoundHttpException
+     *
+     * @return bool
      */
     public function update(UserRequest $request, $username)
     {

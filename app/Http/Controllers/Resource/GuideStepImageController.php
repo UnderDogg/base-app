@@ -31,9 +31,9 @@ class GuideStepImageController extends Controller
      * @param int|string $stepId
      * @param string     $fileUuid
      *
-     * @return BinaryFileResponse
-     *
      * @throws NotFoundHttpException
+     *
+     * @return BinaryFileResponse
      */
     public function download($id, $stepId, $fileUuid)
     {

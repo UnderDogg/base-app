@@ -279,9 +279,9 @@ class GuideStepProcessor extends Processor
      * @param GuideStep    $step
      * @param UploadedFile $file
      *
-     * @return GuideStep|bool
-     *
      * @throws HttpException
+     *
+     * @return GuideStep|bool
      */
     protected function handleUpload(Guide $guide, GuideStep $step, UploadedFile $file)
     {

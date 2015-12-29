@@ -45,9 +45,9 @@ class PasswordProcessor extends Processor
     /**
      * Displays all of the users passwords.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -116,9 +116,9 @@ class PasswordProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -144,9 +144,9 @@ class PasswordProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {

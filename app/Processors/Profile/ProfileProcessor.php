@@ -2,11 +2,11 @@
 
 namespace App\Processors\Profile;
 
+use App\Http\Presenters\Profile\ProfilePresenter;
 use App\Http\Requests\Profile\UpdateRequest;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Guard;
-use App\Http\Presenters\Profile\ProfilePresenter;
 use App\Processors\Processor;
+use Illuminate\Contracts\Auth\Guard;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProfileProcessor extends Processor
@@ -36,9 +36,9 @@ class ProfileProcessor extends Processor
     /**
      * Displays the current users profile.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show()
     {
@@ -56,9 +56,9 @@ class ProfileProcessor extends Processor
     /**
      * Displays the form for editing the current users profile.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -78,9 +78,9 @@ class ProfileProcessor extends Processor
      *
      * @param UpdateRequest $request
      *
-     * @return bool
-     *
      * @throws NotFoundHttpException
+     *
+     * @return bool
      */
     public function update(UpdateRequest $request)
     {

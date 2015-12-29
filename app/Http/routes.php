@@ -82,7 +82,7 @@ $router->group(['middleware' => ['auth']], function ($router) {
 
         // The user update details route.
         $router->post('/', [
-            'as' => 'update',
+            'as'   => 'update',
             'uses' => 'ProfileController@update',
         ]);
 

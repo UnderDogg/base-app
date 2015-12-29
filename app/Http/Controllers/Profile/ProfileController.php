@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateRequest;
 use App\Processors\Profile\ProfileProcessor;
-use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
@@ -34,11 +34,11 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays the form for editing the current users
-     *
-     * @return \Illuminate\View\View
+     * Displays the form for editing the current users.
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -48,9 +48,7 @@ class ProfileController extends Controller
     public function update(UpdateRequest $request)
     {
         if ($this->processor->update($request)) {
-
         } else {
-
         }
     }
 }
