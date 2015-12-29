@@ -48,8 +48,8 @@ class CreateIssue extends Job implements SelfHandling
      * @param string $title
      * @param string $description
      * @param string $occurredAt
-     * @param array $labels
-     * @param array $users
+     * @param array  $labels
+     * @param array  $users
      */
     public function __construct($title, $description, $occurredAt, array $labels = [], array $users = [])
     {
