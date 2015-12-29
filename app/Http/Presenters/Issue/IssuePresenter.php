@@ -22,6 +22,7 @@ class IssuePresenter extends Presenter
      *
      * @param Issue|Builder $issue
      * @param array         $with
+     * @param Closure       $closure
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
@@ -108,6 +109,8 @@ class IssuePresenter extends Presenter
     public function tableLast(Issue $model, array $with = ['users', 'labels'])
     {
         return $this->table($model, $with, function (TableGrid $table, Issue $issue) {
+            $issue = $issue->latest();
+
             $table->with($issue)->paginate(1);
 
             $table->layout('pages.welcome._issue');
@@ -321,7 +324,7 @@ class IssuePresenter extends Presenter
             ->attributes([
                 'class'             => 'select-users form-control',
                 'data-placeholder'  => 'Select Users',
-                'multiple'          => true,
+                'multiple' => true,
             ]);
     }
 
