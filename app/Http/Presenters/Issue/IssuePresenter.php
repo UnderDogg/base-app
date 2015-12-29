@@ -111,6 +111,8 @@ class IssuePresenter extends Presenter
         return $this->table($model, $with, function (TableGrid $table, Issue $issue) {
             $issue = $issue->latest();
 
+            $issue = $this->applyPolicy($issue);
+
             $table->with($issue)->paginate(1);
 
             $table->layout('pages.welcome._issue');
