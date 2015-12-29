@@ -7,7 +7,7 @@
     <span class="pull-right btn-group">
         {{-- Only allow users to edit their profile if they're not from Active Directory --}}
         @if(!$user->isFromAd())
-            <a class="btn btn-xs btn-warning" href="#">
+            <a class="btn btn-xs btn-warning" href="{{ route('profile.edit') }}">
                 Edit
             </a>
         @endif

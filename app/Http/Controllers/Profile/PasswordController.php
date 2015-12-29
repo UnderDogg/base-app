@@ -44,18 +44,20 @@ class PasswordController extends Controller
      */
     public function update(PasswordRequest $request)
     {
+        $flash = flash()->setTimer(3000);
+
         try {
             $this->processor->update($request);
 
-            flash()->success('Success!', 'Successfully changed password.');
+            $flash->success('Success!', 'Successfully changed password.');
 
             return redirect()->route('profile.show');
         } catch (InvalidPasswordException $e) {
-            flash()->error('Whoops!', 'Looks like your current password was incorrect. Try again.');
+            $flash->error('Whoops!', 'Looks like your current password was incorrect. Try again.');
 
             return redirect()->route('profile.password');
         } catch (UnableToChangePasswordException $e) {
-            flash()->error('Error!', 'Looks like we had an issue trying to change your password. Please try again.');
+            $flash->error('Error!', 'Looks like we had an issue trying to change your password. Please try again.');
 
             return redirect()->route('profile.password');
         }

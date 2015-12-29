@@ -80,6 +80,12 @@ $router->group(['middleware' => ['auth']], function ($router) {
             'uses' => 'ProfileController@show',
         ]);
 
+        // The user update details route.
+        $router->post('/', [
+            'as' => 'update',
+            'uses' => 'ProfileController@update',
+        ]);
+
         // The user profile edit details route.
         $router->get('edit', [
             'as' => 'edit',

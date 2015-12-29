@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Http\Requests\Profile\UpdateRequest;
 use App\Processors\Profile\ProfileProcessor;
 use App\Http\Controllers\Controller;
 
@@ -44,8 +45,12 @@ class ProfileController extends Controller
         return $this->processor->edit();
     }
 
-    public function update()
+    public function update(UpdateRequest $request)
     {
-        //
+        if ($this->processor->update($request)) {
+
+        } else {
+
+        }
     }
 }

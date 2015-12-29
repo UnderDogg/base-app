@@ -2,7 +2,7 @@
 
 @section('show.panel.title')
 
-    Edit Details
+    Edit Profile Details
 
 @endsection
 

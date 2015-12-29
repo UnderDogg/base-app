@@ -22,15 +22,18 @@ class ProfilePresenter extends Presenter
         return $this->form->of('profile', function (FormGrid $form) use ($user, $viewing) {
             if ($viewing) {
                 $form->setup($this, null, $user);
-
-                $form->submit = 'Save';
             } else {
-                $form->setup($this, '', $user);
+                $form->setup($this, route('profile.update'), $user);
             }
 
+            $form->submit = 'Save';
+
             $form->fieldset(function (Fieldset $fieldset) use ($viewing) {
-                $fieldset->control('input:text', 'fullname')
+                $fieldset->control('input:text', 'full_name')
                     ->label('Full Name')
+                    ->value(function (User $user) {
+                        return $user->fullname;
+                    })
                     ->attributes([
                         'placeholder' => 'Your Full Name',
                         ($viewing ? 'disabled' : null),

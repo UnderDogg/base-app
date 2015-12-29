@@ -2,6 +2,7 @@
 
 namespace App\Processors\Profile;
 
+use App\Http\Requests\Profile\UpdateRequest;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Guard;
 use App\Http\Presenters\Profile\ProfilePresenter;
@@ -72,12 +73,26 @@ class ProfileProcessor extends Processor
         throw new NotFoundHttpException();
     }
 
-    public function update()
+    /**
+     * Updates the current users profile.
+     *
+     * @param UpdateRequest $request
+     *
+     * @return bool
+     *
+     * @throws NotFoundHttpException
+     */
+    public function update(UpdateRequest $request)
     {
         $user = $this->guard->user();
 
+        // Double check that we have the correct user instance
+        // and they are not from active directory.
         if ($user instanceof User && !$user->isFromAd()) {
-            
+            $user->fullname = $request->input('full_name', $user->fullname);
+            $user->email = $request->input('email', $user->getRecipientEmail());
+
+            return $user->save();
         }
 
         throw new NotFoundHttpException();
