@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b78095eaec596874e33d67cfab0a2b4",
-    "content-hash": "b6353c2e37e476c9a022af98d0c76ef4",
+    "hash": "64a4260bedb33d99a438300d9bea851c",
+    "content-hash": "f207d9ebce3fbf003961f1b302f356bf",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -3008,6 +3008,54 @@
                 "uuid"
             ],
             "time": "2015-12-17 16:54:24"
+        },
+        {
+            "name": "runmybusiness/initialcon",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/runmybusiness/initialcon.git",
+                "reference": "62bfefb7fcd86e7260992f5be7e3390d37c1d5d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/runmybusiness/initialcon/zipball/62bfefb7fcd86e7260992f5be7e3390d37c1d5d4",
+                "reference": "62bfefb7fcd86e7260992f5be7e3390d37c1d5d4",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "2.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "1.2.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RunMyBusiness\\Initialcon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Schlick",
+                    "email": "tom@runmybusiness.com"
+                }
+            ],
+            "description": "Create a GMail esque avatar based on the users intials & a persistant identifier such as an email address.",
+            "homepage": "http://runmybusiness.com",
+            "keywords": [
+                "avatar",
+                "icon",
+                "image",
+                "initialcon",
+                "picture"
+            ],
+            "time": "2015-07-28 15:02:38"
         },
         {
             "name": "stackie/adminlte-theme",

@@ -20,7 +20,8 @@
         "geerlingguy/ping": "1.0.*",
         "lookitsatravis/listify": "1.1.*",
         "intervention/image": "2.3.*",
-        "vinelab/rss": "1.0.*"
+        "vinelab/rss": "1.0.*",
+        "runmybusiness/initialcon": "0.1.*"
     },
     "require-dev": {
         "orchestra/testing": "~3.1",
