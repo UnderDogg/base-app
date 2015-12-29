@@ -47,7 +47,7 @@ class PasswordProcessor extends Processor
     {
         $form = $this->presenter->form();
 
-        return view('pages.profile.show.password', compact('form'));
+        return view('pages.profile.show.password.change', compact('form'));
     }
 
     /**
