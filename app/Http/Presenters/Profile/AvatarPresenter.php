@@ -10,6 +10,13 @@ use Orchestra\Support\Facades\HTML;
 
 class AvatarPresenter extends Presenter
 {
+    /**
+     * Creates a new form for changing the current users avatar.
+     *
+     * @param User $user
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function form(User $user)
     {
         return $this->form->of('profile.avatar', function (FormGrid $form) use ($user) {

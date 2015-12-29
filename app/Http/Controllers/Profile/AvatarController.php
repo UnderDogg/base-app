@@ -24,7 +24,7 @@ class AvatarController extends Controller
     }
 
     /**
-     * Processes changing.
+     * Displays the page to edit the current users avatar.
      *
      * @return \Illuminate\View\View
      */
