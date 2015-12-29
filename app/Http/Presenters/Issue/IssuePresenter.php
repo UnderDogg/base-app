@@ -288,8 +288,9 @@ class IssuePresenter extends Presenter
                 return $labels;
             })
             ->attributes([
-                'class'    => 'select-labels form-control',
-                'multiple' => true,
+                'class'             => 'select-labels form-control',
+                'data-placeholder'  => 'Select Labels',
+                'multiple'          => true,
             ]);
     }
 
@@ -318,8 +319,9 @@ class IssuePresenter extends Presenter
                 return $users;
             })
             ->attributes([
-                'class'    => 'select-users form-control',
-                'multiple' => true,
+                'class'             => 'select-users form-control',
+                'data-placeholder'  => 'Select Users',
+                'multiple'          => true,
             ]);
     }
 
