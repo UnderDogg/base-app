@@ -20,9 +20,9 @@ class AuthorizationServiceProvider extends ServiceProvider
     {
         $policies = config('authorization.policies');
 
-        $memory = $foundation->memory();
-
         try {
+            $memory = $foundation->memory();
+
             $roles = Role::all()->pluck('name');
 
             $this->app->booted(function () use ($policies, $memory, $roles) {
@@ -49,6 +49,8 @@ class AuthorizationServiceProvider extends ServiceProvider
                 }
             });
         } catch (\PDOException $e) {
+            //
+        } catch (\ReflectionException $e) {
             //
         }
     }
