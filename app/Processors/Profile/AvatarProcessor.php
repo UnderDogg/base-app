@@ -9,7 +9,9 @@ use App\Models\User;
 use App\Processors\Processor;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
 use RunMyBusiness\Initialcon\Initialcon;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AvatarProcessor extends Processor
@@ -30,16 +32,30 @@ class AvatarProcessor extends Processor
     protected $presenter;
 
     /**
+     * @var ImageManager
+     */
+    protected $manager;
+
+    /**
+     * The default avatar size.
+     *
+     * @var int
+     */
+    protected $size = 64;
+
+    /**
      * Constructor.
      *
      * @param Guard           $guard
      * @param Initialcon      $initialcon
+     * @param ImageManager    $manager
      * @param AvatarPresenter $presenter
      */
-    public function __construct(Guard $guard, Initialcon $initialcon, AvatarPresenter $presenter)
+    public function __construct(Guard $guard, Initialcon $initialcon, ImageManager $manager, AvatarPresenter $presenter)
     {
         $this->guard = $guard;
         $this->initialcon = $initialcon;
+        $this->manager = $manager;
         $this->presenter = $presenter;
     }
 
@@ -63,16 +79,33 @@ class AvatarProcessor extends Processor
         throw new NotFoundHttpException();
     }
 
+    /**
+     * Updates the current users profile avatar with their uploaded image.
+     *
+     * @param AvatarRequest $request
+     *
+     * @return bool
+     */
     public function update(AvatarRequest $request)
     {
         if ($request->has('generate')) {
             return $this->generate();
         } else {
+            $image = $request->file('image');
+
+            if ($image instanceof UploadedFile) {
+                return $this->generate($image);
+            }
         }
+
+        return false;
     }
 
     /**
      * Returns a download response of the current users avatar.
+     *
+     * This will also generate a new avatar for the
+     * user if the user does not have an avatar.
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
@@ -81,11 +114,15 @@ class AvatarProcessor extends Processor
         $user = $this->guard->user();
 
         if ($user instanceof User) {
+            // If the user doesn't have an avatar already,
+            // we'll generate one on the fly.
+            if (!$user->hasAvatar()) {
+                $this->generate();
+            }
+
             $avatar = $user->avatar();
 
-            if ($avatar instanceof Upload) {
-                return response()->download($avatar->getCompletePath());
-            }
+            return response()->download($avatar->getCompletePath());
         }
 
         throw new NotFoundHttpException();
@@ -94,11 +131,13 @@ class AvatarProcessor extends Processor
     /**
      * Generates an avatar based on the current users initials.
      *
+     * @param $image UploadedFile
+     *
      * @throws \Exception
      *
      * @return bool
      */
-    protected function generate()
+    protected function generate(UploadedFile $image = null)
     {
         $user = $this->guard->user();
 
@@ -109,17 +148,22 @@ class AvatarProcessor extends Processor
                 $user->avatar()->delete();
             }
 
-            // Generate and retrieve the initials image.
-            $image = $this->initialcon->getImageData($user->getInitials(), $user->getRecipientEmail());
+            if ($image) {
+                // Generate the uploaded images file name.
+                $fileName = sprintf('%s.%s', $user->getKey(), $image->getClientOriginalExtension());
+
+                // If we've been given an uploaded image we'll retrieve the contents.
+                $image = $this->resize($image)->stream();
+            } else {
+                // Generate the initials image file name.
+                $fileName = $user->getKey().'.jpg';
+
+                // Otherwise we'll generate and retrieve the initials image contents.
+                $image = $this->initialcon->getImageData($user->getInitials(), $user->getRecipientEmail(), $this->size);
+            }
 
             // Generate the storage path.
-            $path = sprintf('%s%s%s%s%s',
-                'uploads',
-                DIRECTORY_SEPARATOR,
-                'avatars',
-                DIRECTORY_SEPARATOR,
-                $user->getKey().'.jpg'
-            );
+            $path = $this->path($fileName);
 
             // Move the file into storage.
             Storage::put($path, $image);
@@ -131,5 +175,41 @@ class AvatarProcessor extends Processor
         }
 
         return false;
+    }
+
+    /**
+     * Re-sizes the specified uploaded image.
+     *
+     * @param UploadedFile $image
+     *
+     * @return \Intervention\Image\Image
+     */
+    protected function resize(UploadedFile $image)
+    {
+        // Make the image from intervention.
+        $image = $this->manager->make($image->getRealPath());
+
+        // Resize the image.
+        $image->resize($this->size, $this->size);
+
+        return $image;
+    }
+
+    /**
+     * Generates a storage path for avatar images to reside.
+     *
+     * @param string|int $fileName
+     *
+     * @return string
+     */
+    protected function path($fileName)
+    {
+        return sprintf('%s%s%s%s%s',
+            'uploads',
+            DIRECTORY_SEPARATOR,
+            'avatars',
+            DIRECTORY_SEPARATOR,
+            $fileName
+        );
     }
 }
