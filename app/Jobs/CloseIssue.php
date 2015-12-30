@@ -23,12 +23,15 @@ class CloseIssue extends Job
 
     /**
      * Closes an issue.
+     *
+     * @return bool
      */
     public function handle()
     {
         $this->issue->closed = true;
         $this->issue->closed_at = $this->issue->freshTimestamp();
+        $this->issue->closed_by_user_id = auth()->user()->getKey();
 
-        $this->issue->save();
+        return $this->issue->save();
     }
 }
