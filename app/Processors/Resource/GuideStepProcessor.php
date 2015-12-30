@@ -305,7 +305,7 @@ class GuideStepProcessor extends Processor
         );
 
         // Resize the uploaded image if the user requested it.
-        $image = $this->resizeUploadedImage($file);
+        $image = $this->resize($file);
 
         // Move the file into storage.
         Storage::put($path, $image->stream());
@@ -330,7 +330,7 @@ class GuideStepProcessor extends Processor
      *
      * @return \Intervention\Image\Image
      */
-    protected function resizeUploadedImage(UploadedFile $file)
+    protected function resize(UploadedFile $file)
     {
         // Make the image from intervention.
         $image = $this->manager->make($file->getRealPath());
