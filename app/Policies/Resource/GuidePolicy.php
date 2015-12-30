@@ -32,7 +32,7 @@ class GuidePolicy extends Policy
             return true;
         }
 
-        return $this->can('view-unpublished');
+        return $this->canIf('view-unpublished');
     }
 
     /**
@@ -42,7 +42,7 @@ class GuidePolicy extends Policy
      */
     public function create()
     {
-        return $this->can('create-guide');
+        return $this->canIf('create-guide');
     }
 
     /**
@@ -62,7 +62,7 @@ class GuidePolicy extends Policy
      */
     public function edit()
     {
-        return $this->can('edit-guide');
+        return $this->canIf('edit-guide');
     }
 
     /**
@@ -82,6 +82,6 @@ class GuidePolicy extends Policy
      */
     public function destroy()
     {
-        return $this->can('delete-guide');
+        return $this->canIf('delete-guide');
     }
 }

@@ -25,7 +25,7 @@ class CommentPolicy extends Policy
      */
     public function store()
     {
-        return $this->can('create-comment');
+        return $this->canIf('create-comment');
     }
 
     /**
@@ -39,7 +39,7 @@ class CommentPolicy extends Policy
      */
     public function edit(User $user, Comment $comment)
     {
-        return $this->can('edit-comment') && $user->getKey() === $comment->user_id;
+        return $this->canIf('edit-comment') && $user->getKey() === $comment->user_id;
     }
 
     /**

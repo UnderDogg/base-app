@@ -22,7 +22,7 @@ class LabelPolicy extends Policy
      */
     public function index()
     {
-        return $this->can('view-all-labels');
+        return $this->canIf('view-all-labels');
     }
 
     /**
@@ -33,7 +33,7 @@ class LabelPolicy extends Policy
      */
     public function create()
     {
-        return $this->can('create-label');
+        return $this->canIf('create-label');
     }
 
     /**
@@ -55,7 +55,7 @@ class LabelPolicy extends Policy
      */
     public function edit()
     {
-        return $this->can('edit-label');
+        return $this->canIf('edit-label');
     }
 
     /**
@@ -77,6 +77,6 @@ class LabelPolicy extends Policy
      */
     public function destroy()
     {
-        return $this->can('delete-label');
+        return $this->canIf('delete-label');
     }
 }

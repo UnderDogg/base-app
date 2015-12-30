@@ -26,7 +26,7 @@ class GuideStepPolicy extends Policy
      */
     public function index()
     {
-        return $this->can('view-all-steps');
+        return $this->canIf('view-all-steps');
     }
 
     /**
@@ -37,7 +37,7 @@ class GuideStepPolicy extends Policy
      */
     public function create()
     {
-        return $this->can('create-step');
+        return $this->canIf('create-step');
     }
 
     /**
@@ -48,7 +48,7 @@ class GuideStepPolicy extends Policy
      */
     public function edit()
     {
-        return $this->can('edit-step');
+        return $this->canIf('edit-step');
     }
 
     /**
@@ -70,7 +70,7 @@ class GuideStepPolicy extends Policy
      */
     public function images()
     {
-        return $this->can('create-steps-with-images');
+        return $this->canIf('create-steps-with-images');
     }
 
     /**
@@ -81,7 +81,7 @@ class GuideStepPolicy extends Policy
      */
     public function move()
     {
-        return $this->can('move-step');
+        return $this->canIf('move-step');
     }
 
     /**
@@ -92,6 +92,6 @@ class GuideStepPolicy extends Policy
      */
     public function destroy()
     {
-        return $this->can('delete-step');
+        return $this->canIf('delete-step');
     }
 }

@@ -29,7 +29,7 @@ class IssuePolicy extends Policy
      */
     public function viewAll()
     {
-        return $this->can('view-users-issues');
+        return $this->canIf('view-users-issues');
     }
 
     /**
@@ -43,7 +43,7 @@ class IssuePolicy extends Policy
      */
     public function show(User $user, Issue $issue)
     {
-        return $user->can('view-issue') || $user->getKey() === $issue->user_id;
+        return $this->canIf('view-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -57,7 +57,7 @@ class IssuePolicy extends Policy
      */
     public function edit(User $user, Issue $issue)
     {
-        return $user->can('edit-issue') || $user->getKey() === $issue->user_id;
+        return $this->canIf('edit-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -80,13 +80,11 @@ class IssuePolicy extends Policy
      *
      * Only administrators can re-open issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public function open(User $user)
+    public function open()
     {
-        return $user->can('open-issue');
+        return $this->canIf('open-issue');
     }
 
     /**
@@ -102,7 +100,7 @@ class IssuePolicy extends Policy
      */
     public function close(User $user, Issue $issue)
     {
-        return $user->can('close-issue') || $user->getKey() === $issue->user_id;
+        return $this->canIf('close-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -116,7 +114,7 @@ class IssuePolicy extends Policy
      */
     public function destroy(User $user, Issue $issue)
     {
-        return $this->can('delete-issue') || $user->getKey() === $issue->user_id;
+        return $this->canIf('delete-issue') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -127,7 +125,7 @@ class IssuePolicy extends Policy
      */
     public function addLabels()
     {
-        return $this->can('add-labels');
+        return $this->canIf('add-labels');
     }
 
     /**
@@ -138,6 +136,6 @@ class IssuePolicy extends Policy
      */
     public function addUsers()
     {
-        return $this->can('add-users');
+        return $this->canIf('add-users');
     }
 }

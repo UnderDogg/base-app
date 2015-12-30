@@ -26,7 +26,7 @@ class ComputerPolicy extends Policy
      */
     public function index()
     {
-        return $this->can('view-all-computers');
+        return $this->canIf('view-all-computers');
     }
 
     /**
@@ -36,7 +36,7 @@ class ComputerPolicy extends Policy
      */
     public function create()
     {
-        return $this->can('create-computer');
+        return $this->canIf('create-computer');
     }
 
     /**
@@ -46,7 +46,7 @@ class ComputerPolicy extends Policy
      */
     public function store()
     {
-        return $this->can('store-computer');
+        return $this->canIf('store-computer');
     }
 
     /**
@@ -56,7 +56,7 @@ class ComputerPolicy extends Policy
      */
     public function show()
     {
-        return $this->can('view-computer');
+        return $this->canIf('view-computer');
     }
 
     /**
@@ -66,7 +66,7 @@ class ComputerPolicy extends Policy
      */
     public function edit()
     {
-        return $this->can('edit-computer');
+        return $this->canIf('edit-computer');
     }
 
     /**
@@ -76,7 +76,7 @@ class ComputerPolicy extends Policy
      */
     public function update()
     {
-        return $this->can('update-computer');
+        return $this->canIf('update-computer');
     }
 
     /**
@@ -86,6 +86,6 @@ class ComputerPolicy extends Policy
      */
     public function destroy()
     {
-        return $this->can('delete-computer');
+        return $this->canIf('delete-computer');
     }
 }
