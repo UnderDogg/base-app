@@ -24,6 +24,7 @@ class AvatarPresenter extends Presenter
 
             $form->attributes([
                 'url' => route('profile.avatar.change'),
+                'files' => true,
             ]);
 
             $form->submit = 'Save';
@@ -48,7 +49,7 @@ class AvatarPresenter extends Presenter
                 }
 
                 $fieldset->control('input:file', 'image')
-                    ->label(($user->hasAvatar() ? 'Replace Image(s)' : 'Image'));
+                    ->label(($user->hasAvatar() ? 'Replace Image' : 'Image'));
 
                 $fieldset->control('input:checkbox', 'generate')
                     ->label('Generate me an Avatar')
