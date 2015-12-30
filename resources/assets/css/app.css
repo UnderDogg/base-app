@@ -108,3 +108,11 @@ tr td a {
 .dropdown-menu-labels > li > a {
     padding: 0 20px 5px;
 }
+
+/* Avatar image inside the bootstrap navbar CSS */
+.avatar-img {
+    position: relative;
+    top: -5px;
+    float: left;
+    left: -5px;
+}
