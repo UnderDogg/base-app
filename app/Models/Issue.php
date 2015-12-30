@@ -86,6 +86,16 @@ class Issue extends Model
     }
 
     /**
+     * The belongsTo closed by user relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function closedByUser()
+    {
+        return $this->belongsTo(User::class, 'closed_by_user_id');
+    }
+
+    /**
      * The belongsToMany labels relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -293,6 +303,28 @@ class Issue extends Model
         $daysAgo = $this->occurredAtHuman();
 
         return "Issue occurred $daysAgo";
+    }
+
+    /**
+     * Returns the closed by user tag line.
+     *
+     * @return string
+     */
+    public function getClosedByUserTagLine()
+    {
+        $user = $this->closedByUser;
+
+        if ($user instanceof User) {
+            $name = $user->fullname;
+
+            $line = "Closed by $name";
+        } else {
+            $line = 'Closed';
+        }
+
+        $daysAgo = $this->closedAtHuman();
+
+        return "$line $daysAgo";
     }
 
     /**
