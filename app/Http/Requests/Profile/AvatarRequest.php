@@ -14,8 +14,8 @@ class AvatarRequest extends Request
     public function rules()
     {
         return [
-            'generate'  => '',
-            'image'     => '',
+            'generate'  => 'required_without:image',
+            'image'     => 'required_without:generate|image',
         ];
     }
 
