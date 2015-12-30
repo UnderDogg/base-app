@@ -48,10 +48,19 @@ class Active
         $current = $this->route;
 
         if ($this->containsWildcard($route)) {
+            // If the specified route contains a wildcard we'll remove it.
             $route = $this->stripWildcard($route);
 
-            return $this->route($route);
-        } elseif (str_contains($current, $route)) {
+            if (str_contains($current, $route)) {
+                // We'll check if the stripped route exists inside the current
+                // route and return the output if that is the case.
+                return $this->output;
+            }
+        }
+
+        // If the route does not contain a wildcard we'll check if the
+        // current route equals the specified route loosely.
+        if ($current == $route) {
             return $this->output;
         }
 
