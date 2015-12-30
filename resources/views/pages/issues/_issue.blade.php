@@ -4,9 +4,7 @@
 
         <h3 class="panel-title">
 
-            {{ $issue->user->fullname }}
-
-            <span class="text-muted hidden-xs">
+            <span class="h5">
                 {{ $issue->getCreatedAtTagLine() }}
             </span>
 
@@ -28,12 +26,6 @@
             </span>
 
             <div class="clearfix"></div>
-
-            <div class="visible-xs">
-                <span class="text-muted">
-                    {{ $issue->getCreatedAtTagLine() }}
-                </span>
-            </div>
 
         </h3>
 

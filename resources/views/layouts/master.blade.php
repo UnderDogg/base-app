@@ -16,6 +16,10 @@
 
             <section class="container main">
 
+                <div class="col-md-12">
+                    @yield('extra.top')
+                </div>
+
                 <div class="col-lg-12">
                     @section('title.header')
 
@@ -26,6 +30,10 @@
                     @show
 
                     @yield('content')
+                </div>
+
+                <div class="col-md-12">
+                    @yield('extra.bottom')
                 </div>
 
             </section>

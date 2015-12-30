@@ -56,15 +56,17 @@ class Comment extends Model
      */
     public function getCreatedAtTagLine()
     {
+        $user = $this->user->fullname;
+
         $daysAgo = $this->createdAtHuman();
 
         if ($this->isResolution()) {
-            $line = "created resolution $daysAgo";
+            $line = "$user created resolution $daysAgo";
         } else {
-            $line = "commented $daysAgo";
+            $line = "$user commented $daysAgo";
         }
 
-        return HTML::create('span', $line, ['class' => 'text-muted']);
+        return $line;
     }
 
     /**

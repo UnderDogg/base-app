@@ -1,5 +1,12 @@
 @extends('layouts.master')
 
+@section('extra.top')
+    <a class="btn btn-primary" href="{{ route('issues.index') }}">
+        <i class="fa fa-chevron-left"></i>
+        Back to Issues
+    </a>
+@endsection
+
 @section('title', $issue->title)
 
 @section('title.header')

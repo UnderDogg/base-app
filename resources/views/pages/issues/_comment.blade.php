@@ -3,14 +3,13 @@
     <div class="panel-heading">
 
         <h3 class="panel-title">
+
             @if($comment->isResolution())
                 <i class="fa fa-check-square"></i>
             @endif
 
-            {{ $comment->user->fullname }}
-
-            <span class="hidden-xs">
-                {!! $comment->getCreatedAtTagLine() !!}
+            <span class="h5">
+                {{ $comment->getCreatedAtTagLine() }}
             </span>
 
             <span class="pull-right btn-group">
@@ -36,9 +35,6 @@
 
             <div class="clearfix"></div>
 
-            <div class="visible-xs">
-                {!! $comment->getCreatedAtTagLine() !!}
-            </div>
         </h3>
 
     </div>

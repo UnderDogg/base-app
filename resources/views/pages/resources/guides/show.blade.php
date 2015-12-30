@@ -1,5 +1,12 @@
 @extends('layouts.master')
 
+@section('extra.top')
+    <a class="btn btn-primary" href="{{ route('resources.guides.index') }}">
+        <i class="fa fa-chevron-left"></i>
+        Back to Guides
+    </a>
+@endsection
+
 @section('title', $guide->title)
 
 @section('content')
