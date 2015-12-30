@@ -22,31 +22,35 @@ class AuthorizationServiceProvider extends ServiceProvider
 
         $memory = $foundation->memory();
 
-        $this->app->booted(function () use ($policies, $memory) {
-            foreach ($policies as $policy) {
-                $acl = ACL::make($policy);
+        try {
+            $roles = Role::all()->pluck('name');
 
-                $acl->attach($memory);
+            $this->app->booted(function () use ($policies, $memory, $roles) {
+                foreach ($policies as $policy) {
+                    $acl = ACL::make($policy);
 
-                $actions = [];
+                    $acl->attach($memory);
 
-                if (property_exists($policy, 'actions') && $policy = app($policy)) {
-                    $actions = array_merge($actions, $policy->actions);
+                    $actions = [];
+
+                    if (property_exists($policy, 'actions') && $policy = app($policy)) {
+                        $actions = array_merge($actions, $policy->actions);
+                    }
+
+                    $acl->roles()->attach($roles);
+
+                    $acl->actions()->attach($actions);
+
+                    $admin = Role::admin();
+
+                    if ($admin instanceof Role) {
+                        $acl->allow($admin->name, $actions);
+                    }
                 }
-
-                $roles = Role::all()->pluck('name');
-
-                $acl->roles()->attach($roles);
-
-                $acl->actions()->attach($actions);
-
-                $admin = Role::admin();
-
-                if ($admin instanceof Role) {
-                    $acl->allow($admin->name, $actions);
-                }
-            }
-        });
+            });
+        } catch (\PDOException $e) {
+            //
+        }
     }
 
     /**
