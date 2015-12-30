@@ -28,6 +28,7 @@ class OpenIssue extends Job
     {
         $this->issue->closed = false;
         $this->issue->closed_at = null;
+        $this->issue->closed_by_user_id = null;
 
         $this->issue->save();
     }
