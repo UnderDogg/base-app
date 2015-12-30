@@ -23,7 +23,7 @@ class AvatarPresenter extends Presenter
             $form->with($user);
 
             $form->attributes([
-                'url' => route('profile.avatar.change'),
+                'url'   => route('profile.avatar.change'),
                 'files' => true,
             ]);
 

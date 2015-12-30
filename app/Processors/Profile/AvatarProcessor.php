@@ -4,7 +4,6 @@ namespace App\Processors\Profile;
 
 use App\Http\Presenters\Profile\AvatarPresenter;
 use App\Http\Requests\Profile\AvatarRequest;
-use App\Models\Upload;
 use App\Models\User;
 use App\Processors\Processor;
 use Illuminate\Contracts\Auth\Guard;
