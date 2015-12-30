@@ -1,7 +1,7 @@
 {
     "name": "stevebauman/ithub",
     "description": "IT Hub",
-    "keywords": ["framework", "laravel", "orchestra-platform", "orchestral"],
+    "keywords": ["it", "hub", "it management", "issues", "active-directory"],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -35,8 +35,7 @@
           "app/helpers.php"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Adldap\\Orchestra\\": "workbench/Adldap2/Adldap2-Orchestra/src/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
