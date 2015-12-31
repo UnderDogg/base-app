@@ -170,6 +170,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Providers\AuthorizationServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,

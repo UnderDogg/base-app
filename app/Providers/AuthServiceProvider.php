@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Policies\GlobalPolicy;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Orchestra\Contracts\Foundation\Foundation;
 
@@ -29,13 +30,5 @@ class AuthServiceProvider extends ServiceProvider
 
             $gate->define($method, $callback);
         }
-
-        $this->app->booted(function () use ($foundation) {
-            if ($foundation->installed()) {
-                // If foundation is installed, we can register the
-                // Authorization Service Provider.
-                $this->app->register(AuthorizationServiceProvider::class);
-            }
-        });
     }
 }

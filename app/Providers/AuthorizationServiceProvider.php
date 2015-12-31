@@ -20,11 +20,11 @@ class AuthorizationServiceProvider extends ServiceProvider
     {
         $policies = config('authorization.policies');
 
-        $memory = $foundation->memory();
-
         $roles = Role::all()->pluck('name');
 
-        $this->app->booted(function () use ($policies, $memory, $roles) {
+        $this->app->booted(function () use ($foundation, $policies, $roles) {
+            $memory = $foundation->memory();
+
             foreach ($policies as $policy) {
                 $acl = ACL::make($policy);
 
