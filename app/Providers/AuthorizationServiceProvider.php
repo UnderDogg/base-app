@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Foundation\Foundation;
 use Orchestra\Memory\MemoryManager;
 use Orchestra\Model\Role;
