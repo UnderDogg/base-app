@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Contracts\Memory\Provider;
 use Orchestra\Contracts\Foundation\Foundation;
+use Orchestra\Memory\MemoryManager;
 use Orchestra\Model\Role;
 use Orchestra\Support\Facades\ACL;
 
@@ -16,34 +19,40 @@ class AuthorizationServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Foundation $foundation)
+    public function boot()
     {
         $policies = config('authorization.policies');
 
         $roles = Role::all()->pluck('name');
 
-        $this->app->booted(function () use ($foundation, $policies, $roles) {
-            $memory = $foundation->memory();
+        $this->app->booted(function (Application $app) use ($policies, $roles) {
+            $foundation = $app->make(Foundation::class);
 
-            foreach ($policies as $policy) {
-                $acl = ACL::make($policy);
+            $manager = $app->make(MemoryManager::class);
 
-                $acl->attach($memory);
+            if ($foundation instanceof Foundation && $manager instanceof MemoryManager) {
+                $memory = $manager->makeOrFallback($manager->getDefaultDriver());
 
-                $actions = [];
+                foreach ($policies as $policy) {
+                    $acl = ACL::make($policy);
 
-                if (property_exists($policy, 'actions') && $policy = app($policy)) {
-                    $actions = array_merge($actions, $policy->actions);
-                }
+                    $acl->attach($memory);
 
-                $acl->roles()->attach($roles);
+                    $actions = [];
 
-                $acl->actions()->attach($actions);
+                    if (property_exists($policy, 'actions') && $policy = app($policy)) {
+                        $actions = array_merge($actions, $policy->actions);
+                    }
 
-                $admin = Role::admin();
+                    $acl->roles()->attach($roles);
 
-                if ($admin instanceof Role) {
-                    $acl->allow($admin->name, $actions);
+                    $acl->actions()->attach($actions);
+
+                    $admin = Role::admin();
+
+                    if ($admin instanceof Role) {
+                        $acl->allow($admin->name, $actions);
+                    }
                 }
             }
         });
