@@ -9,6 +9,11 @@ use App\Processors\Issue\IssueUserProcessor;
 class IssueUserController extends Controller
 {
     /**
+     * @var IssueUserProcessor
+     */
+    protected $processor;
+
+    /**
      * Constructor.
      *
      * @param IssueUserProcessor $processor

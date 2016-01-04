@@ -4,21 +4,18 @@ namespace App\Providers;
 
 use App\Policies\GlobalPolicy;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Orchestra\Contracts\Foundation\Foundation;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
      * Register any application authentication / authorization services.
      *
-     * @param Gate       $gate
-     * @param Foundation $foundation
+     * @param Gate $gate
      *
      * @return void
      */
-    public function boot(Gate $gate, Foundation $foundation)
+    public function boot(Gate $gate)
     {
         $this->policies = config('authorization.policies');
 

@@ -16,6 +16,11 @@ class ComputerAccessProcessor extends Processor
     protected $computer;
 
     /**
+     * @var ComputerAccessPresenter
+     */
+    protected $presenter;
+
+    /**
      * Constructor.
      *
      * @param Computer                $computer

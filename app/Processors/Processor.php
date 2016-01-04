@@ -2,7 +2,7 @@
 
 namespace App\Processors;
 
-use Illuminate\Auth\Access\UnauthorizedException;
+use Illuminate\Contracts\Validation\UnauthorizedException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 

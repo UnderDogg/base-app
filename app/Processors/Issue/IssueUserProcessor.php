@@ -10,6 +10,16 @@ use App\Processors\Processor;
 class IssueUserProcessor extends Processor
 {
     /**
+     * @var Issue
+     */
+    protected $issue;
+
+    /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      * Constructor.
      *
      * @param Issue $issue

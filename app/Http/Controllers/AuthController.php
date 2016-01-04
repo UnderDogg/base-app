@@ -17,6 +17,11 @@ class AuthController extends Controller
     use ThrottlesLogins;
 
     /**
+     * @var LoginPresenter
+     */
+    protected $presenter;
+
+    /**
      * The username string to use for authentication.
      *
      * @var string

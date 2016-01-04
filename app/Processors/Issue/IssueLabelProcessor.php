@@ -10,6 +10,16 @@ use App\Processors\Processor;
 class IssueLabelProcessor extends Processor
 {
     /**
+     * @var Issue
+     */
+    protected $issue;
+
+    /**
+     * @var Label
+     */
+    protected $label;
+
+    /**
      * Constructor.
      *
      * @param Issue $issue
