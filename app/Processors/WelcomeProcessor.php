@@ -60,11 +60,19 @@ class WelcomeProcessor extends Processor
         $minutes = 30;
 
         $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
-            return $this->feed($weatherFeed);
+            try {
+                return $this->feed($weatherFeed);
+            } catch (Exception $e) {
+                return $this->cache->get('feeds.weather');
+            }
         });
 
         $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
-            return $this->feed($articleFeed);
+            try {
+                return $this->feed($articleFeed);
+            } catch (Exception $e) {
+                return $this->cache->get('feeds.articles');
+            }
         });
 
         if (auth()->check()) {
@@ -87,32 +95,28 @@ class WelcomeProcessor extends Processor
 
         $collection = new Collection();
 
-        try {
-            $feed = RSS::feed($url);
+        $feed = RSS::feed($url);
 
-            if ($feed->articles instanceof Collection) {
-                $articles = $feed->articles->take(5)->each(function ($article) {
-                    $cleaned = $this->clean($article->description, [
-                        'HTML.Allowed' => '',
-                    ]);
+        if ($feed->articles instanceof Collection) {
+            $articles = $feed->articles->take(5)->each(function ($article) {
+                $cleaned = $this->clean($article->description, [
+                    'HTML.Allowed' => '',
+                ]);
 
-                    // We'll clean the articles description of any HTML.
-                    $article->description = str_limit($cleaned);
+                // We'll clean the articles description of any HTML.
+                $article->description = str_limit($cleaned);
 
-                    $date = Carbon::createFromTimestamp(strtotime($article->pubDate));
+                $date = Carbon::createFromTimestamp(strtotime($article->pubDate));
 
-                    // Reformat the publish date for clearer
-                    // indication of how old the article is.
-                    $article->pubDate = $date->diffForHumans();
-                });
+                // Reformat the publish date for clearer
+                // indication of how old the article is.
+                $article->pubDate = $date->diffForHumans();
+            });
 
-                $fluent->title = $feed->title;
-                $fluent->link = $feed->link;
-                $fluent->description = $feed->description;
-                $fluent->articles = $collection->merge($articles);
-            }
-        } catch (Exception $e) {
-            // Articles could not be loaded.
+            $fluent->title = $feed->title;
+            $fluent->link = $feed->link;
+            $fluent->description = $feed->description;
+            $fluent->articles = $collection->merge($articles);
         }
 
         return $fluent;
