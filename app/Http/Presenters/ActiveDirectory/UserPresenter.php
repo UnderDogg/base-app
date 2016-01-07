@@ -23,8 +23,6 @@ class UserPresenter extends Presenter
     public function table(array $users = [])
     {
         return $this->table->of('active-directory.users', function (TableGrid $table) use ($users) {
-            $table->attributes('class', 'table table-hover');
-
             $table->rows($users);
 
             $table->column('name', function ($column) {

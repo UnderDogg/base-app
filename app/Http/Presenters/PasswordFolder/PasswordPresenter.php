@@ -20,8 +20,6 @@ class PasswordPresenter extends Presenter
     public function table($password)
     {
         return $this->table->of('passwords', function (TableGrid $table) use ($password) {
-            $table->attributes('class', 'table table-hover');
-
             $table->with($password)->paginate($this->perPage);
 
             $table->column('title', function ($column) {

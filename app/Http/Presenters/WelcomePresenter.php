@@ -21,8 +21,6 @@ class WelcomePresenter extends Presenter
         return $this->table->of('technology.feed', function (TableGrid $table) use ($articles) {
             $table->rows($articles->toArray());
 
-            $table->attributes(['class' => 'table-hover']);
-
             $table->column('title')
                 ->value(function ($article) {
                     return $article->title;

@@ -139,8 +139,6 @@ class GuideStepPresenter extends Presenter
 
             $table->layout('pages.resources.guides.steps._table');
 
-            $table->attributes(['class' => 'table table-hover']);
-
             $table->column('move')
                 ->attributes(function (GuideStep $step) {
                     return [

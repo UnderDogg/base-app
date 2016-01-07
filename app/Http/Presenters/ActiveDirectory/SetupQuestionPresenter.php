@@ -26,8 +26,6 @@ class SetupQuestionPresenter extends Presenter
         return $this->table->of('active-directory.security-questions', function (TableGrid $table) use ($questions) {
             $table->rows($questions);
 
-            $table->attributes(['class' => 'table table-hover']);
-
             $table->column('question', function (Column $column) {
                 $column->value = function ($question) {
                     return link_to_route('security-questions.edit', $question['content'], [$question['id']]);

@@ -25,8 +25,6 @@ class QuestionPresenter extends Presenter
 
             $table->searchable(['content']);
 
-            $table->attributes('class', 'table table-hover');
-
             $table->column('content', function ($column) {
                 $column->label = 'Question';
 

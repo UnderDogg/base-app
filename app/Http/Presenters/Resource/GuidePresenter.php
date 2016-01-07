@@ -44,8 +44,6 @@ class GuidePresenter extends Presenter
                 'description',
             ]);
 
-            $table->attributes(['class' => 'table table-hover']);
-
             $table
                 ->column('title')
                 ->value(function (Guide $guide) {

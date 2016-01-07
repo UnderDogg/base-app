@@ -26,10 +26,6 @@ class LabelPresenter extends Presenter
                 'name',
             ]);
 
-            $table->attributes([
-                'class' => 'table table-hover',
-            ]);
-
             $table->column('name', function (Column $column) {
                 $column->label = 'Label';
 

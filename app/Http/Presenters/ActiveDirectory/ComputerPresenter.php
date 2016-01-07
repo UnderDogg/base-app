@@ -22,8 +22,6 @@ class ComputerPresenter extends Presenter
     public function table(array $computers = [])
     {
         return $this->table->of('active-directory.computers', function (TableGrid $table) use ($computers) {
-            $table->attributes('class', 'table table-hover');
-
             $table->rows($computers);
 
             $table->column('name', function ($column) {
