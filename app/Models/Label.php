@@ -48,13 +48,31 @@ class Label extends Model
     public static function getColors()
     {
         return [
-            'default'   => static::formatColorLabel('default'),
-            'info'      => static::formatColorLabel('info'),
-            'primary'   => static::formatColorLabel('primary'),
-            'success'   => static::formatColorLabel('success'),
-            'warning'   => static::formatColorLabel('warning'),
-            'danger'    => static::formatColorLabel('danger'),
+            'default'   => 'default',
+            'info'      => 'info',
+            'primary'   => 'primary',
+            'success'   => 'success',
+            'warning'   => 'warning',
+            'danger'    => 'danger',
         ];
+    }
+
+    /**
+     * Returns an array of available label colors.
+     *
+     * @return array
+     */
+    public static function getColorsFormatted()
+    {
+        $colors = static::getColors();
+
+        $formatted = [];
+
+        foreach ($colors as $color) {
+            $formatted[$color] = static::formatColorLabel($color);
+        }
+
+        return $formatted;
     }
 
     /**

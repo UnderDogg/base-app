@@ -95,7 +95,7 @@ class LabelPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $options = $label::getColors();
+            $options = $label::getColorsFormatted();
 
             $form->fieldset(function (Fieldset $fieldset) use ($options) {
                 $fieldset->control('input:text', 'name')
