@@ -221,7 +221,7 @@ class Computer extends Model
      *
      * @return string
      */
-    private function createCheck($bool = false, $text = '')
+    protected function createCheck($bool = false, $text = '')
     {
         if ($bool) {
             $check = HTML::create('i', '', ['class' => 'fa fa-check']);
