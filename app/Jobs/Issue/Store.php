@@ -3,8 +3,8 @@
 namespace App\Jobs\Issue;
 
 use App\Http\Requests\IssueRequest;
-use App\Models\Issue;
 use App\Jobs\Job;
+use App\Models\Issue;
 
 class Store extends Job
 {
