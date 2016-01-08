@@ -5,7 +5,8 @@ namespace App\Processors\Issue;
 use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Requests\IssueRequest;
 use App\Jobs\CloseIssue;
-use App\Jobs\CreateIssue;
+use App\Jobs\Issue\Store;
+use App\Jobs\Issue\Update;
 use App\Jobs\OpenIssue;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -96,15 +97,9 @@ class IssueProcessor extends Processor
      */
     public function store(IssueRequest $request)
     {
-        $title = $request->input('title');
-        $description = $request->input('description');
-        $occurredAt = $request->input('occurred_at');
-        $labels = $request->input('labels', []);
-        $users = $request->input('users', []);
+        $issue = $this->issue->newInstance();
 
-        $job = new CreateIssue($title, $description, $occurredAt, $labels, $users);
-
-        return $this->dispatch($job);
+        return $this->dispatch(new Store($request, $issue));
     }
 
     /**
@@ -174,15 +169,7 @@ class IssueProcessor extends Processor
         // Check user authorization.
         $this->authorize($issue);
 
-        $issue->title = $request->input('title', $issue->title);
-        $issue->description = $request->input('description', $issue->description);
-        $issue->occurred_at = $request->input('occurred_at', $issue->occurred_at);
-
-        if ($issue->save()) {
-            return $issue;
-        }
-
-        return false;
+        return $this->dispatch(new Update($request, $issue));
     }
 
     /**
@@ -219,9 +206,7 @@ class IssueProcessor extends Processor
         $this->authorize($issue);
 
         if ($issue->isOpen()) {
-            $this->dispatch(new CloseIssue($issue));
-
-            return true;
+            return $this->dispatch(new CloseIssue($issue));
         }
 
         return false;
@@ -243,9 +228,7 @@ class IssueProcessor extends Processor
         $this->authorize($issue);
 
         if ($issue->isClosed()) {
-            $this->dispatch(new OpenIssue($issue));
-
-            return true;
+            return $this->dispatch(new OpenIssue($issue));
         }
 
         return false;

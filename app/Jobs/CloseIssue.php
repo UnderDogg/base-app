@@ -30,7 +30,7 @@ class CloseIssue extends Job
     {
         $this->issue->closed = true;
         $this->issue->closed_at = $this->issue->freshTimestamp();
-        $this->issue->closed_by_user_id = auth()->user()->getKey();
+        $this->issue->closed_by_user_id = auth()->id();
 
         return $this->issue->save();
     }
