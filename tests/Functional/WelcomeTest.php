@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Functional;
+
+use App\Tests\TestCase;
 
 class WelcomeTest extends TestCase
 {

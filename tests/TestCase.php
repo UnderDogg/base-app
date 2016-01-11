@@ -93,7 +93,5 @@ abstract class TestCase extends ApplicationTestCase
             'submit'    => 'orchestra/foundation::label.submit',
             'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
         ]);
-
-        // $app['router']->disableFilters();
     }
 }

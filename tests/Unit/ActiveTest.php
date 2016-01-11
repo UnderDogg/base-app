@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Unit;
 
-use App\Http\Active;
 use Illuminate\Support\Facades\Route;
+use App\Http\Active;
+use App\Tests\TestCase;
 
 class ActiveTest extends TestCase
 {

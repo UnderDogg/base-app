@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Functional;
 
 use App\Models\Issue;
 use App\Models\User;
+use App\Tests\TestCase;
 
 class IssueTest extends TestCase
 {
