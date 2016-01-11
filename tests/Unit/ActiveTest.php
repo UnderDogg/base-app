@@ -2,9 +2,9 @@
 
 namespace App\Tests\Unit;
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Active;
 use App\Tests\TestCase;
+use Illuminate\Support\Facades\Route;
 
 class ActiveTest extends TestCase
 {
