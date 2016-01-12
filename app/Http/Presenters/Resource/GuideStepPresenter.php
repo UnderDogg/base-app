@@ -68,7 +68,7 @@ class GuideStepPresenter extends Presenter
                             ]);
 
                             // Return the result as raw HTML.
-                            return HTML::raw("<div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo <br> $button</div>");
+                            return HTML::raw("<div class='col-md-6 text-center'>$photo <br> $button</div>");
                         };
                     });
                 }
