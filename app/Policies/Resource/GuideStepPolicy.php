@@ -7,6 +7,13 @@ use App\Policies\Policy;
 class GuideStepPolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Guide Step Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [

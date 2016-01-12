@@ -8,6 +8,13 @@ use App\Models\User;
 class CommentPolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Comment Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [

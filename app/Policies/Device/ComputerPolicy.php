@@ -7,6 +7,13 @@ use App\Policies\Policy;
 class ComputerPolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Device Computer Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [

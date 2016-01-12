@@ -8,6 +8,13 @@ use App\Policies\Policy;
 class GuidePolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Guide Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [

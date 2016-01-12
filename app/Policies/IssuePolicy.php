@@ -8,6 +8,13 @@ use App\Models\User;
 class IssuePolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Issue Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [

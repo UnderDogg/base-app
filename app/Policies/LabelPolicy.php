@@ -5,6 +5,13 @@ namespace App\Policies;
 class LabelPolicy extends Policy
 {
     /**
+     * The policy name.
+     *
+     * @var string
+     */
+    protected $name = 'Label Policy';
+
+    /**
      * {@inheritdoc}
      */
     public $actions = [
