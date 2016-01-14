@@ -71,6 +71,11 @@ class UserProcessor extends Processor
         return view('pages.active-directory.users.index', compact('users', 'navbar'));
     }
 
+    /**
+     * Displays a form for creating a new user.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $user = $this->adldap->users()->newInstance();
@@ -122,26 +127,6 @@ class UserProcessor extends Processor
 
         if ($user instanceof User) {
             return view('pages.active-directory.users.show', compact('user'));
-        }
-
-        throw new NotFoundHttpException();
-    }
-
-    /**
-     * Displays all of the specified users raw attributes.
-     *
-     * @param string $username
-     *
-     * @return \Illuminate\View\View
-     */
-    public function attributes($username)
-    {
-        $user = $this->adldap->users()->find($username);
-
-        if ($user instanceof User) {
-            $attributes = $this->presenter->tableAttributes($user);
-
-            return view('pages.active-directory.users.attributes', compact('user', 'attributes'));
         }
 
         throw new NotFoundHttpException();

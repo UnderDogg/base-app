@@ -305,6 +305,9 @@ $router->group(['middleware' => ['web']], function ($router) {
             // The users resource.
             $router->resource('users', 'UserController');
 
+            // The user attributes resource.
+            $router->resource('users.attributes', 'UserAttributeController');
+
             // The questions resource.
             $router->resource('questions', 'QuestionController', [
                 'except' => ['show'],
@@ -314,12 +317,6 @@ $router->group(['middleware' => ['web']], function ($router) {
             $router->group(['as' => 'active-directory.'], function ($router) {
                 // Active Directory User Routes
                 $router->group(['as' => 'users.'], function ($router) {
-                    // Display a users raw attributes.
-                    $router->get('users/{users}/attributes', [
-                        'as' => 'attributes',
-                        'uses' => 'UserController@attributes',
-                    ]);
-
                     // Import an AD user.
                     $router->post('users/import', [
                         'as'   => 'import',

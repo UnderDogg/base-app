@@ -76,28 +76,7 @@ class UserPresenter extends Presenter
      */
     public function tableAttributes(AdUser $user)
     {
-        $raw = $user->getAttributes();
 
-        // We'll remove all numeric keys so we don't have any duplicate values.
-        $keys = array_intersect_key($raw, array_flip(array_filter(array_keys($raw), 'is_numeric')));
-
-        $attributes = [];
-
-        foreach ($keys as $attribute) {
-            $attributes[] = [$attribute => $user->getAttribute($attribute)];
-        }
-
-        $attributes = new Collection($attributes);
-
-        return $this->table->of('active-directory.users.attributes', function (TableGrid $table) use ($attributes) {
-            $table->rows($attributes);
-
-            $table->column('attribute', function (Column $column) {
-                $column->value = function (array $attribute) {
-                    return HTML::ul($attribute, ['class' => 'list-unstyled']);
-                };
-            });
-        });
     }
 
     /**
