@@ -21,18 +21,26 @@ class Active
     protected $output = 'active';
 
     /**
-     * The current route name.
+     * The current route.
      *
-     * @var string
+     * @var \Illuminate\Routing\Route
      */
-    protected $route = '';
+    protected $route;
+
+    /**
+     * The current request.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this->route = Route::currentRouteName();
+        $this->request = request();
+        $this->route = request()->route();
     }
 
     /**
@@ -45,7 +53,7 @@ class Active
      */
     public function route($route)
     {
-        $current = $this->route;
+        $current = $this->route->getName();
 
         if ($this->containsWildcard($route)) {
             // If the specified route contains a wildcard we'll remove it.
@@ -62,6 +70,28 @@ class Active
         // current route equals the specified route loosely.
         if ($current == $route) {
             return $this->output;
+        }
+
+        return;
+    }
+
+    /**
+     * Returns the output if the current request
+     * contains the specified key.
+     *
+     * @param string      $key
+     * @param string|null $value
+     *
+     * @return string
+     */
+    public function input($key = '', $value = null)
+    {
+        if ($this->request->has($key)) {
+            if (is_null($value)) {
+                return $this->output;
+            } else if ($this->request->input($key) == $value) {
+                return $this->output;
+            }
         }
 
         return;
