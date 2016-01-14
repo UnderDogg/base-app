@@ -1,18 +1,21 @@
 <?php
 
-$router->group(['middleware' => ['web']], function ($router) {
-    // Welcome Page
+use Illuminate\Routing\Router;
+
+/** @var Router $router */
+$router->group(['middleware' => ['web']], function (Router $router) {
+    // Welcome Page.
     $router->get('/', [
         'as'   => 'welcome.index',
         'uses' => 'WelcomeController@index',
     ]);
 
     // The resources route group. Unprotected by auth, but by policies.
-    $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function ($router) {
+    $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function (Router $router) {
         // The resources group.
-        $router->group(['as' => 'resources.'], function ($router) {
+        $router->group(['as' => 'resources.'], function (Router $router) {
             // The guides group.
-            $router->group(['prefix' => 'guides', 'as' => 'guides.'], function ($router) {
+            $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
                 // The guide favorites route (guarded by auth).
                 $router->get('favorites', [
                     'as'         => 'favorites',
@@ -21,7 +24,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                 ]);
 
                 // The specific guides group.
-                $router->group(['prefix' => '{guides}'], function ($router) {
+                $router->group(['prefix' => '{guides}'], function (Router $router) {
                     // The guide favorite route (guarded by auth).
                     $router->get('favorite', [
                         'as'         => 'favorite',
@@ -42,7 +45,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                     ]);
 
                     // The guide steps group.
-                    $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function ($router) {
+                    $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function (Router $router) {
                         // The guide step image download route.
                         $router->get('images/{images}', [
                             'as'   => 'images.download',
@@ -73,8 +76,8 @@ $router->group(['middleware' => ['web']], function ($router) {
     });
 
 // Auth Covered Routes.
-    $router->group(['middleware' => ['auth']], function ($router) {
-        $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function ($router) {
+    $router->group(['middleware' => ['auth']], function (Router $router) {
+        $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
             // The user profile details route.
             $router->get('/', [
                 'as'   => 'show',
@@ -94,7 +97,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             ]);
 
             // The profile avatar route group.
-            $router->group(['prefix' => 'avatar'], function ($router) {
+            $router->group(['prefix' => 'avatar'], function (Router $router) {
                 // The profile avatar route.
                 $router->get('/', [
                     'as'    => 'avatar',
@@ -115,7 +118,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             });
 
             // The profile password route group.
-            $router->group(['prefix' => 'password'], function ($router) {
+            $router->group(['prefix' => 'password'], function (Router $router) {
                 // The user profile password route.
                 $router->get('/', [
                     'as'   => 'password',
@@ -131,7 +134,7 @@ $router->group(['middleware' => ['web']], function ($router) {
         });
 
         // The Devices namespace group.
-        $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function ($router) {
+        $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function (Router $router) {
             // The drives resource.
             $router->resource('drives', 'DriveController');
 
@@ -139,9 +142,9 @@ $router->group(['middleware' => ['web']], function ($router) {
             $router->resource('computers', 'ComputerController');
 
             // The Devices group.
-            $router->group(['as' => 'devices.'], function ($router) {
+            $router->group(['as' => 'devices.'], function (Router $router) {
                 // The Computer Device group.
-                $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function ($router) {
+                $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
                     // View Computer Hard Disks.
                     $router->get('disks', [
                         'as'   => 'disks.index',
@@ -174,7 +177,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                 });
 
                 // The Drive Device group.
-                $router->group(['prefix' => 'drives/{drives}', 'as' => 'drives.'], function ($router) {
+                $router->group(['prefix' => 'drives/{drives}', 'as' => 'drives.'], function (Router $router) {
                     $router->get('{path}', [
                         'as'   => 'show',
                         'uses' => 'DriveController@show',
@@ -184,10 +187,10 @@ $router->group(['middleware' => ['web']], function ($router) {
         });
 
         // The PasswordFolder namespace group.
-        $router->group(['namespace' => 'PasswordFolder'], function ($router) {
+        $router->group(['namespace' => 'PasswordFolder'], function (Router $router) {
             // The Passwords group
-            $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function ($router) {
-                $router->group(['middleware' => ['passwords.gate']], function ($router) {
+            $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function (Router $router) {
+                $router->group(['middleware' => ['passwords.gate']], function (Router $router) {
                     // Password Gate
                     $router->get('gate', [
                         'as'   => 'gate',
@@ -208,7 +211,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                 });
 
                 // Password Setup Routes
-                $router->group(['prefix' => 'setup'], function ($router) {
+                $router->group(['prefix' => 'setup'], function (Router $router) {
                     // Passwords Already Setup - Invalid Page
                     $router->get('invalid', [
                         'as'   => 'setup.invalid',
@@ -216,7 +219,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                     ]);
 
                     // Password Setup Covered Routes
-                    $router->group(['middleware' => ['passwords.setup']], function ($router) {
+                    $router->group(['middleware' => ['passwords.setup']], function (Router $router) {
                         // Password Setup
                         $router->get('/', [
                             'as'   => 'setup',
@@ -233,7 +236,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             });
 
             // The password locked middleware route group.
-            $router->group(['middleware' => ['passwords.locked']], function ($router) {
+            $router->group(['middleware' => ['passwords.locked']], function (Router $router) {
                 // Change Password Folder Pin.
                 $router->get('passwords/change-pin', [
                     'as'   => 'passwords.pin.change',
@@ -252,7 +255,7 @@ $router->group(['middleware' => ['web']], function ($router) {
         });
 
         // The issue router group.
-        $router->group(['namespace' => 'Issue'], function ($router) {
+        $router->group(['namespace' => 'Issue'], function (Router $router) {
             // Display all closed issues.
             $router->get('issues/closed', [
                 'as'   => 'issues.closed',
@@ -296,7 +299,7 @@ $router->group(['middleware' => ['web']], function ($router) {
         ]);
 
         // The active directory route group.
-        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'active-directory'], function ($router) {
+        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'active-directory'], function (Router $router) {
             // The computers resource.
             $router->resource('computers', 'ComputerController', [
                 'only' => ['index', 'store'],
@@ -314,9 +317,9 @@ $router->group(['middleware' => ['web']], function ($router) {
             ]);
 
             // Active Directory Routes.
-            $router->group(['as' => 'active-directory.'], function ($router) {
+            $router->group(['as' => 'active-directory.'], function (Router $router) {
                 // Active Directory User Routes
-                $router->group(['as' => 'users.'], function ($router) {
+                $router->group(['as' => 'users.'], function (Router $router) {
                     // Import an AD user.
                     $router->post('users/import', [
                         'as'   => 'import',
@@ -325,7 +328,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                 });
 
                 // Active Directory Computer Routes.
-                $router->group(['as' => 'computers.'], function ($router) {
+                $router->group(['as' => 'computers.'], function (Router $router) {
                     // Add all computers.
                     $router->post('add-all', [
                         'as'   => 'store.all',
@@ -335,7 +338,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             });
         });
 
-        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'security-questions', 'as' => 'security-questions.'], function ($router) {
+        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'security-questions', 'as' => 'security-questions.'], function (Router $router) {
             // Displays all the users security questions.
             $router->get('/', [
                 'as'         => 'index',
@@ -344,7 +347,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             ]);
 
             // Cover security question routes with setup middleware.
-            $router->group(['middleware' => 'security-questions.setup'], function ($router) {
+            $router->group(['middleware' => 'security-questions.setup'], function (Router $router) {
                 // Displays the security question setup pages per step.
                 $router->get('setup', [
                     'as'   => 'setup.step',
@@ -373,9 +376,9 @@ $router->group(['middleware' => ['web']], function ($router) {
     });
 
 // Authentication Routes.
-    $router->group(['prefix' => 'auth', 'as' => 'auth.'], function ($router) {
+    $router->group(['prefix' => 'auth', 'as' => 'auth.'], function (Router $router) {
         // Guest Auth Routes.
-        $router->group(['middleware' => ['guest']], function ($router) {
+        $router->group(['middleware' => ['guest']], function (Router $router) {
             // Displays login page.
             $router->get('login', [
                 'as'   => 'login.index',
@@ -389,7 +392,7 @@ $router->group(['middleware' => ['web']], function ($router) {
             ]);
 
             // The forgot password group.
-            $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function ($router) {
+            $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function (Router $router) {
                 // Displays forgot password page.
                 $router->get('/', [
                     'as'   => 'discover',
@@ -429,7 +432,7 @@ $router->group(['middleware' => ['web']], function ($router) {
         });
 
         // Only Auth Routes.
-        $router->group(['middleware' => ['auth']], function ($router) {
+        $router->group(['middleware' => ['auth']], function (Router $router) {
             $router->get('logout', [
                 'as'   => 'logout',
                 'uses' => 'AuthController@getLogout',
