@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Traits\CanPurifyTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Orchestra\Support\Facades\HTML;
 
@@ -123,6 +124,25 @@ class Issue extends Model
     public function comments()
     {
         return $this->belongsToMany(Comment::class, $this->tablePivotComments)->withPivot(['resolution']);
+    }
+
+    /**
+     * Scopes the specified query by a labels name.
+     *
+     * @param Builder $query
+     * @param string  $label
+     *
+     * @return Builder
+     */
+    public function scopeLabel(Builder $query, $label = '')
+    {
+        if (!empty($label)) {
+            $query->whereHas('labels', function (Builder $query) use ($label) {
+                return $query->where(['name' => $label]);
+            });
+        }
+
+        return $query;
     }
 
     /**

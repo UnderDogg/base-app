@@ -12,7 +12,7 @@
         </a>
     </li>
 
-    <li class="dropdown">
+    <li class="dropdown {{ active()->input('label') }}">
 
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-tags"></i>
@@ -23,8 +23,8 @@
         <ul class="dropdown-menu dropdown-menu-labels">
             @if(count($labels) > 0)
                 @foreach($labels as $label)
-                    <li>
-                        <a href="#">
+                    <li class="{{ active()->input('label', $label->name) }}">
+                        <a href="{{ route(request()->route()->getName(), ['label' => $label->name]) }}">
                             {!! $label->getDisplayLarge() !!}
                         </a>
                     </li>

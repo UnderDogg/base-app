@@ -30,7 +30,9 @@ class IssuePresenter extends Presenter
     {
         $issue = $this->applyPolicy($issue);
 
-        $issue->with($with)->latest();
+        $label = request('label');
+
+        $issue->with($with)->label($label)->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue, $closure) {
             if ($closure instanceof Closure) {
