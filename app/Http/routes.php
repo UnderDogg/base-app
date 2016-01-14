@@ -316,7 +316,7 @@ $router->group(['middleware' => ['web']], function ($router) {
                 $router->group(['as' => 'users.'], function ($router) {
                     // Display a users raw attributes.
                     $router->get('users/{users}/attributes', [
-                        'as' => 'attributes',
+                        'as'   => 'attributes',
                         'uses' => 'UserController@attributes',
                     ]);
 
