@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
-use App\Processors\ActiveDirectory\UserAttributeProcessor;
 use App\Http\Controllers\Controller;
+use App\Processors\ActiveDirectory\UserAttributeProcessor;
 
 class UserAttributeController extends Controller
 {
