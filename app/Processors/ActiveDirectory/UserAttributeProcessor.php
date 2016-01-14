@@ -2,9 +2,9 @@
 
 namespace App\Processors\ActiveDirectory;
 
+use Adldap\Contracts\Adldap;
 use Adldap\Models\User;
 use App\Http\Presenters\ActiveDirectory\UserAttributePresenter;
-use Adldap\Contracts\Adldap;
 use App\Processors\Processor;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -33,7 +33,7 @@ class UserAttributeProcessor extends Processor
     }
 
     /**
-     * Displays a table of all of the sp
+     * Displays a table of all of the sp.
      *
      * @param string $username
      *

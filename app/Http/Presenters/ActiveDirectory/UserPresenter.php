@@ -6,7 +6,6 @@ use Adldap\Models\User as AdUser;
 use Adldap\Objects\AccountControl;
 use App\Http\Presenters\Presenter;
 use App\Models\User;
-use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -76,7 +75,6 @@ class UserPresenter extends Presenter
      */
     public function tableAttributes(AdUser $user)
     {
-
     }
 
     /**

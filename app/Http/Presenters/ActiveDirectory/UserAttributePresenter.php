@@ -4,8 +4,8 @@ namespace App\Http\Presenters\ActiveDirectory;
 
 use Adldap\Models\User;
 use App\Http\Presenters\Presenter;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Support\Facades\HTML;
 
 class UserAttributePresenter extends Presenter
