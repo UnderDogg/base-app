@@ -33,7 +33,7 @@ class UserAttributeProcessor extends Processor
     }
 
     /**
-     * Displays a table of all of the sp.
+     * Displays a table of all of the specified users attributes.
      *
      * @param string $username
      *
@@ -62,6 +62,14 @@ class UserAttributeProcessor extends Processor
         //
     }
 
+    /**
+     * Displays the form for editing the specified users attribute.
+     *
+     * @param string $username
+     * @param string $attribute
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($username, $attribute)
     {
         $user = $this->adldap->users()->find($username);
