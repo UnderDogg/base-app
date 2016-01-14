@@ -32,6 +32,7 @@ class IssuePresenter extends Presenter
 
         $label = request('label');
 
+        // Filter issues with the specified request label.
         $issue->with($with)->label($label)->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue, $closure) {
@@ -148,13 +149,13 @@ class IssuePresenter extends Presenter
             $form->fieldset(function (Fieldset $fieldset) use ($issue) {
                 $fieldset->control('input:text', 'title')
                     ->label('Title')
-                    ->attributes(['placeholder' => 'Title']);
+                    ->attributes(['placeholder' => 'Enter a title that describes the issue in summary.']);
 
                 $fieldset->control('input:text', 'occurred_at')
                     ->label('Occurred At')
                     ->attributes([
                         'class'       => 'date-picker',
-                        'placeholder' => 'Click to select a date / time',
+                        'placeholder' => 'Click to select a date / time when the issue occured.',
                     ])
                     ->value(function (Issue $issue) {
                         return $issue->occurredAtForInput();
@@ -179,7 +180,7 @@ class IssuePresenter extends Presenter
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
                     ->attributes([
-                        'placeholder'  => 'Leave a comment',
+                        'placeholder'  => 'Enter the description of the issue.',
                         'data-provide' => 'markdown',
                     ]);
             });

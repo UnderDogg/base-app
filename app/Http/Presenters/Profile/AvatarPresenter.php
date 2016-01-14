@@ -49,10 +49,12 @@ class AvatarPresenter extends Presenter
                 }
 
                 $fieldset->control('input:file', 'image')
-                    ->label(($user->hasAvatar() ? 'Replace Image' : 'Image'));
+                    ->label(($user->hasAvatar() ? 'Replace Image' : 'Image'))
+                    ->help('Selecting an image will delete your current avatar!');
 
                 $fieldset->control('input:checkbox', 'generate')
                     ->label('Generate me an Avatar')
+                    ->help('The generated avatar will be a random color with your initials.')
                     ->attributes([
                         'class' => 'switch-mark',
                     ]);
