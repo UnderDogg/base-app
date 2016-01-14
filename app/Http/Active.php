@@ -89,7 +89,7 @@ class Active
         if ($this->request->has($key)) {
             if (is_null($value)) {
                 return $this->output;
-            } else if ($this->request->input($key) == $value) {
+            } elseif ($this->request->input($key) == $value) {
                 return $this->output;
             }
         }
