@@ -81,6 +81,18 @@ class UserController extends Controller
     }
 
     /**
+     * Displays the raw attributes of the specified user.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
+    public function attributes($username)
+    {
+        return $this->processor->attributes($username);
+    }
+
+    /**
      * Displays the form for editing the specified user.
      *
      * @param string $username

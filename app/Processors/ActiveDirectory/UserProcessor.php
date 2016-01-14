@@ -128,6 +128,26 @@ class UserProcessor extends Processor
     }
 
     /**
+     * Displays all of the specified users raw attributes.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
+    public function attributes($username)
+    {
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User) {
+            $attributes = $this->presenter->tableAttributes($user);
+
+            return view('pages.active-directory.users.attributes', compact('user', 'attributes'));
+        }
+
+        throw new NotFoundHttpException();
+    }
+
+    /**
      * Displays the form for editing the specified active directory user.
      *
      * @param string $username
