@@ -309,7 +309,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             $router->resource('users', 'UserController');
 
             // The user attributes resource.
-            $router->resource('users.attributes', 'UserAttributeController');
+            $router->resource('users.attributes', 'UserAttributeController', [
+                'except' => ['show'],
+            ]);
 
             // The questions resource.
             $router->resource('questions', 'QuestionController', [
