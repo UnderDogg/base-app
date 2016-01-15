@@ -71,7 +71,7 @@ class CreateDisk extends Job
             'name'        => $this->name,
         ]);
 
-        $disk->size = $this->size;
+        $disk->size = ($this->size ?: 0);
         $disk->installed = $this->installed;
         $disk->description = $this->description;
 
