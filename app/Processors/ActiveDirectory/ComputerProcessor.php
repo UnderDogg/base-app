@@ -57,9 +57,9 @@ class ComputerProcessor extends Processor
                 ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
         }
 
-        $all = $search->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->get();
+        $paginator = $search->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
 
-        $computers = $this->presenter->table($all->toArray());
+        $computers = $this->presenter->table($paginator->getResults());
 
         $navbar = $this->presenter->navbar();
 
