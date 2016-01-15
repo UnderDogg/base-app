@@ -24,7 +24,7 @@ class CreateAccess extends Job
      *
      * @var bool|false
      */
-    protected $activeDirectory = false;
+    protected $ad = false;
 
     /**
      * The bool to determine whether the computer
@@ -52,15 +52,15 @@ class CreateAccess extends Job
      * Constructor.
      *
      * @param Computer    $computer
-     * @param bool|false  $activeDirectory
+     * @param bool|false  $ad
      * @param bool|false  $wmi
      * @param string|null $wmiUsername
      * @param string|null $wmiPassword
      */
-    public function __construct(Computer $computer, $activeDirectory = false, $wmi = false, $wmiUsername = null, $wmiPassword = null)
+    public function __construct(Computer $computer, $ad = false, $wmi = false, $wmiUsername = null, $wmiPassword = null)
     {
         $this->computer = $computer;
-        $this->activeDirectory = $activeDirectory;
+        $this->ad = $ad;
         $this->wmi = $wmi;
         $this->wmiUsername = $wmiUsername;
         $this->wmiPassword = $wmiPassword;
@@ -77,7 +77,7 @@ class CreateAccess extends Job
     {
         $access = $access->firstOrNew(['computer_id' => $this->computer->getKey()]);
 
-        $access->active_directory = $this->activeDirectory;
+        $access->active_directory = $this->ad;
         $access->wmi = $this->wmi;
         $access->wmi_username = $this->wmiUsername;
         $access->wmi_password = $this->wmiPassword;
