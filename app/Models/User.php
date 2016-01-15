@@ -89,22 +89,20 @@ class User extends Eloquent implements AuthorizableContract
      */
     public function getInitials()
     {
-        $fullName = preg_replace('/[^ \w]+/', '', $this->fullname);
+        $name = explode(' ', $this->getRecipientName());
 
-        $name = explode(' ', $fullName);
+        if (count ($name) > 1) {
+            list ($first, $last) = $name;
+        } else {
+            list($first) = $name;
 
-        $first = '';
-        $last = '';
-
-        if (array_key_exists(0, $name)) {
-            $first = substr(strtoupper($name[0]), 0, 1);
+            $last = null;
         }
 
-        if (array_key_exists(1, $name)) {
-            $last = substr(strtoupper($name[1]), 0, 1);
-        }
+        $firstInitial = substr(strtoupper($first), 0, 1);
+        $lastInitial = substr(strtoupper($last), 0, 1);
 
-        return strtoupper($first.$last);
+        return strtoupper($firstInitial.$lastInitial);
     }
 
     /**
