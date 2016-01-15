@@ -64,7 +64,7 @@ class QuestionRequest extends Request
 
             // If we have exactly two parts, we can work with the error message.
             if (count($parts) === 2) {
-                list ($name, $key) = $parts;
+                list($name, $key) = $parts;
 
                 $field = sprintf('%s[%s]', $name, $key);
 
