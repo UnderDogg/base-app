@@ -114,7 +114,7 @@ class ComputerProcessor extends Processor
         ];
 
         $computer = $this->computer->with($with)->findOrFail($id);
-
+        
         return view('pages.devices.computers.show.details', compact('computer'));
     }
 

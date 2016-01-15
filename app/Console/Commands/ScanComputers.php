@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\Com\Computer\ScanDisks;
+use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -34,8 +35,6 @@ class ScanComputers extends Command
      * Create a new command instance.
      *
      * @param Computer $computer
-     *
-     * @return void
      */
     public function __construct(Computer $computer)
     {
@@ -56,6 +55,10 @@ class ScanComputers extends Command
         $scanned = 0;
 
         foreach ($computers as $computer) {
+            // Check the computers status.
+            $this->dispatch(new CreateStatus($computer));
+
+            // Scan the computers disks
             $this->dispatch(new ScanDisks($computer));
 
             ++$scanned;
