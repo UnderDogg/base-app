@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Device;
 
-use App\Processors\Device\ComputerCpuProcessor;
 use App\Http\Controllers\Controller;
+use App\Processors\Device\ComputerCpuProcessor;
 
 class ComputerCpuController extends Controller
 {
