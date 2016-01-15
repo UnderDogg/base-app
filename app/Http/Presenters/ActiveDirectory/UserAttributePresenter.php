@@ -6,9 +6,9 @@ use Adldap\Models\User;
 use App\Http\Presenters\Presenter;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Support\Facades\HTML;
 
 class UserAttributePresenter extends Presenter

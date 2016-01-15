@@ -57,8 +57,6 @@ class UserAttributeController extends Controller
     }
 
     /**
-     *
-     *
      * @param string $username
      * @param string $attribute
      *

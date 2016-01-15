@@ -2,7 +2,7 @@
 
 use Illuminate\Routing\Router;
 
-/** @var Router $router */
+/* @var Router $router */
 $router->group(['middleware' => ['web']], function (Router $router) {
     // Welcome Page.
     $router->get('/', [
