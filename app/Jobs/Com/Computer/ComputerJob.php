@@ -20,6 +20,20 @@ abstract class ComputerJob extends Job
     protected $wmi;
 
     /**
+     * The username used to connect to the computer.
+     *
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * The password used to connect to the computer.
+     *
+     * @var string
+     */
+    protected $password;
+
+    /**
      * Constructor.
      *
      * @param Computer $computer
@@ -31,6 +45,9 @@ abstract class ComputerJob extends Job
         list($username, $password) = $this->getCredentials();
 
         $this->wmi = new Wmi($this->computer->name, $username, $password);
+
+        $this->username = $username;
+        $this->password = $password;
     }
 
     /**
