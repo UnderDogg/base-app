@@ -61,7 +61,7 @@ class IssuePresenter extends Presenter
                 };
 
                 $column->attributes(function () {
-                    return ['width' => '5'];
+                    return ['width' => '30'];
                 });
             });
 
