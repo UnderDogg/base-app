@@ -3,8 +3,8 @@
 namespace App\Jobs\Com\Computer;
 
 use App\Jobs\Computer\CreateAccess;
-use Stevebauman\Wmi\Schemas\Namespaces;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Stevebauman\Wmi\Schemas\Namespaces;
 
 class CheckConnectivity extends ComputerJob
 {
