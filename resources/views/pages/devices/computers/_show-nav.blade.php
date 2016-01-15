@@ -5,7 +5,7 @@
             Details
         </a>
     </li>
-    <li role="presentation">
+    <li role="presentation" class="{{ active()->route('devices.computers.disks.*') }}">
         <a title="Computer Hard Disks" href="{{ route('devices.computers.disks.index', [$computer->getKey()]) }}">
             <i class="fa fa-hdd-o"></i>
             Disks
