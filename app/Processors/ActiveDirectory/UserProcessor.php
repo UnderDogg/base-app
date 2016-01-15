@@ -60,11 +60,11 @@ class UserProcessor extends Processor
                 ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
         }
 
-        $all = $search
+        $paginator = $search
             ->whereHas(ActiveDirectory::EMAIL)
-            ->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->get();
+            ->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
 
-        $users = $this->presenter->table($all->toArray());
+        $users = $this->presenter->table($paginator->getResults());
 
         $navbar = $this->presenter->navbar();
 
