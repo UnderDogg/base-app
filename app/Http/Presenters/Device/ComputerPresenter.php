@@ -21,6 +21,8 @@ class ComputerPresenter extends Presenter
      */
     public function table(Computer $computer)
     {
+        $computer = $computer->orderBy('name', 'asc');
+
         return $this->table->of('computers', function (TableGrid $table) use ($computer) {
             $table->with($computer)->paginate($this->perPage);
 
