@@ -51,13 +51,8 @@ class UserAttributeController extends Controller
         //
     }
 
-    public function show($username, $attribute)
-    {
-        return $this->processor->show($username, $attribute);
-    }
-
     /**
-     *
+     * Displays the form for editing the users specified attribute.
      *
      * @param string $username
      * @param string $attribute
