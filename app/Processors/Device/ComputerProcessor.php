@@ -7,6 +7,7 @@ use Adldap\Models\Computer as AdComputer;
 use App\Http\Presenters\Device\ComputerPresenter;
 use App\Http\Requests\Device\ComputerRequest;
 use App\Jobs\ActiveDirectory\ImportComputer;
+use App\Jobs\Com\Computer\Processes;
 use App\Jobs\Computer\Create;
 use App\Models\Computer;
 use App\Models\ComputerType;

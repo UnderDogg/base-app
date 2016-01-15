@@ -201,6 +201,11 @@ return [
          * RSS Feed Fetcher
          */
         Vinelab\Rss\RssServiceProvider::class,
+
+        /*
+         * Charts Service Provider.
+         */
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
     ],
 
     /*

@@ -157,6 +157,18 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         'uses' => 'ComputerDiskController@synchronize',
                     ]);
 
+                    // View Computer CPU usage.
+                    $router->get('cpu', [
+                        'as'   => 'cpu.index',
+                        'uses' => 'ComputerCpuController@index',
+                    ]);
+
+                    // View Computer CPU usage (JSON).
+                    $router->get('cpu/json', [
+                        'as'   => 'cpu.json',
+                        'uses' => 'ComputerCpuController@json',
+                    ]);
+
                     // Edit Computer Access.
                     $router->get('access', [
                         'as'   => 'access.edit',
