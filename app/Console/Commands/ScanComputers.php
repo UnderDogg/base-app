@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Com\Computer\ScanDisks;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
@@ -58,8 +59,11 @@ class ScanComputers extends Command
             // Check the computers status.
             $this->dispatch(new CreateStatus($computer));
 
-            // Scan the computers disks
-            $this->dispatch(new ScanDisks($computer));
+            // Check the WMI connectivity to the computer.
+            if ($this->dispatch(new CheckConnectivity($computer))) {
+                // Scan the computers disks.
+                $this->dispatch(new ScanDisks($computer));
+            }
 
             ++$scanned;
         }
