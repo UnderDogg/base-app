@@ -29,7 +29,7 @@ class Processes extends ComputerJob
         if (array_key_exists('_Total', $processes)) {
             // We'll overwrite the total percentage since it is usually
             // inaccurate as it includes idle percentage.
-            $processes['total'] = array_sum(array_except($processes, ['Idle', '_Total']));
+            $processes['total'] = array_sum(array_except($processes, ['Idle', 'System', '_Total']));
         }
 
         return $processes;
