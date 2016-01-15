@@ -91,8 +91,8 @@ class User extends Eloquent implements AuthorizableContract
     {
         $name = explode(' ', $this->getRecipientName());
 
-        if (count ($name) > 1) {
-            list ($first, $last) = $name;
+        if (count($name) > 1) {
+            list($first, $last) = $name;
         } else {
             list($first) = $name;
 

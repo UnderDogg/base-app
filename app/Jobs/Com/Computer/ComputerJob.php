@@ -2,9 +2,9 @@
 
 namespace App\Jobs\Com\Computer;
 
-use App\Models\ComputerAccess;
-use App\Models\Computer;
 use App\Jobs\Job;
+use App\Models\Computer;
+use App\Models\ComputerAccess;
 use Stevebauman\Wmi\Wmi;
 
 abstract class ComputerJob extends Job
@@ -54,7 +54,7 @@ abstract class ComputerJob extends Job
         if (is_null($username) && is_null($password)) {
             $prefix = 'adldap.connection_settings';
 
-            $username = config("$prefix.admin_username") . config("$prefix.account_suffix");
+            $username = config("$prefix.admin_username").config("$prefix.account_suffix");
             $password = config("$prefix.admin_password");
         }
 
