@@ -46,15 +46,32 @@ class UserAttributeProcessor extends Processor
         if ($user instanceof User) {
             $attributes = $this->presenter->table($user);
 
-            return view('pages.active-directory.users.attributes.index', compact('user', 'attributes'));
+            $navbar = $this->presenter->navbar($user);
+
+            return view('pages.active-directory.users.attributes.index', compact('user', 'attributes', 'navbar'));
         }
 
         throw new NotFoundHttpException();
     }
 
+    /**
+     * Displays the form for creating an attribute on the specified user.
+     *
+     * @param string $username
+     *
+     * @return \Illuminate\View\View
+     */
     public function create($username)
     {
-        //
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User) {
+            $form = $this->presenter->form($user);
+
+            return view('pages.active-directory.users.attributes.create', compact('user', 'form'));
+        }
+
+        throw new NotFoundHttpException();
     }
 
     public function store($username)
@@ -75,7 +92,9 @@ class UserAttributeProcessor extends Processor
         $user = $this->adldap->users()->find($username);
 
         if ($user instanceof User && $user->hasAttribute($attribute)) {
-            return view('pages.active-directory.users.attributes.edit', compact('user', 'attribute'));
+            $form = $this->presenter->form($user, $attribute);
+
+            return view('pages.active-directory.users.attributes.edit', compact('user', 'attribute', 'form'));
         }
 
         throw new NotFoundHttpException();
@@ -86,8 +105,22 @@ class UserAttributeProcessor extends Processor
         //
     }
 
+    /**
+     * Deletes the users specified attribute.
+     *
+     * @param string $username
+     * @param string $attribute
+     *
+     * @return bool
+     */
     public function destroy($username, $attribute)
     {
-        //
+        $user = $this->adldap->users()->find($username);
+
+        if ($user instanceof User && $user->hasAttribute($attribute)) {
+            return $user->deleteAttribute($attribute);
+        }
+
+        throw new NotFoundHttpException();
     }
 }

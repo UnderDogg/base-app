@@ -6,6 +6,8 @@
 
 @section('content')
 
+    @decorator('navbar', $navbar)
+
     {!! $attributes !!}
 
 @endsection

@@ -67,17 +67,6 @@ class UserPresenter extends Presenter
     }
 
     /**
-     * Returns a table of all of the users raw attributes.
-     *
-     * @param AdUser $user
-     *
-     * @return \Orchestra\Contracts\Html\Builder
-     */
-    public function tableAttributes(AdUser $user)
-    {
-    }
-
-    /**
      * Returns a new form for the specified active directory user.
      *
      * @param AdUser $user

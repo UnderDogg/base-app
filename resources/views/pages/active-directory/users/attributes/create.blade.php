@@ -2,7 +2,7 @@
 
 @section('title')
 
-    Modifying {{ ucfirst($attribute) }} on {{ $user->getName() }}
+    Creating Attribute on {{ $user->getName() }}
 
 @endsection
 
