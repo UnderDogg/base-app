@@ -2,11 +2,11 @@
 
 namespace App\Processors\Device;
 
-use Khill\Lavacharts\Configs\DataTable;
 use App\Jobs\Com\Computer\Processes;
-use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 use App\Models\Computer;
 use App\Processors\Processor;
+use Khill\Lavacharts\Configs\DataTable;
+use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 
 class ComputerCpuProcessor extends Processor
 {
@@ -62,10 +62,10 @@ class ComputerCpuProcessor extends Processor
      *
      * @param Computer $computer
      *
-     * @return DataTable
-     *
      * @throws \Khill\Lavacharts\Exceptions\InvalidCellCount
      * @throws \Khill\Lavacharts\Exceptions\InvalidRowDefinition
+     *
+     * @return DataTable
      */
     protected function cpuDataTable(Computer $computer)
     {
@@ -85,30 +85,30 @@ class ComputerCpuProcessor extends Processor
     /**
      * Returns a new chart for the specified computers CPU usage.
      *
-     * @return \Khill\Lavacharts\Charts\GaugeChart
-     *
      * @throws \Khill\Lavacharts\Exceptions\InvalidCellCount
      * @throws \Khill\Lavacharts\Exceptions\InvalidRowDefinition
+     *
+     * @return \Khill\Lavacharts\Charts\GaugeChart
      */
     protected function cpuChart(DataTable $table)
     {
         /* @var \Khill\Lavacharts\Charts\GaugeChart */
         $chart = Lava::GaugeChart('cpu');
 
-        $chart->setOptions(array(
-            'datatable' => $table,
-            'width' => 400,
-            'greenFrom' => 0,
-            'greenTo' => 69,
+        $chart->setOptions([
+            'datatable'  => $table,
+            'width'      => 400,
+            'greenFrom'  => 0,
+            'greenTo'    => 69,
             'yellowFrom' => 70,
-            'yellowTo' => 89,
-            'redFrom' => 90,
-            'redTo' => 100,
-            'majorTicks' => array(
+            'yellowTo'   => 89,
+            'redFrom'    => 90,
+            'redTo'      => 100,
+            'majorTicks' => [
                 'Safe',
-                'Critical'
-            )
-        ));
+                'Critical',
+            ],
+        ]);
 
         return $chart;
     }
