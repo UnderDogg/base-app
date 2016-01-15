@@ -168,7 +168,7 @@ class Computer extends Model
      * Returns true / false if the current
      * computer can be accessed by WMI.
      *
-     * @return bool
+     * @return bool|ComputerAccess
      */
     public function getWmiAccess()
     {
