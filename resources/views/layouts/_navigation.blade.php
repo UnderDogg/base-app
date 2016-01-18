@@ -70,33 +70,23 @@
 
                     </li>
 
-                    <li class="dropdown" id="devices-menu">
+                    @can('view-all-computers', App\Models\Computer::class)
+                        <li class="{{ active()->route('devices.computers.*') }}">
+                            <a href="{{ route('devices.computers.index') }}">
+                                <i class="fa fa-desktop"></i>
+                                Computers
+                            </a>
+                        </li>
+                    @endcan
 
-                        <a href="#devices-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-desktop"></i>
-                            Devices
-                            <i class="fa fa-caret-down"></i>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li class="{{ active()->route('devices.*') }}">
-                                @can('view-all-computers', App\Models\Computer::class)
-                                <a href="{{ route('devices.computers.index') }}">
-                                    <i class="fa fa-desktop"></i>
-                                    Computers
-                                </a>
-                                @endcan
-
-                                @can('view-all-drives', App\Models\Drive::class)
-                                <a href="{{ route('devices.drives.index') }}">
-                                    <i class="fa fa-hdd-o"></i>
-                                    Drives
-                                </a>
-                                @endcan
-                            </li>
-                        </ul>
-
-                    </li>
+                    @can('view-all-drives', App\Models\Drive::class)
+                        <li class="{{ active()->route('devices.drives.*') }}">
+                            <a href="{{ route('devices.drives.index') }}">
+                                <i class="fa fa-hdd-o"></i>
+                                Drives
+                            </a>
+                        </li>
+                    @endcan
 
                     @can('index', Adldap\Models\Computer::class)
                     <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
