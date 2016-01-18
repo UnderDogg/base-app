@@ -69,7 +69,7 @@ class ComputerCpuProcessor extends Processor
      */
     protected function cpuDataTable(Computer $computer)
     {
-        $usage = $this->dispatch(new Processes($computer));
+        $processes = $this->dispatch(new Processes($computer));
 
         /* @var \Khill\Lavacharts\Configs\DataTable $cpu */
         $cpu = Lava::DataTable();
@@ -77,7 +77,7 @@ class ComputerCpuProcessor extends Processor
         $cpu
             ->addStringColumn('Type')
             ->addNumberColumn('Value')
-            ->addRow(['CPU', $usage['total']]);
+            ->addRow(['CPU', $processes['total']]);
 
         return $cpu;
     }
