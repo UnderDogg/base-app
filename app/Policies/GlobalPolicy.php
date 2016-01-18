@@ -7,6 +7,13 @@ use App\Models\User;
 class GlobalPolicy extends Policy
 {
     /**
+     * The policy display name.
+     *
+     * @var string
+     */
+    protected $name = 'Global Policies';
+
+    /**
      * Returns true / false if the specified user has access to the backend.
      *
      * @param User $user
