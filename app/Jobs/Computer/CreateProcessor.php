@@ -3,8 +3,8 @@
 namespace App\Jobs\Computer;
 
 use App\Jobs\Job;
-use App\Models\ComputerProcessor;
 use App\Models\Computer;
+use App\Models\ComputerProcessor;
 
 class CreateProcessor extends Job
 {
