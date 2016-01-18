@@ -2,6 +2,7 @@
     @can('index', App\Models\GuideStep::class)
     <li class="{{ active()->route('resources.guides.steps.index') }}">
         <a href="{{ route('resources.guides.steps.index', [$guide->getSlug()]) }}">
+            <i class="fa fa-list"></i>
             All Steps
         </a>
     </li>
@@ -9,13 +10,13 @@
     @can('create', App\Models\GuideStep::class)
     <li>
         <a href="{{ route('resources.guides.images', [$guide->getSlug()]) }}">
-            <i class="fa fa-plus"></i>
+            <i class="fa fa-plus-circle"></i>
             Add Steps by Images
         </a>
     </li>
     <li>
         <a href="{{ route('resources.guides.steps.create', [$guide->getSlug()]) }}">
-            <i class="fa fa-plus"></i>
+            <i class="fa fa-plus-circle"></i>
             New Step
         </a>
     </li>
