@@ -43,7 +43,7 @@ class AvatarPresenter extends Presenter
                             $photo = HTML::image($url, null, ['class' => 'img-responsive']);
 
                             // Return the result as raw HTML.
-                            return HTML::raw("<div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo</div>");
+                            return HTML::raw("<p><div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo</div></p>");
                         };
                     });
                 }
