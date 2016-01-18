@@ -51,12 +51,6 @@ class GuidePresenter extends Presenter
                 });
 
             $table
-                ->column('summary')
-                ->value(function (Guide $guide) {
-                    return $guide->summary();
-                });
-
-            $table
                 ->column('published')
                 ->value(function (Guide $guide) {
                     return $guide->publishedLabel();
