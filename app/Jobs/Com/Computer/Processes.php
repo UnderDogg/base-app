@@ -4,7 +4,7 @@ namespace App\Jobs\Com\Computer;
 
 use Stevebauman\Wmi\Schemas\Namespaces;
 
-class Processes extends ComputerJob
+class Processes extends AbstractComputerJob
 {
     /**
      * Execute the job.

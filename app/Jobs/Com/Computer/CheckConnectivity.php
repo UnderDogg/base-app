@@ -6,7 +6,7 @@ use App\Jobs\Computer\CreateAccess;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Stevebauman\Wmi\Schemas\Namespaces;
 
-class CheckConnectivity extends ComputerJob
+class CheckConnectivity extends AbstractComputerJob
 {
     use DispatchesJobs;
 

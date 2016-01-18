@@ -10,7 +10,7 @@ use Stevebauman\Wmi\ConnectionInterface;
 use Stevebauman\Wmi\Models\Variants\HardDisk;
 use Stevebauman\Wmi\Schemas\Namespaces;
 
-class ScanDisks extends ComputerJob
+class ScanDisks extends AbstractComputerJob
 {
     use DispatchesJobs;
 

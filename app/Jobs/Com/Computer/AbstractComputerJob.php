@@ -7,7 +7,7 @@ use App\Models\Computer;
 use App\Models\ComputerAccess;
 use Stevebauman\Wmi\Wmi;
 
-abstract class ComputerJob extends Job
+abstract class AbstractComputerJob extends Job
 {
     /**
      * @var Computer
