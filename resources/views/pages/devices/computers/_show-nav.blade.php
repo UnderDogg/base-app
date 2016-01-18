@@ -12,7 +12,7 @@
         </a>
     </li>
     <li role="presentation" class="{{ active()->route('devices.computers.cpu.*') }}">
-        <a title="Computer Hard Disks" href="{{ route('devices.computers.cpu.index', [$computer->getKey()]) }}">
+        <a title="Computer CPU Details" href="{{ route('devices.computers.cpu.index', [$computer->getKey()]) }}">
             <i class="fa fa-line-chart"></i>
             CPU
         </a>
