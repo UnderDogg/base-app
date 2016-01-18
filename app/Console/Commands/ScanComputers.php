@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Com\Computer\ScanDisks;
+use App\Jobs\Com\Computer\ScanProcessor;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
 use Illuminate\Console\Command;
@@ -63,6 +64,9 @@ class ScanComputers extends Command
             if ($this->dispatch(new CheckConnectivity($computer))) {
                 // Scan the computers disks.
                 $this->dispatch(new ScanDisks($computer));
+
+                // Scan the computers processor.
+                $this->dispatch(new ScanProcessor($computer));
             }
 
             ++$scanned;
