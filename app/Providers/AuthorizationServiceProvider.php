@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Policies\Policy;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Contracts\Foundation\Foundation;
@@ -21,17 +22,22 @@ class AuthorizationServiceProvider extends ServiceProvider
     {
         $policies = config('authorization.policies', []);
 
-        $roles = Role::all()->pluck('name')->toArray();
+        try {
+            $roles = Role::all()->pluck('name')->toArray();
 
-        $this->app->booted(function (Application $app) use ($policies, $roles) {
-            $foundation = $app->make(Foundation::class);
+            $this->app->booted(function (Application $app) use ($policies, $roles) {
+                $foundation = $app->make(Foundation::class);
 
-            $manager = $app->make(MemoryManager::class);
+                $manager = $app->make(MemoryManager::class);
 
-            if ($foundation instanceof Foundation && $manager instanceof MemoryManager) {
-                $this->registerPolicies($manager, $policies, $roles);
-            }
-        });
+                if ($foundation instanceof Foundation && $manager instanceof MemoryManager) {
+                    $this->registerPolicies($manager, $policies, $roles);
+                }
+            });
+        } catch (QueryException $e) {
+            // Application has no been installed yet.
+            // Roles table does not exist.
+        }
     }
 
     /**
