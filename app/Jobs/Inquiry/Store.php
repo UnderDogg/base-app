@@ -22,7 +22,7 @@ class Store extends Job
      * Constructor.
      *
      * @param InquiryRequest $request
-     * @param Inquiry $inquiry
+     * @param Inquiry        $inquiry
      */
     public function __construct(InquiryRequest $request, Inquiry $inquiry)
     {

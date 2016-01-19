@@ -324,7 +324,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The issue comments resource.
             $router->resource('tickets.comments', 'IssueCommentController', [
                 'except' => ['index', 'show'],
-                'names' => [
+                'names'  => [
                     'create'    => 'issues.comments.create',
                     'store'     => 'issues.comments.store',
                     'edit'      => 'issues.comments.edit',
@@ -335,7 +335,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The issue labels resource.
             $router->resource('tickets.labels', 'IssueLabelController', [
-                'only' => ['store'],
+                'only'  => ['store'],
                 'names' => [
                     'store' => 'issues.labels.store',
                 ],
@@ -343,7 +343,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The issue users resource.
             $router->resource('tickets.users', 'IssueUserController', [
-                'only' => ['store'],
+                'only'  => ['store'],
                 'names' => [
                     'store' => 'issues.users.store',
                 ],

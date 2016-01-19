@@ -2,13 +2,13 @@
 
 namespace App\Http\Presenters\Inquiry;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Category;
+use App\Models\Inquiry;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\Inquiry;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class InquiryPresenter extends Presenter
 {
