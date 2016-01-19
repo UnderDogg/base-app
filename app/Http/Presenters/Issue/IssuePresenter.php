@@ -259,8 +259,8 @@ class IssuePresenter extends Presenter
     public function navbar(Collection $labels)
     {
         return $this->fluent([
-            'id'         => 'issues',
-            'title'      => 'Issues',
+            'id'         => 'tickets',
+            'title'      => 'Tickets',
             'url'        => route('issues.index'),
             'menu'       => view('pages.issues._nav', compact('labels')),
             'attributes' => [
@@ -340,7 +340,7 @@ class IssuePresenter extends Presenter
      */
     protected function tableTitle(Column $column)
     {
-        $column->label = 'Issue';
+        $column->label = 'Ticket';
 
         $column->value = function (Issue $issue) {
             $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);

@@ -38,13 +38,37 @@
                     </ul>
                 </li>
 
+                <li class="dropdown {{ active()->route('inquiries.*') }}" id="requests-menu">
+                    <a  href="#requests-menu" rel="requests-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-question-circle"></i>
+                        Requests
+                        <i class="fa fa-caret-down"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="{{ active()->route('inquiries.*') }}">
+                            <a href="{{ route('inquiries.index') }}">
+                                <i class="fa fa-bell"></i>
+                                Requests
+                            </a>
+                        </li>
+
+                        <li class="{{ active()->route('inquiries.categories.*') }}">
+                            <a href="{{ route('resources.guides.index') }}">
+                                <i class="fa fa-folder"></i>
+                                Categories
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 @if(auth()->check())
 
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
 
                         <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-exclamation-circle"></i>
-                            Issues
+                            Tickets
                             <i class="fa fa-caret-down"></i>
                         </a>
 
@@ -52,15 +76,15 @@
 
                             <li class="{{ active()->route('issues.*') }}">
                                 <a href="{{ route('issues.index') }}">
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    Issues
+                                    <i class="fa fa-ticket"></i>
+                                    Tickets
                                 </a>
                             </li>
 
                             @can('index', App\Models\Label::class)
                             <li class="{{ active()->route('labels.*') }}">
                                 <a href="{{ route('labels.index') }}">
-                                    <i class="fa fa-tag"></i>
+                                    <i class="fa fa-tags"></i>
                                     Labels
                                 </a>
                             </li>

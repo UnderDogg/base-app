@@ -63,11 +63,11 @@ class IssueController extends Controller
     public function store(IssueRequest $request)
     {
         if ($this->processor->store($request)) {
-            flash()->success('Success!', 'Successfully created issue.');
+            flash()->success('Success!', 'Successfully created ticket.');
 
             return redirect()->route('issues.index');
         } else {
-            flash()->error('Error!', 'There was a problem creating an issue. Please try again.');
+            flash()->error('Error!', 'There was a problem creating a ticket. Please try again.');
 
             return redirect()->route('issues.create');
         }
@@ -108,11 +108,11 @@ class IssueController extends Controller
     public function update(IssueRequest $request, $id)
     {
         if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated issue.');
+            flash()->success('Success!', 'Successfully updated ticket.');
 
             return redirect()->route('issues.show', [$id]);
         } else {
-            flash()->error('Error!', 'There was a problem updating this issue. Please try again.');
+            flash()->error('Error!', 'There was a problem updating this ticket. Please try again.');
 
             return redirect()->route('issues.edit', [$id]);
         }

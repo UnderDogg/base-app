@@ -266,6 +266,28 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             });
         });
 
+        // The inquiry router group.
+        $router->group(['namespace' => 'Inquiry'], function (Router $router) {
+            // Display all closed inquiries.
+            $router->get('requests/closed', [
+                'as'   => 'inquiries.closed',
+                'uses' => 'InquiryController@closed',
+            ]);
+
+            // The inquiry resource (aliased to requests for ambiguity).
+            $router->resource('requests', 'InquiryController', [
+                'names' => [
+                    'index'     => 'inquiries.index',
+                    'create'    => 'inquiries.create',
+                    'store'     => 'inquiries.store',
+                    'show'      => 'inquiries.show',
+                    'edit'      => 'inquiries.edit',
+                    'update'    => 'inquiries.update',
+                    'destroy'   => 'inquiries.destroy',
+                ],
+            ]);
+        });
+
         // The issue router group.
         $router->group(['namespace' => 'Issue'], function (Router $router) {
             // Display all closed issues.
@@ -287,21 +309,44 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             ]);
 
             // The issue resource.
-            $router->resource('issues', 'IssueController');
+            $router->resource('tickets', 'IssueController', [
+                'names' => [
+                    'index'     => 'issues.index',
+                    'create'    => 'issues.create',
+                    'store'     => 'issues.store',
+                    'show'      => 'issues.show',
+                    'edit'      => 'issues.edit',
+                    'update'    => 'issues.update',
+                    'destroy'   => 'issues.destroy',
+                ],
+            ]);
 
             // The issue comments resource.
-            $router->resource('issues.comments', 'IssueCommentController', [
+            $router->resource('tickets.comments', 'IssueCommentController', [
                 'except' => ['index', 'show'],
+                'names' => [
+                    'create'    => 'issues.comments.create',
+                    'store'     => 'issues.comments.store',
+                    'edit'      => 'issues.comments.edit',
+                    'update'    => 'issues.comments.update',
+                    'destroy'   => 'issues.comments.destroy',
+                ],
             ]);
 
             // The issue labels resource.
-            $router->resource('issues.labels', 'IssueLabelController', [
+            $router->resource('tickets.labels', 'IssueLabelController', [
                 'only' => ['store'],
+                'names' => [
+                    'store' => 'issues.labels.store',
+                ],
             ]);
 
             // The issue users resource.
-            $router->resource('issues.users', 'IssueUserController', [
+            $router->resource('tickets.users', 'IssueUserController', [
                 'only' => ['store'],
+                'names' => [
+                    'store' => 'issues.users.store',
+                ],
             ]);
         });
 

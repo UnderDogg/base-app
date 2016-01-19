@@ -310,7 +310,7 @@ class Issue extends Model
 
         $daysAgo = $this->createdAtHuman();
 
-        return "$user created issue $daysAgo";
+        return "$user created ticket $daysAgo";
     }
 
     /**
