@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Inquiry;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\InquiryRequest;
 use App\Processors\Inquiry\InquiryProcessor;
-use App\Http\Controllers\Controller;
 
 class InquiryController extends Controller
 {
@@ -41,9 +41,7 @@ class InquiryController extends Controller
     public function store(InquiryRequest $request)
     {
         if ($this->processor->store($request)) {
-
         } else {
-
         }
     }
 
@@ -60,18 +58,14 @@ class InquiryController extends Controller
     public function update($id)
     {
         if ($this->processor->update($id)) {
-
         } else {
-
         }
     }
 
     public function destroy($id)
     {
         if ($this->processor->destroy($id)) {
-
         } else {
-
         }
     }
 }

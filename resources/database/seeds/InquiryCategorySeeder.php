@@ -16,12 +16,12 @@ class InquiryCategorySeeder extends Seeder
 
         $categories = [
             'Password Reset',
-            'Other'
+            'Other',
         ];
 
         foreach ($categories as $category) {
             Category::create([
-                'name' => $category,
+                'name'       => $category,
                 'belongs_to' => $belongsTo,
             ]);
         }
