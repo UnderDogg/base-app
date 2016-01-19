@@ -39,6 +39,7 @@ elixir(function(mix) {
         'libs/show-password.min.js',
         'libs/speakingurl.min.js',
         'libs/jquery.lazyload.min.js',
+        'libs/vue.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',

@@ -30,7 +30,7 @@ class IssuePolicy extends Policy
 
     /**
      * Returns true / false if the specified
-     * user can view everyones issues.
+     * user can view everyone's issues.
      *
      * @return bool
      */

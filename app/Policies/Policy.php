@@ -16,13 +16,6 @@ abstract class Policy extends AuthorizationPolicy
     public $actions = [];
 
     /**
-     * The authorization name.
-     *
-     * @var string
-     */
-    protected $name;
-
-    /**
      * Constructor.
      */
     public function __construct()

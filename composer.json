@@ -13,6 +13,7 @@
         "stevebauman/wmi": "1.1.*",
         "stevebauman/winperm": "1.0.*",
         "stevebauman/purify": "1.1.*",
+        "stevebauman/inventory" : "1.7.*",
         "stackie/adminlte-theme": "0.2.*",
         "graham-campbell/markdown": "5.3.*",
         "adldap2/adldap2-laravel": "1.4.*",

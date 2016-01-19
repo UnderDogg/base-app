@@ -178,27 +178,27 @@ return [
         App\Providers\ObserverServiceProvider::class,
 
         /*
-         * Revision Provider
+         * Revision Provider.
          */
         Stevebauman\Revision\RevisionServiceProvider::class,
 
         /*
-         * Purification Provider
+         * Purification Provider.
          */
         Stevebauman\Purify\PurifyServiceProvider::class,
 
         /*
-         * Commonmark Wrapper
+         * Commonmark Wrapper.
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
         /*
-         * Intervention Image Manipulation
+         * Intervention Image Manipulation.
          */
         Intervention\Image\ImageServiceProvider::class,
 
         /*
-         * RSS Feed Fetcher
+         * RSS Feed Fetcher.
          */
         Vinelab\Rss\RssServiceProvider::class,
 
@@ -206,6 +206,11 @@ return [
          * Charts Service Provider.
          */
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+
+        /*
+         * Nested Set Service Provider.
+         */
+        Baum\Providers\BaumServiceProvider::class,
     ],
 
     /*

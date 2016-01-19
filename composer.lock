@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "611454cfb5ce06ef2ac496c7436f594c",
-    "content-hash": "888e8bfd807e10c18fd2c88f7dc06478",
+    "hash": "85304f9e8d17d60f2a76478a49698ef8",
+    "content-hash": "3f2d133070a907c73cd1563cea6099fa",
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v5.2.7",
+            "version": "v5.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "baf1ca9981efb746f59a8f7aea7b93160d3401d3"
+                "reference": "2a1c0ff7175fcd1307f29e3d2155bc7c3a0285f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/baf1ca9981efb746f59a8f7aea7b93160d3401d3",
-                "reference": "baf1ca9981efb746f59a8f7aea7b93160d3401d3",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/2a1c0ff7175fcd1307f29e3d2155bc7c3a0285f1",
+                "reference": "2a1c0ff7175fcd1307f29e3d2155bc7c3a0285f1",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2015-12-09 14:21:28"
+            "time": "2016-01-19 15:26:18"
         },
         {
             "name": "adldap2/adldap2-laravel",
@@ -99,6 +99,61 @@
                 "ldap"
             ],
             "time": "2016-01-11 20:39:47"
+        },
+        {
+            "name": "baum/baum",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/etrepat/baum.git",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/etrepat/baum/zipball/9290bed862d329aaaef666a71e0a2734afc28286",
+                "reference": "9290bed862d329aaaef666a71e0a2734afc28286",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "5.*",
+                "illuminate/database": "5.*",
+                "illuminate/events": "5.*",
+                "illuminate/filesystem": "5.*",
+                "illuminate/support": "5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "d11wtq/boris": "~1.0.10",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Baum": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Estanislau Trepat",
+                    "email": "estanis@etrepat.com",
+                    "homepage": "http://etrepat.com"
+                }
+            ],
+            "description": "Baum is an implementation of the Nested Set pattern for Eloquent models.",
+            "keywords": [
+                "Laravel 4",
+                "database",
+                "eloquent",
+                "laravel",
+                "laravel 5",
+                "nested set"
+            ],
+            "time": "2015-03-04 12:07:54"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -3148,6 +3203,54 @@
             ],
             "description": "AdminLTE Theme for Orchestra Platform",
             "time": "2015-09-13 05:23:58"
+        },
+        {
+            "name": "stevebauman/inventory",
+            "version": "v1.7.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/inventory.git",
+                "reference": "5da85f1d75119d102cd10f603dcff78da63987e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/inventory/zipball/5da85f1d75119d102cd10f603dcff78da63987e9",
+                "reference": "5da85f1d75119d102cd10f603dcff78da63987e9",
+                "shasum": ""
+            },
+            "require": {
+                "baum/baum": "1.0.* | 1.1.*",
+                "illuminate/database": "4.* | 5.*",
+                "illuminate/support": "4.* | 5.*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\Inventory\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com"
+                }
+            ],
+            "description": "Inventory management using Laravel 4 / 5",
+            "keywords": [
+                "inventory",
+                "inventory-management",
+                "laravel"
+            ],
+            "time": "2015-06-17 14:09:02"
         },
         {
             "name": "stevebauman/purify",
