@@ -39,6 +39,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
+        // Frontend Routes.
         $this->loadFrontendRoutesFrom(app_path('Http/routes.php'));
+
+        // API Routes.
+        $this->loadFrontendRoutesFrom(app_path('Http/api.php'), 'App\Http\Api\v1');
     }
 }
