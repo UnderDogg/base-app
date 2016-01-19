@@ -2,8 +2,8 @@
 
 namespace App\Http\Api\v1\Issue;
 
-use App\Models\Issue;
 use App\Http\Api\v1\Controller;
+use App\Models\Issue;
 
 class IssueCommentController extends Controller
 {

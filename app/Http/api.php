@@ -20,7 +20,7 @@ $router->group(['middleware' => ['api'], 'prefix' => 'api/v1', 'as' => 'api.v1.'
                     'edit'      => 'issues.comments.edit',
                     'update'    => 'issues.comments.update',
                     'destroy'   => 'issues.comments.destroy',
-                ]
+                ],
             ]);
         });
 
