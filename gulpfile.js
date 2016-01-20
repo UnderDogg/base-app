@@ -40,6 +40,7 @@ elixir(function(mix) {
         'libs/speakingurl.min.js',
         'libs/jquery.lazyload.min.js',
         'libs/vue.min.js',
+        'libs/vue-resource.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
