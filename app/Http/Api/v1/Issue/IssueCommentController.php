@@ -33,6 +33,8 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        return $issue->comments()->get();
+        return $issue->comments()->get()->map(function ($comment) {
+            return ['body' => view('pages.issues._comment', compact('issue', 'comment'))->render()];
+        });
     }
 }

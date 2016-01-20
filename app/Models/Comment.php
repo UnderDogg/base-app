@@ -23,7 +23,10 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'content'];
+    protected $fillable = [
+        'user_id',
+        'content'
+    ];
 
     /**
      * Returns true / false if the comment is a resolution.

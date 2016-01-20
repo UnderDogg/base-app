@@ -1505,21 +1505,22 @@
         },
         {
             "name": "orchestra/asset",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/asset.git",
-                "reference": "bf0323e96d4c946fef41e7b9a6f8a93f44bcf243"
+                "reference": "f078a42a09ea8472f6ca497431fc77735f318289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/asset/zipball/bf0323e96d4c946fef41e7b9a6f8a93f44bcf243",
-                "reference": "bf0323e96d4c946fef41e7b9a6f8a93f44bcf243",
+                "url": "https://api.github.com/repos/orchestral/asset/zipball/f078a42a09ea8472f6ca497431fc77735f318289",
+                "reference": "f078a42a09ea8472f6ca497431fc77735f318289",
                 "shasum": ""
             },
             "require": {
                 "laravie/html": "~5.2.0",
                 "orchestra/contracts": "~3.2.0",
+                "orchestra/support-facades": "~3.2.0",
                 "php": ">=5.5.0"
             },
             "require-dev": {
@@ -1562,7 +1563,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2015-11-24 13:36:08"
+            "time": "2016-01-19 23:02:09"
         },
         {
             "name": "orchestra/auth",
