@@ -41,6 +41,7 @@ elixir(function(mix) {
         'libs/jquery.lazyload.min.js',
         'libs/vue.min.js',
         'libs/vue-resource.min.js',
+        'libs/vue-async-data.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',

@@ -4,6 +4,8 @@ namespace App\Processors\Inquiry;
 
 use App\Http\Presenters\Inquiry\InquiryPresenter;
 use App\Http\Requests\Inquiry\InquiryRequest;
+use App\Jobs\Inquiry\Store;
+use App\Jobs\Inquiry\Update;
 use App\Models\Inquiry;
 use App\Processors\Processor;
 
@@ -71,28 +73,76 @@ class InquiryProcessor extends Processor
         return view('pages.inquiries.create', compact('form'));
     }
 
+    /**
+     * Creates a new inquiry.
+     *
+     * @param InquiryRequest $request
+     *
+     * @return bool
+     */
     public function store(InquiryRequest $request)
     {
-        //
+        $inquiry = $this->inquiry->newInstance();
+
+        return $this->dispatch(new Store($request, $inquiry));
     }
 
+    /**
+     * Displays the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function show($id)
     {
-        //
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        return view('pages.inquiries.show', compact('inquiry'));
     }
 
+    /**
+     * Displays the form for editing the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
-        //
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        $form = $this->presenter->form($inquiry);
+
+        return view('pages.inquiries.edit', compact('form'));
     }
 
-    public function update($id)
+    /**
+     * Updates the specified inquiry.
+     *
+     * @param InquiryRequest $request
+     * @param int|string     $id
+     *
+     * @return bool
+     */
+    public function update(InquiryRequest $request, $id)
     {
-        //
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        return $this->dispatch(new Update($request, $inquiry));
     }
 
+    /**
+     * Deletes the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
     public function destroy($id)
     {
-        //
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        return $inquiry->delete();
     }
 }

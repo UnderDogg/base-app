@@ -14,16 +14,16 @@
         data: {
             comments: []
         },
-        ready : function () {
+        ready: function () {
             this.fetch();
 
             var self = this;
 
             setInterval(function () {
                 self.fetch();
-            }, 5000);
+            }, 10000);
         },
-        methods : {
+        methods: {
             fetch: function () {
                 this.$http.get('{{ route('api.v1.issues.comments.index', [$issue->getKey()]) }}', function (comments) {
                     this.$set('comments', comments);

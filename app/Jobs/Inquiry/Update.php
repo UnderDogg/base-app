@@ -3,10 +3,10 @@
 namespace App\Jobs\Inquiry;
 
 use App\Http\Requests\Inquiry\InquiryRequest;
-use App\Jobs\Job;
 use App\Models\Inquiry;
+use App\Jobs\Job;
 
-class Store extends Job
+class Update extends Job
 {
     /**
      * @var InquiryRequest
@@ -37,10 +37,9 @@ class Store extends Job
      */
     public function handle()
     {
-        $this->inquiry->user_id = auth()->id();
-        $this->inquiry->category_id = $this->request->input('category');
-        $this->inquiry->title = $this->request->input('title');
-        $this->inquiry->description = $this->request->input('description');
+        $this->inquiry->category_id = $this->request->input('category_id', $this->inquiry->category_id);
+        $this->inquiry->title = $this->request->input('title', $this->inquiry->title);
+        $this->inquiry->description = $this->request->input('description', $this->inquiry->description);
 
         return $this->inquiry->save();
     }

@@ -105,7 +105,7 @@ $(function ()
     });
 
     // Delete link confirmation window
-    $('body').on('click', '[data-post]', function(e)
+    $('#app').on('click', '[data-post]', function(e)
     {
         e.preventDefault();
 

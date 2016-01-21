@@ -81,7 +81,7 @@
 
     @include('pages.issues._issue', compact('resolution'))
 
-    @include('pages.issues._comments')
+    @each('pages.issues._comment',  $issue->comments, 'comment')
 
     @if($issue->isClosed())
         @include('pages.issues._closed', compact('issue'))

@@ -8,6 +8,7 @@ use App\Models\Inquiry;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class InquiryPresenter extends Presenter
@@ -31,7 +32,35 @@ class InquiryPresenter extends Presenter
                 'description',
             ]);
 
-            $table->column('title');
+            $table->column('status', function (Column $column) {
+                $column->label = '';
+
+                $column->value = function (Inquiry $inquiry) {
+                    return $inquiry->getStatusIcon();
+                };
+
+                $column->attributes(function () {
+                    return ['width' => '30'];
+                });
+            });
+
+            $table->column('title', function (Column $column) {
+                $column->value = function (Inquiry $inquiry) {
+                    return link_to_route('inquiries.show', $inquiry->title, [$inquiry->getKey()]);
+                };
+            });
+
+            $table->column('description', function (Column $column) {
+                $column->value = function (Inquiry $inquiry) {
+                    return str_limit($inquiry->description, 20);
+                };
+            });
+
+            $table->column('created', function (Column $column) {
+                $column->value = function (Inquiry $inquiry) {
+                    return $inquiry->createdAtHuman();
+                };
+            });
         });
     }
 

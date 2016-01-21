@@ -6,7 +6,7 @@
         @include('layouts._header')
     </head>
 
-    <body>
+    <body id="app">
 
         @include('layouts._navigation')
 
