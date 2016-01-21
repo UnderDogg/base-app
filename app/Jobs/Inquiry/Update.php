@@ -3,8 +3,8 @@
 namespace App\Jobs\Inquiry;
 
 use App\Http\Requests\Inquiry\InquiryRequest;
-use App\Models\Inquiry;
 use App\Jobs\Job;
+use App\Models\Inquiry;
 
 class Update extends Job
 {

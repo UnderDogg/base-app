@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Orchestra\Support\Facades\HTML;
 use App\Models\Traits\HasUserTrait;
+use Orchestra\Support\Facades\HTML;
 
 class Inquiry extends Model
 {
@@ -40,7 +40,7 @@ class Inquiry extends Model
      */
     public function isOpen()
     {
-        return ! $this->closed;
+        return !$this->closed;
     }
 
     /**
