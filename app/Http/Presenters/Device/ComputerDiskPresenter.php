@@ -50,34 +50,38 @@ class ComputerDiskPresenter extends Presenter
      *
      * @param Computer $computer
      *
-     * @return \Khill\Lavacharts\Charts\LineChart
+     * @return \Khill\Lavacharts\Charts\LineChart|false
      */
     public function diskGraph(Computer $computer)
     {
-        /** @var DataTable $disks */
-        $disks = Lava::DataTable();
+        if ($computer->disks->count() > 0) {
+            /** @var DataTable $disks */
+            $disks = Lava::DataTable();
 
-        $disks->addDateColumn('Date');
+            $disks->addDateColumn('Date');
 
-        $rows = [];
+            $rows = [];
 
-        $i = 0;
+            $i = 0;
 
-        foreach ($computer->disks as $disk) {
-            $i++;
+            foreach ($computer->disks as $disk) {
+                $i++;
 
-            $disks->addNumberColumn($disk->name);
+                $disks->addNumberColumn($disk->name);
 
-            foreach ($disk->records as $record) {
-                $rows[] = [
-                    0   => $record->created_at,
-                    $i  => $record->free,
-                ];
+                foreach ($disk->records as $record) {
+                    $rows[] = [
+                        0   => $record->created_at,
+                        $i  => $record->free,
+                    ];
+                }
             }
+
+            $disks->addRows($rows);
+
+            return Lava::LineChart('Disks')->dataTable($disks);
         }
 
-        $disks->addRows($rows);
-
-        return Lava::LineChart('Disks')->dataTable($disks);
+        return false;
     }
 }
