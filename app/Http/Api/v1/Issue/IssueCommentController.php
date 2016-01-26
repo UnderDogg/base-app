@@ -2,7 +2,9 @@
 
 namespace App\Http\Api\v1\Issue;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Api\v1\Controller;
+use App\Models\Comment;
 use App\Models\Issue;
 
 class IssueCommentController extends Controller
@@ -33,6 +35,16 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        return $issue->comments()->get();
+        return $issue->comments()->get()->map(function (Comment $comment) use ($issue) {
+            if (Gate::allows('update', $comment)) {
+                $comment->setAttribute('edit_url', route('issues.comments.edit', [$issue->getKey(), $comment->getKey()]));
+            }
+
+            if (Gate::allows('destroy', $comment)) {
+                $comment->setAttribute('destroy_url', route('issues.comments.destroy', [$issue->getKey(), $comment->getKey()]));
+            }
+
+            return $comment;
+        });
     }
 }
