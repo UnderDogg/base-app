@@ -2,10 +2,10 @@
 
 namespace App\Http\Api\v1\Issue;
 
-use Illuminate\Support\Facades\Gate;
 use App\Http\Api\v1\Controller;
 use App\Models\Comment;
 use App\Models\Issue;
+use Illuminate\Support\Facades\Gate;
 
 class IssueCommentController extends Controller
 {

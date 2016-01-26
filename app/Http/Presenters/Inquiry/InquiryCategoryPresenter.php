@@ -2,12 +2,12 @@
 
 namespace App\Http\Presenters\Inquiry;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Category;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
 
 class InquiryCategoryPresenter extends Presenter
 {
@@ -57,10 +57,10 @@ class InquiryCategoryPresenter extends Presenter
                     $route = 'inquiries.categories.destroy';
 
                     return link_to_route($route, 'Delete', [$category->getKey()], [
-                        'data-post' => 'DELETE',
-                        'data-title' => 'Delete Category?',
+                        'data-post'    => 'DELETE',
+                        'data-title'   => 'Delete Category?',
                         'data-message' => 'Are you sure you want to delete this category? All child categories will be destroyed.',
-                        'class' => 'btn btn-sm btn-danger',
+                        'class'        => 'btn btn-sm btn-danger',
                     ]);
                 };
             });

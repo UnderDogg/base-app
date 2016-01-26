@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Inquiry;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryMoveRequest;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Processors\Inquiry\InquiryCategoryProcessor;
-use App\Http\Controllers\Controller;
 use Baum\MoveNotPossibleException;
 
 class InquiryCategoryController extends Controller
@@ -52,8 +52,8 @@ class InquiryCategoryController extends Controller
     /**
      * Creates a new inquiry category.
      *
-     * @param CategoryRequest        $request
-     * @param int|string|null        $id
+     * @param CategoryRequest $request
+     * @param int|string|null $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
