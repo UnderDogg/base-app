@@ -6,8 +6,8 @@ use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\ComputerHardDisk;
 use Khill\Lavacharts\Configs\DataTable;
-use Orchestra\Html\Table\Grid as TableGrid;
 use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
+use Orchestra\Html\Table\Grid as TableGrid;
 
 class ComputerDiskPresenter extends Presenter
 {
@@ -69,9 +69,9 @@ class ComputerDiskPresenter extends Presenter
             $disks->addNumberColumn($disk->name);
 
             foreach ($disk->records as $record) {
-                $rows[] =[
+                $rows[] = [
                     0   => $record->created_at,
-                    $i  => $record->free
+                    $i  => $record->free,
                 ];
             }
         }

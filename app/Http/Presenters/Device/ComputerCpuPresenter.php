@@ -2,9 +2,9 @@
 
 namespace App\Http\Presenters\Device;
 
+use App\Http\Presenters\Presenter;
 use Khill\Lavacharts\Configs\DataTable;
 use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
-use App\Http\Presenters\Presenter;
 
 class ComputerCpuPresenter extends Presenter
 {
