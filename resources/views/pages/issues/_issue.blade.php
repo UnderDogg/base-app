@@ -5,27 +5,8 @@
         <h3 class="panel-title">
 
             <span class="h5">
-                {{ $issue->getCreatedAtTagLine() }}
+                {!! $issue->getCreatedAtTagLine() !!}
             </span>
-
-            <span class="pull-right btn-group">
-                @can('edit', $issue)
-                    <a class="btn btn-warning btn-xs" href="{{ route('issues.edit', [$issue->id]) }}"><i class="fa fa-edit"></i></a>
-                @endcan
-
-                @can('destroy', $issue)
-                    <a
-                            class="btn btn-danger btn-xs"
-                            data-post="DELETE"
-                            data-title="Delete Issue?"
-                            data-message="Are you sure you want to delete this issue?"
-                            href="{{ route('issues.destroy', [$issue->id]) }}">
-                        <i class="fa fa-times"></i>
-                    </a>
-                @endcan
-            </span>
-
-            <div class="clearfix"></div>
 
         </h3>
 
@@ -40,19 +21,51 @@
          one comment before display the resolution here.
          --}}
         @if(isset($resolution) && count($issue->comments) > 1)
+
             {{-- We'll also make sure that the first comment is not a resolution. --}}
             @if(!$issue->comments->first()->isResolution())
+
                 <hr>
+
                 @include('pages.issues._comment', ['comment' => $resolution])
+
             @endif
+
         @endif
 
-    </div>
+        <div class="row">
 
-    @if($issue->occurred_at)
-        <div class="panel-footer text-muted">
-            {{ $issue->getOccurredAtTagLine() }}
+            <hr>
+
+            <div class="col-md-12">
+
+                <span class="btn-group">
+                    @can('edit', $issue)
+                        <a
+                                class="btn btn-default btn-sm"
+                                href="{{ route('issues.edit', [$issue->getKey()]) }}">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>
+                    @endcan
+
+                    @can('destroy', $issue)
+                        <a
+                                class="btn btn-default btn-sm"
+                                data-post="DELETE"
+                                data-title="Delete Comment?"
+                                data-message="Are you sure you want to delete this comment?"
+                                href="{{ route('issues.destroy', [$issue->getKey()]) }}">
+                            <i class="fa fa-times"></i>
+                            Delete
+                        </a>
+                    @endcan
+                </span>
+
+            </div>
+
         </div>
-    @endif
+
+    </div>
 
 </div>

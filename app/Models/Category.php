@@ -24,10 +24,12 @@ class Category extends Node
      * Returns the complete nested set table in a nested list.
      *
      * @param string $belongsTo
+     * @param array  $except
+     * @param string $first
      *
      * @return array
      */
-    public static function getSelectHierarchy($belongsTo = null)
+    public static function getSelectHierarchy($belongsTo = null, array $except = [], $first = 'None')
     {
         $query = static::roots();
 
@@ -35,9 +37,11 @@ class Category extends Node
             $query->where('belongs_to', $belongsTo);
         }
 
-        $roots = $query->with('children')->get();
+        $roots = $query->with(['children' => function ($query) use ($except) {
+            return $query->whereNotIn('id', $except);
+        }])->get();
 
-        $options = [0 => 'None'];
+        $options = [null => $first];
 
         foreach ($roots as $root) {
             $options = $options + static::getRenderedNode($root);
@@ -57,13 +61,7 @@ class Category extends Node
     {
         $options = [];
 
-        if ($node->isRoot()) {
-            $name = $node->name;
-        } else {
-            $depth = str_repeat('--', $node->depth);
-
-            $name = sprintf('%s %s', $depth, $node->name);
-        }
+        $name = static::getRenderedNodeName($node);
 
         $options[$node->id] = $name;
 
@@ -74,5 +72,26 @@ class Category extends Node
         }
 
         return $options;
+    }
+
+    /**
+     * Returns the specified rendered node name combined with its depth.
+     *
+     * @param Node   $node
+     * @param string $separator
+     *
+     * @return string
+     */
+    public static function getRenderedNodeName(Node $node, $separator = '--')
+    {
+        if ($node->isRoot()) {
+            $name = $node->name;
+        } else {
+            $depth = str_repeat($separator, $node->depth);
+
+            $name = sprintf('%s %s', $depth, $node->name);
+        }
+
+        return $name;
     }
 }

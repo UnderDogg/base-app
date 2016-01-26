@@ -29,6 +29,17 @@ class Comment extends Model
     ];
 
     /**
+     * The appends attributes.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'created_at_tag_line',
+        'content_from_markdown',
+        'resolution',
+    ];
+
+    /**
      * Returns true / false if the comment is a resolution.
      *
      * @return bool
@@ -40,6 +51,16 @@ class Comment extends Model
         }
 
         return false;
+    }
+
+    /**
+     * The resolution accessor.
+     *
+     * @return bool
+     */
+    public function getResolutionAttribute()
+    {
+        return $this->isResolution();
     }
 
     /**
@@ -64,12 +85,24 @@ class Comment extends Model
         $daysAgo = $this->createdAtHuman();
 
         if ($this->isResolution()) {
-            $line = "$user created resolution $daysAgo";
+            $created = "created resolution $daysAgo";
         } else {
-            $line = "$user commented $daysAgo";
+            $created = "commented $daysAgo";
         }
 
-        return $line;
+        $line = HTML::create('span', $created, ['class' => 'hidden-xs']);
+
+        return sprintf('<strong>%s</strong> %s', $user, $line);
+    }
+
+    /**
+     * The created at tag line accessor.
+     *
+     * @return string
+     */
+    public function getCreatedAtTagLineAttribute()
+    {
+        return $this->getCreatedAtTagLine();
     }
 
     /**
@@ -80,5 +113,15 @@ class Comment extends Model
     public function getContentFromMarkdown()
     {
         return $this->fromMarkdown($this->content);
+    }
+
+    /**
+     * The content from markdown accessor.
+     *
+     * @return string
+     */
+    public function getContentFromMarkdownAttribute()
+    {
+        return $this->getContentFromMarkdown();
     }
 }

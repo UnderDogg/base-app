@@ -14,6 +14,21 @@ class User extends Eloquent implements AuthorizableContract
     use Authorizable, AdldapUserModelTrait, HasFilesTrait;
 
     /**
+     * The users hidden attributes.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'deleted_at',
+        'email',
+        'password',
+        'remember_token',
+        'forgot_token',
+        'reset_token',
+        'from_ad',
+    ];
+
+    /**
      * The user questions pivot table.
      *
      * @var string

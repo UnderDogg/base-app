@@ -17176,6 +17176,13 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+/* Alternate body font */
+
+body {
+  font-family: 'Source Sans Pro',sans-serif;
+  line-height: 1.6em;
+}
+
 /* Add label-large class */
 
 .label-large {

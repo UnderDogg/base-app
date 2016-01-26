@@ -15,36 +15,16 @@
 
         <span class="text-muted">{{ $issue->getHashId() }}</span>
     </h3>
+
+    {!! $issue->getStatusLabel() !!}
 @endsection
 
 @section('content')
 
     <div class="row">
 
-        <div class="col-md-12">
-
-            {!! $issue->getStatusLabel() !!}
-
-            <span class="text-muted hidden-xs">{!! $issue->getTagLine() !!}</span>
-
-        </div>
-
-        <div class="col-md-12 visible-xs">
-
-            <br>
-
-            <span class="text-muted">{!! $issue->getTagLine() !!}</span>
-
-        </div>
-
-    </div>
-
-    <br>
-
-    <div class="row">
-
-        <div class="col-md-12">
-
+        <!-- Labels -->
+        <div class="labels col-md-12">
             @foreach($issue->labels as $label)
                 {!! $label->getDisplayLarge() !!}
             @endforeach
@@ -79,14 +59,20 @@
 
     <div class="clearfix"></div>
 
+    <!-- Issue -->
     @include('pages.issues._issue', compact('resolution'))
 
-    @each('pages.issues._comment',  $issue->comments, 'comment')
+    <!-- Comments -->
+    @include('pages.issues._comments')
 
     @if($issue->isClosed())
+
+        <!-- Closed -->
         @include('pages.issues._closed', compact('issue'))
+
     @endif
 
+    <!-- Comment Form -->
     <div class="col-md-12">
         {!! $formComment !!}
     </div>
@@ -97,6 +83,7 @@
 
     </div>
 
+    <!-- Close / Re-Open Ticket -->
     <div class="col-md-12 text-center">
 
         @if($issue->isOpen())

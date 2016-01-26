@@ -53,12 +53,14 @@
                             </a>
                         </li>
 
-                        <li class="{{ active()->route('inquiries.categories.*') }}">
-                            <a href="{{ route('resources.guides.index') }}">
-                                <i class="fa fa-folder"></i>
-                                Categories
-                            </a>
-                        </li>
+                        @can('index', App\Models\Category::class)
+                            <li class="{{ active()->route('inquiries.categories.*') }}">
+                                <a href="{{ route('resources.guides.index') }}">
+                                    <i class="fa fa-folder"></i>
+                                    Categories
+                                </a>
+                            </li>
+                        @endcan
                     </ul>
                 </li>
 
@@ -82,12 +84,12 @@
                             </li>
 
                             @can('index', App\Models\Label::class)
-                            <li class="{{ active()->route('labels.*') }}">
-                                <a href="{{ route('labels.index') }}">
-                                    <i class="fa fa-tags"></i>
-                                    Labels
-                                </a>
-                            </li>
+                                <li class="{{ active()->route('labels.*') }}">
+                                    <a href="{{ route('labels.index') }}">
+                                        <i class="fa fa-tags"></i>
+                                        Labels
+                                    </a>
+                                </li>
                             @endcan
 
                         </ul>
