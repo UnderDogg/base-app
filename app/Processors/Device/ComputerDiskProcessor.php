@@ -40,11 +40,13 @@ class ComputerDiskProcessor extends Processor
      */
     public function index($id)
     {
-        $computer = $this->computer->findOrFail($id);
+        $computer = $this->computer->with(['disks', 'disks.records'])->findOrFail($id);
 
         $disks = $this->presenter->disks($computer);
 
-        return view('pages.devices.computers.show.disks', compact('computer', 'disks'));
+        $diskGraph = $this->presenter->diskGraph($computer);
+
+        return view('pages.devices.computers.show.disks', compact('computer', 'disks', 'diskGraph'));
     }
 
     /**

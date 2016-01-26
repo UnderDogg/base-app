@@ -23,4 +23,14 @@
 
     {!! $disks !!}
 
+    <hr>
+
+    <div id="disks-div"></div>
+
+    @if($diskGraph && $diskGraph instanceof \Khill\Lavacharts\Charts\LineChart)
+
+        @linechart('Disks', 'disks-div')
+
+    @endif
+
 @endsection

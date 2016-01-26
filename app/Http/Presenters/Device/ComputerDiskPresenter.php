@@ -5,7 +5,9 @@ namespace App\Http\Presenters\Device;
 use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\ComputerHardDisk;
+use Khill\Lavacharts\Configs\DataTable;
 use Orchestra\Html\Table\Grid as TableGrid;
+use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 
 class ComputerDiskPresenter extends Presenter
 {
@@ -19,7 +21,7 @@ class ComputerDiskPresenter extends Presenter
     public function disks(Computer $computer)
     {
         return $this->table->of('computers.disks', function (TableGrid $table) use ($computer) {
-            $table->with($computer->disks()->getQuery());
+            $table->rows($computer->disks->all());
 
             $table->attributes('class', 'table table-hover');
 
@@ -41,5 +43,41 @@ class ComputerDiskPresenter extends Presenter
                 };
             });
         });
+    }
+
+    /**
+     * Returns a new line chart of the specified computers disks.
+     *
+     * @param Computer $computer
+     *
+     * @return \Khill\Lavacharts\Charts\LineChart
+     */
+    public function diskGraph(Computer $computer)
+    {
+        /** @var DataTable $disks */
+        $disks = Lava::DataTable();
+
+        $disks->addDateColumn('Date');
+
+        $rows = [];
+
+        $i = 0;
+
+        foreach ($computer->disks as $disk) {
+            $i++;
+
+            $disks->addNumberColumn($disk->name);
+
+            foreach ($disk->records as $record) {
+                $rows[] =[
+                    0   => $record->created_at,
+                    $i  => $record->free
+                ];
+            }
+        }
+
+        $disks->addRows($rows);
+
+        return Lava::LineChart('Disks')->dataTable($disks);
     }
 }
