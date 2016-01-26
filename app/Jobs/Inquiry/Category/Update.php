@@ -3,8 +3,8 @@
 namespace App\Jobs\Inquiry\Category;
 
 use App\Http\Requests\Category\CategoryRequest;
-use App\Models\Category;
 use App\Jobs\Job;
+use App\Models\Category;
 
 class Update extends Job
 {
@@ -26,9 +26,9 @@ class Update extends Job
     /**
      * Constructor.
      *
-     * @param CategoryRequest        $request
-     * @param Category               $category
-     * @param Category|null          $parent
+     * @param CategoryRequest $request
+     * @param Category        $category
+     * @param Category|null   $parent
      */
     public function __construct(CategoryRequest $request, Category $category, Category $parent = null)
     {

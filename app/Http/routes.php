@@ -271,13 +271,13 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The child category creation route.
             $router->get('requests/categories/create/{categories?}', [
                 'uses'  => 'InquiryCategoryController@create',
-                'as'    => 'inquiries.categories.create'
+                'as'    => 'inquiries.categories.create',
             ]);
 
             // The category index route.
             $router->get('requests/categories/{categories?}', [
                 'uses' => 'InquiryCategoryController@index',
-                'as' => 'inquiries.categories.index',
+                'as'   => 'inquiries.categories.index',
             ]);
 
             // The child category store route.
@@ -289,13 +289,13 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The category move route.
             $router->post('requests/categories/{categories}/move', [
                 'uses' => 'InquiryCategoryController@move',
-                'as' => 'inquiries.categories.move',
+                'as'   => 'inquiries.categories.move',
             ]);
 
             // The category resource.
             $router->resource('requests/categories', 'InquiryCategoryController', [
                 'except' => ['index', 'create', 'store'],
-                'names' => [
+                'names'  => [
                     'show'      => 'inquiries.categories.show',
                     'edit'      => 'inquiries.categories.edit',
                     'update'    => 'inquiries.categories.update',
