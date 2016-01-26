@@ -3,10 +3,10 @@
 use Illuminate\Routing\Router;
 
 /* @var Router $router */
-$router->group(['middleware' => ['api'], 'prefix' => 'api/v1', 'as' => 'api.v1.'], function (Router $router) {
+$router->group(['middleware' => ['web'], 'prefix' => 'api/v1', 'as' => 'api.v1.'], function (Router $router) {
 
     // The Auth middleware group (Temporary Web middleware).
-    $router->group(['middleware' => ['web', 'auth']], function (Router $router) {
+    $router->group(['middleware' => ['auth']], function (Router $router) {
 
         // Issues route group.
         $router->group(['namespace' => 'Issue'], function (Router $router) {
