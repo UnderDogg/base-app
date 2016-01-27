@@ -1,4 +1,14 @@
-<div class="card">
+<div class="card ticket">
+
+    <div class="col-md-12 ticket-heading">
+
+        <h4>
+            <i class="fa fa-tag"></i>
+            {{ $issue->title }}
+            <span class="text-muted">{{ $issue->getHashId() }}</span>
+        </h4>
+
+    </div>
 
     <div class="card-heading image">
 
@@ -39,7 +49,7 @@
         @endif
     </div>
 
-    <div class="card-actions">
+    <div class="card-actions pull-right">
         @can('edit', $issue)
         <a
                 class="btn btn-default btn-sm"
@@ -60,6 +70,12 @@
             Delete
         </a>
         @endcan
+
+        @include('pages.issues._form-labels')
+
+        @include('pages.issues._form-users')
     </div>
+
+    <div class="clearfix"></div>
 
 </div>

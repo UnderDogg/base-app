@@ -1,6 +1,6 @@
 @can('addUsers', $issue)
 
-<a class="btn btn-default" href="#" data-toggle="modal" data-target="#users-modal">
+<a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#users-modal">
     <i class="fa fa-users"></i>
     Users
 </a>

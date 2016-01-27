@@ -33,7 +33,7 @@
                </p>
             </div>
 
-            <div v-show="comment.edit_url || comment.destroy_url" class="card-actions">
+            <div v-show="comment.edit_url || comment.destroy_url" class="card-actions pull-right">
 
                 <a
                         v-show="comment.edit_url"
@@ -55,6 +55,8 @@
                 </a>
 
             </div>
+
+            <div class="clearfix"></div>
 
         </div>
 

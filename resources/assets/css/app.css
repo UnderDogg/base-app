@@ -137,6 +137,19 @@ tr td a {
     margin-bottom: 10px;
 }
 
+/* Card ticket padding */
+.ticket {
+    padding-top: 0;
+}
+
+/* Card ticket heading colors and layout */
+.ticket .ticket-heading {
+    background-color: #d2f0f2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
 /* Step headers, no padding */
 .step-heading {
     padding:0;

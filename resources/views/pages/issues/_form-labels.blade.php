@@ -1,6 +1,6 @@
 @can('addLabels', $issue)
 
-<a class="btn btn-default" href="#" data-toggle="modal" data-target="#label-modal">
+<a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#label-modal">
     <i class="fa fa-tag"></i>
     Labels
 </a>

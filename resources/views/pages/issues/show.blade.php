@@ -10,13 +10,7 @@
 @section('title', $issue->title)
 
 @section('title.header')
-    <h3>
-        {{ $issue->title }}
 
-        <span class="text-muted">{{ $issue->getHashId() }}</span>
-    </h3>
-
-    {!! $issue->getStatusLabel() !!}
 @endsection
 
 @section('content')
@@ -40,18 +34,6 @@
     <div class="row">
 
         <br>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            @include('pages.issues._form-labels')
-
-            @include('pages.issues._form-users')
-
-        </div>
 
     </div>
 
