@@ -15,32 +15,6 @@
 
 @section('content')
 
-    <div class="row">
-
-        <!-- Labels -->
-        <div class="labels col-md-12">
-            @foreach($issue->labels as $label)
-                {!! $label->getDisplayLarge() !!}
-            @endforeach
-
-            @foreach($issue->users as $user)
-                {!! $user->getLabelLarge() !!}
-            @endforeach
-
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <br>
-
-    </div>
-
-    <br>
-
-    <div class="clearfix"></div>
-
     <!-- Issue -->
     @include('pages.issues._issue', compact('resolution'))
 

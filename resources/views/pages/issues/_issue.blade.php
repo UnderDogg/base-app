@@ -3,9 +3,16 @@
     <div class="col-md-12 ticket-heading">
 
         <h4>
-            <i class="fa fa-tag"></i>
-            {{ $issue->title }}
             <span class="text-muted">{{ $issue->getHashId() }}</span>
+            {{ $issue->title }}
+
+            @foreach($issue->labels as $label)
+                {!! $label->getDisplayLarge() !!}
+            @endforeach
+
+            @foreach($issue->users as $user)
+                {!! $user->getLabelLarge() !!}
+            @endforeach
         </h4>
 
     </div>
