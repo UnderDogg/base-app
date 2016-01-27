@@ -136,3 +136,8 @@ tr td a {
     padding-bottom: 10px;
     margin-bottom: 10px;
 }
+
+/* Step headers, no padding */
+.step-heading {
+    padding:0;
+}

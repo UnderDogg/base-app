@@ -1,8 +1,8 @@
-<div id="step-{{ $step->position }}" class="panel panel-default">
+<div id="step-{{ $step->position }}" class="step panel panel-default">
 
     @if(count($step->images) > 0)
 
-    <div class="panel-heading">
+    <div class="step-heading panel-heading">
         @foreach($step->images as $image)
             <img class="img-responsive" data-original="{{ route('resources.guides.steps.images.download', [$step->guide->getSlug(), $step->getKey(), $image->uuid]) }}">
         @endforeach
