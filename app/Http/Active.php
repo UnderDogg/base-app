@@ -2,8 +2,6 @@
 
 namespace App\Http;
 
-use Illuminate\Support\Facades\Route;
-
 class Active
 {
     /**
@@ -73,6 +71,40 @@ class Active
         }
 
         return;
+    }
+
+    /**
+     * Returns the output if the specified resource name is
+     * currently active in one of it's child routes.
+     *
+     * @param string $name
+     * @param array  $paths
+     *
+     * @return null|string
+     */
+    public function resource($name = '', array $paths = [])
+    {
+        if (!ends_with($name, '.')) {
+            $name = $name.'.';
+        }
+
+        if (count($paths) === 0) {
+            $paths = [
+                'index',
+                'create',
+                'store',
+                'show',
+                'edit',
+                'update',
+                'destroy',
+            ];
+        }
+
+        $routes = array_map(function ($key) use ($name) {
+            return $name.$key;
+        }, $paths);
+
+        return $this->routes($routes);
     }
 
     /**
