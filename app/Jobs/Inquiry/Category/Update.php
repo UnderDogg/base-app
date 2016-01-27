@@ -46,7 +46,10 @@ class Update extends Job
     {
         $this->category->name = $this->request->input('name');
 
-        if ($this->request->has('parent')) {
+        if (
+            $this->request->has('parent') &&
+            $this->category->parent_id != $this->request->input('parent')
+        ) {
             $this->category->parent_id = $this->request->input('parent');
         }
 
