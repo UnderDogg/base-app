@@ -39,7 +39,7 @@ class Category extends Node
 
         $roots = $query->with(['children' => function ($query) use ($except) {
             return $query->whereNotIn('id', $except);
-        }])->get();
+        }])->whereNotIn('id', $except)->get();
 
         $options = [null => $first];
 
