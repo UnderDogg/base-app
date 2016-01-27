@@ -2,7 +2,7 @@
 
 namespace App\Processors;
 
-use Illuminate\Contracts\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -22,10 +22,10 @@ abstract class Processor
      *
      * @param string|null $error
      *
-     * @throws UnauthorizedException
+     * @throws HttpException
      */
     public function unauthorized($error = null)
     {
-        throw new UnauthorizedException($error);
+        throw new HttpException(403, $error);
     }
 }
