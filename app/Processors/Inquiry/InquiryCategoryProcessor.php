@@ -115,6 +115,14 @@ class InquiryCategoryProcessor extends Processor
         return view('pages.categories.edit', compact('form'));
     }
 
+    /**
+     * Updates the specified inquiry category.
+     *
+     * @param CategoryRequest $request
+     * @param int|string      $id
+     *
+     * @return bool
+     */
     public function update(CategoryRequest $request, $id)
     {
         $category = $this->category->findOrFail($id);
