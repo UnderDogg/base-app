@@ -21,6 +21,11 @@ class AvatarProcessor extends Processor
     protected $guard;
 
     /**
+     * @var User
+     */
+    protected $user;
+
+    /**
      * @var Initialcon
      */
     protected $initialcon;
@@ -46,13 +51,15 @@ class AvatarProcessor extends Processor
      * Constructor.
      *
      * @param Guard           $guard
+     * @param User            $user
      * @param Initialcon      $initialcon
      * @param ImageManager    $manager
      * @param AvatarPresenter $presenter
      */
-    public function __construct(Guard $guard, Initialcon $initialcon, ImageManager $manager, AvatarPresenter $presenter)
+    public function __construct(Guard $guard, User $user, Initialcon $initialcon, ImageManager $manager, AvatarPresenter $presenter)
     {
         $this->guard = $guard;
+        $this->user = $user;
         $this->initialcon = $initialcon;
         $this->manager = $manager;
         $this->presenter = $presenter;
@@ -106,11 +113,17 @@ class AvatarProcessor extends Processor
      * This will also generate a new avatar for the
      * user if the user does not have an avatar.
      *
+     * @param int|string|null $id
+     *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download()
+    public function download($id = null)
     {
-        $user = $this->guard->user();
+        if ($id) {
+            $user = $this->user->findOrFail($id);
+        } else {
+            $user = $this->guard->user();
+        }
 
         if ($user instanceof User) {
             // If the user doesn't have an avatar already,

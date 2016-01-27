@@ -50,7 +50,7 @@
 
     <li>
         <a href="{{ route('issues.create') }}">
-            <i class="fa fa-plus-square"></i> New Issue
+            <i class="fa fa-plus-square"></i> New Ticket
         </a>
     </li>
 

@@ -55,6 +55,7 @@ elixir(function(mix) {
         'libs/select2.css',
         'libs/select2-bootstrap.css',
         'libs/bootstrap-datetimepicker.min.css',
+        'libs/bootplus.min.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')

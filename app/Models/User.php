@@ -29,6 +29,15 @@ class User extends Eloquent implements AuthorizableContract
     ];
 
     /**
+     * The appends attributes.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'avatar_url',
+    ];
+
+    /**
      * The user questions pivot table.
      *
      * @var string
@@ -95,6 +104,16 @@ class User extends Eloquent implements AuthorizableContract
     public function questions()
     {
         return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
+    }
+
+    /**
+     * The users avatar URL accessor.
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        return route('profile.avatar.download', [$this->getKey()]);
     }
 
     /**

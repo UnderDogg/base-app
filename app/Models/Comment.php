@@ -34,6 +34,7 @@ class Comment extends Model
      * @var array
      */
     protected $appends = [
+        'created_at_human',
         'created_at_tag_line',
         'content_from_markdown',
         'resolution',

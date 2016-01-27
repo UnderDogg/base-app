@@ -7,6 +7,26 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 class Model extends BaseModel
 {
     /**
+     * The created at human accessor.
+     *
+     * @return string
+     */
+    public function getCreatedAtHumanAttribute()
+    {
+        return $this->createdAtHuman();
+    }
+
+    /**
+     * The updated at human accessor.
+     *
+     * @return string
+     */
+    public function getUpdatedAtHumanAttribute()
+    {
+        return $this->updatedAtHuman();
+    }
+
+    /**
      * Returns the created at time in a human readable format.
      *
      * @return string

@@ -38,33 +38,32 @@
                     </ul>
                 </li>
 
-                <li class="dropdown {{ active()->route('inquiries.*') }}" id="requests-menu">
-                    <a  href="#requests-menu" rel="requests-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-question-circle"></i>
-                        Requests
-                        <i class="fa fa-caret-down"></i>
-                    </a>
+                @if(auth()->check())
+                    <li class="dropdown {{ active()->route('inquiries.*') }}" id="requests-menu">
+                        <a  href="#requests-menu" rel="requests-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-question-circle"></i>
+                            Requests
+                            <i class="fa fa-caret-down"></i>
+                        </a>
 
-                    <ul class="dropdown-menu">
-                        <li class="{{ active()->route('inquiries.*') }}">
-                            <a href="{{ route('inquiries.index') }}">
-                                <i class="fa fa-bell"></i>
-                                Requests
-                            </a>
-                        </li>
-
-                        @can('index', App\Models\Category::class)
-                            <li class="{{ active()->route('inquiries.categories.*') }}">
-                                <a href="{{ route('resources.guides.index') }}">
-                                    <i class="fa fa-folder"></i>
-                                    Categories
+                        <ul class="dropdown-menu">
+                            <li class="{{ active()->route('inquiries.*') }}">
+                                <a href="{{ route('inquiries.index') }}">
+                                    <i class="fa fa-bell"></i>
+                                    Requests
                                 </a>
                             </li>
-                        @endcan
-                    </ul>
-                </li>
 
-                @if(auth()->check())
+                            @can('index', App\Models\Category::class)
+                                <li class="{{ active()->route('inquiries.categories.*') }}">
+                                    <a href="{{ route('resources.guides.index') }}">
+                                        <i class="fa fa-folder"></i>
+                                        Categories
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
 
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
 

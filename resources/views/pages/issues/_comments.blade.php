@@ -2,61 +2,61 @@
 
     <div v-for="comment in comments">
 
-        <div class="panel" v-bind:class="[ comment.resolution ? 'panel-success' : 'panel-default' ]" id="comment-@{{{ $comment->getKey() }}}">
+        <div class="card" v-bind:class="{ 'answer' : comment.resolution }" id="comment-@{{{ $comment->id }}}">
 
-            <div class="panel-heading">
-                <h3 class="panel-title">
+            <div v-if="comment.resolution" class="col-md-12 answer-heading">
 
-                    <i v-show="comment.resolution" class="fa fa-check-square"></i>
+                <h4>
+                    <i class="fa fa-check-square"></i>
+                    Best Answer
+                </h4>
 
-                    <span class="h5">
-                        @{{{ comment.created_at_tag_line  }}}
-                    </span>
-
-                    <div class="clearfix"></div>
-
-                </h3>
             </div>
 
-            <div class="panel-body">
-                @{{{ comment.content_from_markdown  }}}
+            <div class="card-heading image">
 
-                <div v-show="comment.edit_url || comment.destroy_url" class="row">
+                <img v-bind:src="comment.user.avatar_url" alt="{{ $issue->user->fullname }}'s Profile Avatar"/>
 
-                    <hr>
+                <div class="card-heading-header">
 
-                    <div class="col-md-12">
+                    <h3>@{{{ comment.user.fullname  }}}</h3>
 
-                        <span class="btn-group">
-                            <a
-                                    v-show="comment.edit_url"
-                                    class="btn btn-default btn-sm"
-                                    href="@{{{ comment.edit_url }}}">
-                                <i class="fa fa-edit"></i>
-                                Edit
-                            </a>
-
-                            <a
-                                    v-show="comment.destroy_url"
-                                    class="btn btn-default btn-sm"
-                                    data-post="DELETE"
-                                    data-title="Delete Comment?"
-                                    data-message="Are you sure you want to delete this comment?"
-                                    href="@{{{ comment.destroy_url }}}">
-                                <i class="fa fa-times"></i>
-                                Delete
-                            </a>
-                        </span>
-
-                    </div>
+                    <span>@{{{ comment.created_at_human  }}}</span>
 
                 </div>
 
             </div>
 
-        </div>
+            <div class="card-body">
+               <p>
+                   @{{{ comment.content_from_markdown }}}
+               </p>
+            </div>
 
-    </div>
+            <div v-show="comment.edit_url || comment.destroy_url" class="card-actions">
+
+                <a
+                        v-show="comment.edit_url"
+                        class="btn btn-default btn-sm"
+                        href="@{{{ comment.edit_url }}}">
+                    <i class="fa fa-edit"></i>
+                    Edit
+                </a>
+
+                <a
+                        v-show="comment.destroy_url"
+                        class="btn btn-default btn-sm"
+                        data-post="DELETE"
+                        data-title="Delete Comment?"
+                        data-message="Are you sure you want to delete this comment?"
+                        href="@{{{ comment.destroy_url }}}">
+                    <i class="fa fa-times"></i>
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
 
 </div>
 

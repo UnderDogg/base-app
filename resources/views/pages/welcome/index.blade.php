@@ -49,7 +49,7 @@
 
                         <div class="panel-heading text-center">
                             <div class="panel-title">
-                                Your Last Issue
+                                Your Last Ticket
                             </div>
                         </div>
 
@@ -62,24 +62,24 @@
                                     <div class="visible-xs">
                                         <a class="btn btn-sm btn-success pull-left" href="{{ route('issues.create') }}">
                                             <i class="fa fa-exclamation-circle"></i>
-                                            Create An Issue
+                                            Create An Ticket
                                         </a>
 
                                         <a class="btn btn-sm btn-default pull-right" href="{{ route('issues.index') }}">
                                             <i class="fa fa-exclamation-circle"></i>
-                                            View My Issues
+                                            View My Ticket
                                         </a>
                                     </div>
 
                                     <div class="hidden-xs">
                                         <a class="btn btn-md btn-success pull-left" href="{{ route('issues.create') }}">
                                             <i class="fa fa-exclamation-circle"></i>
-                                            Create An Issue
+                                            Create A Ticket
                                         </a>
 
                                         <a class="btn btn-md btn-default pull-right" href="{{ route('issues.index') }}">
                                             <i class="fa fa-exclamation-circle"></i>
-                                            View My Issues
+                                            View My Ticket
                                         </a>
                                     </div>
 

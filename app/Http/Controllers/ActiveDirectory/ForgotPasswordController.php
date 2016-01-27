@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
+use App\Exceptions\ActiveDirectory\NotEnoughSecurityQuestionsException;
+use App\Exceptions\ActiveDirectory\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
@@ -46,15 +48,19 @@ class ForgotPasswordController extends Controller
      */
     public function find(DiscoverRequest $request)
     {
-        $token = $this->processor->find($request);
+        try {
+            $token = $this->processor->find($request);
 
-        if (is_string($token)) {
             return redirect()->route('auth.forgot-password.questions', [$token]);
+        } catch (NotEnoughSecurityQuestionsException $e) {
+            $message = "Unfortunately this account hasn't finished their forgot password setup.";
+
+            flash()->setTimer(false)->error('Error', $message);
+        } catch (UserNotFoundException $e) {
+            $message = "We couldn't locate the user you're looking for. Try again!";
+
+            flash()->setTimer(false)->error('Error', $message);
         }
-
-        $message = "We couldn't locate the user you're looking for. Try again!";
-
-        flash()->setTimer(false)->error('Error', $message);
 
         return redirect()->route('auth.forgot-password.discover');
     }

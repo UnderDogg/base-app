@@ -111,7 +111,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
 
                 // The profile avatar download route.
-                $router->get('download', [
+                $router->get('download/{user?}', [
                     'as'    => 'avatar.download',
                     'uses'  => 'AvatarController@download',
                 ]);

@@ -1,20 +1,23 @@
-<div class="panel panel-default">
+<div class="card">
 
-    <div class="panel-heading">
+    <div class="card-heading image">
 
-        <h3 class="panel-title">
+        <img src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->fullname }}'s Profile Avatar"/>
 
-            <span class="h5">
-                {!! $issue->getCreatedAtTagLine() !!}
-            </span>
+        <div class="card-heading-header">
 
-        </h3>
+            <h3>{{ $issue->user->fullname }}</h3>
+
+            <span>{!! $issue->createdAtHuman() !!}</span>
+
+        </div>
 
     </div>
 
-    <div class="panel-body">
-
-        {!! $issue->getDescriptionFromMarkdown() !!}
+    <div class="card-body">
+        <p>
+            {!! $issue->getDescriptionFromMarkdown() !!}
+        </p>
 
         {{--
          We'll make sure a resolution exists and that we have more than
@@ -25,47 +28,38 @@
             {{-- We'll also make sure that the first comment is not a resolution. --}}
             @if(!$issue->comments->first()->isResolution())
 
-                <hr>
+            <hr>
 
-                @include('pages.issues._comment', ['comment' => $resolution])
+            <p>
+                @include('pages.issues._resolution', ['comment' => $resolution])
+            </p>
 
             @endif
 
         @endif
+    </div>
 
-        <div class="row">
+    <div class="card-actions">
+        @can('edit', $issue)
+        <a
+                class="btn btn-default btn-sm"
+                href="{{ route('issues.edit', [$issue->getKey()]) }}">
+            <i class="fa fa-edit"></i>
+            Edit
+        </a>
+        @endcan
 
-            <hr>
-
-            <div class="col-md-12">
-
-                <span class="btn-group">
-                    @can('edit', $issue)
-                        <a
-                                class="btn btn-default btn-sm"
-                                href="{{ route('issues.edit', [$issue->getKey()]) }}">
-                            <i class="fa fa-edit"></i>
-                            Edit
-                        </a>
-                    @endcan
-
-                    @can('destroy', $issue)
-                        <a
-                                class="btn btn-default btn-sm"
-                                data-post="DELETE"
-                                data-title="Delete Comment?"
-                                data-message="Are you sure you want to delete this comment?"
-                                href="{{ route('issues.destroy', [$issue->getKey()]) }}">
-                            <i class="fa fa-times"></i>
-                            Delete
-                        </a>
-                    @endcan
-                </span>
-
-            </div>
-
-        </div>
-
+        @can('destroy', $issue)
+        <a
+                class="btn btn-default btn-sm"
+                data-post="DELETE"
+                data-title="Delete Ticket?"
+                data-message="Are you sure you want to delete this ticket?"
+                href="{{ route('issues.destroy', [$issue->getKey()]) }}">
+            <i class="fa fa-times"></i>
+            Delete
+        </a>
+        @endcan
     </div>
 
 </div>

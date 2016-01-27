@@ -2,6 +2,7 @@
 body {
     font-family: 'Source Sans Pro',sans-serif;
     line-height: 1.6em;
+    background-color:rgba(238, 238, 238, 0.50);
 }
 
 /* Add label-large class */
@@ -121,4 +122,17 @@ tr td a {
     top: -5px;
     float: left;
     left: -5px;
+}
+
+/* Card answer padding */
+.answer {
+    padding-top: 0;
+}
+
+/* Card answer heading colors and layout */
+.answer .answer-heading {
+    background-color:#e9f2dd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }

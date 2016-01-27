@@ -100,7 +100,7 @@
             !!}
 
             <button type="submit" class="btn btn-danger">
-                <i class="fa fa-times"></i> Close Issue
+                <i class="fa fa-times"></i> Close Ticket
             </button>
 
             {!! Form::close() !!}
@@ -121,7 +121,7 @@
             !!}
 
             <button type="submit" class="btn btn-success">
-                <i class="fa fa-check"></i> Re-Open Issue
+                <i class="fa fa-check"></i> Re-Open Ticket
             </button>
 
             {!! Form::close() !!}

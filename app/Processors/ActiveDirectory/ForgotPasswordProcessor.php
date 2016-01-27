@@ -4,6 +4,8 @@ namespace App\Processors\ActiveDirectory;
 
 use Adldap\Contracts\Adldap;
 use Adldap\Models\User as AdldapUser;
+use App\Exceptions\ActiveDirectory\NotEnoughSecurityQuestionsException;
+use App\Exceptions\ActiveDirectory\UserNotFoundException;
 use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
@@ -69,7 +71,10 @@ class ForgotPasswordProcessor extends Processor
      *
      * @param DiscoverRequest $request
      *
-     * @return bool
+     * @throws NotEnoughSecurityQuestionsException
+     * @throws UserNotFoundException
+     *
+     * @return string
      */
     public function find(DiscoverRequest $request)
     {
@@ -86,9 +91,11 @@ class ForgotPasswordProcessor extends Processor
             if ($user instanceof User) {
                 return $user->generateForgotToken();
             }
+
+            throw new NotEnoughSecurityQuestionsException();
         }
 
-        return false;
+        throw new UserNotFoundException();
     }
 
     /**

@@ -56,10 +56,12 @@ class AvatarController extends Controller
     /**
      * Returns a download response of the current users avatar.
      *
+     * @param int|string|null $id
+     *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download()
+    public function download($id = null)
     {
-        return $this->processor->download();
+        return $this->processor->download($id);
     }
 }
