@@ -57,6 +57,7 @@
     </div>
 
     <div class="card-actions pull-right">
+
         @can('edit', $issue)
         <a
                 class="btn btn-default btn-sm"
@@ -81,6 +82,7 @@
         @include('pages.issues._form-labels')
 
         @include('pages.issues._form-users')
+
     </div>
 
     <div class="clearfix"></div>
