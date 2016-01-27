@@ -15,6 +15,7 @@ return [
 
     'policies' => [
 
+        \App\Models\Category::class         => \App\Policies\CategoryPolicy::class,
         \App\Models\Issue::class            => \App\Policies\IssuePolicy::class,
         \App\Models\Inquiry::class          => \App\Policies\InquiryPolicy::class,
         \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
