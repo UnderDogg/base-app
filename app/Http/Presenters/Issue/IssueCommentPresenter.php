@@ -55,7 +55,7 @@ class IssueCommentPresenter extends Presenter
                 // If the issue doesn't have a resolution, or the current comment
                 // is the resolution, we'll add the mark resolution checkbox
                 if (!$hasResolution || $isResolution) {
-                    $fieldset->control('input:checkbox', 'Mark as Resolution')
+                    $fieldset->control('input:checkbox', 'Mark as Answer')
                         ->attributes([
                             'class' => 'switch-mark',
                             ($isResolution ? 'checked' : null),
