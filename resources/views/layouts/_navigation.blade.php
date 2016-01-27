@@ -47,7 +47,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="{{ active()->route('inquiries.*') }}">
+                            <li class="{{ active()->resource('inquiries') }}">
                                 <a href="{{ route('inquiries.index') }}">
                                     <i class="fa fa-bell"></i>
                                     Requests
@@ -56,7 +56,7 @@
 
                             @can('index', App\Models\Category::class)
                                 <li class="{{ active()->route('inquiries.categories.*') }}">
-                                    <a href="{{ route('resources.guides.index') }}">
+                                    <a href="{{ route('inquiries.categories.index') }}">
                                         <i class="fa fa-folder"></i>
                                         Categories
                                     </a>
