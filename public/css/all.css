@@ -17611,3 +17611,8 @@ tr td a {
 .step-heading {
   padding: 0;
 }
+
+.md-editor > textarea {
+  background: white;
+  font-family: inherit;
+}

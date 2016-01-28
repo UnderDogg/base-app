@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 use Orchestra\Support\Facades\HTML;
 
 class Inquiry extends Model
 {
-    use HasUserTrait;
+    use HasUserTrait, HasMarkdownTrait;
 
     /**
      * The requests table.
@@ -75,5 +76,15 @@ class Inquiry extends Model
         }
 
         return HTML::create('i', null, compact('class'));
+    }
+
+    /**
+     * Returns the description from markdown to HTML.
+     *
+     * @return string
+     */
+    public function getDescriptionFromMarkdown()
+    {
+        return $this->fromMarkdown($this->description);
     }
 }

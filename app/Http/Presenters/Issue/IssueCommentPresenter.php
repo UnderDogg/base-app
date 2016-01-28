@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Issue;
 
+use App\Http\Presenters\CommentPresenter;
 use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
@@ -20,36 +21,27 @@ class IssueCommentPresenter extends Presenter
      */
     public function form(Issue $issue, Comment $comment)
     {
-        return $this->form->of('issue.comment', function (FormGrid $form) use ($issue, $comment) {
+        return (new CommentPresenter($this->form, $this->table))->form($comment, function (FormGrid $form, Comment $comment) use ($issue) {
             // Check if the issue already has a resolution
             $hasResolution = $issue->findCommentResolution();
-
-            $attributes = [];
 
             if ($comment->exists) {
                 $hash = sprintf('#comment-%s', $comment->getKey());
                 $url = route('issues.comments.update', [$issue->getKey(), $comment->getKey(), $hash]);
-                $attributes = ['method' => 'PATCH'];
+                $method = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
                 $url = route('issues.comments.store', [$issue->getKey(), '#comment']);
+                $method = 'POST';
 
                 $form->submit = 'Comment';
             }
 
-            $form->setup($this, $url, $comment, $attributes);
+            $form->attributes(compact('url', 'method'));
 
             // Setup the form fieldset
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution) {
-                $fieldset->control('input:textarea', 'content')
-                    ->label('Comment')
-                    ->attributes([
-                        'placeholder'  => 'Leave a comment',
-                        'data-provide' => 'markdown',
-                        'id'           => 'comment',
-                    ]);
-
                 $isResolution = $comment->isResolution();
 
                 // If the issue doesn't have a resolution, or the current comment

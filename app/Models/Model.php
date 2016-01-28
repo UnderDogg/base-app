@@ -27,6 +27,16 @@ class Model extends BaseModel
     }
 
     /**
+     * Returns the models ID with a proceeding hash.
+     *
+     * @return string
+     */
+    public function getHashId()
+    {
+        return '#'.$this->getKey();
+    }
+
+    /**
      * Returns the created at time in a human readable format.
      *
      * @return string

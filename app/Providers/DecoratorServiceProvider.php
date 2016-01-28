@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Model;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Support\Facades\Decorator;
@@ -13,13 +14,17 @@ class DecoratorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Decorator::macro('issue-comment', function (array $args) {
+        Decorator::macro('comment', function (array $args) {
             $fluent = new Fluent($args);
 
             $comment = $fluent->comment;
             $actions = $fluent->actions;
 
             return view('components.comment', compact('comment', 'actions'));
+        });
+
+        Decorator::macro('closed', function (Model $model) {
+            return view('components.closed', compact('model'));
         });
 
         Decorator::macro('navbar.pills', function ($navbar) {

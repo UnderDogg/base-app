@@ -9,9 +9,7 @@
 
 @section('title', $issue->title)
 
-@section('title.header')
-
-@endsection
+@section('title.header', ' ')
 
 @section('content')
 
@@ -20,7 +18,7 @@
 
     <!-- Comments -->
     @foreach($issue->comments as $comment)
-        @decorator('issue-comment', [
+        @decorator('comment', [
             'comment'   => $comment,
             'actions'   => [
                 'edit'      => route('issues.comments.edit', [$comment->pivot->issue_id, $comment->getKey()]),
@@ -29,10 +27,10 @@
         ])
     @endforeach
 
-    @if($issue->isClosed())
+    @if($issue->closed)
 
         <!-- Closed -->
-        @include('pages.issues._closed', compact('issue'))
+        @decorator('closed', $issue)
 
     @endif
 
