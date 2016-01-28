@@ -19,7 +19,15 @@
     @include('pages.issues._issue', compact('resolution'))
 
     <!-- Comments -->
-    @include('pages.issues._comments')
+    @foreach($issue->comments as $comment)
+        @decorator('issue-comment', [
+            'comment'   => $comment,
+            'actions'   => [
+                'edit'      => route('issues.comments.edit', [$comment->pivot->issue_id, $comment->getKey()]),
+                'destroy'   => route('issues.comments.destroy', [$comment->pivot->issue_id, $comment->getKey()]),
+            ],
+        ])
+    @endforeach
 
     @if($issue->isClosed())
 
