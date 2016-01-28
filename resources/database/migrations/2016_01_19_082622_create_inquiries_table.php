@@ -17,13 +17,15 @@ class CreateInquiriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('user_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->boolean('closed')->default(false);
             $table->string('title');
             $table->text('description')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+
+            $table->foreign('category_id')->references('id')->on('categories')
+                ->onDelete('set null');
         });
 
         Schema::create('inquiry_comments', function (Blueprint $table) {
