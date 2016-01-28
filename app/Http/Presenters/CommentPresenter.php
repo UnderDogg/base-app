@@ -2,8 +2,8 @@
 
 namespace App\Http\Presenters;
 
-use Closure;
 use App\Models\Comment;
+use Closure;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 
@@ -26,9 +26,9 @@ class CommentPresenter extends Presenter
                 $fieldset->control('input:textarea', 'content')
                     ->label('Comment')
                     ->attributes([
-                        'placeholder' => 'Leave a comment',
+                        'placeholder'  => 'Leave a comment',
                         'data-provide' => 'markdown',
-                        'id' => 'comment',
+                        'id'           => 'comment',
                     ]);
             });
 
