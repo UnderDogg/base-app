@@ -3390,7 +3390,8 @@ $(function ()
             confirmButtonText: "Yes",
             cancelButtonText: "Cancel",
             closeOnConfirm: false,
-            closeOnCancel: true
+            closeOnCancel: true,
+            animation:false
         }, function(isConfirm) {
             if (isConfirm) {
                 return self.submit();
@@ -3428,7 +3429,8 @@ $(function ()
             confirmButtonText: "Yes",
             cancelButtonText: "Cancel",
             closeOnConfirm: false,
-            closeOnCancel: true
+            closeOnCancel: true,
+            animation:false
         }, function(isConfirm) {
             if (isConfirm) {
                 $('body').append(form);

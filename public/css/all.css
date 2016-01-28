@@ -17612,6 +17612,8 @@ tr td a {
   padding: 0;
 }
 
+/* Md-Editor white background with inherited font */
+
 .md-editor > textarea {
   background: white;
   font-family: inherit;
