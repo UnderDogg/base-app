@@ -7,6 +7,7 @@ use App\Jobs\Com\Computer\ScanDisks;
 use App\Jobs\Com\Computer\ScanProcessor;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
+use App\Models\ComputerStatus;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
@@ -58,18 +59,21 @@ class ScanComputers extends Command
 
         foreach ($computers as $computer) {
             // Check the computers status.
-            $this->dispatch(new CreateStatus($computer));
+            $status = $this->dispatch(new CreateStatus($computer));
 
-            // Check the WMI connectivity to the computer.
-            if ($this->dispatch(new CheckConnectivity($computer))) {
-                // Scan the computers disks.
-                $this->dispatch(new ScanDisks($computer));
+            // Check if the computer is online.
+            if ($status instanceof ComputerStatus && $status->online === true) {
+                // Check the WMI connectivity to the computer.
+                if ($this->dispatch(new CheckConnectivity($computer))) {
+                    // Scan the computers disks.
+                    $this->dispatch(new ScanDisks($computer));
 
-                // Scan the computers processor.
-                $this->dispatch(new ScanProcessor($computer));
+                    // Scan the computers processor.
+                    $this->dispatch(new ScanProcessor($computer));
+                }
+
+                ++$scanned;
             }
-
-            ++$scanned;
         }
 
         $this->info("Successfully scanned $scanned computers.");
