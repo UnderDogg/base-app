@@ -2,10 +2,10 @@
 
 namespace App\Tests\Unit;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use App\Http\Active;
 use App\Tests\TestCase;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ActiveTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace App\Tests;
 
-use Mockery;
 use Illuminate\Support\Facades\Session;
+use Mockery;
 use Orchestra\Testing\ApplicationTestCase;
 
 abstract class TestCase extends ApplicationTestCase
