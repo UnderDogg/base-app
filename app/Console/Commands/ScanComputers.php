@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use COM_Exception;
 use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Com\Computer\ScanDisks;
 use App\Jobs\Com\Computer\ScanProcessor;
@@ -63,16 +64,20 @@ class ScanComputers extends Command
 
             // Check if the computer is online.
             if ($status instanceof ComputerStatus && $status->online === true) {
-                // Check the WMI connectivity to the computer.
-                if ($this->dispatch(new CheckConnectivity($computer))) {
-                    // Scan the computers disks.
-                    $this->dispatch(new ScanDisks($computer));
+                try {
+                    // Check the WMI connectivity to the computer.
+                    if ($this->dispatch(new CheckConnectivity($computer))) {
+                        // Scan the computers disks.
+                        $this->dispatch(new ScanDisks($computer));
 
-                    // Scan the computers processor.
-                    $this->dispatch(new ScanProcessor($computer));
+                        // Scan the computers processor.
+                        $this->dispatch(new ScanProcessor($computer));
+                    }
+
+                    ++$scanned;
+                } catch (COM_Exception $e) {
+                    //
                 }
-
-                ++$scanned;
             }
         }
 
