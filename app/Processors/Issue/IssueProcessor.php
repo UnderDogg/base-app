@@ -4,12 +4,10 @@ namespace App\Processors\Issue;
 
 use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Requests\IssueRequest;
-use App\Jobs\CloseIssue;
 use App\Jobs\Issue\Close;
 use App\Jobs\Issue\Open;
 use App\Jobs\Issue\Store;
 use App\Jobs\Issue\Update;
-use App\Jobs\OpenIssue;
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
