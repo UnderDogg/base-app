@@ -39,6 +39,8 @@ class CreateStatus extends Job
         if ($latency) {
             $status->online = true;
             $status->latency = $latency;
+        } else {
+            $status->online = false;
         }
 
         if ($status->save()) {
