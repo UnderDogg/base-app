@@ -2,8 +2,8 @@
 
 namespace App\Jobs\Issue;
 
-use App\Models\Issue;
 use App\Jobs\Job;
+use App\Models\Issue;
 
 class Open extends Job
 {

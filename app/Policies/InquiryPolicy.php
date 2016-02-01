@@ -79,7 +79,6 @@ class InquiryPolicy extends Policy
         return $this->canIf('close-inquiry') || $user->getKey() === $inquiry->user_id;
     }
 
-
     /**
      * Returns true / false if the specified user
      * can view the specified inquiry.

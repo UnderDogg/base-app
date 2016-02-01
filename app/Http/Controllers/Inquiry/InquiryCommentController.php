@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Inquiry;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\InquiryCommentRequest;
 use App\Processors\Inquiry\InquiryCommentProcessor;
-use App\Http\Controllers\Controller;
 
 class InquiryCommentController extends Controller
 {
@@ -62,7 +62,7 @@ class InquiryCommentController extends Controller
      *
      * @param InquiryCommentRequest $request
      * @param int|string            $inquiryId
-     * @param int|string             $commentId
+     * @param int|string            $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */

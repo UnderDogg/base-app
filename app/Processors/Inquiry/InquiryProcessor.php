@@ -100,7 +100,7 @@ class InquiryProcessor extends Processor
     public function show($id)
     {
         $inquiry = $this->inquiry->findOrFail($id);
-        
+
         $formComment = $this->presenter->formComment($inquiry);
 
         return view('pages.inquiries.show', compact('inquiry', 'formComment'));

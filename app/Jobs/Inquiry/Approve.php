@@ -2,8 +2,8 @@
 
 namespace App\Jobs\Inquiry;
 
-use App\Models\Inquiry;
 use App\Jobs\Job;
+use App\Models\Inquiry;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Approve extends Job
