@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use PDOException;
 use App\Policies\Policy;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Contracts\Foundation\Foundation;
@@ -34,7 +34,7 @@ class AuthorizationServiceProvider extends ServiceProvider
                     $this->registerPolicies($manager, $policies, $roles);
                 }
             });
-        } catch (QueryException $e) {
+        } catch (PDOException $e) {
             // Application has no been installed yet.
             // Roles table does not exist.
         }
