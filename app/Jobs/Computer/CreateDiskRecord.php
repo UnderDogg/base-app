@@ -51,7 +51,15 @@ class CreateDiskRecord extends Job
         $record = new ComputerHardDiskRecord();
 
         $record->disk_id = $this->disk->getKey();
-        $record->free = $this->free;
+
+        // Make sure free is always an integer.
+        if (is_null($this->free) || !is_numeric($this->free)) {
+            $free = 0;
+        } else {
+            $free = $this->free;
+        }
+
+        $record->free = $free;
         $record->status = $this->status;
 
         if ($record->save()) {

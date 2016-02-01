@@ -74,6 +74,8 @@ class ScanComputers extends Command
                         $this->dispatch(new ScanProcessor($computer));
                     }
 
+                    $this->info(sprintf('Scanned: %s', $computer->name));
+
                     ++$scanned;
                 } catch (COM_Exception $e) {
                     //
