@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
-use COM_Exception;
 use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Com\Computer\ScanDisks;
 use App\Jobs\Com\Computer\ScanProcessor;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
 use App\Models\ComputerStatus;
+use COM_Exception;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
