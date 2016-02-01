@@ -2,13 +2,13 @@
 
     <li class="{{ active()->route('issues.index') }}">
         <a href="{{ route('issues.index') }}">
-            <i class="fa fa-exclamation-circle"></i> Open Tickets
+            <i class="fa fa-exclamation-circle"></i> Open
         </a>
     </li>
 
     <li class="{{ active()->route('issues.closed') }}" >
         <a href="{{ route('issues.closed') }}">
-            <i class="fa fa-check-circle"></i> Closed Tickets
+            <i class="fa fa-check-circle"></i> Closed
         </a>
     </li>
 

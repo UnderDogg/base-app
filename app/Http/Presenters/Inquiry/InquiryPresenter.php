@@ -94,6 +94,20 @@ class InquiryPresenter extends Presenter
     }
 
     /**
+     * Returns a new table of all approved inquiries.
+     *
+     * @param Inquiry $inquiry
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableApproved(Inquiry $inquiry)
+    {
+        $inquiry = $inquiry->where('approved', true);
+
+        return $this->table($inquiry);
+    }
+
+    /**
      * Returns a new form for the specified inquiry.
      *
      * @param Inquiry $inquiry

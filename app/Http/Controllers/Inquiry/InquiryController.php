@@ -44,6 +44,16 @@ class InquiryController extends Controller
     }
 
     /**
+     * Displays all of the users approved inquiries.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function approved()
+    {
+        return $this->processor->approved();
+    }
+
+    /**
      * Displays the form for creating an inquiry.
      *
      * @return \Illuminate\View\View

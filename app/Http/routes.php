@@ -309,6 +309,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'uses' => 'InquiryController@closed',
             ]);
 
+            // Display all approved inquiries.
+            $router->get('requests/approved', [
+                'as'   => 'inquiries.approved',
+                'uses' => 'InquiryController@approved',
+            ]);
+
             // Close an inquiry.
             $router->post('requests/{inquiries}/close', [
                 'as'   => 'inquiries.close',

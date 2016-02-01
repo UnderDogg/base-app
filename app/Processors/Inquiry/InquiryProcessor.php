@@ -65,6 +65,20 @@ class InquiryProcessor extends Processor
     }
 
     /**
+     * Displays the users approved requests.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function approved()
+    {
+        $inquiries = $this->presenter->tableApproved($this->inquiry);
+
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.inquiries.index', compact('inquiries', 'navbar'));
+    }
+
+    /**
      * Displays the form for creating a new request.
      *
      * @return \Illuminate\View\View
