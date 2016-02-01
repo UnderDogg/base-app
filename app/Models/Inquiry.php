@@ -35,6 +35,40 @@ class Inquiry extends Model
     }
 
     /**
+     * Adds a comment to an inquiry.
+     *
+     * @param string $content
+     *
+     * @return Comment
+     */
+    public function createComment($content)
+    {
+        $attributes = [
+            'content' => $content,
+            'user_id' => auth()->user()->getAuthIdentifier(),
+        ];
+
+        return $this->comments()->create($attributes);
+    }
+
+    /**
+     * Updates the specified comment.
+     *
+     * @param int|string $commentId
+     * @param int|string $content
+     *
+     * @return bool
+     */
+    public function updateComment($commentId, $content)
+    {
+        $comment = $this->comments()->findOrFail($commentId);
+
+        $comment->content = $content;
+
+        return $comment->save();
+    }
+
+    /**
      * Returns true / false if the current inquiry is open.
      *
      * @return bool
