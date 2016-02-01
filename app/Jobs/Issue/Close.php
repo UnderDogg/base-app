@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Issue;
 
 use App\Models\Issue;
+use App\Jobs\Job;
 
-class OpenIssue extends Job
+class Close extends Job
 {
     /**
      * @var Issue
@@ -28,10 +29,14 @@ class OpenIssue extends Job
      */
     public function handle()
     {
-        $this->issue->closed = false;
-        $this->issue->closed_at = null;
-        $this->issue->closed_by_user_id = null;
+        if ($this->issue->isOpen()) {
+            $this->issue->closed = true;
+            $this->issue->closed_at = $this->issue->freshTimestamp();
+            $this->issue->closed_by_user_id = auth()->id();
 
-        return $this->issue->save();
+            return $this->issue->save();
+        }
+
+        return false;
     }
 }

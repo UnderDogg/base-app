@@ -119,6 +119,66 @@ class InquiryController extends Controller
     }
 
     /**
+     * Closes the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function close($id)
+    {
+        if ($this->processor->close($id)) {
+            flash()->success('Success!', 'Successfully closed request.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        } else {
+            flash()->error('Error!', 'There was an issue closing this request. Please try again.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        }
+    }
+
+    /**
+     * Opens the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function open($id)
+    {
+        if ($this->processor->open($id)) {
+            flash()->success('Success!', 'Successfully re-opened request.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        } else {
+            flash()->success('Success!', 'There was an issue re-opening this request. Please try again.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        }
+    }
+
+    /**
+     * Approves the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approve($id)
+    {
+        if ($this->processor->approve($id)) {
+            flash()->success('Success!', 'Successfully approved request.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        } else {
+            flash()->success('Success!', 'There was an issue approving this request. Please try again.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        }
+    }
+
+    /**
      * Delete's the specified inquiry.
      *
      * @param int|string $id

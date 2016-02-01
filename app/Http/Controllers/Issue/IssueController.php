@@ -128,11 +128,11 @@ class IssueController extends Controller
     public function destroy($id)
     {
         if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted issue.');
+            flash()->success('Success!', 'Successfully deleted ticket.');
 
             return redirect()->route('issues.index');
         } else {
-            flash()->error('Error!', 'There was a problem deleting this issue. Please try again.');
+            flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
 
             return redirect()->route('issues.show', [$id]);
         }
@@ -148,11 +148,11 @@ class IssueController extends Controller
     public function close($id)
     {
         if ($this->processor->close($id)) {
-            flash()->success('Success!', 'Successfully closed issue.');
+            flash()->success('Success!', 'Successfully closed ticket.');
 
             return redirect()->back();
         } else {
-            flash()->error('Error!', 'There was a problem closing this issue. Please try again.');
+            flash()->error('Error!', 'There was a problem closing this ticket. Please try again.');
 
             return redirect()->back();
         }
@@ -168,11 +168,11 @@ class IssueController extends Controller
     public function open($id)
     {
         if ($this->processor->open($id)) {
-            flash()->success('Success!', 'Successfully re-opened issue.');
+            flash()->success('Success!', 'Successfully re-opened ticket.');
 
             return redirect()->back();
         } else {
-            flash()->error('Error!', 'There was a problem re-opening this issue. Please try again.');
+            flash()->error('Error!', 'There was a problem re-opening this ticket. Please try again.');
 
             return redirect()->back();
         }

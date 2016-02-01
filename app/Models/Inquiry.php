@@ -35,40 +35,6 @@ class Inquiry extends Model
     }
 
     /**
-     * Adds a comment to an inquiry.
-     *
-     * @param string $content
-     *
-     * @return Comment
-     */
-    public function createComment($content)
-    {
-        $attributes = [
-            'content' => $content,
-            'user_id' => auth()->user()->getAuthIdentifier(),
-        ];
-
-        return $this->comments()->create($attributes);
-    }
-
-    /**
-     * Updates the specified comment.
-     *
-     * @param int|string $commentId
-     * @param int|string $content
-     *
-     * @return bool
-     */
-    public function updateComment($commentId, $content)
-    {
-        $comment = $this->comments()->findOrFail($commentId);
-
-        $comment->content = $content;
-
-        return $comment->save();
-    }
-
-    /**
      * Returns true / false if the current inquiry is open.
      *
      * @return bool
@@ -76,6 +42,26 @@ class Inquiry extends Model
     public function isOpen()
     {
         return !$this->closed;
+    }
+
+    /**
+     * Returns true / false if current inquiry is closed.
+     *
+     * @return bool
+     */
+    public function isClosed()
+    {
+        return !$this->isOpen();
+    }
+
+    /**
+     * Returns true / false if the current inquiry is approved.
+     *
+     * @return bool
+     */
+    public function isApproved()
+    {
+        return $this->approved;
     }
 
     /**

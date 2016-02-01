@@ -1,9 +1,9 @@
 @extends('layouts.master')
 
 @section('extra.top')
-    <a class="btn btn-primary" href="{{ route('issues.index') }}">
+    <a class="btn btn-primary" href="{{ route('inquiries.index')  }}">
         <i class="fa fa-chevron-left"></i>
-        Back to Tickets
+        Back to Requests
     </a>
 @endsection
 
@@ -18,20 +18,113 @@
 
     <!-- Comments -->
     @foreach($inquiry->comments as $comment)
-        @decorator('comment', [
-            'comment'   => $comment,
-            'actions'   => [
-                'edit'      => route('inquiries.comments.edit', [$comment->pivot->inquiry_id, $comment->getKey()]),
-                'destroy'   => route('inquiries.comments.destroy', [$comment->pivot->inquiry_id, $comment->getKey()]),
-            ],
+        @decorator('comment', $comment, [
+            'edit'      => route('inquiries.comments.edit', [$comment->pivot->inquiry_id, $comment->getKey()]),
+            'destroy'   => route('inquiries.comments.destroy', [$comment->pivot->inquiry_id, $comment->getKey()]),
         ])
     @endforeach
 
-    @if($inquiry->closed)
+    <!-- Approved -->
+    @if($inquiry->approved)
 
-        <!-- Closed -->
-        @include('pages.issues._closed', compact('issue'))
+        <div class="panel panel-success">
+            <div class="panel-heading text-center">
+                <i class="fa fa-check-circle"></i>
+                Approved
+                @if($inquiry->closed)
+                    & Closed
+                @endif
+            </div>
+        </div>
 
     @endif
+
+    <!-- Closed -->
+    @if($inquiry->closed && ! $inquiry->approved)
+
+        <div class="panel panel-danger">
+            <div class="panel-heading text-center">
+                CLOSED
+            </div>
+        </div>
+
+    @endif
+
+    <!-- Comment Form -->
+    <div class="col-md-12">
+
+        {!! $formComment !!}
+
+        <hr>
+
+    </div>
+
+    <div class="col-md-4"></div>
+
+    <!-- Close / Re-Open / Approve Inquiry -->
+    <div class="col-md-12 text-center">
+
+        <div class="btn-group" role="group">
+
+            @if(!$inquiry->approved)
+
+                @can('approve', $inquiry)
+
+                    <a
+                            data-post="POST"
+                            data-title="Approve Request?"
+                            data-message="Are you sure you want to approve this request? It cannot be un-approved."
+                            class="btn btn-success"
+                            href="{{ route('inquiries.approve', [$inquiry->getKey()]) }}"
+                    >
+                        <i class="fa fa-check"></i>
+                        Approve
+                    </a>
+
+                @endcan
+
+            @endif
+
+            @if($inquiry->isOpen())
+
+                @can('close', $inquiry)
+
+                    <a
+                            data-post="POST"
+                            data-title="Close Request?"
+                            data-message="Are you sure you want to close this request?"
+                            class="btn btn-danger"
+                            href="{{ route('inquiries.close', [$inquiry->getKey()]) }}"
+                    >
+                        <i class="fa fa-times"></i>
+                        Close
+                    </a>
+
+                @endcan
+
+            @else
+
+                @can('open', $inquiry)
+
+                    <a
+                            data-post="POST"
+                            data-title="Re-Open Request?"
+                            data-message="Are you sure you want to re-open this request?"
+                            class="btn btn-danger"
+                            href="{{ route('inquiries.open', [$inquiry->getKey()]) }}"
+                    >
+                        <i class="fa fa-check"></i>
+                        Re-Open
+                    </a>
+
+                @endcan
+
+            @endif
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4"></div>
 
 @endsection

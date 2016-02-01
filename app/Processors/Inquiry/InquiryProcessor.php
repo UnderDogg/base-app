@@ -4,6 +4,9 @@ namespace App\Processors\Inquiry;
 
 use App\Http\Presenters\Inquiry\InquiryPresenter;
 use App\Http\Requests\Inquiry\InquiryRequest;
+use App\Jobs\Inquiry\Approve;
+use App\Jobs\Inquiry\Close;
+use App\Jobs\Inquiry\Open;
 use App\Jobs\Inquiry\Store;
 use App\Jobs\Inquiry\Update;
 use App\Models\Inquiry;
@@ -97,8 +100,10 @@ class InquiryProcessor extends Processor
     public function show($id)
     {
         $inquiry = $this->inquiry->findOrFail($id);
+        
+        $formComment = $this->presenter->formComment($inquiry);
 
-        return view('pages.inquiries.show', compact('inquiry'));
+        return view('pages.inquiries.show', compact('inquiry', 'formComment'));
     }
 
     /**
@@ -144,5 +149,53 @@ class InquiryProcessor extends Processor
         $inquiry = $this->inquiry->findOrFail($id);
 
         return $inquiry->delete();
+    }
+
+    /**
+     * Closes the current inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function close($id)
+    {
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        $this->authorize($inquiry);
+
+        return $this->dispatch(new Close($inquiry));
+    }
+
+    /**
+     * Opens the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function open($id)
+    {
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        $this->authorize($inquiry);
+
+        return $this->dispatch(new Open($inquiry));
+    }
+
+    /**
+     * Approves the specified inquiry.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function approve($id)
+    {
+        $inquiry = $this->inquiry->findOrFail($id);
+
+        $this->authorize($inquiry);
+
+        return $this->dispatch(new Approve($inquiry));
     }
 }

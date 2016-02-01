@@ -309,6 +309,24 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'uses' => 'InquiryController@closed',
             ]);
 
+            // Close an inquiry.
+            $router->post('requests/{inquiries}/close', [
+                'as'   => 'inquiries.close',
+                'uses' => 'InquiryController@close',
+            ]);
+
+            // Re-Open an inquiry.
+            $router->post('requests/{inquiries}/open', [
+                'as'   => 'inquiries.open',
+                'uses' => 'InquiryController@open',
+            ]);
+
+            // Approve an inquiry.
+            $router->post('requests/{inquiries}/approve', [
+                'as'   => 'inquiries.approve',
+                'uses' => 'InquiryController@approve',
+            ]);
+
             // The inquiry resource (aliased to requests for ambiguity).
             $router->resource('requests', 'InquiryController', [
                 'names' => [
@@ -319,6 +337,17 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'edit'      => 'inquiries.edit',
                     'update'    => 'inquiries.update',
                     'destroy'   => 'inquiries.destroy',
+                ],
+            ]);
+
+            // The inquiry comments resource.
+            $router->resource('requests.comments', 'InquiryCommentController', [
+                'except' => ['index', 'create', 'show'],
+                'names'  => [
+                    'store'     => 'inquiries.comments.store',
+                    'edit'      => 'inquiries.comments.edit',
+                    'update'    => 'inquiries.comments.update',
+                    'destroy'   => 'inquiries.comments.destroy',
                 ],
             ]);
         });
@@ -358,9 +387,8 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The issue comments resource.
             $router->resource('tickets.comments', 'IssueCommentController', [
-                'except' => ['index', 'show'],
+                'except' => ['index', 'create', 'show'],
                 'names'  => [
-                    'create'    => 'issues.comments.create',
                     'store'     => 'issues.comments.store',
                     'edit'      => 'issues.comments.edit',
                     'update'    => 'issues.comments.update',

@@ -4,6 +4,7 @@ namespace App\Http\Presenters\Inquiry;
 
 use App\Http\Presenters\Presenter;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Inquiry;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
@@ -138,10 +139,25 @@ class InquiryPresenter extends Presenter
                 $fieldset
                     ->control('input:textarea', 'description')
                     ->attributes([
-                        'placeholder' => 'Enter the description of your request.',
+                        'placeholder'   => 'Enter the description of your request.',
+                        'data-provide'  => 'markdown',
                     ]);
             });
         });
+    }
+
+    /**
+     * Returns a new comment form.
+     *
+     * @param Inquiry $inquiry
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formComment(Inquiry $inquiry)
+    {
+        $presenter = new InquiryCommentPresenter($this->form, $this->table);
+
+        return $presenter->form($inquiry, (new Comment()));
     }
 
     /**

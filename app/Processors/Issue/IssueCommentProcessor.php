@@ -45,7 +45,19 @@ class IssueCommentProcessor extends Processor
 
         $this->authorize($issue->comments()->getRelated());
 
-        return $issue->createComment($request->input('content'), $request->input('resolution', false));
+        $attributes = [
+            'content' => $request->input('content'),
+            'user_id' => auth()->user()->getAuthIdentifier(),
+        ];
+
+        $resolution = $request->has('resolution');
+
+        // Make sure we only allow one comment resolution
+        if ($issue->hasCommentResolution()) {
+            $resolution = false;
+        }
+
+        return $issue->comments()->create($attributes, compact('resolution'));
     }
 
     /**
@@ -84,10 +96,20 @@ class IssueCommentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $content = $request->input('content');
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        $this->authorize($comment);
+
+        $comment->content = $request->input('content', $comment->content);
+
         $resolution = $request->input('resolution', false);
 
-        return $issue->updateComment($commentId, $content, $resolution);
+        // Make sure we only allow one comment resolution
+        if (!$issue->hasCommentResolution() || $comment->isResolution()) {
+            $issue->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
+        }
+
+        return $comment->save();
     }
 
     /**

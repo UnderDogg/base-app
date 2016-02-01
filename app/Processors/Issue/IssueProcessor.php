@@ -5,6 +5,8 @@ namespace App\Processors\Issue;
 use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Requests\IssueRequest;
 use App\Jobs\CloseIssue;
+use App\Jobs\Issue\Close;
+use App\Jobs\Issue\Open;
 use App\Jobs\Issue\Store;
 use App\Jobs\Issue\Update;
 use App\Jobs\OpenIssue;
@@ -205,11 +207,7 @@ class IssueProcessor extends Processor
         // Check user authorization.
         $this->authorize($issue);
 
-        if ($issue->isOpen()) {
-            return $this->dispatch(new CloseIssue($issue));
-        }
-
-        return false;
+        return $this->dispatch(new Close($issue));
     }
 
     /**
@@ -227,10 +225,6 @@ class IssueProcessor extends Processor
         // Check user authorization.
         $this->authorize($issue);
 
-        if ($issue->isClosed()) {
-            return $this->dispatch(new OpenIssue($issue));
-        }
-
-        return false;
+        return $this->dispatch(new Open($issue));
     }
 }

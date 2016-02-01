@@ -146,52 +146,6 @@ class Issue extends Model
     }
 
     /**
-     * Adds a comment to an issue.
-     *
-     * @param string $content
-     * @param bool   $resolution
-     *
-     * @return Comment
-     */
-    public function createComment($content, $resolution = false)
-    {
-        $attributes = [
-            'content' => $content,
-            'user_id' => auth()->user()->getAuthIdentifier(),
-        ];
-
-        // Make sure we only allow one comment resolution
-        if ($this->hasCommentResolution()) {
-            $resolution = false;
-        }
-
-        return $this->comments()->create($attributes, compact('resolution'));
-    }
-
-    /**
-     * Updates the specified comment.
-     *
-     * @param int|string $commentId
-     * @param int|string $content
-     * @param bool|false $resolution
-     *
-     * @return bool
-     */
-    public function updateComment($commentId, $content, $resolution = false)
-    {
-        $comment = $this->comments()->findOrFail($commentId);
-
-        // // Make sure we only allow one comment resolution
-        if (!$this->hasCommentResolution() || $comment->isResolution()) {
-            $this->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
-        }
-
-        $comment->content = $content;
-
-        return $comment->save();
-    }
-
-    /**
      * Returns the issues comment resolution.
      *
      * @return null|Comment

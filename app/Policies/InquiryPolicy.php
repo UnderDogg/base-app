@@ -21,6 +21,9 @@ class InquiryPolicy extends Policy
      */
     public $actions = [
         'View Users Inquiries',
+        'Open Inquiry',
+        'Close Inquiry',
+        'Approve Inquiry',
         'View Inquiry',
         'Edit Inquiry',
         'Delete Inquiry',
@@ -35,6 +38,47 @@ class InquiryPolicy extends Policy
     {
         return $this->canIf('view-users-inquiries');
     }
+
+    /**
+     * Returns true / false if the specified user
+     * can approve requests.
+     *
+     * @return bool
+     */
+    public function approve()
+    {
+        return $this->canIf('approve-inquiry');
+    }
+
+    /**
+     * Returns true / false if the specified user
+     * can re-open inquiries.
+     *
+     * Only administrators can re-open inquiries.
+     *
+     * @return bool
+     */
+    public function open()
+    {
+        return $this->canIf('open-inquiry');
+    }
+
+    /**
+     * Returns true / false if the specified user
+     * can close inquiries.
+     *
+     * Only administrators / inquiry owners can close inquiries.
+     *
+     * @param User    $user
+     * @param Inquiry $inquiry
+     *
+     * @return bool
+     */
+    public function close(User $user, Inquiry $inquiry)
+    {
+        return $this->canIf('close-inquiry') || $user->getKey() === $inquiry->user_id;
+    }
+
 
     /**
      * Returns true / false if the specified user
