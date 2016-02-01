@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use PDOException;
 use App\Policies\Policy;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -10,6 +9,7 @@ use Orchestra\Contracts\Foundation\Foundation;
 use Orchestra\Memory\MemoryManager;
 use Orchestra\Model\Role;
 use Orchestra\Support\Facades\ACL;
+use PDOException;
 
 class AuthorizationServiceProvider extends ServiceProvider
 {
