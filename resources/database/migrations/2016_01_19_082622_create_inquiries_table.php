@@ -19,6 +19,7 @@ class CreateInquiriesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
             $table->boolean('closed')->default(false);
+            $table->boolean('approved')->default(false);
             $table->string('title');
             $table->text('description')->nullable();
 
