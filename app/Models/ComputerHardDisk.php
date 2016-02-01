@@ -85,7 +85,11 @@ class ComputerHardDisk extends Model
     {
         $used = $this->size - $this->getFreeSpace();
 
-        return sprintf('%.2f', ($used / $this->size) * 100);
+        if ($this->size > 0) {
+            return sprintf('%.2f', ($used / $this->size) * 100);
+        }
+
+        return 0;
     }
 
     /**

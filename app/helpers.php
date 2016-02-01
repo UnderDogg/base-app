@@ -40,7 +40,10 @@ function uuid()
  */
 function active()
 {
-    return new Active();
+    $request = request();
+    $route = $request->route();
+
+    return new Active($request, $route);
 }
 
 /**

@@ -49,6 +49,15 @@ class Issue extends Model
     protected $fillable = ['title', 'description'];
 
     /**
+     * The casted attributes.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'user_id' => 'integer'
+    ];
+
+    /**
      * The fields that should be mutated to dates.
      *
      * @var array

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Create an Issue')
+@section('title', 'Create a Ticket')
 
 @section('content')
 

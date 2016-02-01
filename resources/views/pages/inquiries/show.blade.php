@@ -30,7 +30,7 @@
         <div class="panel panel-success">
             <div class="panel-heading text-center">
                 <i class="fa fa-check-circle"></i>
-                Approved
+                Complete
                 @if($inquiry->closed)
                     & Closed
                 @endif
@@ -44,7 +44,7 @@
 
         <div class="panel panel-danger">
             <div class="panel-heading text-center">
-                CLOSED
+                Closed
             </div>
         </div>
 
@@ -73,12 +73,12 @@
                     <a
                             data-post="POST"
                             data-title="Approve Request?"
-                            data-message="Are you sure you want to approve this request? It cannot be un-approved."
+                            data-message="Are you sure you want to complete this request? It cannot be un-approved."
                             class="btn btn-success"
                             href="{{ route('inquiries.approve', [$inquiry->getKey()]) }}"
                     >
                         <i class="fa fa-check"></i>
-                        Approve
+                        Complete
                     </a>
 
                 @endcan

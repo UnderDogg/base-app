@@ -13,11 +13,11 @@ class AddTimestampsToComputerProcessors extends Migration
     public function up()
     {
         Schema::table('computer_processors', function (Blueprint $table) {
-            $table->timestamps();
+            $table->nullableTimestamps();
         });
 
         Schema::table('computer_processor_records', function (Blueprint $table) {
-            $table->timestamps();
+            $table->nullableTimestamps();
         });
     }
 

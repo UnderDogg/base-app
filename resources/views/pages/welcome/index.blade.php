@@ -79,7 +79,7 @@
 
                                         <a class="btn btn-md btn-default pull-right" href="{{ route('issues.index') }}">
                                             <i class="fa fa-exclamation-circle"></i>
-                                            View My Ticket
+                                            View Tickets
                                         </a>
                                     </div>
 
@@ -108,45 +108,53 @@
                 </div>
             @endif
 
-            <div class="col-md-6">
+            @if($forecast instanceof \Illuminate\Support\Fluent)
 
-                <div class="panel panel-default">
+                <div class="col-md-6">
 
-                    <div class="panel-heading">
+                    <div class="panel panel-default">
 
-                        <div class="text-center panel-title">
-                            {{ $forecast->title }}
+                        <div class="panel-heading">
+
+                            <div class="text-center panel-title">
+                                {{ $forecast->title }}
+                            </div>
+
+                        </div>
+
+                        <div class="text-center panel-body">
+                            @each('pages.welcome._entry', $forecast->articles, 'entry', 'pages.welcome._no_forecast')
                         </div>
 
                     </div>
 
-                    <div class="text-center panel-body">
-                        @each('pages.welcome._entry', $forecast->articles, 'entry', 'pages.welcome._no_forecast')
-                    </div>
-
                 </div>
 
-            </div>
+            @endif
 
-            <div class="col-md-6">
+            @if($news instanceof \Illuminate\Support\Fluent)
 
-                <div class="panel panel-default">
+                <div class="col-md-6">
 
-                    <div class="panel-heading">
+                    <div class="panel panel-default">
 
-                        <div class="text-center panel-title">
-                            {{ $news->title }}
+                        <div class="panel-heading">
+
+                            <div class="text-center panel-title">
+                                {{ $news->title }}
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+                            @each('pages.welcome._article', $news->articles, 'article', 'pages.welcome._no_articles')
                         </div>
 
                     </div>
 
-                    <div class="panel-body">
-                        @each('pages.welcome._article', $news->articles, 'article', 'pages.welcome._no_articles')
-                    </div>
-
                 </div>
 
-            </div>
+            @endif
 
         </div>
 

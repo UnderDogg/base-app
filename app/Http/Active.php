@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+
 class Active
 {
     /**
@@ -34,11 +37,14 @@ class Active
 
     /**
      * Constructor.
+     *
+     * @param Request $request
+     * @param Route   $route
      */
-    public function __construct()
+    public function __construct(Request $request, Route $route)
     {
-        $this->request = request();
-        $this->route = request()->route();
+        $this->setRequest($request);
+        $this->setRoute($route);
     }
 
     /**
@@ -187,5 +193,53 @@ class Active
     protected function stripWildcard($string)
     {
         return str_replace($this->wildcard, null, $string);
+    }
+
+    /**
+     * Returns the current route.
+     *
+     * @return Route
+     */
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
+    /**
+     * Sets the current route name.
+     *
+     * @param Route $route
+     *
+     * @return Active
+     */
+    public function setRoute(Route $route)
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    /**
+     * Returns the current request.
+     *
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Sets the current request.
+     *
+     * @param Request $request
+     *
+     * @return Active
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
     }
 }

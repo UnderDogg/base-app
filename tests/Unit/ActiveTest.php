@@ -2,38 +2,48 @@
 
 namespace App\Tests\Unit;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use App\Http\Active;
 use App\Tests\TestCase;
-use Illuminate\Support\Facades\Route;
 
 class ActiveTest extends TestCase
 {
     protected function newActive()
     {
-        return new Active();
+        $request = $this->mock(Request::class);
+        $route = $this->mock(Route::class);
+
+        return new Active($request, $route);
     }
 
     public function test_with_current_route()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
 
-        $output = $this->newActive()->route('issues.index');
+        $active->getRoute()->shouldReceive('getName')->once()->andReturn('issues.index');
+
+        $output = $active->route('issues.index');
 
         $this->assertEquals('active', $output);
     }
 
     public function test_with_wildcard_current_route()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
 
-        $output = $this->newActive()->route('issues.*');
+        $active->getRoute()->shouldReceive('getName')->once()->andReturn('issues.index');
+
+        $output = $active->route('issues.*');
 
         $this->assertEquals('active', $output);
     }
 
     public function test_with_multiple_routes()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
+
+        $active->getRoute()->shouldReceive('getName')->twice()->andReturn('issues.index');
 
         $routes = [
             'some.route',
@@ -41,14 +51,16 @@ class ActiveTest extends TestCase
             'some.other.route',
         ];
 
-        $output = $this->newActive()->routes($routes);
+        $output = $active->routes($routes);
 
         $this->assertEquals('active', $output);
     }
 
     public function test_with_multiple_routes_wildcard()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
+
+        $active->getRoute()->shouldReceive('getName')->twice()->andReturn('issues.index');
 
         $routes = [
             'some.route',
@@ -56,48 +68,56 @@ class ActiveTest extends TestCase
             'some.other.route',
         ];
 
-        $output = $this->newActive()->routes($routes);
+        $output = $active->routes($routes);
 
         $this->assertEquals('active', $output);
     }
 
     public function test_with_non_current_route()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('none');
+        $active = $this->newActive();
 
-        $output = $this->newActive()->route('issues.index');
+        $active->getRoute()->shouldReceive('getName')->once()->andReturn('none');
+
+        $output = $active->route('issues.index');
 
         $this->assertNull($output);
     }
 
     public function test_with_non_current_routes_wildcard()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('none');
+        $active = $this->newActive();
+
+        $active->getRoute()->shouldReceive('getName')->twice()->andReturn('none');
 
         $routes = [
             'some.route.*',
             'some.*',
         ];
 
-        $output = $this->newActive()->routes($routes);
+        $output = $active->routes($routes);
 
         $this->assertNull($output);
     }
 
     public function test_with_custom_output()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
 
-        $output = $this->newActive()->output('custom')->route('issues.index');
+        $active->getRoute()->shouldReceive('getName')->once()->andReturn('issues.index');
+
+        $output = $active->output('custom')->route('issues.index');
 
         $this->assertEquals('custom', $output);
     }
 
     public function test_with_only_wildcard()
     {
-        Route::shouldReceive('currentRouteName')->once()->andReturn('issues.index');
+        $active = $this->newActive();
 
-        $output = $this->newActive()->route('*');
+        $active->getRoute()->shouldReceive('getName')->once()->andReturn('issues.index');
+
+        $output = $active->route('*');
 
         $this->assertNull($output);
     }

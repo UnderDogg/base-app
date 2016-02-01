@@ -23,6 +23,7 @@ dir = {
 elixir(function(mix) {
     mix.scripts([
         'libs/jquery.min.js',
+        'libs/jquery.lazyload.min.js',
         'libs/jquery-ui.min.js',
         'libs/bootstrap.min.js',
         'libs/dropzone.min.js',
@@ -38,10 +39,6 @@ elixir(function(mix) {
         'libs/bootstrap-show-password.min.js',
         'libs/show-password.min.js',
         'libs/speakingurl.min.js',
-        'libs/jquery.lazyload.min.js',
-        'libs/jstree.min.js',
-        'libs/vue.min.js',
-        'libs/vue-resource.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',

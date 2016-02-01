@@ -14,7 +14,7 @@
 
         @section('container')
 
-            <section class="container main">
+            <section id="main" class="container main">
 
                 <div class="col-md-12">
                     @yield('extra.top')

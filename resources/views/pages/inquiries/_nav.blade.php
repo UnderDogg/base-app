@@ -8,7 +8,7 @@
 
     <li class="{{ active()->route('inquiries.approved') }}" >
         <a href="{{ route('inquiries.approved') }}">
-            <i class="fa fa-check-circle"></i> Approved
+            <i class="fa fa-check-circle"></i> Completed
         </a>
     </li>
 

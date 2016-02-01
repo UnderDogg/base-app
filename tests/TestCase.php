@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use Mockery;
 use Illuminate\Support\Facades\Session;
 use Orchestra\Testing\ApplicationTestCase;
 
@@ -42,6 +43,18 @@ abstract class TestCase extends ApplicationTestCase
 
         // Start the session.
         Session::start();
+    }
+
+    /**
+     * Returns a new class mock.
+     *
+     * @param string $class
+     *
+     * @return Mockery\MockInterface
+     */
+    public function mock($class)
+    {
+        return Mockery::mock($class);
     }
 
     /**

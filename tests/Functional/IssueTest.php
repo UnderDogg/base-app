@@ -21,7 +21,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($user)
             ->visit(route('issues.index'))
-            ->see('All Issues');
+            ->see('All');
     }
 
     public function test_access_issues_closed()
@@ -30,7 +30,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($user)
             ->visit(route('issues.closed'))
-            ->see('All Issues');
+            ->see('All');
     }
 
     public function test_access_issues_create()
@@ -39,7 +39,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($user)
             ->visit(route('issues.create'))
-            ->see('Create an Issue');
+            ->see('Create');
     }
 
     public function test_access_issues_show()
@@ -57,7 +57,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($issue->user)
             ->visit(route('issues.edit', [$issue->getKey()]))
-            ->see('Edit Issue');
+            ->see('Edit');
     }
 
     public function test_access_issues_delete()
