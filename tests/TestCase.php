@@ -76,24 +76,13 @@ abstract class TestCase extends ApplicationTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        // Create the SQL lite memory database connection.
-        $app['config']->set('database.connections', [
-            'testing' => [
-                'driver'   => 'sqlite',
-                'database' => ':memory:',
-            ],
-        ]);
-
-        // Set the default database.
-        $app['config']->set('database.default', 'testing');
-
         // Set the HTML table configuration.
         $app['config']->set('orchestra/html::table', [
             'empty' => 'There are no records to display.',
             'view'  => 'components.table',
         ]);
 
-        // Set the HTML table configuration.
+        // Set the HTML form configuration.
         $app['config']->set('orchestra/html::form', [
             'view'      => 'components.form',
             'format'    => '<span class="label label-danger">:message</span>',
