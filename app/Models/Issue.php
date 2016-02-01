@@ -54,7 +54,7 @@ class Issue extends Model
      * @var array
      */
     protected $casts = [
-        'user_id' => 'integer'
+        'user_id' => 'integer',
     ];
 
     /**
