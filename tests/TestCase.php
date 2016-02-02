@@ -76,6 +76,14 @@ abstract class TestCase extends ApplicationTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        // Set the database configuration.
+        $app['config']->set('database.default', 'testbench');
+        $app['config']->set('database.connections.testbench', [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+        ]);
+
         // Set the HTML table configuration.
         $app['config']->set('orchestra/html::table', [
             'empty' => 'There are no records to display.',
