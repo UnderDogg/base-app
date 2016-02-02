@@ -37,7 +37,6 @@ abstract class TestCase extends ApplicationTestCase
 
         // Run application migrations
         $this->artisan('migrate', [
-            '--database' => 'sqlite',
             '--realpath' => realpath('resources/database/migrations'),
         ]);
 
