@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => 'sqlite',
+    'default' => 'testing',
 
     /*
     |--------------------------------------------------------------------------
@@ -46,7 +46,7 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
+        'testing' => [
             'driver'   => 'sqlite',
             'database' => ':memory:',
             'prefix'   => '',

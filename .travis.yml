@@ -5,7 +5,9 @@ php:
   - 7.0
 
 env:
-  - DB=testing
+  - DB_CONNECTION=testing
+  - DB_DRIVER=sqlite
+  - DB_DATABASE=:memory:
 
 before_install: echo "extension=ldap.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
