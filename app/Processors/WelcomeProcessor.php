@@ -59,21 +59,17 @@ class WelcomeProcessor extends Processor
 
         $minutes = 30;
 
-        $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
-            try {
+        try {
+            $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
                 return $this->feed($weatherFeed);
-            } catch (Exception $e) {
-                return $this->cache->get('feeds.weather');
-            }
-        });
+            });
 
-        $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
-            try {
+            $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
                 return $this->feed($articleFeed);
-            } catch (Exception $e) {
-                return $this->cache->get('feeds.articles');
-            }
-        });
+            });
+        } catch (Exception $e) {
+            //
+        }
 
         if (auth()->check()) {
             $issues = $this->presenter->issue($this->issue);

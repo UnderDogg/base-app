@@ -108,7 +108,7 @@
                 </div>
             @endif
 
-            @if($forecast instanceof \Illuminate\Support\Fluent)
+            @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
 
                 <div class="col-md-6">
 
@@ -132,7 +132,7 @@
 
             @endif
 
-            @if($news instanceof \Illuminate\Support\Fluent)
+            @if(isset($news) && $news instanceof \Illuminate\Support\Fluent)
 
                 <div class="col-md-6">
 
