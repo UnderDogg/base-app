@@ -5,7 +5,7 @@
 
             <h4>
                 <i class="fa fa-check-square"></i>
-                Best Answer
+                Answer
             </h4>
 
         </div>
