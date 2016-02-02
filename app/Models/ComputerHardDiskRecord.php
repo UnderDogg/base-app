@@ -29,4 +29,20 @@ class ComputerHardDiskRecord extends Model
     {
         return $this->belongsTo(ComputerHardDisk::class, 'disk_id');
     }
+
+    /**
+     * The rounded space free attribute accessor.
+     *
+     * @return string
+     */
+    public function getFreeRoundedAttribute()
+    {
+        $size = $this->free;
+
+        if (is_numeric($this->free)) {
+            return round(($size  / (1024 * 1024 * 1024)), 2);
+        }
+
+        return 0;
+    }
 }

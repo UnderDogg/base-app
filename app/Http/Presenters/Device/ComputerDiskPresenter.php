@@ -72,14 +72,16 @@ class ComputerDiskPresenter extends Presenter
                 foreach ($disk->records as $record) {
                     $rows[] = [
                         0   => $record->created_at,
-                        $i  => $record->free,
+                        $i  => $record->free_rounded,
                     ];
                 }
             }
 
             $disks->addRows($rows);
 
-            return Lava::LineChart('Disks')->dataTable($disks);
+            return Lava::LineChart('Disks', null, [
+                'title' => 'Disk Space in GB',
+            ])->dataTable($disks);
         }
 
         return false;
