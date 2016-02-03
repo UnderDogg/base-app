@@ -88,7 +88,7 @@ class Label extends Model
 
         $icon = HTML::create('i', '', ['class' => 'fa fa-tag']);
 
-        return (string) HTML::raw("<span class='label label-$color'>$icon $name</span>");
+        return HTML::raw("<span class='label label-$color'>$icon $name</span>");
     }
 
     /**
