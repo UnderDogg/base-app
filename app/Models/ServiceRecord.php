@@ -49,7 +49,7 @@ class ServiceRecord extends Model
      */
     public function getStatusLabelAttribute()
     {
-        switch($this->status) {
+        switch ($this->status) {
             case static::STATUS_ONLINE:
                 $class = 'success';
                 $title = 'Online';
