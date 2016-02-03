@@ -30,7 +30,7 @@ class AvatarPresenter extends Presenter
             $form->submit = 'Save';
 
             $form->fieldset(function (Fieldset $fieldset) use ($user) {
-                if ($user->hasAvatar()) {
+                if ($user->has_avatar) {
                     $fieldset->control('input:text', 'remove', function ($control) {
                         $control->label = 'Your Current Avatar';
 
@@ -49,7 +49,7 @@ class AvatarPresenter extends Presenter
                 }
 
                 $fieldset->control('input:file', 'image')
-                    ->label(($user->hasAvatar() ? 'Replace Image' : 'Image'))
+                    ->label(($user->has_avatar ? 'Replace Image' : 'Image'))
                     ->help('Selecting an image will delete your current avatar!');
 
                 $fieldset->control('input:checkbox', 'generate')

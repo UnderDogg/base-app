@@ -32,14 +32,14 @@ class ComputerDiskPresenter extends Presenter
             $table->column('size', function ($column) {
                 $column->label = 'Size';
                 $column->value = function (ComputerHardDisk $disk) {
-                    return $disk->getSizeReadable();
+                    return $disk->size_readable;
                 };
             });
 
             $table->column('used', function ($column) {
                 $column->label = 'Used';
                 $column->value = function (ComputerHardDisk $disk) {
-                    return $disk->getPercentUsedProgressBar();
+                    return $disk->percent_used_bar;
                 };
             });
         });

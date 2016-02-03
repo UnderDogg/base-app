@@ -29,12 +29,12 @@ class GuideStepPresenter extends Presenter
             ];
 
             if ($step->exists) {
-                $route = route('resources.guides.steps.update', [$guide->getSlug(), $step->getPosition()]);
+                $route = route('resources.guides.steps.update', [$guide->slug, $step->getPosition()]);
                 $attributes['method'] = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
-                $route = route('resources.guides.steps.store', [$guide->getSlug()]);
+                $route = route('resources.guides.steps.store', [$guide->slug]);
                 $attributes['method'] = 'POST';
 
                 $form->submit = 'Create';
@@ -54,13 +54,13 @@ class GuideStepPresenter extends Presenter
                         // Generate a field for removing images from the current step.
                         $control->field = function () use ($guide, $step, $image) {
                             // Generate the url of the image.
-                            $url = route('resources.guides.steps.images.download', [$guide->getSlug(), $step->getKey(), $image->uuid]);
+                            $url = route('resources.guides.steps.images.download', [$guide->slug, $step->getKey(), $image->uuid]);
 
                             // Generate the HTML image tag
                             $photo = HTML::image($url, null, ['class' => 'img-responsive']);
 
                             // Generate the button for deleting the current image.
-                            $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->getSlug(), $step->getKey(), $image->uuid]), 'Delete', [
+                            $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]), 'Delete', [
                                 'class'        => 'btn btn-danger',
                                 'data-post'    => 'DELETE',
                                 'data-title'   => 'Delete Image?',
@@ -104,7 +104,7 @@ class GuideStepPresenter extends Presenter
             $attributes = [
                 'files'  => true,
                 'method' => 'POST',
-                'url'    => route('resources.guides.images.upload', [$guide->getSlug()]),
+                'url'    => route('resources.guides.images.upload', [$guide->slug]),
             ];
 
             $form->attributes($attributes);
@@ -158,7 +158,7 @@ class GuideStepPresenter extends Presenter
             $table
                 ->column('title')
                 ->value(function (GuideStep $step) use ($guide) {
-                    return link_to_route('resources.guides.steps.edit', $step->title, [$guide->getSlug(), $step->getPosition()]);
+                    return link_to_route('resources.guides.steps.edit', $step->title, [$guide->slug, $step->getPosition()]);
                 });
 
             $table
@@ -176,7 +176,7 @@ class GuideStepPresenter extends Presenter
                         'data-post'    => 'DELETE',
                     ];
 
-                     return link_to_route('resources.guides.steps.destroy', 'Delete', [$guide->getSlug(), $step->getPosition()], $attribues);
+                     return link_to_route('resources.guides.steps.destroy', 'Delete', [$guide->slug, $step->getPosition()], $attribues);
                 });
         });
     }
@@ -193,7 +193,7 @@ class GuideStepPresenter extends Presenter
         return $this->fluent([
             'id'         => 'guide-steps',
             'title'      => 'Guide Steps',
-            'url'        => route('resources.guides.steps.index', [$guide->getSlug()]),
+            'url'        => route('resources.guides.steps.index', [$guide->slug]),
             'menu'       => view('pages.resources.guides.steps._nav', compact('guide')),
             'attributes' => [
                 'class' => 'navbar-default',

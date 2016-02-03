@@ -105,7 +105,7 @@ class IssueCommentProcessor extends Processor
         $resolution = $request->input('resolution', false);
 
         // Make sure we only allow one comment resolution
-        if (!$issue->hasCommentResolution() || $comment->isResolution()) {
+        if (!$issue->hasCommentResolution() || $comment->resolution) {
             $issue->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
         }
 

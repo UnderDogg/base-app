@@ -13,7 +13,7 @@ class Model extends BaseModel
      */
     public function getCreatedAtHumanAttribute()
     {
-        return $this->createdAtHuman();
+        return $this->created_at->diffForHumans();
     }
 
     /**
@@ -23,7 +23,7 @@ class Model extends BaseModel
      */
     public function getUpdatedAtHumanAttribute()
     {
-        return $this->updatedAtHuman();
+        return $this->updated_at->diffForHumans();
     }
 
     /**
@@ -31,28 +31,8 @@ class Model extends BaseModel
      *
      * @return string
      */
-    public function getHashId()
+    public function getHashIdAttribute()
     {
         return '#'.$this->getKey();
-    }
-
-    /**
-     * Returns the created at time in a human readable format.
-     *
-     * @return string
-     */
-    public function createdAtHuman()
-    {
-        return $this->created_at->diffForHumans();
-    }
-
-    /**
-     * Returns the updated at time in a human readable format.
-     *
-     * @return string
-     */
-    public function updatedAtHuman()
-    {
-        return $this->updated_at->diffForHumans();
     }
 }

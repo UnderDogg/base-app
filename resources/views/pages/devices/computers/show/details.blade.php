@@ -25,7 +25,7 @@ Details
 
 <label>Status</label>
 <p>
-    {!! $computer->getOnlineStatus() !!}
+    {!! $computer->online_status !!}
 </p>
 
 <p>
@@ -77,6 +77,6 @@ Details
 </p>
 
 <label>Access</label>
-<p>{!! $computer->getAccessChecks() !!}</p>
+<p>{!! $computer->access_checks !!}</p>
 
 @endsection

@@ -115,7 +115,7 @@ class GuideController extends Controller
         if ($guide instanceof Guide) {
             flash()->success('Success!', 'Successfully updated guide!');
 
-            return redirect()->route('resources.guides.show', [$guide->getSlug()]);
+            return redirect()->route('resources.guides.show', [$guide->slug]);
         } else {
             flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
 
@@ -135,7 +135,7 @@ class GuideController extends Controller
         $guide = $this->processor->favorite($id);
 
         if ($guide instanceof Guide) {
-            return redirect()->route('resources.guides.show', [$guide->getSlug()]);
+            return redirect()->route('resources.guides.show', [$guide->slug]);
         } else {
             flash()->error('Error!', 'There was an issue with adding this guide to your favorites. Please try again.');
 

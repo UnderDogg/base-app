@@ -3,7 +3,7 @@
     <div class="col-md-12 ticket-heading">
 
         <h4>
-            <span class="text-muted">{{ $inquiry->getHashId() }}</span>
+            <span class="text-muted">{{ $inquiry->hash_id }}</span>
             {{ $inquiry->title }}
         </h4>
 
@@ -17,7 +17,7 @@
 
             <h3>{{ $inquiry->user->fullname }}</h3>
 
-            <span>{!! $inquiry->createdAtHuman() !!}</span>
+            <span>{!! $inquiry->created_at_human !!}</span>
 
         </div>
 
@@ -35,7 +35,7 @@
         @if(isset($resolution) && count($inquiry->comments) > 1)
 
             {{-- We'll also make sure that the first comment is not a resolution. --}}
-            @if(!$inquiry->comments->first()->isResolution())
+            @if(!$inquiry->comments->first()->resolution)
 
                 <hr>
 

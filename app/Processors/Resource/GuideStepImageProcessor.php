@@ -36,7 +36,7 @@ class GuideStepImageProcessor extends Processor
 
         $headers = ['Content-Type' => $file->type];
 
-        return response()->download($file->getCompletePath(), null, $headers);
+        return response()->download($file->complete_path, null, $headers);
     }
 
     /**

@@ -50,7 +50,7 @@ class ComputerHardDisk extends Model
      *
      * @return string
      */
-    public function getSizeReadable($precision = 2)
+    public function getSizeReadableAttribute($precision = 2)
     {
         $size = $this->size;
 
@@ -65,7 +65,7 @@ class ComputerHardDisk extends Model
      *
      * @return int
      */
-    public function getFreeSpace()
+    public function getFreeSpaceAttribute()
     {
         $record = $this->records()->latest()->first();
 
@@ -81,9 +81,9 @@ class ComputerHardDisk extends Model
      *
      * @return string
      */
-    public function getPercentUsed()
+    public function getPercentUsedAttribute()
     {
-        $used = $this->size - $this->getFreeSpace();
+        $used = $this->size - $this->free_space;
 
         if ($this->size > 0) {
             return sprintf('%.2f', ($used / $this->size) * 100);
@@ -98,9 +98,9 @@ class ComputerHardDisk extends Model
      *
      * @return string
      */
-    public function getPercentUsedProgressBar()
+    public function getPercentUsedBarAttribute()
     {
-        $free = $this->getPercentUsed();
+        $free = $this->percent_used;
 
         $bar = HTML::create('div', "$free%", ['class' => 'progress-bar', 'role' => 'progressbar', 'style' => "width: $free%;"]);
 

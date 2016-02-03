@@ -35,7 +35,7 @@ class GuidePolicy extends Policy
      */
     public function viewUnpublished(Guide $guide = null)
     {
-        if ($guide instanceof Guide && $guide->isPublished()) {
+        if ($guide instanceof Guide && $guide->published) {
             return true;
         }
 

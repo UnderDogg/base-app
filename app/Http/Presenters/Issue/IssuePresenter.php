@@ -355,7 +355,7 @@ class IssuePresenter extends Presenter
 
             foreach ($issue->users as $user) {
                 /* @var \App\Models\User $user */
-                $users[] = $user->getLabel();
+                $users[] = $user->label;
             }
 
             $labels = implode(null, $labels);

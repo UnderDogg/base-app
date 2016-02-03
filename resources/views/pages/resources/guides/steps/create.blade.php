@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('extra.top')
-    <a class="btn btn-primary" href="{{ route('resources.guides.show', [$guide->getSlug()]) }}">
+    <a class="btn btn-primary" href="{{ route('resources.guides.show', [$guide->slug]) }}">
         <i class="fa fa-chevron-left"></i>
         Back to Guide
     </a>
@@ -20,7 +20,7 @@
     <hr>
 
     <div class="col-md-12 text-center">
-        <a href="{{ route('resources.guides.show', [$guide->getSlug()]) }}" class="btn btn-warning">
+        <a href="{{ route('resources.guides.show', [$guide->slug]) }}" class="btn btn-warning">
             <i class="fa fa-angle-double-left"></i>
             Back to Guide
         </a>

@@ -47,13 +47,13 @@ class GuidePresenter extends Presenter
             $table
                 ->column('title')
                 ->value(function (Guide $guide) {
-                    return link_to_route('resources.guides.show', $guide->title, [$guide->getSlug()]);
+                    return link_to_route('resources.guides.show', $guide->title, [$guide->slug]);
                 });
 
             $table
                 ->column('published')
                 ->value(function (Guide $guide) {
-                    return $guide->publishedLabel();
+                    return $guide->published_label;
                 });
 
             // Only allow users with create guide permissions
@@ -63,7 +63,7 @@ class GuidePresenter extends Presenter
                     ->column('created_at')
                     ->label('Created')
                     ->value(function (Guide $guide) {
-                        return $guide->createdAtHuman();
+                        return $guide->created_at_human;
                     });
             }
         });
@@ -80,7 +80,7 @@ class GuidePresenter extends Presenter
     {
         return $this->form->of('resources.guides', function (FormGrid $form) use ($guide) {
             if ($guide->exists) {
-                $route = route('resources.guides.update', [$guide->getSlug()]);
+                $route = route('resources.guides.update', [$guide->slug]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';
@@ -109,7 +109,7 @@ class GuidePresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'Enter the guide slug',
                     ])->value(function (Guide $guide) {
-                        return $guide->exists ? $guide->getSlug() : 'how-to';
+                        return $guide->exists ? $guide->slug : 'how-to';
                     });
 
                 $fieldset
@@ -174,7 +174,7 @@ class GuidePresenter extends Presenter
         return $this->fluent([
             'id'         => 'guide-steps-show',
             'title'      => 'Actions',
-            'url'        => route('resources.guides.show', [$guide->getSlug()]),
+            'url'        => route('resources.guides.show', [$guide->slug]),
             'menu'       => view('pages.resources.guides._nav-show', compact('guide')),
             'attributes' => [
                 'class' => 'navbar-default',

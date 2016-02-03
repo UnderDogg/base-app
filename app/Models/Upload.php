@@ -41,7 +41,7 @@ class Upload extends Model
      *
      * @return string
      */
-    public function getCompletePath()
+    public function getCompletePathAttribute()
     {
         $storage = config('filesystems.disks.local.root');
 
@@ -53,7 +53,7 @@ class Upload extends Model
      *
      * @return string
      */
-    public function getIcon()
+    public function getIconAttribute()
     {
         $mime = $this->type;
 
@@ -65,7 +65,7 @@ class Upload extends Model
      *
      * @return string
      */
-    public function getTextualFileSize()
+    public function getFileSizeAttribute()
     {
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 

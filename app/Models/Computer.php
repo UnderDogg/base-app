@@ -102,7 +102,7 @@ class Computer extends Model
      *
      * @return string|null
      */
-    public function getCompleteOs()
+    public function getOperatingSystemAttribute()
     {
         if ($this->os instanceof OperatingSystem) {
             $os = $this->os->name;
@@ -119,10 +119,10 @@ class Computer extends Model
      *
      * @return string
      */
-    public function getAccessChecks()
+    public function getAccessChecksAttribute()
     {
-        $ad = $this->getActiveDirectoryCheck();
-        $wmi = $this->getWmiCheck();
+        $ad = $this->ad_access_check;
+        $wmi = $this->wmi_access_check;
 
         return implode(' ', [$ad, $wmi]);
     }
@@ -133,9 +133,9 @@ class Computer extends Model
      *
      * @return string
      */
-    public function getActiveDirectoryCheck()
+    public function getActiveDirectoryAccessCheckAttribute()
     {
-        return $this->createCheck($this->getActiveDirectoryAccess(), 'Active Directory');
+        return $this->createCheck($this->active_directory_access, 'Active Directory');
     }
 
     /**
@@ -144,7 +144,7 @@ class Computer extends Model
      *
      * @return bool
      */
-    public function getActiveDirectoryAccess()
+    public function getActiveDirectoryAccessAttribute()
     {
         if ($this->access instanceof ComputerAccess) {
             return $this->access->active_directory;
@@ -159,9 +159,9 @@ class Computer extends Model
      *
      * @return string
      */
-    public function getWmiCheck()
+    public function getWmiAccessCheckAttribute()
     {
-        return $this->createCheck($this->getWmiAccess(), 'WMI');
+        return $this->createCheck($this->wmi_access, 'WMI');
     }
 
     /**
@@ -170,7 +170,7 @@ class Computer extends Model
      *
      * @return bool|ComputerAccess
      */
-    public function getWmiAccess()
+    public function getWmiAccessAttribute()
     {
         if ($this->access instanceof ComputerAccess) {
             return $this->access->wmi;
@@ -185,12 +185,12 @@ class Computer extends Model
      *
      * @return string
      */
-    public function getOnlineStatus()
+    public function getOnlineStatusAttribute()
     {
         $status = $this->statuses()->latest()->first();
 
         if ($status instanceof ComputerStatus) {
-            $daysAgo = $status->createdAtHuman();
+            $daysAgo = $status->created_at_human;
 
             if ($status->online) {
                 return $this->createCheck(true, "Online ($daysAgo)");

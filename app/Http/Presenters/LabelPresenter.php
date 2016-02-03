@@ -30,7 +30,7 @@ class LabelPresenter extends Presenter
                 $column->label = 'Label';
 
                 $column->value = function (Label $label) {
-                    return $label->getDisplayLarge();
+                    return $label->display_large;
                 };
             });
 

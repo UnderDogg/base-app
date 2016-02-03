@@ -251,13 +251,13 @@ class Issue extends Model
     {
         $user = $this->user->fullname;
 
-        $daysAgo = $this->createdAtHuman();
+        $daysAgo = $this->created_at_human;
 
         $comments = count($this->comments);
 
         $icon = '<i class="fa fa-comments"></i>';
 
-        $hash = $this->getHashId();
+        $hash = $this->hash_id;
 
         return "$hash opened $daysAgo by $user - $icon $comments";
     }
@@ -271,7 +271,7 @@ class Issue extends Model
     {
         $user = $this->user->fullname;
 
-        $daysAgo = $this->createdAtHuman();
+        $daysAgo = $this->created_at_human;
 
         return "<strong>$user</strong> created ticket $daysAgo";
     }

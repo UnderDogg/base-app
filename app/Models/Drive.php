@@ -44,7 +44,7 @@ class Drive extends Model
      */
     public function accounts($path = null)
     {
-        if ($this->isNetwork()) {
+        if ($this->is_network) {
             $this->setBasePath($this->mount());
         } else {
             $this->setBasePath($this->path);
@@ -77,7 +77,7 @@ class Drive extends Model
      */
     public function items($path = null, array $without = ['.', '..', '.DS_Store', '.TemporaryItems'])
     {
-        if ($this->isNetwork()) {
+        if ($this->is_network) {
             $this->setBasePath($this->mount());
         } else {
             $this->setBasePath($this->path);
@@ -152,16 +152,6 @@ class Drive extends Model
         system($command, $returned);
 
         return $returned;
-    }
-
-    /**
-     * Returns true / false if the current drive is a network drive.
-     *
-     * @return bool
-     */
-    public function isNetwork()
-    {
-        return $this->is_network;
     }
 
     /**

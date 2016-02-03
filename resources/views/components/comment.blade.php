@@ -1,6 +1,6 @@
-<div class="card @if($comment->isResolution()) answer @endif">
+<div class="card @if($comment->resolution) answer @endif">
 
-    @if($comment->isResolution())
+    @if($comment->resolution)
         <div class="col-md-12 answer-heading">
 
             <h4>
@@ -19,7 +19,7 @@
 
             <h3>{{ $comment->user->fullname }}</h3>
 
-            <span>{!! $comment->createdAtHuman() !!}</span>
+            <span>{!! $comment->created_at_human !!}</span>
 
         </div>
 
@@ -27,7 +27,7 @@
 
     <div class="card-body">
         <p>
-            {!! $comment->getContentFromMarkdown() !!}
+            {!! $comment->content_from_markdown !!}
         </p>
     </div>
 

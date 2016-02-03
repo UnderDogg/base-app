@@ -3,7 +3,7 @@
 @section('title', $computer->name)
 
 @section('title.header')
-    <h3>@yield('title') <span class="text-muted">created {{ $computer->createdAtHuman() }}</span></h3>
+    <h3>@yield('title') <span class="text-muted">created {{ $computer->created_at_human }}</span></h3>
 
     <hr>
 @endsection

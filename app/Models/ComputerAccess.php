@@ -63,26 +63,6 @@ class ComputerAccess extends Model
     }
 
     /**
-     * Alias for the WMI username accessor.
-     *
-     * @return null|string
-     */
-    public function getWmiUsername()
-    {
-        return $this->wmi_username;
-    }
-
-    /**
-     * Alias for the WMI password accessor.
-     *
-     * @return null|string
-     */
-    public function getWmiPassword()
-    {
-        return $this->wmi_password;
-    }
-
-    /**
      * The mutator for the notes attribute.
      *
      * @param string $username

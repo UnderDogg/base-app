@@ -8,7 +8,7 @@
 
 @section('show.panel.body')
 
-    @if($user->isFromAd())
+    @if($user->from_ad)
         <script>
             $(function () {
                 $('button[type="submit"]')

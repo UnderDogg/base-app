@@ -25,7 +25,7 @@
                 @foreach($labels as $label)
                     <li class="{{ active()->input('label', $label->name) }}">
                         <a href="{{ route(request()->route()->getName(), ['label' => $label->name]) }}">
-                            {!! $label->getDisplayLarge() !!}
+                            {!! $label->display_large !!}
                         </a>
                     </li>
                 @endforeach

@@ -63,8 +63,8 @@ abstract class AbstractComputerJob extends Job
         $password = null;
 
         if ($access instanceof ComputerAccess) {
-            $username = $access->getWmiUsername();
-            $password = $access->getWmiPassword();
+            $username = $access->wmi_username;
+            $password = $access->wmi_password;
         }
 
         // Check if the access record contains a username and password.

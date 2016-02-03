@@ -41,30 +41,6 @@ class Comment extends Model
     ];
 
     /**
-     * Returns true / false if the comment is a resolution.
-     *
-     * @return bool
-     */
-    public function isResolution()
-    {
-        if ($this->pivot) {
-            return $this->pivot->resolution;
-        }
-
-        return false;
-    }
-
-    /**
-     * The resolution accessor.
-     *
-     * @return bool
-     */
-    public function getResolutionAttribute()
-    {
-        return $this->isResolution();
-    }
-
-    /**
      * Set the comments content.
      *
      * @param $content
@@ -75,17 +51,31 @@ class Comment extends Model
     }
 
     /**
-     * Displays the commented 'daysAgo' tag line for comments.
+     * The resolution accessor.
+     *
+     * @return bool
+     */
+    public function getResolutionAttribute()
+    {
+        if ($this->pivot) {
+            return $this->pivot->resolution;
+        }
+
+        return false;
+    }
+
+    /**
+     * The created at tag line accessor.
      *
      * @return string
      */
-    public function getCreatedAtTagLine()
+    public function getCreatedAtTagLineAttribute()
     {
         $user = $this->user->fullname;
 
-        $daysAgo = $this->createdAtHuman();
+        $daysAgo = $this->created_at_human;
 
-        if ($this->isResolution()) {
+        if ($this->resolution) {
             $created = "created resolution $daysAgo";
         } else {
             $created = "commented $daysAgo";
@@ -97,32 +87,12 @@ class Comment extends Model
     }
 
     /**
-     * The created at tag line accessor.
-     *
-     * @return string
-     */
-    public function getCreatedAtTagLineAttribute()
-    {
-        return $this->getCreatedAtTagLine();
-    }
-
-    /**
-     * Returns content from markdown to HTML.
-     *
-     * @return string
-     */
-    public function getContentFromMarkdown()
-    {
-        return $this->fromMarkdown($this->content);
-    }
-
-    /**
      * The content from markdown accessor.
      *
      * @return string
      */
     public function getContentFromMarkdownAttribute()
     {
-        return $this->getContentFromMarkdown();
+        return $this->fromMarkdown($this->content);
     }
 }

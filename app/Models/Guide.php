@@ -54,66 +54,6 @@ class Guide extends Model
     }
 
     /**
-     * Returns the current guides slug.
-     *
-     * @return string|null
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Returns the published at date in a human readable format.
-     *
-     * @return string|null
-     */
-    public function publishedOnHuman()
-    {
-        if ($this->published) {
-            return Carbon::createFromTimestamp(strtotime($this->published_on))->diffForHumans();
-        }
-
-        return;
-    }
-
-    /**
-     * Returns a summary of the guide by limiting the description attribute.
-     *
-     * @return string
-     */
-    public function summary()
-    {
-        return Str::limit($this->description, 25);
-    }
-
-    /**
-     * Returns true / false if the current guide is published.
-     *
-     * @return bool
-     */
-    public function isPublished()
-    {
-        return $this->published;
-    }
-
-    /**
-     * Returns an HTML string of the published state of the current guide.
-     *
-     * @return string
-     */
-    public function publishedLabel()
-    {
-        $date = $this->publishedOnHuman();
-
-        $published = ($this->published ? "Yes ($date)" : 'No');
-
-        $class = 'label '.($this->published ? 'label-success' : 'label-danger');
-
-        return HTML::create('span', $published, compact('class'));
-    }
-
-    /**
      * Adds a step to the current guide.
      *
      * @param string      $title
@@ -148,5 +88,45 @@ class Guide extends Model
     public function findStepByPosition($position)
     {
         return $this->steps()->where(compact('position'))->firstOrFail();
+    }
+
+    /**
+     * Returns a summary of the guide by limiting the description attribute.
+     *
+     * @return string
+     */
+    public function getSummaryAttribute()
+    {
+        return Str::limit($this->description, 25);
+    }
+
+    /**
+     * Returns an HTML string of the published state of the current guide.
+     *
+     * @return string
+     */
+    public function getPublishedLabelAttribute()
+    {
+        $date = $this->published_on_human;
+
+        $published = ($this->published ? "Yes ($date)" : 'No');
+
+        $class = 'label '.($this->published ? 'label-success' : 'label-danger');
+
+        return HTML::create('span', $published, compact('class'));
+    }
+
+    /**
+     * Returns the published at date in a human readable format.
+     *
+     * @return string|null
+     */
+    public function getPublishedOnHumanAttribute()
+    {
+        if ($this->published) {
+            return Carbon::createFromTimestamp(strtotime($this->published_on))->diffForHumans();
+        }
+
+        return;
     }
 }

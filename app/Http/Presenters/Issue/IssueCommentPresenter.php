@@ -42,7 +42,7 @@ class IssueCommentPresenter extends Presenter
 
             // Setup the form fieldset
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution) {
-                $isResolution = $comment->isResolution();
+                $isResolution = $comment->resolution;
 
                 // If the issue doesn't have a resolution, or the current comment
                 // is the resolution, we'll add the mark resolution checkbox

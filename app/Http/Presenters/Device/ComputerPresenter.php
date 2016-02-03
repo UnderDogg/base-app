@@ -48,7 +48,7 @@ class ComputerPresenter extends Presenter
             $table->column('access', function ($column) {
                 $column->label = 'Access';
                 $column->value = function (Computer $computer) {
-                    return $computer->getAccessChecks();
+                    return $computer->access_checks;
                 };
             });
 
@@ -62,7 +62,7 @@ class ComputerPresenter extends Presenter
             $table->column('os', function ($column) {
                 $column->label = 'Operating System';
                 $column->value = function (Computer $computer) {
-                    return $computer->getCompleteOs();
+                    return $computer->operating_system;
                 };
             });
         });

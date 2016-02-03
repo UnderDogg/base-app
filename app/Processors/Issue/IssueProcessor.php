@@ -121,7 +121,7 @@ class IssueProcessor extends Processor
 
         // Retrieve the issue resolution if there is one.
         $resolution = $issue->comments->first(function ($key, Comment $comment) {
-            return $comment->isResolution();
+            return $comment->resolution;
         });
 
         $formComment = $this->presenter->formComment($issue);

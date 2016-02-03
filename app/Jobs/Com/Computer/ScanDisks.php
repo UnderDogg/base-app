@@ -45,7 +45,7 @@ class ScanDisks extends AbstractComputerJob
                             if ($hd instanceof ComputerHardDisk) {
                                 // If a hard disk is successfully created, we'll
                                 // dispatch the job to create a new disk record.
-                                $this->dispatch(new CreateDiskRecord($hd, $disk->getFreeSpace(), $disk->getStatus()));
+                                $this->dispatch(new CreateDiskRecord($hd, $disk->free_space, $disk->getStatus()));
                             }
 
                             $added[] = $hd;

@@ -55,6 +55,16 @@ class User extends Eloquent implements AuthorizableContract
     }
 
     /**
+     * The belongsToMany security questions relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
+    }
+
+    /**
      * The morphMany images relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
@@ -79,7 +89,7 @@ class User extends Eloquent implements AuthorizableContract
      *
      * @return bool
      */
-    public function hasAvatar()
+    public function getHasAvatarAttribute()
     {
         return $this->avatar() instanceof Upload;
     }
@@ -97,16 +107,6 @@ class User extends Eloquent implements AuthorizableContract
     }
 
     /**
-     * The belongsToMany security questions relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function questions()
-    {
-        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
-    }
-
-    /**
      * The users avatar URL accessor.
      *
      * @return string
@@ -121,7 +121,7 @@ class User extends Eloquent implements AuthorizableContract
      *
      * @return string
      */
-    public function getInitials()
+    public function getInitialsAttribute()
     {
         $name = explode(' ', $this->getRecipientName());
 
@@ -144,7 +144,7 @@ class User extends Eloquent implements AuthorizableContract
      *
      * @return string
      */
-    public function getLabel()
+    public function getLabelAttribute()
     {
         $color = 'primary';
 
@@ -160,7 +160,7 @@ class User extends Eloquent implements AuthorizableContract
      *
      * @return string
      */
-    public function getLabelLarge()
+    public function getLabelLargeAttribute()
     {
         return HTML::create('span', $this->getLabel(), ['class' => 'label-large']);
     }
@@ -256,15 +256,5 @@ class User extends Eloquent implements AuthorizableContract
         $this->reset_token = null;
 
         return $this->save();
-    }
-
-    /**
-     * Returns true / false if the current user was imported from active directory.
-     *
-     * @return bool
-     */
-    public function isFromAd()
-    {
-        return $this->from_ad;
     }
 }

@@ -128,13 +128,13 @@ class AvatarProcessor extends Processor
         if ($user instanceof User) {
             // If the user doesn't have an avatar already,
             // we'll generate one on the fly.
-            if (!$user->hasAvatar()) {
+            if (!$user->has_avatar) {
                 $this->generate();
             }
 
             $avatar = $user->avatar();
 
-            return response()->download($avatar->getCompletePath());
+            return response()->download($avatar->complete_path);
         }
 
         throw new NotFoundHttpException();
@@ -154,7 +154,7 @@ class AvatarProcessor extends Processor
         $user = $this->guard->user();
 
         if ($user instanceof User) {
-            if ($user->hasAvatar()) {
+            if ($user->has_avatar) {
                 // If the user has an avatar already, we'll make sure
                 // we delete it before generating another.
                 $user->avatar()->delete();
@@ -171,7 +171,7 @@ class AvatarProcessor extends Processor
                 $fileName = $user->getKey().'.jpg';
 
                 // Otherwise we'll generate and retrieve the initials image contents.
-                $image = $this->initialcon->getImageData($user->getInitials(), $user->getRecipientEmail(), $this->size);
+                $image = $this->initialcon->getImageData($user->initials, $user->getRecipientEmail(), $this->size);
             }
 
             // Generate the storage path.

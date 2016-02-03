@@ -74,7 +74,7 @@ class PasswordProcessor extends Processor
 
                 // We'll check if the user is from active directory
                 // so we can change the password correctly if so.
-                if ($user->isFromAd() && $user->adldapUser instanceof AdldapUser) {
+                if ($user->from_ad && $user->adldapUser instanceof AdldapUser) {
                     $result = $this->dispatch(new ChangeAdPassword($user->adldapUser, $newPassword));
                 } else {
                     $result = $this->dispatch(new ChangePassword($user, $newPassword));

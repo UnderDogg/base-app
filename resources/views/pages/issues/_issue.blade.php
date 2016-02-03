@@ -3,15 +3,15 @@
     <div class="col-md-12 ticket-heading">
 
         <h4>
-            <span class="text-muted">{{ $issue->getHashId() }}</span>
+            <span class="text-muted">{{ $issue->hash_id }}</span>
             {{ $issue->title }}
 
             @foreach($issue->labels as $label)
-                {!! $label->getDisplayLarge() !!}
+                {!! $label->display_large !!}
             @endforeach
 
             @foreach($issue->users as $user)
-                {!! $user->getLabelLarge() !!}
+                {!! $user->label_large !!}
             @endforeach
         </h4>
 
@@ -25,7 +25,7 @@
 
             <h3>{{ $issue->user->fullname }}</h3>
 
-            <span>{!! $issue->createdAtHuman() !!}</span>
+            <span>{!! $issue->created_at_human !!}</span>
 
         </div>
 
@@ -43,7 +43,7 @@
         @if(isset($resolution) && count($issue->comments) > 1)
 
             {{-- We'll also make sure that the first comment is not a resolution. --}}
-            @if(!$issue->comments->first()->isResolution())
+            @if(!$issue->comments->first()->resolution)
 
             <hr>
 

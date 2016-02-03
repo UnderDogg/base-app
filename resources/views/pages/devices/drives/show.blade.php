@@ -3,7 +3,7 @@
 @section('title', $drive->name)
 
 @section('title.header')
-    <h3>@yield('title') <span class="text-muted">created {{ $drive->createdAtHuman() }}</span></h3>
+    <h3>@yield('title') <span class="text-muted">created {{ $drive->created_at_human }}</span></h3>
 
     <hr>
 @endsection

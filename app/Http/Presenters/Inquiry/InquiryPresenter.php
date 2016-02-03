@@ -59,7 +59,7 @@ class InquiryPresenter extends Presenter
 
             $table->column('created', function (Column $column) {
                 $column->value = function (Inquiry $inquiry) {
-                    return $inquiry->createdAtHuman();
+                    return $inquiry->created_at_human;
                 };
             });
         });

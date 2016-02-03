@@ -64,7 +64,7 @@ class ProfileProcessor extends Processor
     {
         $user = $this->guard->user();
 
-        if ($user instanceof User && !$user->isFromAd()) {
+        if ($user instanceof User && !$user->from_ad) {
             $form = $this->presenter->form($user);
 
             return view('pages.profile.show.details.edit', compact('user', 'form'));
@@ -88,7 +88,7 @@ class ProfileProcessor extends Processor
 
         // Double check that we have the correct user instance
         // and they are not from active directory.
-        if ($user instanceof User && !$user->isFromAd()) {
+        if ($user instanceof User && !$user->from_ad) {
             $user->fullname = $request->input('full_name', $user->fullname);
             $user->email = $request->input('email', $user->getRecipientEmail());
 

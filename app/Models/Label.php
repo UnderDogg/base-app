@@ -82,23 +82,13 @@ class Label extends Model
      */
     public function getDisplayAttribute()
     {
-        return (string) $this->getDisplay();
-    }
-
-    /**
-     * Displays the label in HTML.
-     *
-     * @return string
-     */
-    public function getDisplay()
-    {
         $color = $this->color;
 
         $name = HTML::entities($this->name);
 
         $icon = HTML::create('i', '', ['class' => 'fa fa-tag']);
 
-        return HTML::raw("<span class='label label-$color'>$icon $name</span>");
+        return (string) HTML::raw("<span class='label label-$color'>$icon $name</span>");
     }
 
     /**
@@ -106,9 +96,9 @@ class Label extends Model
      *
      * @return string
      */
-    public function getDisplayLarge()
+    public function getDisplayLargeAttribute()
     {
-        return HTML::create('span', $this->getDisplay(), ['class' => 'label-large']);
+        return HTML::create('span', $this->display, ['class' => 'label-large']);
     }
 
     /**
