@@ -66,7 +66,7 @@ class ServicePresenter extends Presenter
                 $column->value = function (Service $service) {
                     $last = $service->last_record;
 
-                    if ($last instanceof ServiceRecord) {
+                    if ($last instanceof ServiceRecord && policy($last)->show()) {
                         return link_to_route('services.records.show', $service->name, [$service->getKey(), $last->getKey()]);
                     }
 

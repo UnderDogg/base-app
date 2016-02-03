@@ -17,11 +17,11 @@ class ServiceRecordPolicy extends Policy
      * @var array
      */
     public $actions = [
-        'View Services',
-        'Create Service',
-        'View Service',
-        'Edit Service',
-        'Delete Service',
+        'View Service Records',
+        'Create Service Record',
+        'View Service Record',
+        'Edit Service Record',
+        'Delete Service Record',
     ];
 
     /**
@@ -31,7 +31,7 @@ class ServiceRecordPolicy extends Policy
      */
     public function index()
     {
-        return $this->canIf('view-services');
+        return $this->canIf('view-services-records');
     }
 
     /**
@@ -41,7 +41,7 @@ class ServiceRecordPolicy extends Policy
      */
     public function create()
     {
-        return $this->canIf('create-service');
+        return $this->canIf('create-service-record');
     }
 
     /**
@@ -55,13 +55,23 @@ class ServiceRecordPolicy extends Policy
     }
 
     /**
+     * Returns true / false if the current user can view service records.
+     *
+     * @return bool
+     */
+    public function show()
+    {
+        return $this->canIf('view-service-record');
+    }
+
+    /**
      * Returns true / false if the current user can edit services.
      *
      * @return bool
      */
     public function edit()
     {
-        return $this->canIf('edit-service');
+        return $this->canIf('edit-service-record');
     }
 
     /**
@@ -81,6 +91,6 @@ class ServiceRecordPolicy extends Policy
      */
     public function destroy()
     {
-        return $this->canIf('delete-service');
+        return $this->canIf('delete-service-record');
     }
 }
