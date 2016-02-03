@@ -3,7 +3,9 @@
 namespace App\Http\Presenters;
 
 use App\Http\Presenters\Issue\IssuePresenter;
+use App\Http\Presenters\Service\ServicePresenter;
 use App\Models\Issue;
+use App\Models\Service;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
@@ -45,5 +47,19 @@ class WelcomePresenter extends Presenter
         $presenter = new IssuePresenter($this->form, $this->table);
 
         return $presenter->tableLast($issue);
+    }
+
+    /**
+     * Displays all of the services last status.
+     *
+     * @param Service $service
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function service(Service $service)
+    {
+        $presenter = new ServicePresenter($this->form, $this->table);
+
+        return $presenter->tableStatus($service);
     }
 }

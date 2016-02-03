@@ -30,6 +30,20 @@
         .navbar {
             margin-bottom: 0;
         }
+
+        .row {
+            -moz-column-width: 35em;
+            -webkit-column-width: 35em;
+            -moz-column-gap: .5em;
+            -webkit-column-gap: .5em;
+        }
+
+        .panel {
+            display: inline-block;
+            margin:  .5em;
+            padding:  0;
+            width:98%;
+        }
     </style>
 
     <div class="jumbotron">
@@ -42,20 +56,19 @@
                 <h2 class="visible-xs">Welcome.</h2>
             </div>
 
-            @if(auth()->check())
-                <div class="col-md-12">
+            <div class="row">
 
+                @if(auth()->check())
                     <div class="panel panel-default">
 
-                        <div class="panel-heading text-center">
-                            <div class="panel-title">
-                                Your Last Ticket
+                            <div class="panel-heading text-center">
+                                <div class="panel-title">
+                                    <i class="fa fa-ticket"></i>
+                                    Your Last Ticket
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="panel-body">
-
-                            <div class="row">
+                            <div class="panel-body">
 
                                 <div class="col-md-12">
 
@@ -85,15 +98,9 @@
 
                                 </div>
 
-                            </div>
-
-                            <div class="row">
                                 <div class="col-md-12">
-                                    <p></p>
+                                    <p><br></p>
                                 </div>
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-12">
                                     {!! $issues !!}
@@ -102,21 +109,31 @@
                             </div>
 
                         </div>
+                @endif
 
+                <div class="panel panel-default">
+
+                    <div class="panel-heading text-center">
+                        <div class="panel-title">
+                            <i class="fa fa-server"></i>
+                            Service Status
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        {!! $services !!}
                     </div>
 
                 </div>
-            @endif
 
-            @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
-
-                <div class="col-md-6">
+                @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
 
                     <div class="panel panel-default">
 
                         <div class="panel-heading">
 
                             <div class="text-center panel-title">
+                                <i class="fa fa-sun-o"></i>
                                 {{ $forecast->title }}
                             </div>
 
@@ -128,19 +145,16 @@
 
                     </div>
 
-                </div>
+                @endif
 
-            @endif
-
-            @if(isset($news) && $news instanceof \Illuminate\Support\Fluent)
-
-                <div class="col-md-6">
+                @if(isset($news) && $news instanceof \Illuminate\Support\Fluent)
 
                     <div class="panel panel-default">
 
                         <div class="panel-heading">
 
                             <div class="text-center panel-title">
+                                <i class="fa fa-bookmark"></i>
                                 {{ $news->title }}
                             </div>
 
@@ -152,13 +166,14 @@
 
                     </div>
 
-                </div>
+                @endif
 
-            @endif
+            </div>
 
         </div>
 
     </div>
+
 @endsection
 
 @section('footer')

@@ -4,6 +4,7 @@ namespace App\Processors;
 
 use App\Http\Presenters\WelcomePresenter;
 use App\Models\Issue;
+use App\Models\Service;
 use App\Traits\CanPurifyTrait;
 use Carbon\Carbon;
 use Exception;
@@ -27,6 +28,11 @@ class WelcomeProcessor extends Processor
     protected $issue;
 
     /**
+     * @var Service
+     */
+    protected $service;
+
+    /**
      * @var Cache
      */
     protected $cache;
@@ -36,12 +42,14 @@ class WelcomeProcessor extends Processor
      *
      * @param WelcomePresenter $presenter
      * @param Issue            $issue
+     * @param Service          $service
      * @param Cache            $cache
      */
-    public function __construct(WelcomePresenter $presenter, Issue $issue, Cache $cache)
+    public function __construct(WelcomePresenter $presenter, Issue $issue, Service $service, Cache $cache)
     {
         $this->presenter = $presenter;
         $this->issue = $issue;
+        $this->service = $service;
         $this->cache = $cache;
     }
 
@@ -75,7 +83,9 @@ class WelcomeProcessor extends Processor
             $issues = $this->presenter->issue($this->issue);
         }
 
-        return view('pages.welcome.index', compact('forecast', 'news', 'issues'));
+        $services = $this->presenter->service($this->service);
+
+        return view('pages.welcome.index', compact('forecast', 'news', 'issues', 'services'));
     }
 
     /**

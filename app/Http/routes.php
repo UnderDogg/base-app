@@ -75,7 +75,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         $router->resource('guides.steps', 'GuideStepController');
     });
 
-// Auth Covered Routes.
+    // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
             // The user profile details route.
@@ -424,6 +424,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             'except' => ['show'],
         ]);
 
+        // The services group.
+        $router->group(['namespace' => 'Service'], function (Router $router) {
+            // The services resource.
+            $router->resource('services', 'ServiceController');
+        });
+
         // The active directory route group.
         $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'active-directory'], function (Router $router) {
             // The computers resource.
@@ -503,7 +509,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         });
     });
 
-// Authentication Routes.
+    // Authentication Routes.
     $router->group(['prefix' => 'auth', 'as' => 'auth.'], function (Router $router) {
         // Guest Auth Routes.
         $router->group(['middleware' => ['guest']], function (Router $router) {

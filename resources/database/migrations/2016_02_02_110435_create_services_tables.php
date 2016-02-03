@@ -25,7 +25,7 @@ class CreateServicesTables extends Migration
             $table->integer('service_id')->unsigned();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->boolean('online')->default(true);
+            $table->smallInteger('status')->default(1);
 
             $table->foreign('service_id')->references('id')->on('services');
         });

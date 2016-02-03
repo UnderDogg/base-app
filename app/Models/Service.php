@@ -12,6 +12,16 @@ class Service extends Model
     protected $table = 'services';
 
     /**
+     * The fillable service attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+    ];
+
+    /**
      * The hasMany service records relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -19,5 +29,21 @@ class Service extends Model
     public function records()
     {
         return $this->hasMany(ServiceRecord::class, 'service_id');
+    }
+
+    /**
+     * Returns the last known status for the current service.
+     *
+     * @return null|string
+     */
+    public function getLastRecordStatusAttribute()
+    {
+        if ($this->records->count() > 0) {
+            $record = $this->records->first();
+
+            return $record->status_label;
+        }
+
+        return null;
     }
 }

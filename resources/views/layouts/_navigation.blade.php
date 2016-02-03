@@ -68,7 +68,7 @@
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
 
                         <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-exclamation-circle"></i>
+                            <i class="fa fa-ticket"></i>
                             Tickets
                             <i class="fa fa-caret-down"></i>
                         </a>
@@ -94,6 +94,15 @@
                         </ul>
 
                     </li>
+
+                    @can('index', App\Models\Service::class)
+                        <li class="{{ active()->route('services.*') }}">
+                            <a href="{{ route('services.index') }}">
+                                <i class="fa fa-server"></i>
+                                Services
+                            </a>
+                        </li>
+                    @endcan
 
                     @can('view-all-computers', App\Models\Computer::class)
                         <li class="{{ active()->route('devices.computers.*') }}">

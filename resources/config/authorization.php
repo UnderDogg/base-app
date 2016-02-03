@@ -23,6 +23,7 @@ return [
         \App\Models\Computer::class         => \App\Policies\Device\ComputerPolicy::class,
         \App\Models\Guide::class            => \App\Policies\Resource\GuidePolicy::class,
         \App\Models\GuideStep::class        => \App\Policies\Resource\GuideStepPolicy::class,
+        \App\Models\Service::class          => \App\Policies\ServicePolicy::class,
         \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
         \Adldap\Models\User::class          => \App\Policies\ActiveDirectory\UserPolicy::class,
 
