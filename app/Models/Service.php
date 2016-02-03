@@ -44,6 +44,6 @@ class Service extends Model
             return $record->status_label;
         }
 
-        return null;
+        return;
     }
 }
