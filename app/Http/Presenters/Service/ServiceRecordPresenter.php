@@ -2,13 +2,13 @@
 
 namespace App\Http\Presenters\Service;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Service;
 use App\Models\ServiceRecord;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Http\Presenters\Presenter;
 
 class ServiceRecordPresenter extends Presenter
 {
@@ -60,9 +60,9 @@ class ServiceRecordPresenter extends Presenter
             $form->fieldset(function (Fieldset $fieldset) {
                 $fieldset->control('select', 'status')
                     ->options([
-                        ServiceRecord::STATUS_ONLINE => 'Online',
+                        ServiceRecord::STATUS_ONLINE   => 'Online',
                         ServiceRecord::STATUS_DEGRADED => 'Degraded',
-                        ServiceRecord::STATUS_OFFLINE => 'Offline',
+                        ServiceRecord::STATUS_OFFLINE  => 'Offline',
                     ]);
 
                 $fieldset->control('input:text', 'title')
@@ -72,7 +72,7 @@ class ServiceRecordPresenter extends Presenter
 
                 $fieldset->control('input:textarea', 'description')
                     ->attributes([
-                        'placeholder' => 'Enter the current status description.',
+                        'placeholder'  => 'Enter the current status description.',
                         'data-provide' => 'markdown',
                     ]);
             });
