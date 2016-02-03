@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Service;
 
-use App\Models\ServiceRecord;
 use App\Http\Requests\Request;
+use App\Models\ServiceRecord;
 
 class ServiceRecordRequest extends Request
 {

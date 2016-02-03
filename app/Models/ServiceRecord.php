@@ -7,10 +7,10 @@ use Orchestra\Support\Facades\HTML;
 
 class ServiceRecord extends Model
 {
-    const STATUS_ONLINE     = 1;
-    const STATUS_DEGRADED   = 2;
-    const STATUS_OFFLINE    = 3;
-    const STATUS_UNKNOWN    = 4;
+    const STATUS_ONLINE = 1;
+    const STATUS_DEGRADED = 2;
+    const STATUS_OFFLINE = 3;
+    const STATUS_UNKNOWN = 4;
 
     use HasMarkdownTrait;
 

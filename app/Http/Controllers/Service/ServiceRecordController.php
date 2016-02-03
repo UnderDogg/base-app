@@ -48,7 +48,7 @@ class ServiceRecordController extends Controller
     }
 
     /**
-     * Creates a record for the specified
+     * Creates a record for the specified.
      *
      * @param ServiceRecordRequest $request
      * @param int|string           $serviceId
@@ -119,8 +119,8 @@ class ServiceRecordController extends Controller
     /**
      * Deletes the specified service record.
      *
-     * @param int|string           $serviceId
-     * @param int|string           $recordId
+     * @param int|string $serviceId
+     * @param int|string $recordId
      *
      * @return \Illuminate\Http\RedirectResponse
      */

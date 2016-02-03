@@ -42,7 +42,7 @@ class Service extends Model
             return $this->records->first();
         }
 
-        return null;
+        return;
     }
 
     /**
