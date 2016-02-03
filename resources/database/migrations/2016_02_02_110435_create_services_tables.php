@@ -16,15 +16,16 @@ class CreateServicesTables extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
         });
 
         Schema::create('service_records', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('service_id')->unsigned();
             $table->string('title');
-            $table->text('description');
-            $table->boolean('online');
+            $table->text('description')->nullable();
+            $table->boolean('online')->default(true);
 
             $table->foreign('service_id')->references('id')->on('services');
         });
