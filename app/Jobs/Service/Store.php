@@ -26,7 +26,7 @@ class Store extends Job
      * Constructor.
      *
      * @param ServiceRequest $request
-     * @param Service $service
+     * @param Service        $service
      */
     public function __construct(ServiceRequest $request, Service $service)
     {

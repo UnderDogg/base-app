@@ -2,12 +2,12 @@
 
 namespace App\Http\Presenters\Service;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Service;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
 use Orchestra\Support\Facades\HTML;
 
 class ServicePresenter extends Presenter
