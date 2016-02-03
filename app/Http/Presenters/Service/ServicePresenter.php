@@ -3,6 +3,7 @@
 namespace App\Http\Presenters\Service;
 
 use App\Models\Service;
+use App\Models\ServiceRecord;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -21,10 +22,19 @@ class ServicePresenter extends Presenter
      */
     public function table(Service $service)
     {
+        $service = $service->with('records');
+
         return $this->table->of('services', function (TableGrid $table) use ($service) {
             $table->with($service)->paginate($this->perPage);
 
-            $table->column('name');
+            $table->column('name', function (Column $column) {
+                $column->value = function (Service $service) {
+                    return link_to_route('services.records.index', $service->name, [$service->getKey()]);
+                };
+            });
+
+            $table->column('last_record_status')
+                ->label('Current Status');
 
             $table->column('description', function (Column $column) {
                 $column->value = function (Service $service) {
@@ -38,6 +48,13 @@ class ServicePresenter extends Presenter
         });
     }
 
+    /**
+     * Displays all services with their name and current status.
+     *
+     * @param Service $service
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function tableStatus(Service $service)
     {
         $service = $service->with('records');
@@ -45,13 +62,20 @@ class ServicePresenter extends Presenter
         return $this->table->of('services.status', function (TableGrid $table) use ($service) {
             $table->with($service);
 
-            $table->column('name');
-
-            $table->column('status', function (Column $column) {
+            $table->column('name', function (Column $column) {
                 $column->value = function (Service $service) {
-                    return $service->last_record_status;
+                    $last = $service->last_record;
+
+                    if ($last instanceof ServiceRecord) {
+                        return link_to_route('services.records.show', $service->name, [$service->getKey(), $last->getKey()]);
+                    }
+
+                    return $service->name;
                 };
             });
+
+            $table->column('last_record_status')
+                ->label('Current Status');
         });
     }
 

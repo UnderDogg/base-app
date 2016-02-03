@@ -28,22 +28,40 @@ class Service extends Model
      */
     public function records()
     {
-        return $this->hasMany(ServiceRecord::class, 'service_id');
+        return $this->hasMany(ServiceRecord::class, 'service_id')->latest();
+    }
+
+    /**
+     * Returns the last service record.
+     *
+     * @return null|ServiceRecord
+     */
+    public function getLastRecordAttribute()
+    {
+        if ($this->records->count() > 0) {
+            return $this->records->first();
+        }
+
+        return null;
     }
 
     /**
      * Returns the last known status for the current service.
      *
-     * @return null|string
+     * @return string
      */
     public function getLastRecordStatusAttribute()
     {
-        if ($this->records->count() > 0) {
-            $record = $this->records->first();
+        $record = $this->last_record;
 
+        if ($record instanceof ServiceRecord) {
             return $record->status_label;
         }
 
-        return null;
+        $record = new ServiceRecord();
+
+        $record->status = ServiceRecord::STATUS_UNKNOWN;
+
+        return $record->status_label;
     }
 }

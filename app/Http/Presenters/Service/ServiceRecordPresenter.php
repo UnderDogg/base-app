@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Service;
 
+use App\Models\Service;
 use App\Models\ServiceRecord;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -23,21 +24,37 @@ class ServiceRecordPresenter extends Presenter
         return $this->table->of('services.records', function (TableGrid $table) use ($records) {
             $table->with($records)->paginate($this->perPage);
 
+            $table->column('status_label')
+                ->label('Status');
+
             $table->column('title');
-            $table->column('description');
+
+            $table->column('created_at_human')
+                ->label('Created');
         });
     }
 
     /**
      * Returns a new form for the specified record.
      *
+     * @param Service       $service
      * @param ServiceRecord $record
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(ServiceRecord $record)
+    public function form(Service $service, ServiceRecord $record)
     {
-        return $this->form->of('services.records', function (FormGrid $form) use ($record) {
+        return $this->form->of('services.records', function (FormGrid $form) use ($service, $record) {
+            if ($record->exists) {
+                $method = 'PATCH';
+                $url = route('services.records.update', [$service->getKey(), $record->getKey()]);
+            } else {
+                $method = 'POST';
+                $url = route('services.records.store', [$service->getKey(), $record->getKey()]);
+            }
+
+            $form->attributes(compact('method', 'url'));
+
             $form->with($record);
 
             $form->fieldset(function (Fieldset $fieldset) {
@@ -48,7 +65,10 @@ class ServiceRecordPresenter extends Presenter
                         ServiceRecord::STATUS_OFFLINE => 'Offline',
                     ]);
 
-                $fieldset->control('input:text', 'title');
+                $fieldset->control('input:text', 'title')
+                    ->attributes([
+                        'placeholder' => 'Enter the status title.',
+                    ]);
 
                 $fieldset->control('input:textarea', 'description')
                     ->attributes([
@@ -57,5 +77,25 @@ class ServiceRecordPresenter extends Presenter
                     ]);
             });
         });
+    }
+
+    /**
+     * Returns a new navbar for the service record index.
+     *
+     * @param Service $service
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbar(Service $service)
+    {
+        return $this->fluent([
+            'id'         => 'services-records',
+            'title'      => 'Service Records',
+            'url'        => route('services.records.index', [$service->getKey()]),
+            'menu'       => view('pages.services.records._nav', compact('service')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
     }
 }

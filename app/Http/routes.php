@@ -428,6 +428,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         $router->group(['namespace' => 'Service'], function (Router $router) {
             // The services resource.
             $router->resource('services', 'ServiceController');
+
+            // The services record controller.
+            $router->resource('services.records', 'ServiceRecordController');
         });
 
         // The active directory route group.
