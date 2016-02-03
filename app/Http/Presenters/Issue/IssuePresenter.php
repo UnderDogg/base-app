@@ -350,7 +350,7 @@ class IssuePresenter extends Presenter
 
             foreach ($issue->labels as $label) {
                 /* @var \App\Models\Label $label */
-                $labels[] = $label->getDisplay();
+                $labels[] = $label->display;
             }
 
             foreach ($issue->users as $user) {
