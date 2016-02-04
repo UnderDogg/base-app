@@ -24,9 +24,9 @@ elixir(function(mix) {
     mix.scripts([
         'libs/jquery.min.js',
         'libs/jquery.lazyload.min.js',
-        'libs/jquery.isotope.min.js',
         'libs/jquery-ui.min.js',
         'libs/bootstrap.min.js',
+        'libs/jquery.isotope.min.js',
         'libs/dropzone.min.js',
         'libs/moment.min.js',
         'libs/sweetalert.min.js',

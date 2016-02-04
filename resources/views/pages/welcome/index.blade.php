@@ -33,11 +33,15 @@
     </style>
 
     <script>
-        /* Activate jquery isotope. */
-        $('#panels').imagesLoaded( function() {
-            $('#panels').isotope({
-                itemSelector : '.module'
+        $.getScript('//cdn.jsdelivr.net/isotope/1.5.25/jquery.isotope.min.js',function(){
+
+            /* activate jquery isotope */
+            $('#panels').imagesLoaded( function() {
+                $('#panels').isotope({
+                    itemSelector : '.col-md-6'
+                });
             });
+
         });
     </script>
 
@@ -55,7 +59,7 @@
 
                 @if(auth()->check())
 
-                    <div class="module col-md-6">
+                    <div class="col-md-6">
 
                         <div class="panel panel-default">
 
@@ -112,7 +116,7 @@
 
                 @endif
 
-                <div class="module col-md-6">
+                <div class="col-md-6">
 
                     <div class="panel panel-default">
 
@@ -133,7 +137,7 @@
 
                 @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
 
-                    <div class="module col-md-6">
+                    <div class="col-md-6">
 
                         <div class="panel panel-default">
 
@@ -158,7 +162,7 @@
 
                 @if(isset($news) && $news instanceof \Illuminate\Support\Fluent)
 
-                    <div class="module col-md-6">
+                    <div class="col-md-6">
 
                         <div class="panel panel-default">
 
