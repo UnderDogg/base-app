@@ -50,9 +50,11 @@
         <div class="container">
 
             <div class="text-center text-white">
+
                 <h1 class="hidden-xs">Welcome.</h1>
 
                 <h2 class="visible-xs">Welcome.</h2>
+
             </div>
 
             <div class="row" id="panels">
