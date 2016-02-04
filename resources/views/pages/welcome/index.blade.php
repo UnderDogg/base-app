@@ -30,21 +30,16 @@
         .navbar {
             margin-bottom: 0;
         }
-
-        .row {
-            -moz-column-width: 35em;
-            -webkit-column-width: 35em;
-            -moz-column-gap: .5em;
-            -webkit-column-gap: .5em;
-        }
-
-        .panel {
-            display: inline-block;
-            margin:  .5em;
-            padding:  0;
-            width:98%;
-        }
     </style>
+
+    <script>
+        /* Activate jquery isotope. */
+        $('#panels').imagesLoaded( function() {
+            $('#panels').isotope({
+                itemSelector : '.module'
+            });
+        });
+    </script>
 
     <div class="jumbotron">
 
@@ -56,10 +51,13 @@
                 <h2 class="visible-xs">Welcome.</h2>
             </div>
 
-            <div class="row">
+            <div class="row" id="panels">
 
                 @if(auth()->check())
-                    <div class="panel panel-default">
+
+                    <div class="module col-md-6">
+
+                        <div class="panel panel-default">
 
                             <div class="panel-heading text-center">
                                 <div class="panel-title">
@@ -109,38 +107,49 @@
                             </div>
 
                         </div>
-                @endif
 
-                <div class="panel panel-default">
-
-                    <div class="panel-heading text-center">
-                        <div class="panel-title">
-                            <i class="fa fa-server"></i>
-                            Service Status
-                        </div>
                     </div>
 
-                    <div class="panel-body">
-                        {!! $services !!}
+                @endif
+
+                <div class="module col-md-6">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading text-center">
+                            <div class="panel-title">
+                                <i class="fa fa-server"></i>
+                                Service Status
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+                            {!! $services !!}
+                        </div>
+
                     </div>
 
                 </div>
 
                 @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
 
-                    <div class="panel panel-default">
+                    <div class="module col-md-6">
 
-                        <div class="panel-heading">
+                        <div class="panel panel-default">
 
-                            <div class="text-center panel-title">
-                                <i class="fa fa-sun-o"></i>
-                                {{ $forecast->title }}
+                            <div class="panel-heading">
+
+                                <div class="text-center panel-title">
+                                    <i class="fa fa-sun-o"></i>
+                                    {{ $forecast->title }}
+                                </div>
+
                             </div>
 
-                        </div>
+                            <div class="text-center panel-body">
+                                @each('pages.welcome._entry', $forecast->articles, 'entry', 'pages.welcome._no_forecast')
+                            </div>
 
-                        <div class="text-center panel-body">
-                            @each('pages.welcome._entry', $forecast->articles, 'entry', 'pages.welcome._no_forecast')
                         </div>
 
                     </div>
@@ -149,19 +158,23 @@
 
                 @if(isset($news) && $news instanceof \Illuminate\Support\Fluent)
 
-                    <div class="panel panel-default">
+                    <div class="module col-md-6">
 
-                        <div class="panel-heading">
+                        <div class="panel panel-default">
 
-                            <div class="text-center panel-title">
-                                <i class="fa fa-bookmark"></i>
-                                {{ $news->title }}
+                            <div class="panel-heading">
+
+                                <div class="text-center panel-title">
+                                    <i class="fa fa-bookmark"></i>
+                                    {{ $news->title }}
+                                </div>
+
                             </div>
 
-                        </div>
+                            <div class="panel-body">
+                                @each('pages.welcome._article', $news->articles, 'article', 'pages.welcome._no_articles')
+                            </div>
 
-                        <div class="panel-body">
-                            @each('pages.welcome._article', $news->articles, 'article', 'pages.welcome._no_articles')
                         </div>
 
                     </div>
