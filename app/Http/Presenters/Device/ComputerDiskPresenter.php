@@ -60,7 +60,7 @@ class ComputerDiskPresenter extends Presenter
 
             $disks->addDateColumn('Date');
 
-            $rows = [];
+            $rows = [[]];
 
             $i = 0;
 

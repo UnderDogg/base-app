@@ -57,7 +57,7 @@ abstract class AbstractComputerJob extends Job
      */
     protected function getCredentials()
     {
-        $access = $this->computer->getWmiAccess();
+        $access = $this->computer->wmi_access;
 
         $username = null;
         $password = null;
