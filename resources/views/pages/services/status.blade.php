@@ -65,7 +65,7 @@
 
             <h2 class="text-white text-center">Service History</h2>
 
-            @each('pages.services._record', $service->records, 'record')
+            @each('pages.services._record', $service->records, 'record', 'pages.services._no-records')
 
         </div>
 
