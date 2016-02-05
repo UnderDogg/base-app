@@ -2,10 +2,10 @@
 
 namespace App\Http\Presenters\Resource;
 
-use Closure;
 use App\Http\Presenters\Presenter;
 use App\Models\Guide;
 use App\Models\GuideStep;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -43,7 +43,7 @@ class GuidePresenter extends Presenter
             if (is_null($closure)) {
                 $table->with($guide)->paginate($this->perPage);
             } else {
-               $table = call_user_func($closure, $table, $guide);
+                $table = call_user_func($closure, $table, $guide);
             }
 
             $table
