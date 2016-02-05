@@ -3,7 +3,9 @@
 namespace App\Http\Presenters;
 
 use App\Http\Presenters\Issue\IssuePresenter;
+use App\Http\Presenters\Resource\GuidePresenter;
 use App\Http\Presenters\Service\ServicePresenter;
+use App\Models\Guide;
 use App\Models\Issue;
 use App\Models\Service;
 use Illuminate\Support\Collection;
@@ -42,7 +44,7 @@ class WelcomePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function issue(Issue $issue)
+    public function issues(Issue $issue)
     {
         $presenter = new IssuePresenter($this->form, $this->table);
 
@@ -56,10 +58,24 @@ class WelcomePresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function service(Service $service)
+    public function services(Service $service)
     {
         $presenter = new ServicePresenter($this->form, $this->table);
 
         return $presenter->tableStatus($service);
+    }
+
+    /**
+     * Displays the last 5 created guides.
+     *
+     * @param Guide $guide
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function guides(Guide $guide)
+    {
+        $presenter = new GuidePresenter($this->form, $this->table);
+
+        return $presenter->tableLast($guide);
     }
 }

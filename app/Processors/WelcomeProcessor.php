@@ -3,6 +3,7 @@
 namespace App\Processors;
 
 use App\Http\Presenters\WelcomePresenter;
+use App\Models\Guide;
 use App\Models\Issue;
 use App\Models\Service;
 use App\Traits\CanPurifyTrait;
@@ -33,6 +34,11 @@ class WelcomeProcessor extends Processor
     protected $service;
 
     /**
+     * @var Guide
+     */
+    protected $guide;
+
+    /**
      * @var Cache
      */
     protected $cache;
@@ -43,13 +49,15 @@ class WelcomeProcessor extends Processor
      * @param WelcomePresenter $presenter
      * @param Issue            $issue
      * @param Service          $service
+     * @param Guide            $guide
      * @param Cache            $cache
      */
-    public function __construct(WelcomePresenter $presenter, Issue $issue, Service $service, Cache $cache)
+    public function __construct(WelcomePresenter $presenter, Issue $issue, Service $service, Guide $guide, Cache $cache)
     {
         $this->presenter = $presenter;
         $this->issue = $issue;
         $this->service = $service;
+        $this->guide = $guide;
         $this->cache = $cache;
     }
 
@@ -80,12 +88,14 @@ class WelcomeProcessor extends Processor
         }
 
         if (auth()->check()) {
-            $issues = $this->presenter->issue($this->issue);
+            $issues = $this->presenter->issues($this->issue);
         }
 
-        $services = $this->presenter->service($this->service);
+        $services = $this->presenter->services($this->service);
 
-        return view('pages.welcome.index', compact('forecast', 'news', 'issues', 'services'));
+        $guides = $this->presenter->guides($this->guide);
+
+        return view('pages.welcome.index', compact('forecast', 'news', 'issues', 'services', 'guides'));
     }
 
     /**

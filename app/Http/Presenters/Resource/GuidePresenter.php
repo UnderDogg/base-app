@@ -5,6 +5,7 @@ namespace App\Http\Presenters\Resource;
 use App\Http\Presenters\Presenter;
 use App\Models\Guide;
 use App\Models\GuideStep;
+use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -14,12 +15,12 @@ class GuidePresenter extends Presenter
     /**
      * Returns a new table of all guides.
      *
-     * @param Guide      $guide
-     * @param bool|false $favorites
+     * @param Guide|Builder $guide
+     * @param bool|false    $favorites
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Guide $guide, $favorites = false)
+    public function table($guide, $favorites = false)
     {
         $guide = $guide->latest();
 
@@ -67,6 +68,13 @@ class GuidePresenter extends Presenter
                     });
             }
         });
+    }
+
+    public function tableLast(Guide $guide)
+    {
+        $guide = $guide->latest()->limit(5);
+
+        return $this->table($guide);
     }
 
     /**

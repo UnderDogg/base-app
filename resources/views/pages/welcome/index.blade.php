@@ -32,19 +32,6 @@
         }
     </style>
 
-    <script>
-        $.getScript('//cdn.jsdelivr.net/isotope/1.5.25/jquery.isotope.min.js',function(){
-
-            /* activate jquery isotope */
-            $('#panels').imagesLoaded( function() {
-                $('#panels').isotope({
-                    itemSelector : '.col-md-6'
-                });
-            });
-
-        });
-    </script>
-
     <div class="jumbotron">
 
         <div class="container">
@@ -136,6 +123,27 @@
                     </div>
 
                 </div>
+
+                <div class="col-md-6">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading text-center">
+
+                            <div class="panel-title">
+                                <i class="fa fa-info-circle"></i>
+                                Most Recently Created Guides
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+                            {!! $guides !!}
+                        </div>
+
+                    </div>
+
+            </div>
 
                 @if(isset($forecast) && $forecast instanceof \Illuminate\Support\Fluent)
 

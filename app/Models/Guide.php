@@ -109,7 +109,7 @@ class Guide extends Model
     {
         $date = $this->published_on_human;
 
-        $published = ($this->published ? "Yes ($date)" : 'No');
+        $published = ($this->published ? "$date" : 'No');
 
         $class = 'label '.($this->published ? 'label-success' : 'label-danger');
 
