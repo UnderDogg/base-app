@@ -76,6 +76,18 @@ class ServiceController extends Controller
     }
 
     /**
+     * Displays the specified service status.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function status($id)
+    {
+        return $this->processor->status($id);
+    }
+
+    /**
      * Displays the form for editing the specified service.
      *
      * @param int|string $id

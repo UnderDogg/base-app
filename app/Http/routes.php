@@ -75,6 +75,15 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         $router->resource('guides.steps', 'GuideStepController');
     });
 
+    // Non-Auth service routes.
+    $router->group(['namespace' => 'Service'], function (Router $router) {
+        // The service status route.
+        $router->get('services/{services}/status', [
+            'as' => 'services.status',
+            'uses' => 'ServiceController@status',
+        ]);
+    });
+
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {

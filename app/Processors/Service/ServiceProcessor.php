@@ -7,6 +7,7 @@ use App\Http\Requests\Service\ServiceRequest;
 use App\Jobs\Service\Store;
 use App\Jobs\Service\Update;
 use App\Models\Service;
+use App\Models\ServiceRecord;
 use App\Processors\Processor;
 
 class ServiceProcessor extends Processor
@@ -91,6 +92,27 @@ class ServiceProcessor extends Processor
         $this->authorize($service);
 
         return view('pages.services.show', compact('service'));
+    }
+
+    /**
+     * Displays the specified service status.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function status($id)
+    {
+        $service = $this->service->with('records')->findOrFail($id);
+
+        $current = $service->last_record;
+
+        if ($current instanceof ServiceRecord) {
+            // Remove the last record out of the records collection.
+            $service->records->shift();
+        }
+
+        return view('pages.services.status', compact('service', 'current'));
     }
 
     /**

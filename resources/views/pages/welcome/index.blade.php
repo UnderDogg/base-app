@@ -5,7 +5,7 @@
 @section('container')
 
     <style>
-        .jumbotron {
+        .jumbotron-welcome {
             position: relative;
             background: #000 url('{{ asset('jumbotron-bg.png') }}') center center;
             width: 100%;
@@ -32,7 +32,7 @@
         }
     </style>
 
-    <div class="jumbotron">
+    <div class="jumbotron jumbotron-welcome">
 
         <div class="container">
 

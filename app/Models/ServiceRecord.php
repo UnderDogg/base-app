@@ -49,28 +49,59 @@ class ServiceRecord extends Model
      */
     public function getStatusLabelAttribute()
     {
+        return (string) HTML::create('span', $this->title, [
+            'class' => "label label-$this->color",
+        ]);
+    }
+
+    /**
+     * The service record status title accessor.
+     *
+     * @return string
+     */
+    public function getStatusTitleAttribute()
+    {
         switch ($this->status) {
             case static::STATUS_ONLINE:
-                $class = 'success';
                 $title = 'Online';
                 break;
             case static::STATUS_DEGRADED:
-                $class = 'warning';
                 $title = 'Degraded';
                 break;
             case static::STATUS_OFFLINE:
-                $class = 'danger';
                 $title = 'Offline';
                 break;
             default:
-                $class = 'default';
                 $title = 'Unknown';
                 break;
         };
 
-        return (string) HTML::create('span', $title, [
-            'class' => "label label-$class",
-        ]);
+        return $title;
+    }
+
+    /**
+     * The service record status color accessor.
+     *
+     * @return string
+     */
+    public function getColorAttribute()
+    {
+        switch ($this->status) {
+            case static::STATUS_ONLINE:
+                $color = 'success';
+                break;
+            case static::STATUS_DEGRADED:
+                $color = 'warning';
+                break;
+            case static::STATUS_OFFLINE:
+                $color = 'danger';
+                break;
+            default:
+                $color = 'default';
+                break;
+        };
+
+        return $color;
     }
 
     /**
