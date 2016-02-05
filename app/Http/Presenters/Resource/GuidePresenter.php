@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\Resource;
 
+use Closure;
 use App\Http\Presenters\Presenter;
 use App\Models\Guide;
 use App\Models\GuideStep;
@@ -17,10 +18,11 @@ class GuidePresenter extends Presenter
      *
      * @param Guide|Builder $guide
      * @param bool|false    $favorites
+     * @param null|Closure  $closure
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table($guide, $favorites = false)
+    public function table($guide, $favorites = false, Closure $closure = null)
     {
         $guide = $guide->latest();
 
@@ -37,13 +39,12 @@ class GuidePresenter extends Presenter
             });
         }
 
-        return $this->table->of('resources.guides', function (TableGrid $table) use ($guide) {
-            $table->with($guide)->paginate($this->perPage);
-
-            $table->searchable([
-                'title',
-                'description',
-            ]);
+        return $this->table->of('resources.guides', function (TableGrid $table) use ($guide, $closure) {
+            if (is_null($closure)) {
+                $table->with($guide)->paginate($this->perPage);
+            } else {
+               $table = call_user_func($closure, $table, $guide);
+            }
 
             $table
                 ->column('title')
@@ -70,11 +71,22 @@ class GuidePresenter extends Presenter
         });
     }
 
+    /**
+     * Displays the last 5 created guides.
+     *
+     * @param Guide $guide
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function tableLast(Guide $guide)
     {
-        $guide = $guide->latest()->limit(5);
+        return $this->table($guide, false, function (TableGrid $table, Builder $builder) {
+            $guides = $builder->limit(5);
 
-        return $this->table($guide);
+            $table->with($guides, false);
+
+            return $table;
+        });
     }
 
     /**
