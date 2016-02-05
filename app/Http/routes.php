@@ -79,7 +79,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
     $router->group(['namespace' => 'Service'], function (Router $router) {
         // The service status route.
         $router->get('services/{services}/status', [
-            'as' => 'services.status',
+            'as'   => 'services.status',
             'uses' => 'ServiceController@status',
         ]);
     });
