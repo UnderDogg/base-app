@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\ComputerHardDiskRecord;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use App\Models\ComputerHardDiskRecord;
 
 class ClearMonthlyData extends Command
 {
