@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "50886a525d2ddcae2b8c73650b56c95a",
-    "content-hash": "658cc6a1cd032544bc397d258dde1cb2",
+    "hash": "87e1043fc646efd8607bbbe6ca1f174e",
+    "content-hash": "17d2eee1fc02529d6c549ebc8fa72c6a",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -3204,6 +3204,56 @@
             ],
             "description": "AdminLTE Theme for Orchestra Platform",
             "time": "2015-09-13 05:23:58"
+        },
+        {
+            "name": "stevebauman/active",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stevebauman/active.git",
+                "reference": "7750b7db03f05530cb74ba68f0a24736ce4e2dab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stevebauman/active/zipball/7750b7db03f05530cb74ba68f0a24736ce4e2dab",
+                "reference": "7750b7db03f05530cb74ba68f0a24736ce4e2dab",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "~3.2"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "Stevebauman\\Active\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Bauman",
+                    "email": "steven_bauman@outlook.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An Active link helper for outputting classes for the users current route.",
+            "keywords": [
+                "active",
+                "links",
+                "output"
+            ],
+            "time": "2016-02-09 03:23:50"
         },
         {
             "name": "stevebauman/inventory",

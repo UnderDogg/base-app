@@ -34,19 +34,6 @@ function uuid()
 }
 
 /**
- * Generates a new Active instance.
- *
- * @return Active
- */
-function active()
-{
-    $request = request();
-    $route = $request->route();
-
-    return new Active($request, $route);
-}
-
-/**
  * Validates that the inserted string is an object SID.
  *
  * @param string $sid
