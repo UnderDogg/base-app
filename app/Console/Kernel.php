@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Inspire::class,
-        Commands\ScanComputers::class,
+        Commands\Com\ScanComputers::class,
+        Commands\ActiveDirectory\SyncUsers::class,
         Commands\ClearMonthlyData::class,
     ];
 
@@ -30,5 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('computers:scan')->everyFiveMinutes();
 
         $schedule->command('computers:clear-monthly')->everyTenMinutes();
+
+        $schedule->command('users:sync')->hourly();
     }
 }

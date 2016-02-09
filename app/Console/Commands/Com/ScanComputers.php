@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Com;
 
 use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Com\Computer\ScanDisks;
