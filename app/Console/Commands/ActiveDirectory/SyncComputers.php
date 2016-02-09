@@ -57,7 +57,7 @@ class SyncComputers extends Command
 
         if (count($computers) > 0) {
             foreach ($computers as $computer) {
-                if($this->dispatch(new ImportComputer($computer))) {
+                if ($this->dispatch(new ImportComputer($computer))) {
                     ++$i;
                 }
             }
