@@ -13,6 +13,10 @@
             @foreach($issue->users as $user)
                 {!! $user->label_large !!}
             @endforeach
+
+            <span class="pull-right text-muted">
+                <i class="fa fa-ticket"></i>
+            </span>
         </h4>
 
     </div>
