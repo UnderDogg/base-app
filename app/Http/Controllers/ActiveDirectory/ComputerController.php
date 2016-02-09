@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class ComputerController extends Controller
 {
     /**
+     * @var ComputerProcessor
+     */
+    protected $processor;
+
+    /**
      * Constructor.
      *
      * @param ComputerProcessor $processor
