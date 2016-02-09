@@ -60,7 +60,7 @@ class SyncUsers extends Command
 
         if (count($users) > 0) {
             foreach ($users as $user) {
-                if($this->dispatch(new ImportUser($user))) {
+                if ($this->dispatch(new ImportUser($user))) {
                     ++$i;
                 }
             }
