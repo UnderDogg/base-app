@@ -6,4 +6,4 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/stevebauman/ithub.svg?style=flat-square)](https://packagist.org/packages/stevebauman/ithub)
 [![License](https://img.shields.io/packagist/l/stevebauman/ithub.svg?style=flat-square)](https://packagist.org/packages/stevebauman/ithub)
 
-Built using [Orchestra Platform](http://orchestraplatform.com/) and [Laravel](http://laravel.com).
+An IT Helpdesk built using [Orchestra Platform](http://orchestraplatform.com/) and [Laravel](http://laravel.com).
