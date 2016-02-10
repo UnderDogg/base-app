@@ -1,4 +1,4 @@
-# IT Hub
+# Helpdesk
 
 [![Build Status](https://img.shields.io/travis/stevebauman/ithub.svg?style=flat-square)](https://travis-ci.org/stevebauman/ithub)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/stevebauman/ithub/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/stevebauman/ithub/?branch=master)
