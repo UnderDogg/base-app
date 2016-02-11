@@ -17,7 +17,7 @@ class Authenticate
     /**
      * Create a new filter instance.
      *
-     * @param \Illuminate\Contracts\Auth\Guard $auth
+     * @param Guard  $auth
      */
     public function __construct(Guard $auth)
     {
@@ -34,6 +34,7 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+        // Handle guest redirects.
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
@@ -42,6 +43,7 @@ class Authenticate
             }
         }
 
+        // User is authenticated. Return request.
         return $next($request);
     }
 }

@@ -27,7 +27,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             Middleware\VerifyCsrfToken::class,
-            Middleware\PjaxMiddleware::class,
+            Middleware\WindowsAuthenticate::class,
         ],
 
         'orchestra' => [
