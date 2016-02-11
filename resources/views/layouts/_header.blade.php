@@ -1,5 +1,6 @@
-<meta charset="utf-8">
 <title>@yield('title') | {{ memorize('site.name', 'IT Hub') }}</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ memorize('site.description', 'IT Hub') }}">
 <meta name="author" content="{{ memorize('site.author', 'Steve Bauman') }}">
