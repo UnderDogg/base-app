@@ -23,6 +23,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Login Fallback
+    |--------------------------------------------------------------------------
+    |
+    | The login fallback option allows you to login as a user located on the
+    | local database if active directory authentication fails.
+    |
+    | Set this to true if you would like to enable it.
+    |
+    */
+
+    'login_fallback' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Password Key
+    |--------------------------------------------------------------------------
+    |
+    | The password key is the name of the input array key located inside
+    | the user input array given to the auth driver.
+    |
+    | Change this if you change your password fields input name.
+    |
+    */
+
+    'password_key' => 'password',
+
+    /*
+    |--------------------------------------------------------------------------
     | Login Attribute
     |--------------------------------------------------------------------------
     |
@@ -32,7 +60,26 @@ return [
     |
     */
 
-    'login_attribute' => env('ADLDAP_LOGIN_ATTRIBUTE'),
+    'login_attribute' => env('ADLDAP_LOGIN_ATTRIBUTE', 'samaccountname'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Windows Auth Attribute (SSO)
+    |--------------------------------------------------------------------------
+    |
+    | The windows authentication attribute is the name of the server variable
+    | that is filled when SSO authentication is performed.
+    |
+    | This is only used in conjunction with the Adldap\Laravel\Middleware\WindowsAuthenticate
+    | middleware.
+    |
+    | If your using Windows authentication this attribute must be named `AUTH_USER`.
+    |
+    | If your using Apache, this attribute must be named `REMOTE_USER`.
+    |
+    */
+
+    'windows_auth_attribute' => ['samaccountname' => 'AUTH_USER'],
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +100,7 @@ return [
     |
     */
 
-    'bind_user_to_model' => env('ADLDAP_BIND_USER_TO_MODEL'),
+    'bind_user_to_model' => env('ADLDAP_BIND_USER_TO_MODEL', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -74,13 +121,10 @@ return [
 
     'sync_attributes' => [
 
-        // The `fullanme` string on the `users` table.
         'fullname' => 'cn',
 
-        // The `from_ad` boolean on the `users` table.
         'from_ad' => 'App\Handlers\LdapAttributeHandler@fromAd',
 
-        // The `ad_username` string on the `users` table.
         'ad_username' => 'App\Handlers\LdapAttributeHandler@adUsername',
 
     ],
@@ -94,6 +138,9 @@ return [
     |
     | If no attributes are given inside the array, all attributes on the
     | user are selected.
+    |
+    | ** Note ** : Keep in mind you must include attributes that you would
+    | like to synchronize, as well as your login attribute.
     |
     */
 
