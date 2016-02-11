@@ -17500,12 +17500,6 @@ td .label {
   font-size: 20em;
 }
 
-/* No border rounding, tight corners */
-
-*:not(.sa-icon) {
-  border-radius: 0 !important;
-}
-
 /* Guide step numbers */
 
 .step-number {
