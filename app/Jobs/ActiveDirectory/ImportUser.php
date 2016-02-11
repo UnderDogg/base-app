@@ -36,9 +36,9 @@ class ImportUser extends Job
      */
     public function handle(User $user)
     {
-        $exists = $user->where('email', $this->user->getEmail())->first();
+        $user = $user->where('email', $this->user->getEmail())->first();
 
-        if (!$exists) {
+        if (!$user) {
             $email = $this->user->getEmail();
             $password = str_random(40);
             $fullName = $this->user->getName();
@@ -46,6 +46,16 @@ class ImportUser extends Job
             return $this->dispatch(new CreateUser($email, $password, $fullName));
         }
 
-        return false;
+        // Synchronize their AD attributes.
+        $user->ad_username = $this->user->getAccountName();
+        $user->from_ad = true;
+
+        if ($user->isDirty()) {
+            // Check if there's any changed before
+            // firing a save to save on inserts.
+            $user->save();
+        }
+
+        return $user;
     }
 }

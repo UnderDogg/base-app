@@ -74,9 +74,14 @@ return [
 
     'sync_attributes' => [
 
+        // The `fullanme` string on the `users` table.
         'fullname' => 'cn',
 
+        // The `from_ad` boolean on the `users` table.
         'from_ad' => 'App\Handlers\LdapAttributeHandler@fromAd',
+
+        // The `ad_username` string on the `users` table.
+        'ad_username' => 'App\Handlers\LdapAttributeHandler@adUsername',
 
     ],
 
