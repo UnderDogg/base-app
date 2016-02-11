@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('computers:scan')->everyFiveMinutes();
 
         // Clear computer records older than one month.
-        $schedule->command('computers:clear-monthly')->everyTenMinutes();
+        $schedule->command('computers:clear-monthly')->weekly();
 
         // Synchronize LDAP users.
         $schedule->command('users:sync')->hourly();

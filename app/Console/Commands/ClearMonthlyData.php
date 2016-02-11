@@ -44,7 +44,7 @@ class ClearMonthlyData extends Command
      */
     public function handle()
     {
-        $records = $this->hardDiskRecord->where('created_at', '>=', Carbon::now()->subMonth())->delete();
+        $records = $this->hardDiskRecord->where('created_at', '>', Carbon::now()->subMonth())->delete();
 
         $this->info("Successfully deleted: $records records");
     }
