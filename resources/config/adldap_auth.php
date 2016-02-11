@@ -125,8 +125,6 @@ return [
 
         'from_ad' => 'App\Handlers\LdapAttributeHandler@fromAd',
 
-        'ad_username' => 'App\Handlers\LdapAttributeHandler@adUsername',
-
     ],
 
     /*

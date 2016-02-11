@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Traits\CanPurifyTrait;
@@ -11,7 +12,7 @@ use Orchestra\Support\Facades\HTML;
 
 class Issue extends Model
 {
-    use HasUserTrait, CanPurifyTrait, HasMarkdownTrait, SoftDeletes;
+    use HasUserTrait, HasFilesTrait, CanPurifyTrait, HasMarkdownTrait, SoftDeletes;
 
     /**
      * The issues table.

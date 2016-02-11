@@ -3,6 +3,8 @@
 namespace App\Models\Traits;
 
 use App\Models\Upload;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait HasFilesTrait
 {
@@ -31,6 +33,23 @@ trait HasFilesTrait
         $uuid = uuid();
 
         return $this->files()->create(compact('uuid', 'name', 'type', 'path', 'size'));
+    }
+
+    /**
+     * Uploads and adds a file to the current record.
+     *
+     * @param UploadedFile $file
+     * @param string       $name
+     * @param string       $path
+     *
+     * @return Upload
+     */
+    public function uploadFile(UploadedFile $file, $name, $path)
+    {
+        // Move the file into storage.
+        Storage::put($path, file_get_contents($file->getPath()));
+
+        return $this->addFile($name, $file->getClientMimeType(), $file->getClientSize(), $path);
     }
 
     /**
