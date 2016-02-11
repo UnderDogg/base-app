@@ -62,7 +62,11 @@ class InquiryCategoryController extends Controller
         if ($this->processor->store($request, $id)) {
             flash()->success('Success!', 'Successfully created category.');
 
-            return redirect()->route('inquiries.categories.index');
+            if (is_null($id)) {
+                return redirect()->route('inquiries.categories.index');
+            } else {
+                return redirect()->route('inquiries.categories.show', [$id]);
+            }
         } else {
             flash()->error('Error!', 'There was an issue creating a category. Please try again.');
 
@@ -70,11 +74,26 @@ class InquiryCategoryController extends Controller
         }
     }
 
+    /**
+     * Displays the form for editing the specified category.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
         return $this->processor->edit($id);
     }
 
+    /**
+     * Updates the specified category.
+     *
+     * @param CategoryRequest $request
+     * @param int|string      $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(CategoryRequest $request, $id)
     {
         if ($this->processor->update($request, $id)) {
@@ -88,6 +107,14 @@ class InquiryCategoryController extends Controller
         }
     }
 
+    /**
+     * Moves a category from one parent to another.
+     *
+     * @param CategoryMoveRequest $request
+     * @param int|string          $id
+     *
+     * @return array
+     */
     public function move(CategoryMoveRequest $request, $id)
     {
         try {
