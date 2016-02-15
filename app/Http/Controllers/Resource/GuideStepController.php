@@ -179,7 +179,7 @@ class GuideStepController extends Controller
         } else {
             flash()->error('Error!', 'There was an issue uploading images. Please try again.');
 
-            return redirect()->route('resources.guides.images.upload', [$id]);
+            return redirect()->route('resources.guides.images', [$id]);
         }
     }
 }

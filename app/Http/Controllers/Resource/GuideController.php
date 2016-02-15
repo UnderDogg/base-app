@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Resource\GuideRequest;
-use App\Models\Guide;
 use App\Processors\Resource\GuideProcessor;
 
 class GuideController extends Controller
@@ -63,9 +62,7 @@ class GuideController extends Controller
      */
     public function store(GuideRequest $request)
     {
-        $guide = $this->processor->store($request);
-
-        if ($guide instanceof Guide) {
+        if ($this->processor->store($request)) {
             flash()->success('Success!', 'Successfully created guide!');
 
             return redirect()->route('resources.guides.index');
@@ -110,12 +107,10 @@ class GuideController extends Controller
      */
     public function update(GuideRequest $request, $id)
     {
-        $guide = $this->processor->update($request, $id);
-
-        if ($guide instanceof Guide) {
+        if ($this->processor->update($request, $id)) {
             flash()->success('Success!', 'Successfully updated guide!');
 
-            return redirect()->route('resources.guides.show', [$guide->slug]);
+            return redirect()->route('resources.guides.show', [$id]);
         } else {
             flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
 
@@ -132,10 +127,8 @@ class GuideController extends Controller
      */
     public function favorite($id)
     {
-        $guide = $this->processor->favorite($id);
-
-        if ($guide instanceof Guide) {
-            return redirect()->route('resources.guides.show', [$guide->slug]);
+        if ($this->processor->favorite($id)) {
+            return redirect()->route('resources.guides.show', [$id]);
         } else {
             flash()->error('Error!', 'There was an issue with adding this guide to your favorites. Please try again.');
 

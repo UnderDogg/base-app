@@ -4,6 +4,7 @@ namespace App\Models\Traits;
 
 use App\Models\Upload;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Exception\NotReadableException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait HasFilesTrait
@@ -46,7 +47,7 @@ trait HasFilesTrait
      * @param int          $width
      * @param int          $height
      *
-     * @return Upload
+     * @return Upload|false
      */
     public function uploadFile(UploadedFile $file, $path = null, $resize = false, $width = 680, $height = 480)
     {
@@ -67,11 +68,15 @@ trait HasFilesTrait
         }
 
         if ($resize === true) {
-            // Resize the image, then put it into storage.
-            $image = $this->resizeImage($file, $width, $height);
+            try {
+                // Resize the image, then put it into storage.
+                $image = $this->resizeImage($file, $width, $height);
 
-            // Move the file into storage.
-            Storage::put($path, $image->stream());
+                // Move the file into storage.
+                Storage::put($path, $image->stream());
+            } catch (NotReadableException $e) {
+                return false;
+            }
         } else {
             // Move the file into storage.
             Storage::put($path, file_get_contents($file->getRealPath()));
