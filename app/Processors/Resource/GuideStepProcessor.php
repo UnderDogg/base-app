@@ -6,15 +6,13 @@ use App\Http\Presenters\Resource\GuideStepPresenter;
 use App\Http\Requests\Resource\GuideStepImagesRequest;
 use App\Http\Requests\Resource\GuideStepMoveRequest;
 use App\Http\Requests\Resource\GuideStepRequest;
+use App\Jobs\Resource\Guide\Step\Move;
+use App\Jobs\Resource\Guide\Step\Store;
+use App\Jobs\Resource\Guide\Step\Update;
+use App\Jobs\Resource\Guide\Step\Upload;
 use App\Models\Guide;
 use App\Models\GuideStep;
-use App\Models\Upload;
 use App\Processors\Processor;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Constraint;
-use Intervention\Image\ImageManager;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GuideStepProcessor extends Processor
 {
@@ -22,11 +20,6 @@ class GuideStepProcessor extends Processor
      * @var Guide
      */
     protected $guide;
-
-    /**
-     * @var ImageManager
-     */
-    protected $manager;
 
     /**
      * @var GuideStepPresenter
@@ -37,13 +30,11 @@ class GuideStepProcessor extends Processor
      * Constructor.
      *
      * @param Guide              $guide
-     * @param ImageManager       $manager
      * @param GuideStepPresenter $presenter
      */
-    public function __construct(Guide $guide, ImageManager $manager, GuideStepPresenter $presenter)
+    public function __construct(Guide $guide, GuideStepPresenter $presenter)
     {
         $this->guide = $guide;
-        $this->manager = $manager;
         $this->presenter = $presenter;
     }
 
@@ -101,22 +92,7 @@ class GuideStepProcessor extends Processor
 
         $this->authorize($guide->steps()->getRelated());
 
-        $step = $guide->addStep($request->input('title'), $request->input('description'));
-
-        if ($step instanceof GuideStep) {
-            $file = $request->file('image');
-
-            if ($file instanceof UploadedFile) {
-                // Looks like an image was uploaded, we'll move
-                // it into storage and add it to the step.
-                return $this->handleUpload($guide, $step, $file);
-            }
-
-            // No image was uploaded, we'll return the step.
-            return $step;
-        }
-
-        return false;
+        return $this->dispatch(new Store($request, $guide));
     }
 
     /**
@@ -157,23 +133,7 @@ class GuideStepProcessor extends Processor
 
         $this->authorize($step);
 
-        $step->title = $request->input('title', $step->title);
-        $step->description = $request->input('description', $step->description);
-
-        if ($step->save()) {
-            // If saving the step is successful, we'll process the file upload if there is one.
-            $file = $request->file('image');
-
-            if ($file instanceof UploadedFile) {
-                $step->deleteFiles();
-
-                return $this->handleUpload($guide, $step, $file);
-            }
-
-            return $step;
-        }
-
-        return false;
+        return $this->dispatch(new Update($request, $guide, $step));
     }
 
     /**
@@ -212,13 +172,7 @@ class GuideStepProcessor extends Processor
 
         $this->authorize($step);
 
-        if ($step instanceof GuideStep) {
-            $position = (int) $request->input('position', 1);
-
-            return $step->insertAt($position);
-        }
-
-        return false;
+        return $this->dispatch(new Move($request, $step));
     }
 
     /**
@@ -253,98 +207,8 @@ class GuideStepProcessor extends Processor
 
         $this->authorize('images', $guide->steps()->getRelated());
 
-        $images = $request->file('images');
+        $step = $guide->steps()->getRelated();
 
-        $uploaded = 0;
-
-        foreach ($images as $image) {
-            if ($image instanceof UploadedFile) {
-                $step = $guide->addStep($image->getClientOriginalName());
-
-                if ($step instanceof GuideStep) {
-                    if ($this->handleUpload($guide, $step, $image)) {
-                        $uploaded++;
-                    }
-                }
-            }
-        }
-
-        return $uploaded;
-    }
-
-    /**
-     * Handle the guide step image upload.
-     *
-     * @param Guide        $guide
-     * @param GuideStep    $step
-     * @param UploadedFile $file
-     *
-     * @throws HttpException
-     *
-     * @return GuideStep|bool
-     */
-    protected function handleUpload(Guide $guide, GuideStep $step, UploadedFile $file)
-    {
-        // Validate file name length.
-        if (strlen($file->getClientOriginalName()) > 70) {
-            throw new HttpException(422, 'File name is too large');
-        }
-
-        // Generate a file name with UUID and its extension.
-        $name = uuid().'.'.$file->getClientOriginalExtension();
-
-        // Generate the storage path.
-        $path = sprintf('%s%s%s%s%s%s%s',
-            'uploads',
-            DIRECTORY_SEPARATOR,
-            'guides',
-            DIRECTORY_SEPARATOR,
-            $guide->getKey(),
-            DIRECTORY_SEPARATOR,
-            $name
-        );
-
-        // Resize the uploaded image if the user requested it.
-        $image = $this->resize($file);
-
-        // Move the file into storage.
-        Storage::put($path, $image->stream());
-
-        // Add the file to the step.
-        $upload = $step->addFile($image->filename, $image->mime(), $image->filesize(), $path);
-
-        if ($upload instanceof Upload) {
-            return $step;
-        }
-
-        // Failed creating the upload record, we'll delete the step that was just created.
-        $step->delete();
-
-        return false;
-    }
-
-    /**
-     * Resize's the uploaded image.
-     *
-     * @param UploadedFile $file
-     *
-     * @return \Intervention\Image\Image
-     */
-    protected function resize(UploadedFile $file)
-    {
-        // Make the image from intervention.
-        $image = $this->manager->make($file->getRealPath());
-
-        // Restrict image to 680 x 480.
-        $width = 680;
-        $height = 480;
-
-        $image->resize($width, $height, function (Constraint $constraint) {
-            // Prevent image up-sizing and keep aspect ratio.
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-
-        return $image;
+        return $this->dispatch(new Upload($request, $guide, $step));
     }
 }

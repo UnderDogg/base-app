@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait HasFilesTrait
 {
+    use CanResizeImagesTrait;
+
     /**
      * The morphMany images relationship.
      *
@@ -40,10 +42,13 @@ trait HasFilesTrait
      *
      * @param UploadedFile $file
      * @param null|string  $path
+     * @param false|bool   $resize
+     * @param int          $width
+     * @param int          $height
      *
      * @return Upload
      */
-    public function uploadFile(UploadedFile $file, $path = null)
+    public function uploadFile(UploadedFile $file, $path = null, $resize = false, $width = 680, $height = 480)
     {
         // Generate a unique file name.
         $name = uuid().$file->getClientOriginalExtension();
@@ -61,8 +66,16 @@ trait HasFilesTrait
             );
         }
 
-        // Move the file into storage.
-        Storage::put($path, file_get_contents($file->getRealPath()));
+        if ($resize === true) {
+            // Resize the image, then put it into storage.
+            $image = $this->resizeImage($file, $width, $height);
+
+            // Move the file into storage.
+            Storage::put($path, $image->stream());
+        } else {
+            // Move the file into storage.
+            Storage::put($path, file_get_contents($file->getRealPath()));
+        }
 
         return $this->addFile($name, $file->getClientMimeType(), $file->getClientSize(), $path);
     }
