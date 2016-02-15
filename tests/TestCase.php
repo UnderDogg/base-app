@@ -83,6 +83,9 @@ abstract class TestCase extends ApplicationTestCase
             'prefix'   => '',
         ]);
 
+        // Make sure Adldap doesn't connect automatically.
+        $app['config']->set('adldap.auto_connect', false);
+
         // Set the HTML table configuration.
         $app['config']->set('orchestra/html::table', [
             'empty' => 'There are no records to display.',
