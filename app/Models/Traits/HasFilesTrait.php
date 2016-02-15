@@ -47,7 +47,7 @@ trait HasFilesTrait
     public function uploadFile(UploadedFile $file, $name, $path)
     {
         // Move the file into storage.
-        Storage::put($path, file_get_contents($file->getPath()));
+        Storage::put($path, file_get_contents($file->getRealPath()));
 
         return $this->addFile($name, $file->getClientMimeType(), $file->getClientSize(), $path);
     }

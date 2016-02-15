@@ -10,6 +10,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -133,18 +134,22 @@ class IssuePresenter extends Presenter
     {
         return $this->form->of('issue', function (FormGrid $form) use ($issue) {
             if ($issue->exists) {
-                $form->setup($this, route('issues.update', [$issue->getKey()]), $issue, [
-                    'method' => 'PATCH',
-                ]);
+                $url = route('issues.update', [$issue->getKey()]);
+                $method = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('issues.store'), $issue, [
-                    'method' => 'POST',
-                ]);
+                $url = route('issues.store');
+                $method = 'POST';
 
                 $form->submit = 'Create';
             }
+
+            $files = true;
+
+            $form->with($issue);
+
+            $form->attributes(compact('url', 'merthod', 'files'));
 
             $form->fieldset(function (Fieldset $fieldset) use ($issue) {
                 $fieldset->control('input:text', 'title')
@@ -176,6 +181,12 @@ class IssuePresenter extends Presenter
 
                     $this->userField($fieldset, $labels);
                 }
+
+                $fieldset->control('input:file', 'files[]')
+                    ->label('Attach Files')
+                    ->attributes([
+                        'multiple' => true,
+                    ]);
 
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')

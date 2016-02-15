@@ -1,15 +1,12 @@
-@extends('layouts.master')
+@extends('layouts.jumbotron')
 
 @section('title', 'Login')
-
-@section('title.header')
-@endsection
 
 @section('content')
 
     <div class="col-md-3"></div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 text-white">
 
         <h2 class="text-center">
             Login
