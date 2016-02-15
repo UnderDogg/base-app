@@ -39,13 +39,28 @@ trait HasFilesTrait
      * Uploads and adds a file to the current record.
      *
      * @param UploadedFile $file
-     * @param string       $name
-     * @param string       $path
+     * @param null|string  $path
      *
      * @return Upload
      */
-    public function uploadFile(UploadedFile $file, $name, $path)
+    public function uploadFile(UploadedFile $file, $path = null)
     {
+        // Generate a unique file name.
+        $name = uuid().$file->getClientOriginalExtension();
+
+        if (is_null($path)) {
+            // Generate the storage path.
+            $path = sprintf('%s%s%s%s%s%s%s',
+                'uploads',
+                DIRECTORY_SEPARATOR,
+                $this->getTable(),
+                DIRECTORY_SEPARATOR,
+                $this->getKey(),
+                DIRECTORY_SEPARATOR,
+                $name
+            );
+        }
+
         // Move the file into storage.
         Storage::put($path, file_get_contents($file->getRealPath()));
 
