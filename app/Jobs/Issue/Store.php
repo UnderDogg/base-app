@@ -43,6 +43,10 @@ class Store extends Job
         $this->issue->occurred_at = $this->request->input('occurred_at');
 
         if ($this->issue->save()) {
+            foreach ($this->request->file('files') as $file) {
+                $this->issue->uploadFile($file);
+            }
+
             // Sync the issues labels.
             $labels = $this->request->input('labels', []);
 

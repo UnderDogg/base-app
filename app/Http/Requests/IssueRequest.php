@@ -11,11 +11,25 @@ class IssueRequest extends Request
      */
     public function rules()
     {
-        return [
-            'title'         => 'required|min:5',
-            'occurred_at'   => 'min:18|max:19',
-            'description'   => 'required|min:5',
+        $rules =  [
+            'title'             => 'required|min:5',
+            'occurred_at'       => 'min:18|max:19',
+            'description'       => 'required|min:5',
         ];
+
+        $files = $this->files->get('files');
+
+        if (is_array($files)) {
+            $rules = [];
+
+            foreach ($files as $key => $file) {
+                // We need to go through each image and create
+                // a dot-notated rule for laravel's validation.
+                $rules['files.'.$key] = 'max:2|mimes:doc,docx,xls,xlsx,png,jpg,bmp';
+            }
+        }
+
+        return $rules;
     }
 
     /**
