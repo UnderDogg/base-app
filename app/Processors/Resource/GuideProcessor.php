@@ -4,6 +4,9 @@ namespace App\Processors\Resource;
 
 use App\Http\Presenters\Resource\GuidePresenter;
 use App\Http\Requests\Resource\GuideRequest;
+use App\Jobs\Resource\Guide\Favorite;
+use App\Jobs\Resource\Guide\Store;
+use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
 use App\Processors\Processor;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -76,22 +79,7 @@ class GuideProcessor extends Processor
 
         $guide = $this->guide->newInstance();
 
-        $guide->slug = Str::slug($request->input('title'));
-        $guide->title = $request->input('title');
-        $guide->description = $request->input('description');
-
-        $published = $request->has('publish');
-
-        if ($published) {
-            $guide->published = true;
-            $guide->published_on = $guide->freshTimestampString();
-        }
-
-        if ($guide->save()) {
-            return $guide;
-        }
-
-        return false;
+        return $this->dispatch(new Store($request, $guide));
     }
 
     /**
@@ -154,25 +142,7 @@ class GuideProcessor extends Processor
 
         $this->authorize($guide);
 
-        $guide->slug = Str::slug($request->input('title'));
-        $guide->title = $request->input('title');
-        $guide->description = $request->input('description');
-
-        $published = $request->has('publish');
-
-        if ($published) {
-            $guide->published = true;
-            $guide->published_on = $guide->freshTimestampString();
-        } else {
-            $guide->published = false;
-            $guide->published_on = null;
-        }
-
-        if ($guide->save()) {
-            return $guide;
-        }
-
-        return false;
+        return $this->dispatch(new Update($request, $guide));
     }
 
     /**
@@ -186,15 +156,7 @@ class GuideProcessor extends Processor
     {
         $guide = $this->guide->locate($id);
 
-        if ($guide->hasFavorite() && $guide->unFavorite()) {
-            // If the guide is currently favorited, we'll assume
-            // the user is wanting to 'un-favorite' the guide.
-            return $guide;
-        } elseif ($guide->favorite()) {
-            return $guide;
-        }
-
-        return false;
+        return $this->dispatch(new Favorite($guide));
     }
 
     /**
