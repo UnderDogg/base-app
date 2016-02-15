@@ -149,7 +149,7 @@ class IssuePresenter extends Presenter
 
             $form->with($issue);
 
-            $form->attributes(compact('url', 'merthod', 'files'));
+            $form->attributes(compact('url', 'method', 'files'));
 
             $form->fieldset(function (Fieldset $fieldset) use ($issue) {
                 $fieldset->control('input:text', 'title')
