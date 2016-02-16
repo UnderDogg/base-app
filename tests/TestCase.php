@@ -63,7 +63,7 @@ abstract class TestCase extends ApplicationTestCase
      */
     protected function getBasePath()
     {
-        return realpath(__DIR__.'/../');
+        return realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
     }
 
     /**
