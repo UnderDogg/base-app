@@ -1,9 +1,9 @@
 @inject('formbuilder', 'form')
 @inject('htmlbuilder', 'html')
 
-<div class="modal-body">
+{!! $formbuilder->open($grid->attributes()) !!}
 
-    {!! $formbuilder->open($grid->attributes()) !!}
+<div class="modal-body">
 
     @if ($token)
         {!! $formbuilder->token() !!}
@@ -25,6 +25,6 @@
         {!! $submit !!}
     </button>
 
-    {!! $formbuilder->close() !!}
-
 </div>
+
+{!! $formbuilder->close() !!}

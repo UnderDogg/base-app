@@ -4213,9 +4213,12 @@ $(function ()
 {
     $(document).pjax('a', '#main');
 
+    $(document).on('pjax:beforeSend', function () {
+        // Initialize loader.
+    });
+
     // Re-initialize js on successful pjax requests.
     $(document).on('ready pjax:success', function() {
-
         // Show Password Toggle
         $('.password-show').password();
 
