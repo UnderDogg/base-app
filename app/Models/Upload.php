@@ -57,7 +57,7 @@ class Upload extends Model
     {
         $mime = $this->type;
 
-        return view('partials.mime', compact('mime'))->render();
+        return view('components.mime', compact('mime'))->render();
     }
 
     /**
