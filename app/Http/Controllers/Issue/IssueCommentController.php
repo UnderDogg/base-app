@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\IssueCommentRequest;
+use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Processors\Issue\IssueCommentProcessor;
 
 class IssueCommentController extends Controller

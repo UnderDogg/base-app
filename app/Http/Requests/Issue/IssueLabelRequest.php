@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Issue;
 
-class IssueUserRequest extends Request
+use App\Http\Requests\Request;
+
+class IssueLabelRequest extends Request
 {
     /**
-     * Returns the issue user rules.
+     * Returns the issue label rules.
      *
      * @return array
      */
@@ -15,7 +17,7 @@ class IssueUserRequest extends Request
     }
 
     /**
-     * Allow all users to add users to issues.
+     * Allow all users to label issues.
      *
      * @return bool
      */

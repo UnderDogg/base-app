@@ -2,7 +2,7 @@
 
 namespace App\Processors\Issue;
 
-use App\Http\Requests\IssueUserRequest;
+use App\Http\Requests\Issue\IssueUserRequest;
 use App\Models\Issue;
 use App\Models\User;
 use App\Processors\Processor;

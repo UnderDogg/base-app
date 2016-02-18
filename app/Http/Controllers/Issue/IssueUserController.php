@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\IssueUserRequest;
+use App\Http\Requests\Issue\IssueUserRequest;
 use App\Processors\Issue\IssueUserProcessor;
 
 class IssueUserController extends Controller

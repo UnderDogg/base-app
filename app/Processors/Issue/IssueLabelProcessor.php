@@ -2,7 +2,7 @@
 
 namespace App\Processors\Issue;
 
-use App\Http\Requests\IssueLabelRequest;
+use App\Http\Requests\Issue\IssueLabelRequest;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Processors\Processor;

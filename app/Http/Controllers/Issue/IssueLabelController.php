@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\IssueLabelRequest;
+use App\Http\Requests\Issue\IssueLabelRequest;
 use App\Processors\Issue\IssueLabelProcessor;
 
 class IssueLabelController extends Controller

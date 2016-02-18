@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Issue;
+
+use App\Http\Requests\Request;
 
 class IssueCommentRequest extends Request
 {

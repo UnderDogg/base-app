@@ -3,7 +3,7 @@
 namespace App\Processors\Issue;
 
 use App\Http\Presenters\Issue\IssueCommentPresenter;
-use App\Http\Requests\IssueCommentRequest;
+use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Models\Issue;
 use App\Processors\Processor;
 
