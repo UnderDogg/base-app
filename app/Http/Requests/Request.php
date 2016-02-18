@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Traits\CanPurifyTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 abstract class Request extends FormRequest
 {
@@ -35,5 +36,31 @@ abstract class Request extends FormRequest
         }
 
         return $this->all();
+    }
+
+    /**
+     * Format the errors from the given Validator instance.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return array
+     */
+    protected function formatErrors(Validator $validator)
+    {
+        $errors = $validator->getMessageBag()->toArray();
+
+        foreach ($errors as $key => $error) {
+            // If the error key contains a period, the field can have multiple values.
+            // We need to format the errors for orchestra form compatibility.
+            if (str_contains($key, '.')) {
+                $newKey = explode('.', $key)[0];
+
+                // Assign the new error key.
+                $errors[$newKey] = $errors[$key];
+
+                unset($errors[$key]);
+            }
+        }
+
+        return $errors;
     }
 }

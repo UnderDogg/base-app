@@ -186,6 +186,7 @@ class IssuePresenter extends Presenter
                     ->label('Attach Files')
                     ->attributes([
                         'multiple' => true,
+                        'accept' => '.xlx,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png',
                     ]);
 
                 $fieldset->control('input:textarea', 'description')
