@@ -52,7 +52,7 @@ trait HasFilesTrait
     public function uploadFile(UploadedFile $file, $path = null, $resize = false, $width = 680, $height = 480)
     {
         // Generate a unique file name.
-        $name = uuid().$file->getClientOriginalExtension();
+        $name = sprintf('%s.%s', uuid(), $file->getClientOriginalExtension());
 
         if (is_null($path)) {
             // Generate the storage path.
@@ -82,7 +82,7 @@ trait HasFilesTrait
             Storage::put($path, file_get_contents($file->getRealPath()));
         }
 
-        return $this->addFile($name, $file->getClientMimeType(), $file->getClientSize(), $path);
+        return $this->addFile($file->getClientOriginalName(), $file->getClientMimeType(), $file->getClientSize(), $path);
     }
 
     /**
