@@ -369,22 +369,28 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The issue router group.
         $router->group(['namespace' => 'Issue'], function (Router $router) {
-            // Display all closed issues.
-            $router->get('issues/closed', [
+            // Display all closed Tickets.
+            $router->get('tickets/closed', [
                 'as'   => 'issues.closed',
                 'uses' => 'IssueController@closed',
             ]);
 
-            // Close an Issue.
-            $router->post('issues/{issues}/close', [
+            // Close a Ticket.
+            $router->post('tickets/{tickets}/close', [
                 'as'   => 'issues.close',
                 'uses' => 'IssueController@close',
             ]);
 
-            // Re-Open an Issue.
-            $router->post('issues/{issues}/open', [
+            // Re-Open an Ticket.
+            $router->post('tickets/{tickets}/open', [
                 'as'   => 'issues.open',
                 'uses' => 'IssueController@open',
+            ]);
+
+            // Download Ticket attachment.
+            $router->get('tickets/{tickets}/attachments/{attachments}/download', [
+                'as' => 'issues.attachments.download',
+                'uses' => 'IssueAttachmentController@download',
             ]);
 
             // The issue resource.
@@ -397,6 +403,18 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'edit'      => 'issues.edit',
                     'update'    => 'issues.update',
                     'destroy'   => 'issues.destroy',
+                ],
+            ]);
+
+            // The issue attachments resource.
+            $router->resource('tickets.attachments', 'IssueAttachmentController', [
+                'except' => ['index', 'create'],
+                'names' => [
+                    'store'     => 'issues.attachments.store',
+                    'show'      => 'issues.attachments.show',
+                    'edit'      => 'issues.attachments.edit',
+                    'update'    => 'issues.attachments.update',
+                    'destroy'   => 'issues.attachments.destroy',
                 ],
             ]);
 

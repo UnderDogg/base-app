@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Issue;
 
-use App\Http\Requests\IssueRequest;
+use App\Http\Requests\Issue\IssueRequest;
 use App\Jobs\Job;
 use App\Models\Issue;
 
@@ -42,6 +42,13 @@ class Update extends Job
         $this->issue->occurred_at = $this->request->input('occurred_at', $this->issue->occurred_at);
 
         if ($this->issue->save()) {
+            // Check if we have any files to upload and attach.
+            if (count($this->request->allFiles()) > 0) {
+                foreach ($this->request->file('files') as $file) {
+                    $this->issue->uploadFile($file);
+                }
+            }
+
             // Sync the issues labels.
             $labels = $this->request->input('labels', []);
 

@@ -182,12 +182,18 @@ class IssuePresenter extends Presenter
                     $this->userField($fieldset, $labels);
                 }
 
-                $fieldset->control('input:file', 'files[]')
-                    ->label('Attach Files')
-                    ->attributes([
+                $fieldset->control('input:file', 'files[]', function (Field $field) use ($issue) {
+                    if ($issue->files->count() > 0) {
+                        $field->label = 'Add More Files';
+                    } else {
+                        $field->label = 'Attach Files';
+                    }
+
+                    $field->attributes = [
                         'multiple' => true,
                         'accept' => '.xlx,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png',
-                    ]);
+                    ];
+                });
 
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
