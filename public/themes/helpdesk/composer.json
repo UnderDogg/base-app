@@ -1,0 +1,33 @@
+{
+  "name": "stevebauman/helpdesk-theme",
+  "description": "Helpdesk Theme for Orchestra Platform",
+  "type": "orchestra-theme",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Steve Bauman",
+      "email": "steven_bauman@outlook.com",
+      "homepage": "https://github.com/stevebauman"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "orchestra/avatar": "~3.1",
+    "orchestra/contracts": "~3.1",
+    "orchestra/theme-installer": "~1.0"
+  },
+  "scripts": {
+    "update-frontend": [
+      "bower update",
+      "bower-installer",
+      "gulp"
+    ]
+  },
+  "extra": {
+    "theme-name": "helpdesk",
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "minimum-stability": "dev"
+}

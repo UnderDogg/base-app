@@ -16,6 +16,9 @@
     <!-- Issue -->
     @include('pages.issues._issue', compact('resolution'))
 
+    <!-- Attachments -->
+    @include('pages.issues._files')
+
     <!-- Comments -->
     @foreach($issue->comments as $comment)
         @decorator('comment', $comment, [

@@ -23,6 +23,7 @@ dir = {
 elixir(function(mix) {
     mix.scripts([
         'libs/jquery.min.js',
+        'libs/jquery.pjax.js',
         'libs/jquery.lazyload.min.js',
         'libs/jquery-ui.min.js',
         'libs/bootstrap.min.js',
