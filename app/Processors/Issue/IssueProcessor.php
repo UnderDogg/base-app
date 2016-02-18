@@ -3,7 +3,7 @@
 namespace App\Processors\Issue;
 
 use App\Http\Presenters\Issue\IssuePresenter;
-use App\Http\Requests\IssueRequest;
+use App\Http\Requests\Issue\IssueRequest;
 use App\Jobs\Issue\Close;
 use App\Jobs\Issue\Open;
 use App\Jobs\Issue\Store;

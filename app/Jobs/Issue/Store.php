@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Issue;
 
-use App\Http\Requests\IssueRequest;
+use App\Http\Requests\Issue\IssueRequest;
 use App\Jobs\Job;
 use App\Models\Issue;
 
