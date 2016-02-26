@@ -168,7 +168,7 @@ class IssuePresenter extends Presenter
 
                 // If the user can add labels we'll allow them to
                 // add them during the creation of the ticket.
-                if (policy($issue)->addLabels()) {
+                if (policy($issue)->addLabels(auth()->user())) {
                     $labels = Label::all()->pluck('display', 'id');
 
                     $this->labelField($fieldset, $labels);
@@ -176,7 +176,7 @@ class IssuePresenter extends Presenter
 
                 // If the user can add users we'll allow them to
                 // add them during the creation of the ticket.
-                if (policy($issue)->addUsers()) {
+                if (policy($issue)->addUsers(auth()->user())) {
                     $labels = User::all()->pluck('fullname', 'id');
 
                     $this->userField($fieldset, $labels);
