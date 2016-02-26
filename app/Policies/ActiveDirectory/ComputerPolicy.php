@@ -2,35 +2,19 @@
 
 namespace App\Policies\ActiveDirectory;
 
-use App\Policies\Policy;
+use App\Models\User;
 
-class ComputerPolicy extends Policy
+class ComputerPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'AD Computer';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View Computers',
-        'Create Computer',
-        'Import All Computers',
-    ];
-
     /**
      * Returns true / false if the specified user
      * can view all active directory computers.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-computers');
+        return $user->can('ad.computers.index');
     }
 
     /**
@@ -39,9 +23,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->canIf('create-computer');
+        return $user->can('ad.computers.import');
     }
 
     /**
@@ -50,8 +34,8 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function storeAll()
+    public function storeAll(User $user)
     {
-        return $this->canIf('import-all-computers');
+        return $this->store($user);
     }
 }

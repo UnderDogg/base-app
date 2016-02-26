@@ -5,38 +5,16 @@ namespace App\Policies;
 use App\Models\Inquiry;
 use App\Models\User;
 
-class InquiryPolicy extends Policy
+class InquiryPolicy
 {
-    /**
-     * The policy display name.
-     *
-     * @var string
-     */
-    protected $name = 'Requests';
-
-    /**
-     * The policy actions.
-     *
-     * @var array
-     */
-    public $actions = [
-        'View Users Requests',
-        'Open Requests',
-        'Close Requests',
-        'Approve Requests',
-        'View Requests',
-        'Edit Requests',
-        'Delete Requests',
-    ];
-
     /**
      * Returns true / false if the current user can view all inquiries.
      *
      * @return bool
      */
-    public function viewAll()
+    public function viewAll(User $user)
     {
-        return $this->canIf('view-users-requests');
+        return $user->can('inquiries.index');
     }
 
     /**
@@ -45,9 +23,9 @@ class InquiryPolicy extends Policy
      *
      * @return bool
      */
-    public function approve()
+    public function approve(User $user)
     {
-        return $this->canIf('approve-requests');
+        return $user->can('inquiries.approve');
     }
 
     /**
@@ -58,9 +36,9 @@ class InquiryPolicy extends Policy
      *
      * @return bool
      */
-    public function open()
+    public function open(User $user)
     {
-        return $this->canIf('open-requests');
+        return $user->can('inquiries.open');
     }
 
     /**
@@ -76,7 +54,7 @@ class InquiryPolicy extends Policy
      */
     public function close(User $user, Inquiry $inquiry)
     {
-        return $this->canIf('close-requests') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.close') || $user->getKey() === $inquiry->user_id;
     }
 
     /**
@@ -90,7 +68,7 @@ class InquiryPolicy extends Policy
      */
     public function show(User $user, Inquiry $inquiry)
     {
-        return $this->canIf('view-requests') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.show') || $user->getKey() === $inquiry->user_id;
     }
 
     /**
@@ -104,7 +82,7 @@ class InquiryPolicy extends Policy
      */
     public function edit(User $user, Inquiry $inquiry)
     {
-        return $this->canIf('edit-requests') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.edit') || $user->getKey() === $inquiry->user_id;
     }
 
     /**
@@ -132,6 +110,6 @@ class InquiryPolicy extends Policy
      */
     public function destroy(User $user, Inquiry $inquiry)
     {
-        return $this->canIf('delete-requests') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.destroy') || $user->getKey() === $inquiry->user_id;
     }
 }

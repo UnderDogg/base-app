@@ -2,36 +2,18 @@
 
 namespace App\Policies;
 
-class ServiceRecordPolicy extends Policy
+use App\Models\User;
+
+class ServiceRecordPolicy
 {
-    /**
-     * The service record policy display name.
-     *
-     * @var string
-     */
-    protected $name = 'Service Records';
-
-    /**
-     * The service record actions.
-     *
-     * @var array
-     */
-    public $actions = [
-        'View Service Records',
-        'Create Service Record',
-        'View Service Record',
-        'Edit Service Record',
-        'Delete Service Record',
-    ];
-
     /**
      * Returns true / false if the current user can view all services.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-services-records');
+        return $user->can('services.records.index');
     }
 
     /**
@@ -39,9 +21,9 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->canIf('create-service-record');
+        return $user->can('services.records.create');
     }
 
     /**
@@ -49,9 +31,9 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->create();
+        return $this->create($user);
     }
 
     /**
@@ -59,9 +41,9 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function show()
+    public function show(User $user)
     {
-        return $this->canIf('view-service-record');
+        return $user->can('services.records.show');
     }
 
     /**
@@ -69,9 +51,9 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-service-record');
+        return $user->can('services.records.edit');
     }
 
     /**
@@ -79,9 +61,9 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
@@ -89,8 +71,8 @@ class ServiceRecordPolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('delete-service-record');
+        return $user->can('services.records.destroy');
     }
 }

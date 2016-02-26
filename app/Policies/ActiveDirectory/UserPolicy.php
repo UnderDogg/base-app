@@ -2,32 +2,19 @@
 
 namespace App\Policies\ActiveDirectory;
 
-use App\Policies\Policy;
+use App\Models\User;
 
-class UserPolicy extends Policy
+class UserPolicy
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $name = 'AD User';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View Ad Users',
-        'Create Ad User',
-    ];
-
     /**
      * Returns true / false if the specified user
      * can view all active directory computers.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-ad-users');
+        return $user->can('ad.users.index');
     }
 
     /**
@@ -36,8 +23,8 @@ class UserPolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->canIf('create-ad-user');
+        return $user->can('ad.users.import');
     }
 }

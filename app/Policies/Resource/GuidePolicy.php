@@ -3,43 +3,26 @@
 namespace App\Policies\Resource;
 
 use App\Models\Guide;
-use App\Policies\Policy;
+use App\Models\User;
 
-class GuidePolicy extends Policy
+class GuidePolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Guides';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View Unpublished',
-        'View Guide',
-        'Create Guide',
-        'Edit Guide',
-        'Delete Guide',
-    ];
-
     /**
      * Allows only users with specific permission
      * to view guides that are unpublished.
      *
+     * @param User       $user
      * @param Guide|null $guide
      *
      * @return bool
      */
-    public function viewUnpublished(Guide $guide = null)
+    public function viewUnpublished(User $user, Guide $guide = null)
     {
         if ($guide instanceof Guide && $guide->published) {
             return true;
         }
 
-        return $this->canIf('view-unpublished');
+        return $user->can('guides.index.unpublished');
     }
 
     /**
@@ -47,9 +30,9 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->canIf('create-guide');
+        return $user->can('guides.create');
     }
 
     /**
@@ -57,9 +40,9 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->create();
+        return $this->create($user);
     }
 
     /**
@@ -67,9 +50,9 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-guide');
+        return $user->can('guides.edit');
     }
 
     /**
@@ -77,9 +60,9 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
@@ -87,8 +70,8 @@ class GuidePolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('delete-guide');
+        return $user->can('guides.destroy');
     }
 }

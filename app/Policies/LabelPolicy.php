@@ -2,36 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\Label;
+use App\Models\User;
 
-class LabelPolicy extends Policy
+class LabelPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Labels';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View All Labels',
-        'Create Label',
-        'Edit Label',
-        'Delete Label',
-    ];
-
     /**
      * Allows users with specific permission
      * to view all labels.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-all-labels');
+        return $user->can('labels.index');
     }
 
     /**
@@ -40,9 +23,9 @@ class LabelPolicy extends Policy
      *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->canIf('create-label');
+        return $user->can('labels.create');
     }
 
     /**
@@ -51,9 +34,9 @@ class LabelPolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->create();
+        return $this->create($user);
     }
 
     /**
@@ -62,9 +45,9 @@ class LabelPolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-label');
+        return $user->can('labels.edit');
     }
 
     /**
@@ -73,9 +56,9 @@ class LabelPolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
@@ -84,8 +67,8 @@ class LabelPolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('delete-label');
+        return $user->can('labels.destroy');
     }
 }

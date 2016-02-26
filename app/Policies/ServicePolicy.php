@@ -2,36 +2,18 @@
 
 namespace App\Policies;
 
-class ServicePolicy extends Policy
+use App\Models\User;
+
+class ServicePolicy
 {
-    /**
-     * The service policy display name.
-     *
-     * @var string
-     */
-    protected $name = 'Services';
-
-    /**
-     * The service policy actions.
-     *
-     * @var array
-     */
-    public $actions = [
-        'View Services',
-        'Create Service',
-        'View Service',
-        'Edit Service',
-        'Delete Service',
-    ];
-
     /**
      * Returns true / false if the current user can view all services.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-services');
+        return $user->can('services.index');
     }
 
     /**
@@ -39,9 +21,9 @@ class ServicePolicy extends Policy
      *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->canIf('create-service');
+        return $user->can('services.create');
     }
 
     /**
@@ -49,19 +31,19 @@ class ServicePolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->create();
+        return $this->create($user);
     }
 
     /**
-     * Returns true / false if the current user can create services.
+     * Returns true / false if the current user can view services.
      *
      * @return bool
      */
-    public function show()
+    public function show(User $user)
     {
-        return $this->canIf('view-service');
+        return $user->can('services.show');
     }
 
     /**
@@ -69,9 +51,9 @@ class ServicePolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-service');
+        return $user->can('services.edit');
     }
 
     /**
@@ -79,9 +61,9 @@ class ServicePolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
@@ -89,8 +71,8 @@ class ServicePolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('delete-service');
+        return $user->can('services.destroy');
     }
 }

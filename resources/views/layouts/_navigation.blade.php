@@ -12,7 +12,7 @@
             </button>
 
             <a href="{{ route('welcome.index') }}" class="navbar-brand">
-                {{ memorize('site.name', 'IT Hub') }}
+                {{ memorize('site.name', 'Helpdesk') }}
             </a>
 
         </div>
@@ -199,7 +199,7 @@
 
                             @can('backend')
                                 <li>
-                                    <a href="{{ route('orchestra.dashboard') }}">
+                                    <a href="{{ route('admin.welcome.index') }}">
                                         <i class="fa fa-user-md"></i> Administration
                                     </a>
                                 </li>

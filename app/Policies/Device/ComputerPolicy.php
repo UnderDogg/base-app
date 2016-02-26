@@ -2,38 +2,18 @@
 
 namespace App\Policies\Device;
 
-use App\Policies\Policy;
+use App\Models\User;
 
-class ComputerPolicy extends Policy
+class ComputerPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Computers';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View All Computers',
-        'Create Computer',
-        'Store Computer',
-        'View Computer',
-        'Edit Computer',
-        'Update Computer',
-        'Delete Computer',
-    ];
-
     /**
      * Determines if the current user can view all computers.
      *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->canIf('view-all-computers');
+        return $user->can('computers.index');
     }
 
     /**
@@ -41,9 +21,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->canIf('create-computer');
+        return $user->can('computers.create');
     }
 
     /**
@@ -51,9 +31,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->canIf('store-computer');
+        return $this->create($user);
     }
 
     /**
@@ -61,9 +41,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function show()
+    public function show(User $user)
     {
-        return $this->canIf('view-computer');
+        return $user->can('computers.show');
     }
 
     /**
@@ -71,9 +51,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-computer');
+        return $user->can('computers.edit');
     }
 
     /**
@@ -81,9 +61,9 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->canIf('update-computer');
+        return $this->edit($user);
     }
 
     /**
@@ -91,8 +71,8 @@ class ComputerPolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('delete-computer');
+        return $user->can('computers.destroy');
     }
 }

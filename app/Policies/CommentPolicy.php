@@ -5,34 +5,17 @@ namespace App\Policies;
 use App\Models\Comment;
 use App\Models\User;
 
-class CommentPolicy extends Policy
+class CommentPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Comments';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'Create Comment',
-        'Edit Comment',
-        'Update Comment',
-        'Delete Comment',
-    ];
-
     /**
      * Returns true / false if the specified user
      * can edit the specified comment.
      *
      * @return bool
      */
-    public function store()
+    public function store(User $user)
     {
-        return $this->canIf('create-comment');
+        return $user->can('comments.create');
     }
 
     /**
@@ -46,7 +29,7 @@ class CommentPolicy extends Policy
      */
     public function edit(User $user, Comment $comment)
     {
-        return $this->canIf('edit-comment') && $user->getKey() === $comment->user_id;
+        return $user->can('comments.edit') && $user->getKey() === $comment->user_id;
     }
 
     /**

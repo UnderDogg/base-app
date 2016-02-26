@@ -28,7 +28,7 @@ class GuidePresenter extends Presenter
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy($guide->getModel())->viewUnpublished()) {
+        if (!policy($guide->getModel())->viewUnpublished(auth()->user())) {
             $guide->where('published', true);
         }
 
@@ -60,7 +60,7 @@ class GuidePresenter extends Presenter
 
             // Only allow users with create guide permissions
             // to see the created date.
-            if (policy($guide->getModel())->create()) {
+            if (policy($guide->getModel())->create(auth()->user())) {
                 $table
                     ->column('created_at')
                     ->label('Created')

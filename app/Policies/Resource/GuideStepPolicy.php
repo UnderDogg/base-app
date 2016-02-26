@@ -2,9 +2,7 @@
 
 namespace App\Policies\Resource;
 
-use App\Policies\Policy;
-
-class GuideStepPolicy extends Policy
+class GuideStepPolicy
 {
     /**
      * The policy name.
@@ -33,7 +31,7 @@ class GuideStepPolicy extends Policy
      */
     public function index()
     {
-        return $this->canIf('view-all-steps');
+        return $this->can('view-all-steps');
     }
 
     /**
@@ -44,7 +42,7 @@ class GuideStepPolicy extends Policy
      */
     public function create()
     {
-        return $this->canIf('create-step');
+        return $this->can('create-step');
     }
 
     /**
@@ -55,7 +53,7 @@ class GuideStepPolicy extends Policy
      */
     public function edit()
     {
-        return $this->canIf('edit-step');
+        return $this->can('edit-step');
     }
 
     /**
@@ -77,7 +75,7 @@ class GuideStepPolicy extends Policy
      */
     public function images()
     {
-        return $this->canIf('create-steps-with-images');
+        return $this->can('create-steps-with-images');
     }
 
     /**
@@ -88,7 +86,7 @@ class GuideStepPolicy extends Policy
      */
     public function move()
     {
-        return $this->canIf('move-step');
+        return $this->can('move-step');
     }
 
     /**
@@ -99,6 +97,6 @@ class GuideStepPolicy extends Policy
      */
     public function destroy()
     {
-        return $this->canIf('delete-step');
+        return $this->can('delete-step');
     }
 }

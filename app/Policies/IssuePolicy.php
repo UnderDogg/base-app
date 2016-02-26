@@ -8,27 +8,6 @@ use App\Models\User;
 class IssuePolicy
 {
     /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Tickets';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View Users Tickets',
-        'View Ticket',
-        'Edit Ticket',
-        'Open Ticket',
-        'Close Ticket',
-        'Delete Ticket',
-        'Add Ticket',
-        'Add Ticket',
-    ];
-
-    /**
      * Returns true / false if the specified
      * user can view everyone's issues.
      *
@@ -38,7 +17,7 @@ class IssuePolicy
      */
     public function viewAll(User $user)
     {
-        return $user->can('issue.index.all');
+        return $user->can('issues.index.all');
     }
 
     /**
@@ -52,7 +31,7 @@ class IssuePolicy
      */
     public function show(User $user, Issue $issue)
     {
-        return $user->can('issue.show') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.show') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -66,7 +45,7 @@ class IssuePolicy
      */
     public function edit(User $user, Issue $issue)
     {
-        return $user->can('issue.edit') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.edit') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -95,7 +74,7 @@ class IssuePolicy
      */
     public function open(User $user)
     {
-        return $user->can('issue.open');
+        return $user->can('issues.open');
     }
 
     /**
@@ -111,7 +90,7 @@ class IssuePolicy
      */
     public function close(User $user, Issue $issue)
     {
-        return $user->can('issue.close') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.close') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -125,7 +104,7 @@ class IssuePolicy
      */
     public function destroy(User $user, Issue $issue)
     {
-        return $user->can('issue.destroy') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.destroy') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -138,7 +117,7 @@ class IssuePolicy
      */
     public function addLabels(User $user)
     {
-        return $user->can('issue.labels.store');
+        return $user->can('issues.labels.store');
     }
 
     /**
@@ -151,6 +130,6 @@ class IssuePolicy
      */
     public function addUsers(User $user)
     {
-        return $user->can('issue.users.store');
+        return $user->can('issues.users.store');
     }
 }

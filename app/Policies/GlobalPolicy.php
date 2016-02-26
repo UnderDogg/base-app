@@ -4,15 +4,8 @@ namespace App\Policies;
 
 use App\Models\User;
 
-class GlobalPolicy extends Policy
+class GlobalPolicy
 {
-    /**
-     * The policy display name.
-     *
-     * @var string
-     */
-    protected $name = 'Global';
-
     /**
      * Returns true / false if the specified user has access to the backend.
      *
@@ -22,7 +15,7 @@ class GlobalPolicy extends Policy
      */
     public function backend(User $user)
     {
-        if ($user->is($this->admin()->name)) {
+        if ($user->hasRole('administrator')) {
             return true;
         }
 

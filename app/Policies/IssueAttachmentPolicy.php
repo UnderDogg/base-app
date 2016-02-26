@@ -2,34 +2,19 @@
 
 namespace App\Policies;
 
-class IssueAttachmentPolicy extends Policy
+use App\Models\User;
+
+class IssueAttachmentPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Issue Attachments';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View Issue Attachments',
-        'Edit Issue Attachments',
-        'Delete Issue Attachments',
-        'Download Issue Attachments',
-    ];
-
     /**
      * Returns true / false if the current user
      * can view issue attachments.
      *
      * @return bool
      */
-    public function show()
+    public function show(User $user)
     {
-        return $this->canIf('view-issue-attachments');
+        return $user->can('issue.attachments.show');
     }
 
     /**
@@ -38,9 +23,9 @@ class IssueAttachmentPolicy extends Policy
      *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->canIf('edit-issue-attachments');
+        return $user->can('issues.attachments.edit');
     }
 
     /**
@@ -49,9 +34,9 @@ class IssueAttachmentPolicy extends Policy
      *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
@@ -60,9 +45,9 @@ class IssueAttachmentPolicy extends Policy
      *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->canIf('edit-issue-attachments');
+        return $user->can('issues.attachments.destroy');
     }
 
     /**
@@ -71,8 +56,8 @@ class IssueAttachmentPolicy extends Policy
      *
      * @return bool
      */
-    public function download()
+    public function download(User $user)
     {
-        return $this->canIf('download-issue-attachments');
+        return $user->can('issues.attachments.download');
     }
 }
