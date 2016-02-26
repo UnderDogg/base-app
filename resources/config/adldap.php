@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'auto_connect' => true,
+    'auto_connect' => env('ADLDAP_AUTO_CONNECT', false),
 
     /*
     |--------------------------------------------------------------------------

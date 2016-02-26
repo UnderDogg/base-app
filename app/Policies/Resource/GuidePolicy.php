@@ -12,7 +12,7 @@ class GuidePolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Guide Policy';
+    protected $name = 'Guides';
 
     /**
      * {@inheritdoc}

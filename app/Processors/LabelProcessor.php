@@ -37,8 +37,6 @@ class LabelProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize($this->label);
-
         $labels = $this->presenter->table($this->label);
 
         $navbar = $this->presenter->navbar();

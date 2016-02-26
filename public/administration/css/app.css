@@ -1,0 +1,49 @@
+/* Alternate body font */
+body {
+    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 1.6em;
+    background-color:rgba(238, 238, 238, 0.50);
+}
+
+/* Add label-large class */
+.label-large {
+    font-size: 19px;
+}
+
+/* Add margins to labels in td's for clearer separation */
+td .label {
+    margin: 3px;
+}
+
+/* Make sure faded text appears clearly in panels of different colors */
+.panel-success .panel-title .text-muted, .panel-info .panel-title .text-muted {
+    color: #E3E7EA;
+}
+
+/* Add padding to the inside of select choices */
+.select2-container-multi .select2-choices .select2-search-choice {
+    padding: 10px 10px 10px 20px;
+    background-image: none;
+}
+
+/* Make sure select choices don't float beside eachother */
+.select2-container-multi .select2-choices li {
+    float: none;
+}
+
+/* White text */
+.text-white {
+    color: white;
+}
+
+/* Blue and bold links inside table data rows */
+tr td a {
+    color: #337ab7;
+    font-weight: bold;
+    text-decoration: none !important;
+}
+
+/* Break the words in panels for wrapping */
+.panel-body {
+    word-wrap: break-word;
+}

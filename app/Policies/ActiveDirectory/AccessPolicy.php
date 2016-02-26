@@ -2,22 +2,35 @@
 
 namespace App\Policies\ActiveDirectory;
 
-use App\Models\User;
-use App\Policies\Policy as BasePolicy;
+use App\Policies\Policy;
 
-class AccessPolicy extends BasePolicy
+class AccessPolicy extends Policy
 {
+    /**
+     * The policy display name.
+     *
+     * @var string
+     */
+    protected $name = 'AD Access';
+
+    /**
+     * The policy actions.
+     *
+     * @var array
+     */
+    public $actions = [
+        'Access AD Functions',
+    ];
+
     /**
      * Returns true / false if the specified
      * user can access Active Directory
      * functionality.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public function access(User $user)
+    public function access()
     {
-        return $user->is($this->admin()->name);
+        return $this->canIf('access-ad-functions');
     }
 }

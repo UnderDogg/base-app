@@ -21,6 +21,20 @@ return [
 
     'username_attribute' => ['email' => 'mail'],
 
+     /*
+     |--------------------------------------------------------------------------
+     | Limitation Filter
+     |--------------------------------------------------------------------------
+     |
+     | The limitation filter allows you to enter a raw filter to only allow
+     | specific users / groups / ous to authenticate.
+     |
+     | This should be a standard LDAP filter.
+     |
+     */
+
+    'limitation_filter' => env('ADLDAP_LIMITATION_FILTER'),
+
     /*
     |--------------------------------------------------------------------------
     | Login Fallback
@@ -77,6 +91,8 @@ return [
     |
     | If your using Apache, this attribute must be named `REMOTE_USER`.
     |
+    | The key of the array is what the user will be discovered from in LDAP.
+    |
     */
 
     'windows_auth_attribute' => ['samaccountname' => 'AUTH_USER'],
@@ -122,8 +138,6 @@ return [
     'sync_attributes' => [
 
         'fullname' => 'cn',
-
-        'from_ad' => 'App\Handlers\LdapAttributeHandler@fromAd',
 
     ],
 

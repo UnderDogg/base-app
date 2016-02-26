@@ -12,7 +12,7 @@ class CommentPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Comment Policy';
+    protected $name = 'Comments';
 
     /**
      * {@inheritdoc}

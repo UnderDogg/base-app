@@ -158,7 +158,6 @@ return [
 
         Orchestra\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Orchestra\Foundation\Providers\FoundationServiceProvider::class,
-        Orchestra\Foundation\Providers\RouteServiceProvider::class,
 
         /*
          * Orchestra Platform Optional Service Providers...
@@ -174,6 +173,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\AdminRouteServiceProvider::class,
         App\Providers\DecoratorServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
 
@@ -186,6 +186,16 @@ return [
          * Purification Provider.
          */
         Stevebauman\Purify\PurifyServiceProvider::class,
+
+        /*
+         * Authorization Provider
+         */
+        Stevebauman\Authorization\AuthorizationServiceProvider::class,
+
+        /*
+         * Administration Provider
+         */
+        Stevebauman\Administration\AdministrationServiceProvider::class,
 
         /*
          * Commonmark Wrapper.

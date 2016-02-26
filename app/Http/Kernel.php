@@ -59,5 +59,7 @@ class Kernel extends HttpKernel
         'passwords.gate'                  => Middleware\PasswordGate::class,
         'security-questions.setup'        => Middleware\ActiveDirectory\Questions\AlreadySetupMiddleware::class,
         'security-questions.setup.finish' => Middleware\ActiveDirectory\Questions\MustSetupMiddleware::class,
+        'admin.setup' => \App\Http\Middleware\SetupMiddleware::class,
+        'admin.auth'  => \App\Http\Middleware\AdminAuthMiddleware::class,
     ];
 }

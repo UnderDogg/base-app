@@ -9,7 +9,7 @@ class ServiceRecordPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Service Record Policy';
+    protected $name = 'Service Records';
 
     /**
      * The service record actions.

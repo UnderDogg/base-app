@@ -5,38 +5,40 @@ namespace App\Policies;
 use App\Models\Issue;
 use App\Models\User;
 
-class IssuePolicy extends Policy
+class IssuePolicy
 {
     /**
      * The policy name.
      *
      * @var string
      */
-    protected $name = 'Issue Policy';
+    protected $name = 'Tickets';
 
     /**
      * {@inheritdoc}
      */
     public $actions = [
-        'View Users Issues',
-        'View Issue',
-        'Edit Issue',
-        'Open Issue',
-        'Close Issue',
-        'Delete Issue',
-        'Add Labels',
-        'Add Users',
+        'View Users Tickets',
+        'View Ticket',
+        'Edit Ticket',
+        'Open Ticket',
+        'Close Ticket',
+        'Delete Ticket',
+        'Add Ticket',
+        'Add Ticket',
     ];
 
     /**
      * Returns true / false if the specified
      * user can view everyone's issues.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function viewAll()
+    public function viewAll(User $user)
     {
-        return $this->canIf('view-users-issues');
+        return $user->can('issue.index.all');
     }
 
     /**
@@ -50,7 +52,7 @@ class IssuePolicy extends Policy
      */
     public function show(User $user, Issue $issue)
     {
-        return $this->canIf('view-issue') || $user->getKey() === $issue->user_id;
+        return $user->can('issue.show') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -64,7 +66,7 @@ class IssuePolicy extends Policy
      */
     public function edit(User $user, Issue $issue)
     {
-        return $this->canIf('edit-issue') || $user->getKey() === $issue->user_id;
+        return $user->can('issue.edit') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -87,11 +89,13 @@ class IssuePolicy extends Policy
      *
      * Only administrators can re-open issues.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function open()
+    public function open(User $user)
     {
-        return $this->canIf('open-issue');
+        return $user->can('issue.open');
     }
 
     /**
@@ -107,7 +111,7 @@ class IssuePolicy extends Policy
      */
     public function close(User $user, Issue $issue)
     {
-        return $this->canIf('close-issue') || $user->getKey() === $issue->user_id;
+        return $user->can('issue.close') || $user->getKey() === $issue->user_id;
     }
 
     /**
@@ -121,28 +125,32 @@ class IssuePolicy extends Policy
      */
     public function destroy(User $user, Issue $issue)
     {
-        return $this->canIf('delete-issue') || $user->getKey() === $issue->user_id;
+        return $user->can('issue.destroy') || $user->getKey() === $issue->user_id;
     }
 
     /**
      * Returns true / false if the specified user
      * can add labels to issues.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function addLabels()
+    public function addLabels(User $user)
     {
-        return $this->canIf('add-labels');
+        return $user->can('issue.labels.store');
     }
 
     /**
      * Returns true / false if the specified user
      * can add users to issues.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function addUsers()
+    public function addUsers(User $user)
     {
-        return $this->canIf('add-users');
+        return $user->can('issue.users.store');
     }
 }

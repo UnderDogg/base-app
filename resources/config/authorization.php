@@ -28,6 +28,9 @@ return [
         \Adldap\Models\Computer::class      => \App\Policies\ActiveDirectory\ComputerPolicy::class,
         \Adldap\Models\User::class          => \App\Policies\ActiveDirectory\UserPolicy::class,
 
+        \App\Policies\ActiveDirectory\AccessPolicy::class,
+        \App\Policies\IssueAttachmentPolicy::class,
+
     ],
 
 ];

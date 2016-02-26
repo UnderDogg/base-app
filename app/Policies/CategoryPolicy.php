@@ -9,7 +9,7 @@ class CategoryPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Category Policy';
+    protected $name = 'Category';
 
     /**
      * The policy actions.

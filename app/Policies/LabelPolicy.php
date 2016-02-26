@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Label;
+
 class LabelPolicy extends Policy
 {
     /**
@@ -9,7 +11,7 @@ class LabelPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Label Policy';
+    protected $name = 'Labels';
 
     /**
      * {@inheritdoc}

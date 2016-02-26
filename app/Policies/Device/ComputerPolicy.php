@@ -11,7 +11,7 @@ class ComputerPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Device Computer Policy';
+    protected $name = 'Computers';
 
     /**
      * {@inheritdoc}

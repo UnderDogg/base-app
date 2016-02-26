@@ -23,7 +23,7 @@ class InquiryPresenter extends Presenter
      */
     public function table($inquiry)
     {
-        $inquiry = $this->applyPolicy($inquiry);
+        $inquiry = $this->applyPolicy($inquiry->latest());
 
         return $this->table->of('inquiries', function (TableGrid $table) use ($inquiry) {
             $table->with($inquiry)->paginate($this->perPage);
@@ -52,9 +52,17 @@ class InquiryPresenter extends Presenter
             });
 
             $table->column('description', function (Column $column) {
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
+
                 $column->value = function (Inquiry $inquiry) {
                     return str_limit($inquiry->description, 20);
                 };
+
+                $column->attributes(function () {
+                    return ['class' => 'hidden-xs'];
+                });
             });
 
             $table->column('created', function (Column $column) {

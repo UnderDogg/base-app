@@ -1,6 +1,6 @@
 $(function ()
 {
-    $(document).pjax('a', '#main');
+    $(document).pjax('a', '#app');
 
     $(document).on('pjax:beforeSend', function () {
         // Initialize loader.

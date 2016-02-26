@@ -9,7 +9,7 @@ class ServicePolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Service Policy';
+    protected $name = 'Services';
 
     /**
      * The service policy actions.

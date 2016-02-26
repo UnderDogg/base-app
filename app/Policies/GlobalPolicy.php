@@ -11,7 +11,7 @@ class GlobalPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Global Policies';
+    protected $name = 'Global';
 
     /**
      * Returns true / false if the specified user has access to the backend.

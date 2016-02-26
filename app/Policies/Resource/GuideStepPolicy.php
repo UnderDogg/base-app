@@ -11,7 +11,7 @@ class GuideStepPolicy extends Policy
      *
      * @var string
      */
-    protected $name = 'Guide Step Policy';
+    protected $name = 'Guide Steps';
 
     /**
      * {@inheritdoc}
