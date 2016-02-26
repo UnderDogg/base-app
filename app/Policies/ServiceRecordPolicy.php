@@ -9,6 +9,8 @@ class ServiceRecordPolicy
     /**
      * Returns true / false if the current user can view all services.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function index(User $user)
@@ -18,6 +20,8 @@ class ServiceRecordPolicy
 
     /**
      * Returns true / false if the current user can create services.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -29,6 +33,8 @@ class ServiceRecordPolicy
     /**
      * Returns true / false if the current user can create services.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function store(User $user)
@@ -38,6 +44,8 @@ class ServiceRecordPolicy
 
     /**
      * Returns true / false if the current user can view service records.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -49,6 +57,8 @@ class ServiceRecordPolicy
     /**
      * Returns true / false if the current user can edit services.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function edit(User $user)
@@ -59,6 +69,8 @@ class ServiceRecordPolicy
     /**
      * Returns true / false if the current user can edit services.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function update(User $user)
@@ -68,6 +80,8 @@ class ServiceRecordPolicy
 
     /**
      * Returns true / false if the current user can delete services.
+     *
+     * @param User $user
      *
      * @return bool
      */

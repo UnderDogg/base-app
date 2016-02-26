@@ -10,6 +10,8 @@ class InquiryPolicy
     /**
      * Returns true / false if the current user can view all inquiries.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function viewAll(User $user)
@@ -20,6 +22,8 @@ class InquiryPolicy
     /**
      * Returns true / false if the specified user
      * can approve requests.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -33,6 +37,8 @@ class InquiryPolicy
      * can re-open inquiries.
      *
      * Only administrators can re-open inquiries.
+     *
+     * @param User $user
      *
      * @return bool
      */

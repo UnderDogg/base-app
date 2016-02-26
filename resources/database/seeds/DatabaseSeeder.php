@@ -17,6 +17,31 @@ class DatabaseSeeder extends Seeder
     ];
 
     /**
+     * List of permission seeders.
+     *
+     * @var array
+     */
+    protected $permissionSeeders = [
+        AdPermissionSeeder::class,
+        CategoryPermissionSeeder::class,
+        DevicePermissionSeeder::class,
+        GuidePermissionSeeder::class,
+        InquiryPermissionSeeder::class,
+        IssuePermissionSeeder::class,
+        LabelPermissionSeeder::class,
+        ServicePermissionSeeder::class,
+    ];
+
+    /**
+     * List of seeders to run after permissions are seeded.
+     *
+     * @var array
+     */
+    protected $afterPermissionSeeders = [
+        AdminPermissionSeeder::class,
+    ];
+
+    /**
      * Run the database seeds.
      *
      * @return void
@@ -26,6 +51,14 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         foreach ($this->seeders as $seeder) {
+            $this->call($seeder);
+        }
+
+        foreach ($this->permissionSeeders as $seeder) {
+            $this->call($seeder);
+        }
+
+        foreach ($this->afterPermissionSeeders as $seeder) {
             $this->call($seeder);
         }
 

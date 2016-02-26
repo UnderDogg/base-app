@@ -11,6 +11,8 @@ class AccessPolicy
      * user can access Active Directory
      * functionality.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function access(User $user)

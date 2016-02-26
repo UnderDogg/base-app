@@ -2,101 +2,98 @@
 
 namespace App\Policies\Resource;
 
+use App\Models\User;
+
 class GuideStepPolicy
 {
-    /**
-     * The policy name.
-     *
-     * @var string
-     */
-    protected $name = 'Guide Steps';
-
-    /**
-     * {@inheritdoc}
-     */
-    public $actions = [
-        'View All Steps',
-        'Create Step',
-        'Create Steps With Images',
-        'Edit Step',
-        'Move Step',
-        'Delete Step',
-    ];
-
     /**
      * Allows users with specific permission
      * to view all guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function index()
+    public function index(User $user)
     {
-        return $this->can('view-all-steps');
+        return $user->can('guides.steps.index');
     }
 
     /**
      * Allows users with specific permission
      * to create guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function create()
+    public function create(User $user)
     {
-        return $this->can('create-step');
+        return $user->can('guides.steps.create');
     }
 
     /**
      * Allows users with specific permission
      * to edit guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function edit()
+    public function edit(User $user)
     {
-        return $this->can('edit-step');
+        return $user->can('guides.steps.edit');
     }
 
     /**
      * Allows users with specific permission
      * to update guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function update()
+    public function update(User $user)
     {
-        return $this->edit();
+        return $this->edit($user);
     }
 
     /**
      * Allows users with specific permission
      * to create guide steps with images.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function images()
+    public function images(User $user)
     {
-        return $this->can('create-steps-with-images');
+        return $user->can('guides.steps.images.create');
     }
 
     /**
      * Allows users with specific permission
      * to move guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function move()
+    public function move(User $user)
     {
-        return $this->can('move-step');
+        return $user->can('guides.steps.move');
     }
 
     /**
      * Allows users with specific permission
      * to delete guide steps.
      *
+     * @param User $user
+     *
      * @return bool
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        return $this->can('delete-step');
+        return $user->can('guides.steps.destroy');
     }
 }

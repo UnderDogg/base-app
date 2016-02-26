@@ -10,6 +10,8 @@ class LabelPolicy
      * Allows users with specific permission
      * to view all labels.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function index(User $user)
@@ -20,6 +22,8 @@ class LabelPolicy
     /**
      * Allows users with specific permission
      * to create labels.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -32,6 +36,8 @@ class LabelPolicy
      * Allows users with specific permission
      * to create labels.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function store(User $user)
@@ -42,6 +48,8 @@ class LabelPolicy
     /**
      * Allows users with specific permission
      * to edit labels.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -54,6 +62,8 @@ class LabelPolicy
      * Allows users with specific permission
      * to update labels.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function update(User $user)
@@ -64,6 +74,8 @@ class LabelPolicy
     /**
      * Allows users with specific permission
      * to delete labels.
+     *
+     * @param User $user
      *
      * @return bool
      */

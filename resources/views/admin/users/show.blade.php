@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 
-@section('title', "User: $user->name")
+@section('title', "User: $user->fullname")
 
 @section('content')
 

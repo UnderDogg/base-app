@@ -11,6 +11,8 @@ class CommentPolicy
      * Returns true / false if the specified user
      * can edit the specified comment.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function store(User $user)

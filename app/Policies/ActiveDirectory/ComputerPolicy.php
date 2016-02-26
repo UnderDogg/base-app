@@ -10,6 +10,8 @@ class ComputerPolicy
      * Returns true / false if the specified user
      * can view all active directory computers.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function index(User $user)
@@ -21,6 +23,8 @@ class ComputerPolicy
      * Returns true / false if the specified user
      * can add active directory computers.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public function store(User $user)
@@ -31,6 +35,8 @@ class ComputerPolicy
     /**
      * Returns true / false if the specified user
      * can add all active directory computers.
+     *
+     * @param User $user
      *
      * @return bool
      */
