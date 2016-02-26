@@ -7,6 +7,7 @@ use App\Models\Guide;
 use App\Models\GuideStep;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -28,7 +29,7 @@ class GuidePresenter extends Presenter
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy($guide->getModel())->viewUnpublished(auth()->user())) {
+        if (Gate::allows('guides.index.unpublished')) {
             $guide->where('published', true);
         }
 
@@ -60,7 +61,7 @@ class GuidePresenter extends Presenter
 
             // Only allow users with create guide permissions
             // to see the created date.
-            if (policy($guide->getModel())->create(auth()->user())) {
+            if (Gate::allows('guides.create')) {
                 $table
                     ->column('created_at')
                     ->label('Created')

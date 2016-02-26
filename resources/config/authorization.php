@@ -19,7 +19,6 @@ return [
         \App\Models\Issue::class            => \App\Policies\IssuePolicy::class,
         \App\Models\Inquiry::class          => \App\Policies\InquiryPolicy::class,
         \App\Models\Comment::class          => \App\Policies\CommentPolicy::class,
-        \App\Models\Label::class            => \App\Policies\LabelPolicy::class,
         \App\Models\Computer::class         => \App\Policies\Device\ComputerPolicy::class,
         \App\Models\Guide::class            => \App\Policies\Resource\GuidePolicy::class,
         \App\Models\GuideStep::class        => \App\Policies\Resource\GuideStepPolicy::class,

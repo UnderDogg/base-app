@@ -51,7 +51,7 @@ class LabelProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize($this->label);
+        $this->authorize('labels.create');
 
         $form = $this->presenter->form($this->label);
 
@@ -67,7 +67,7 @@ class LabelProcessor extends Processor
      */
     public function store(LabelRequest $request)
     {
-        $this->authorize($this->label);
+        $this->authorize('labels.create');
 
         $label = $this->label->newInstance();
 
@@ -86,9 +86,9 @@ class LabelProcessor extends Processor
      */
     public function edit($id)
     {
-        $label = $this->label->findOrFail($id);
+        $this->authorize('labels.edit');
 
-        $this->authorize($label);
+        $label = $this->label->findOrFail($id);
 
         $form = $this->presenter->form($label);
 
@@ -105,9 +105,9 @@ class LabelProcessor extends Processor
      */
     public function update(LabelRequest $request, $id)
     {
-        $label = $this->label->findOrFail($id);
+        $this->authorize('labels.edit');
 
-        $this->authorize($label);
+        $label = $this->label->findOrFail($id);
 
         $label->name = $request->input('name', $label->name);
         $label->color = $request->input('color', $label->color);
@@ -124,6 +124,8 @@ class LabelProcessor extends Processor
      */
     public function destroy($id)
     {
+        $this->authorize('labels.destroy');
+
         $label = $this->label->findOrFail($id);
 
         $this->authorize($label);

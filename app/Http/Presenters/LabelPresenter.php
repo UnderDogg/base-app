@@ -44,7 +44,7 @@ class LabelPresenter extends Presenter
 
             // Check if the current user has access to edit
             // labels before rendering the label as a link.
-            if (policy($label)->edit()) {
+            if (auth()->user()->can('labels.edit')) {
                 $table->column('edit', function (Column $column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.edit', 'Edit', [$label->getKey()], [
@@ -56,7 +56,7 @@ class LabelPresenter extends Presenter
 
             // Check if the current user has access to delete
             // labels before rendering the delete column.
-            if (policy($label)->destroy()) {
+            if (auth()->user()->can('labels.destroy')) {
                 $table->column('delete', function (Column $column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [

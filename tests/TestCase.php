@@ -2,19 +2,8 @@
 
 namespace App\Tests;
 
-use Illuminate\Support\Facades\Session;
-use Mockery;
-use Orchestra\Testing\ApplicationTestCase;
-
-abstract class TestCase extends ApplicationTestCase
+class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
-    /**
-     * Base application namespace.
-     *
-     * @var string
-     */
-    protected $baseNamespace = 'App';
-
     /**
      * The base URL to use while testing the application.
      *
@@ -23,87 +12,28 @@ abstract class TestCase extends ApplicationTestCase
     protected $baseUrl = 'http://localhost';
 
     /**
-     * Call the application migrations for testing.
+     * Set up the application.
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
-        // Run auth migrations
-        $this->artisan('auth:migrate');
+        $this->artisan('migrate');
 
-        // Run control migrations
-        $this->artisan('extension:migrate');
-
-        // Run application migrations
-        $this->artisan('migrate', [
-            '--realpath' => realpath('resources/database/migrations'),
-        ]);
-
-        // Start the session.
-        Session::start();
+        $this->artisan('db:seed');
     }
 
     /**
-     * Returns a new class mock.
+     * Creates the application.
      *
-     * @param string $class
-     *
-     * @return Mockery\MockInterface
+     * @return \Illuminate\Foundation\Application
      */
-    public function mock($class)
+    public function createApplication()
     {
-        return Mockery::mock($class);
-    }
+        $app = require __DIR__.'/../bootstrap/app.php';
 
-    /**
-     * Get base path.
-     *
-     * @return string
-     */
-    protected function getBasePath()
-    {
-        return realpath(__DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
-    }
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
-    /**
-     * Define environment setup.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        // Set the database configuration.
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
-
-        // Make sure Adldap doesn't connect automatically.
-        $app['config']->set('adldap.auto_connect', false);
-
-        // Set the HTML table configuration.
-        $app['config']->set('orchestra/html::table', [
-            'empty' => 'There are no records to display.',
-            'view'  => 'components.table',
-        ]);
-
-        // Set the HTML form configuration.
-        $app['config']->set('orchestra/html::form', [
-            'view'      => 'components.form',
-            'format'    => '<span class="label label-danger">:message</span>',
-            'templates' => [
-                'input'    => ['class' => 'col-md-12 input-with-feedback'],
-                'password' => ['class' => 'col-md-12 input-with-feedback'],
-                'select'   => ['class' => 'col-md-12 input-with-feedback'],
-                'textarea' => ['class' => 'col-md-12 input-with-feedback'],
-            ],
-            'submit'    => 'orchestra/foundation::label.submit',
-            'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
-        ]);
+        return $app;
     }
 }

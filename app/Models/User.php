@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Adldap\Laravel\Traits\AdldapUserModelTrait;
 use App\Models\Traits\HasFilesTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Orchestra\Support\Facades\HTML;
 use Stevebauman\Authorization\Traits\UserRolesTrait;
 
-class User extends Model implements AuthorizableContract
+class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
-    use Authorizable, UserRolesTrait, AdldapUserModelTrait, HasFilesTrait;
+    use Authorizable, Authenticatable, UserRolesTrait, AdldapUserModelTrait, HasFilesTrait;
 
     /**
      * The users hidden attributes.
