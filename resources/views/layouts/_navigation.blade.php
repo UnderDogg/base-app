@@ -170,7 +170,6 @@
                     <li class="dropdown {{ active()->routes(['profile.*', 'passwords.*', 'security-questions.*']) }}" id="user-menu">
 
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <img width="30" class="avatar-img" src="{{ route('profile.avatar.download') }}">
                             {{ auth()->user()->fullname }}
                             <i class="fa fa-caret-down"></i>
                         </a>
@@ -197,7 +196,7 @@
 
                             <li class="divider"></li>
 
-                            @can('backend')
+                            @can('admin.welcome.index')
                                 <li>
                                     <a href="{{ route('admin.welcome.index') }}">
                                         <i class="fa fa-user-md"></i> Administration

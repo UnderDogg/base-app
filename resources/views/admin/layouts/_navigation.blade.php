@@ -92,6 +92,15 @@
                         <ul class="dropdown-menu">
 
                             <li>
+                                <a href="{{ route('welcome.index') }}">
+                                    <i class="fa fa-reply"></i>
+                                    Back to Helpdesk
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
                                 <a class="force-reload" href="{{ route('admin.auth.logout') }}">
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a>
