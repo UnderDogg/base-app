@@ -44,9 +44,11 @@ class Store extends Job
 
         if ($this->issue->save()) {
             // Check if we have any files to upload and attach.
-            if (count($this->request->allFiles()) > 0) {
+            if (count($this->request->files) > 0) {
                 foreach ($this->request->file('files') as $file) {
-                    $this->issue->uploadFile($file);
+                    if (!is_null($file)) {
+                        $this->issue->uploadFile($file);
+                    }
                 }
             }
 
