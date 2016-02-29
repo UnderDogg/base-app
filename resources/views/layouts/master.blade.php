@@ -25,6 +25,8 @@
 
                         @unless(isset($title))
                             <h3>@yield('title')</h3>
+
+                            <hr>
                         @endunless
 
                     @show

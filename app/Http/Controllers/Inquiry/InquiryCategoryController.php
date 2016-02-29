@@ -149,4 +149,16 @@ class InquiryCategoryController extends Controller
             return redirect()->route('inquiries.categories.index');
         }
     }
+
+    /**
+     * Returns true / false if the specified category requires a manager.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function manager($id)
+    {
+        return $this->processor->manager($id);
+    }
 }

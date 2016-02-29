@@ -162,4 +162,24 @@ class InquiryCategoryProcessor extends Processor
 
         return $category->delete();
     }
+
+    /**
+     * Returns true / false if the specified category requires a manager.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function manager($id)
+    {
+        $category = $this->category->findOrFail($id);
+
+        $manager = false;
+
+        if (is_array($category->options) && array_key_exists('manager', $category->options)) {
+            $manager = $category->options['manager'];
+        }
+
+        return json_encode($manager);
+    }
 }

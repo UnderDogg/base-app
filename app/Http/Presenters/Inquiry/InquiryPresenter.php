@@ -6,6 +6,7 @@ use App\Http\Presenters\Presenter;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Inquiry;
+use App\Models\User;
 use App\Policies\InquiryPolicy;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
@@ -119,7 +120,7 @@ class InquiryPresenter extends Presenter
     /**
      * Returns a new form for the specified inquiry.
      *
-     * @param Inquiry $inquiry
+     * @param Inquiry  $inquiry
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
@@ -144,19 +145,18 @@ class InquiryPresenter extends Presenter
                 $fieldset
                     ->control('select', 'category')
                     ->label('Request Category')
-                    ->options(Category::getSelectHierarchy('inquiries'))
-                    ->value(function (Inquiry $inquiry) {
-                        if ($inquiry->category_id) {
-                            return $inquiry->category_id;
-                        }
-
-                    });
+                    ->options(Category::getSelectHierarchy('inquiries'));
 
                 $fieldset
                     ->control('input:text', 'title')
                     ->attributes([
                         'placeholder' => 'Enter the title of your request.',
                     ]);
+
+                $fieldset
+                    ->control('input:select', 'manager')
+                    ->label('Manager')
+                    ->options(User::all()->pluck('name', 'id'));
 
                 $fieldset
                     ->control('input:textarea', 'description')

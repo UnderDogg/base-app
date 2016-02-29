@@ -8,7 +8,7 @@ use Adldap\Models\Entry;
 use App\Exceptions\Devices\UnableToMountDriveException;
 use Stevebauman\WinPerm\Account;
 use Stevebauman\WinPerm\Exceptions\InvalidPathException;
-use Stevebauman\WinPerm\Permission;
+use Stevebauman\WinPerm\Permission as WinPermission;
 
 class Drive extends Model
 {
@@ -53,7 +53,7 @@ class Drive extends Model
         $path = $this->basePath.DIRECTORY_SEPARATOR.$path;
 
         try {
-            $accounts = (new Permission($path))->check();
+            $accounts = (new WinPermission($path))->check();
 
             if (is_array($accounts)) {
                 return $this->parseAccounts($accounts);
