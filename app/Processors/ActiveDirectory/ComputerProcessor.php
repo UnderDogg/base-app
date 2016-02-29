@@ -8,6 +8,7 @@ use Adldap\Schemas\ActiveDirectory;
 use App\Http\Presenters\ActiveDirectory\ComputerPresenter;
 use App\Http\Requests\ActiveDirectory\ComputerImportRequest;
 use App\Jobs\ActiveDirectory\ImportComputer;
+use App\Policies\ActiveDirectory\ComputerPolicy;
 use App\Processors\Processor;
 use Illuminate\Http\Request;
 
@@ -44,26 +45,28 @@ class ComputerProcessor extends Processor
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Computer::class);
+        if (ComputerPolicy::index(auth()->user())) {
+            $search = $this->adldap->computers()->search();
 
-        $search = $this->adldap->computers()->search();
+            if ($request->has('q')) {
+                $query = $request->input('q');
 
-        if ($request->has('q')) {
-            $query = $request->input('q');
+                $search = $search
+                    ->orWhereContains(ActiveDirectory::COMMON_NAME, $query)
+                    ->orWhereContains(ActiveDirectory::DESCRIPTION, $query)
+                    ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
+            }
 
-            $search = $search
-                ->orWhereContains(ActiveDirectory::COMMON_NAME, $query)
-                ->orWhereContains(ActiveDirectory::DESCRIPTION, $query)
-                ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
+            $paginator = $search->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
+
+            $computers = $this->presenter->table($paginator->getResults());
+
+            $navbar = $this->presenter->navbar();
+
+            return view('pages.active-directory.computers.index', compact('computers', 'navbar'));
         }
 
-        $paginator = $search->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
-
-        $computers = $this->presenter->table($paginator->getResults());
-
-        $navbar = $this->presenter->navbar();
-
-        return view('pages.active-directory.computers.index', compact('computers', 'navbar'));
+        $this->unauthorized();
     }
 
     /**
@@ -75,15 +78,17 @@ class ComputerProcessor extends Processor
      */
     public function store(ComputerImportRequest $request)
     {
-        $this->authorize('store', Computer::class);
+        if (ComputerPolicy::import(auth()->user())) {
+            $computer = $this->adldap->search()->findByDn($request->input('dn'));
 
-        $computer = $this->adldap->search()->findByDn($request->input('dn'));
+            if ($computer instanceof Computer) {
+                return $this->dispatch(new ImportComputer($computer));
+            }
 
-        if ($computer instanceof Computer) {
-            return $this->dispatch(new ImportComputer($computer));
+            return false;
         }
 
-        return false;
+        $this->unauthorized();
     }
 
     /**
@@ -93,18 +98,20 @@ class ComputerProcessor extends Processor
      */
     public function storeAll()
     {
-        $this->authorize('storeAll', Computer::class);
+        if (ComputerPolicy::importAll(auth()->user())) {
+            $computers = $this->adldap->computers()->all();
 
-        $computers = $this->adldap->computers()->all();
+            $added = [];
 
-        $added = [];
-
-        foreach ($computers as  $computer) {
-            if ($computer instanceof Computer) {
-                $added[] = $this->dispatch(new ImportComputer($computer));
+            foreach ($computers as  $computer) {
+                if ($computer instanceof Computer) {
+                    $added[] = $this->dispatch(new ImportComputer($computer));
+                }
             }
+
+            return $added;
         }
 
-        return $added;
+        $this->unauthorized();
     }
 }

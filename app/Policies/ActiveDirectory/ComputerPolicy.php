@@ -27,7 +27,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public static function store(User $user)
+    public static function import(User $user)
     {
         return $user->can('ad.computers.import');
     }
@@ -40,7 +40,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public static function storeAll(User $user)
+    public static function importAll(User $user)
     {
         return self::store($user);
     }

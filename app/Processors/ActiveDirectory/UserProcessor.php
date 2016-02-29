@@ -10,6 +10,7 @@ use App\Http\Presenters\ActiveDirectory\UserPresenter;
 use App\Http\Requests\ActiveDirectory\UserImportRequest;
 use App\Http\Requests\ActiveDirectory\UserRequest;
 use App\Jobs\ActiveDirectory\ImportUser;
+use App\Policies\ActiveDirectory\UserPolicy;
 use App\Processors\Processor;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -47,28 +48,30 @@ class UserProcessor extends Processor
      */
     public function index(Request $request)
     {
-        $this->authorize('index', User::class);
+        if (UserPolicy::index(auth()->user())) {
+            $search = $this->adldap->users()->search();
 
-        $search = $this->adldap->users()->search();
+            if ($request->has('q')) {
+                $query = $request->input('q');
 
-        if ($request->has('q')) {
-            $query = $request->input('q');
+                $search = $search
+                    ->orWhereContains(ActiveDirectory::COMMON_NAME, $query)
+                    ->orWhereContains(ActiveDirectory::DESCRIPTION, $query)
+                    ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
+            }
 
-            $search = $search
-                ->orWhereContains(ActiveDirectory::COMMON_NAME, $query)
-                ->orWhereContains(ActiveDirectory::DESCRIPTION, $query)
-                ->orWhereContains(ActiveDirectory::OPERATING_SYSTEM, $query);
+            $paginator = $search
+                ->whereHas(ActiveDirectory::EMAIL)
+                ->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
+
+            $users = $this->presenter->table($paginator->getResults());
+
+            $navbar = $this->presenter->navbar();
+
+            return view('pages.active-directory.users.index', compact('users', 'navbar'));
         }
 
-        $paginator = $search
-            ->whereHas(ActiveDirectory::EMAIL)
-            ->sortBy(ActiveDirectory::COMMON_NAME, 'asc')->paginate();
-
-        $users = $this->presenter->table($paginator->getResults());
-
-        $navbar = $this->presenter->navbar();
-
-        return view('pages.active-directory.users.index', compact('users', 'navbar'));
+        $this->unauthorized();
     }
 
     /**
@@ -78,11 +81,15 @@ class UserProcessor extends Processor
      */
     public function create()
     {
-        $user = $this->adldap->users()->newInstance();
+        if (UserPolicy::create(auth()->user())) {
+            $user = $this->adldap->users()->newInstance();
 
-        $form = $this->presenter->form($user);
+            $form = $this->presenter->form($user);
 
-        return view('pages.active-directory.users.create', compact('form'));
+            return view('pages.active-directory.users.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -94,22 +101,26 @@ class UserProcessor extends Processor
      */
     public function store(UserRequest $request)
     {
-        $user = $this->adldap->users()->newInstance();
+        if (UserPolicy::create(auth()->user())) {
+            $user = $this->adldap->users()->newInstance();
 
-        $user->setAccountName($request->input('username'));
-        $user->setEmail($request->input('email'));
-        $user->setFirstName($request->input('first_name'));
-        $user->setLastName($request->input('last_name'));
-        $user->setDisplayName($request->input('display_name'));
-        $user->setDescription($request->input('description'));
-        $user->setProfilePath($request->input('profile_path'));
-        $user->setScriptPath($request->input('logon_script'));
+            $user->setAccountName($request->input('username'));
+            $user->setEmail($request->input('email'));
+            $user->setFirstName($request->input('first_name'));
+            $user->setLastName($request->input('last_name'));
+            $user->setDisplayName($request->input('display_name'));
+            $user->setDescription($request->input('description'));
+            $user->setProfilePath($request->input('profile_path'));
+            $user->setScriptPath($request->input('logon_script'));
 
-        $ac = $this->createUserAccountControl($request, $user);
+            $ac = $this->createUserAccountControl($request, $user);
 
-        $user->setUserAccountControl($ac);
+            $user->setUserAccountControl($ac);
 
-        return $user->save();
+            return $user->save();
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -123,13 +134,17 @@ class UserProcessor extends Processor
      */
     public function show($username)
     {
-        $user = $this->adldap->users()->find($username);
+        if (UserPolicy::show(auth()->user())) {
+            $user = $this->adldap->users()->find($username);
 
-        if ($user instanceof User) {
-            return view('pages.active-directory.users.show', compact('user'));
+            if ($user instanceof User) {
+                return view('pages.active-directory.users.show', compact('user'));
+            }
+
+            throw new NotFoundHttpException();
         }
 
-        throw new NotFoundHttpException();
+        $this->unauthorized();
     }
 
     /**
@@ -143,15 +158,19 @@ class UserProcessor extends Processor
      */
     public function edit($username)
     {
-        $user = $this->adldap->users()->find($username);
+        if (UserPolicy::edit(auth()->user())) {
+            $user = $this->adldap->users()->find($username);
 
-        if ($user instanceof User) {
-            $form = $this->presenter->form($user);
+            if ($user instanceof User) {
+                $form = $this->presenter->form($user);
 
-            return view('pages.active-directory.users.edit', compact('form'));
+                return view('pages.active-directory.users.edit', compact('form'));
+            }
+
+            throw new NotFoundHttpException();
         }
 
-        throw new NotFoundHttpException();
+        $this->unauthorized();
     }
 
     /**
@@ -166,26 +185,31 @@ class UserProcessor extends Processor
      */
     public function update(UserRequest $request, $username)
     {
-        $user = $this->adldap->users()->find($username);
+        if (UserPolicy::edit(auth()->user())) {
+            $user = $this->adldap->users()->find($username);
 
-        if ($user instanceof User) {
-            $user->setAccountName($request->input('username', $user->getAccountName()));
-            $user->setEmail($request->input('email', $user->getEmail()));
-            $user->setFirstName($request->input('first_name', $user->getFirstName()));
-            $user->setLastName($request->input('last_name', $user->getLastName()));
-            $user->setDisplayName($request->input('display_name', $user->getDisplayName()));
-            $user->setDescription($request->input('description', $user->getDescription()));
-            $user->setProfilePath($request->input('profile_path', $user->getProfilePath()));
-            $user->setScriptPath($request->input('logon_script', $user->getScriptPath()));
+            if ($user instanceof User) {
 
-            $ac = $this->createUserAccountControl($request, $user);
+                $user->setAccountName($request->input('username', $user->getAccountName()));
+                $user->setEmail($request->input('email', $user->getEmail()));
+                $user->setFirstName($request->input('first_name', $user->getFirstName()));
+                $user->setLastName($request->input('last_name', $user->getLastName()));
+                $user->setDisplayName($request->input('display_name', $user->getDisplayName()));
+                $user->setDescription($request->input('description', $user->getDescription()));
+                $user->setProfilePath($request->input('profile_path', $user->getProfilePath()));
+                $user->setScriptPath($request->input('logon_script', $user->getScriptPath()));
 
-            $user->setUserAccountControl($ac);
+                $ac = $this->createUserAccountControl($request, $user);
 
-            return $user->save();
+                $user->setUserAccountControl($ac);
+
+                return $user->save();
+            }
+
+            throw new NotFoundHttpException();
         }
 
-        throw new NotFoundHttpException();
+        $this->unauthorized();
     }
 
     /**
@@ -197,15 +221,17 @@ class UserProcessor extends Processor
      */
     public function import(UserImportRequest $request)
     {
-        $this->authorize('store', User::class);
+        if (UserPolicy::import(auth()->user())) {
+            $user = $this->adldap->search()->findByDn($request->input('dn'));
 
-        $user = $this->adldap->search()->findByDn($request->input('dn'));
+            if ($user instanceof User) {
+                return $this->dispatch(new ImportUser($user));
+            }
 
-        if ($user instanceof User) {
-            return $this->dispatch(new ImportUser($user));
+            return false;
         }
 
-        return false;
+        $this->unauthorized();
     }
 
     /**

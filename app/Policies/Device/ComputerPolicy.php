@@ -27,16 +27,6 @@ class ComputerPolicy
     }
 
     /**
-     * Determines if the current user can store computers.
-     *
-     * @return bool
-     */
-    public static function store(User $user)
-    {
-        return self::create($user);
-    }
-
-    /**
      * Determines if the current user can view computers.
      *
      * @return bool
@@ -54,16 +44,6 @@ class ComputerPolicy
     public static function edit(User $user)
     {
         return $user->can('computers.edit');
-    }
-
-    /**
-     * Determines if the current user can update computers.
-     *
-     * @return bool
-     */
-    public static function update(User $user)
-    {
-        return self::edit($user);
     }
 
     /**

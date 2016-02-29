@@ -10,11 +10,13 @@ class AdPermissionSeeder extends Seeder
      */
     public function run()
     {
+        // AD Access Permission
         Permission::firstOrCreate([
             'name' => 'ad.access',
             'label' => 'Access Active Directory',
         ]);
 
+        // AD Computer Permissions
         Permission::firstOrCreate([
             'name' => 'ad.computers.index',
             'label' => 'View Active Directory Computers',
@@ -30,9 +32,20 @@ class AdPermissionSeeder extends Seeder
             'label' => 'Import Active Directory Computers',
         ]);
 
+        // AD User Permissions
         Permission::firstOrCreate([
             'name' => 'ad.users.index',
             'label' => 'View Active Directory Users',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'ad.users.create',
+            'label' => 'Create Active Directory Users',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'ad.users.edit',
+            'label' => 'Edit Active Directory Users',
         ]);
 
         Permission::firstOrCreate([

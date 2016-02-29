@@ -5,6 +5,7 @@ namespace App\Processors;
 use App\Http\Presenters\LabelPresenter;
 use App\Http\Requests\LabelRequest;
 use App\Models\Label;
+use App\Policies\LabelPolicy;
 
 class LabelProcessor extends Processor
 {
@@ -51,11 +52,14 @@ class LabelProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize('labels.create');
+        if (LabelPolicy::create(auth()->user())) {
 
-        $form = $this->presenter->form($this->label);
+            $form = $this->presenter->form($this->label);
 
-        return view('pages.labels.create', compact('form'));
+            return view('pages.labels.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -67,14 +71,16 @@ class LabelProcessor extends Processor
      */
     public function store(LabelRequest $request)
     {
-        $this->authorize('labels.create');
+        if (LabelPolicy::create(auth()->user())) {
+            $label = $this->label->newInstance();
 
-        $label = $this->label->newInstance();
+            $label->name = $request->input('name');
+            $label->color = $request->input('color');
 
-        $label->name = $request->input('name');
-        $label->color = $request->input('color');
+            return $label->save();
+        }
 
-        return $label->save();
+        $this->unauthorized();
     }
 
     /**
@@ -86,13 +92,15 @@ class LabelProcessor extends Processor
      */
     public function edit($id)
     {
-        $this->authorize('labels.edit');
+        if (LabelPolicy::edit(auth()->user())) {
+            $label = $this->label->findOrFail($id);
 
-        $label = $this->label->findOrFail($id);
+            $form = $this->presenter->form($label);
 
-        $form = $this->presenter->form($label);
+            return view('pages.labels.edit', compact('form'));
+        }
 
-        return view('pages.labels.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -105,14 +113,16 @@ class LabelProcessor extends Processor
      */
     public function update(LabelRequest $request, $id)
     {
-        $this->authorize('labels.edit');
+        if (LabelPolicy::edit(auth()->user())) {
+            $label = $this->label->findOrFail($id);
 
-        $label = $this->label->findOrFail($id);
+            $label->name = $request->input('name', $label->name);
+            $label->color = $request->input('color', $label->color);
 
-        $label->name = $request->input('name', $label->name);
-        $label->color = $request->input('color', $label->color);
+            return $label->save();
+        }
 
-        return $label->save();
+        $this->unauthorized();
     }
 
     /**
@@ -124,12 +134,14 @@ class LabelProcessor extends Processor
      */
     public function destroy($id)
     {
-        $this->authorize('labels.destroy');
+        if (LabelPolicy::destroy(auth()->user())) {
+            $label = $this->label->findOrFail($id);
 
-        $label = $this->label->findOrFail($id);
+            $this->authorize($label);
 
-        $this->authorize($label);
+            return $label->delete();
+        }
 
-        return $label->delete();
+        $this->unauthorized();
     }
 }

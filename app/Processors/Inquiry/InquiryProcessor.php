@@ -10,6 +10,7 @@ use App\Jobs\Inquiry\Open;
 use App\Jobs\Inquiry\Store;
 use App\Jobs\Inquiry\Update;
 use App\Models\Inquiry;
+use App\Policies\InquiryPolicy;
 use App\Processors\Processor;
 
 class InquiryProcessor extends Processor
@@ -115,9 +116,13 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        $formComment = $this->presenter->formComment($inquiry);
+        if (InquiryPolicy::show(auth()->user(), $inquiry)) {
+            $formComment = $this->presenter->formComment($inquiry);
 
-        return view('pages.inquiries.show', compact('inquiry', 'formComment'));
+            return view('pages.inquiries.show', compact('inquiry', 'formComment'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -131,9 +136,13 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        $form = $this->presenter->form($inquiry);
+        if (InquiryPolicy::edit(auth()->user(), $inquiry)) {
+            $form = $this->presenter->form($inquiry);
 
-        return view('pages.inquiries.edit', compact('form'));
+            return view('pages.inquiries.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -148,7 +157,11 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        return $this->dispatch(new Update($request, $inquiry));
+        if (InquiryPolicy::edit(auth()->user(), $inquiry)) {
+            return $this->dispatch(new Update($request, $inquiry));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -162,7 +175,11 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        return $inquiry->delete();
+        if (InquiryPolicy::destroy(auth()->user(), $inquiry)) {
+            return $inquiry->delete();
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -176,9 +193,11 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        $this->authorize($inquiry);
+        if (InquiryPolicy::close(auth()->user(), $inquiry)) {
+            return $this->dispatch(new Close($inquiry));
+        }
 
-        return $this->dispatch(new Close($inquiry));
+        $this->unauthorized();
     }
 
     /**
@@ -192,9 +211,11 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        $this->authorize($inquiry);
+        if (InquiryPolicy::open(auth()->user())) {
+            return $this->dispatch(new Open($inquiry));
+        }
 
-        return $this->dispatch(new Open($inquiry));
+        $this->unauthorized();
     }
 
     /**
@@ -208,8 +229,10 @@ class InquiryProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        $this->authorize($inquiry);
+        if (InquiryPolicy::approve(auth()->user())) {
+            return $this->dispatch(new Approve($inquiry));
+        }
 
-        return $this->dispatch(new Approve($inquiry));
+        $this->unauthorized();
     }
 }

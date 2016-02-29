@@ -5,6 +5,7 @@ namespace App\Processors\Issue;
 use App\Http\Requests\Issue\IssueLabelRequest;
 use App\Models\Issue;
 use App\Models\Label;
+use App\Policies\IssuePolicy;
 use App\Processors\Processor;
 
 class IssueLabelProcessor extends Processor
@@ -43,18 +44,20 @@ class IssueLabelProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize('addLabels', $issue);
+        if (IssuePolicy::addLabels(auth()->user())) {
+            if ($request->has('labels')) {
+                $labels = $this->label->find($request->input('labels'));
 
-        if ($request->has('labels')) {
-            $labels = $this->label->find($request->input('labels'));
+                $issue->labels()->sync($labels);
 
-            $issue->labels()->sync($labels);
+                return true;
+            }
+
+            $issue->labels()->detach();
 
             return true;
         }
 
-        $issue->labels()->detach();
-
-        return true;
+        $this->unauthorized();
     }
 }

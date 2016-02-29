@@ -5,6 +5,7 @@ namespace App\Processors\Issue;
 use App\Http\Requests\Issue\IssueUserRequest;
 use App\Models\Issue;
 use App\Models\User;
+use App\Policies\IssuePolicy;
 use App\Processors\Processor;
 
 class IssueUserProcessor extends Processor
@@ -43,18 +44,20 @@ class IssueUserProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize('addUsers', $issue);
+        if (IssuePolicy::addUsers(auth()->user())) {
+            if ($request->has('users')) {
+                $users = $this->user->find($request->input('users'));
 
-        if ($request->has('users')) {
-            $users = $this->user->find($request->input('users'));
+                $issue->users()->sync($users);
 
-            $issue->users()->sync($users);
+                return true;
+            }
+
+            $issue->users()->detach();
 
             return true;
         }
 
-        $issue->users()->detach();
-
-        return true;
+        $this->unauthorized();
     }
 }

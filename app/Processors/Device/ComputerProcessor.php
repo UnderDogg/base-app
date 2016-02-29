@@ -11,6 +11,7 @@ use App\Jobs\Computer\Create;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
+use App\Policies\Device\ComputerPolicy;
 use App\Processors\Processor;
 
 class ComputerProcessor extends Processor
@@ -51,13 +52,15 @@ class ComputerProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::index(auth()->user())) {
+            $computers = $this->presenter->table($this->computer);
 
-        $computers = $this->presenter->table($this->computer);
+            $navbar = $this->presenter->navbar();
 
-        $navbar = $this->presenter->navbar();
+            return view('pages.devices.computers.index', compact('computers', 'navbar'));
+        }
 
-        return view('pages.devices.computers.index', compact('computers', 'navbar'));
+        $this->unauthorized();
     }
 
     /**
@@ -67,11 +70,13 @@ class ComputerProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->computer);
 
-        $form = $this->presenter->form($this->computer);
+            return view('pages.devices.computers.create', compact('form'));
+        }
 
-        return view('pages.devices.computers.create', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -83,16 +88,18 @@ class ComputerProcessor extends Processor
      */
     public function store(ComputerRequest $request)
     {
-        $this->authorize($this->computer);
-
-        // If the user is looking to import the computer from active
-        // directory, then we'll try to find the computer by
-        // the given name and dispatch the import job.
-        if ($request->input('active_directory')) {
-            return $this->storeFromActiveDirectory($request);
-        } else {
-            return $this->storeFromRequest($request);
+        if (ComputerPolicy::create(auth()->user())) {
+            // If the user is looking to import the computer from active
+            // directory, then we'll try to find the computer by
+            // the given name and dispatch the import job.
+            if ($request->input('active_directory')) {
+                return $this->storeFromActiveDirectory($request);
+            } else {
+                return $this->storeFromRequest($request);
+            }
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -104,18 +111,20 @@ class ComputerProcessor extends Processor
      */
     public function show($id)
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::show(auth()->user())) {
+            $with = [
+                'os',
+                'type',
+                'users',
+                'access',
+            ];
 
-        $with = [
-            'os',
-            'type',
-            'users',
-            'access',
-        ];
+            $computer = $this->computer->with($with)->findOrFail($id);
 
-        $computer = $this->computer->with($with)->findOrFail($id);
+            return view('pages.devices.computers.show.details', compact('computer'));
+        }
 
-        return view('pages.devices.computers.show.details', compact('computer'));
+        $this->unauthorized();
     }
 
     /**
@@ -127,13 +136,15 @@ class ComputerProcessor extends Processor
      */
     public function edit($id)
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::edit(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-        $computer = $this->computer->findOrFail($id);
+            $form = $this->presenter->form($computer);
 
-        $form = $this->presenter->form($computer);
+            return view('pages.devices.computers.edit', compact('form'));
+        }
 
-        return view('pages.devices.computers.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -146,24 +157,26 @@ class ComputerProcessor extends Processor
      */
     public function update(ComputerRequest $request, $id)
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::edit(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-        $computer = $this->computer->findOrFail($id);
+            $os = OperatingSystem::findOrFail($request->input('os'));
+            $type = ComputerType::findOrFail($request->input('type'));
 
-        $os = OperatingSystem::findOrFail($request->input('os'));
-        $type = ComputerType::findOrFail($request->input('type'));
+            $computer->name = $request->input('name');
+            $computer->model = $request->input('model');
+            $computer->description = $request->input('description');
+            $computer->os_id = $os->getKey();
+            $computer->type_id = $type->getKey();
 
-        $computer->name = $request->input('name');
-        $computer->model = $request->input('model');
-        $computer->description = $request->input('description');
-        $computer->os_id = $os->getKey();
-        $computer->type_id = $type->getKey();
+            if ($computer->save()) {
+                return $computer;
+            }
 
-        if ($computer->save()) {
-            return $computer;
+            return false;
         }
 
-        return false;
+        $this->unauthorized();
     }
 
     /**
@@ -175,11 +188,13 @@ class ComputerProcessor extends Processor
      */
     public function destroy($id)
     {
-        $this->authorize($this->computer);
+        if (ComputerPolicy::destroy(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-        $computer = $this->computer->findOrFail($id);
+            return $computer->delete();
+        }
 
-        return $computer->delete();
+        $this->unauthorized();
     }
 
     /**
