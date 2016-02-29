@@ -121,7 +121,7 @@ class InquiryPresenter extends Presenter
     /**
      * Returns a new form for the specified inquiry.
      *
-     * @param Inquiry  $inquiry
+     * @param Inquiry $inquiry
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
