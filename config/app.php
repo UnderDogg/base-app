@@ -220,7 +220,6 @@ return [
 
         'App'        => Illuminate\Support\Facades\App::class,
         'Artisan'    => Illuminate\Support\Facades\Artisan::class,
-        'Asset'      => Orchestra\Support\Facades\Asset::class,
         'Auth'       => Illuminate\Support\Facades\Auth::class,
         'Blade'      => Illuminate\Support\Facades\Blade::class,
         'Bus'        => Illuminate\Support\Facades\Bus::class,
@@ -229,19 +228,14 @@ return [
         'Cookie'     => Illuminate\Support\Facades\Cookie::class,
         'Crypt'      => Illuminate\Support\Facades\Crypt::class,
         'DB'         => Illuminate\Support\Facades\DB::class,
-        'Decorator'  => Orchestra\Support\Facades\Decorator::class,
-        'Eloquent'   => Illuminate\Database\Eloquent\Model::class,
         'Event'      => Illuminate\Support\Facades\Event::class,
         'File'       => Illuminate\Support\Facades\File::class,
-        'Form'       => Orchestra\Support\Facades\Form::class,
         'Gate'       => Illuminate\Support\Facades\Gate::class,
         'Hash'       => Illuminate\Support\Facades\Hash::class,
-        'HTML'       => Orchestra\Support\Facades\HTML::class,
         'Input'      => Illuminate\Support\Facades\Input::class,
         'Lang'       => Illuminate\Support\Facades\Lang::class,
         'Log'        => Illuminate\Support\Facades\Log::class,
         'Mail'       => Illuminate\Support\Facades\Mail::class,
-        'Memory'     => Orchestra\Support\Facades\Memory::class,
         'Password'   => Illuminate\Support\Facades\Password::class,
         'Queue'      => Illuminate\Support\Facades\Queue::class,
         'Redirect'   => Illuminate\Support\Facades\Redirect::class,
@@ -252,15 +246,25 @@ return [
         'Schema'     => Illuminate\Support\Facades\Schema::class,
         'Session'    => Illuminate\Support\Facades\Session::class,
         'Storage'    => Illuminate\Support\Facades\Storage::class,
-        'Table'      => Orchestra\Support\Facades\Table::class,
         'URL'        => Illuminate\Support\Facades\URL::class,
         'Validator'  => Illuminate\Support\Facades\Validator::class,
         'View'       => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Package Facades
+         */
         'Adldap'    => Adldap\Laravel\Facades\Adldap::class,
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Purify'    => Stevebauman\Purify\Facades\Purify::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+
+        /*
+         * Orchestra Facades
+         */
+        'Decorator'  => Orchestra\Support\Facades\Decorator::class,
+        'HTML'       => Orchestra\Support\Facades\HTML::class,
+        'Form'       => Orchestra\Support\Facades\Form::class,
+        'Table'      => Orchestra\Support\Facades\Table::class,
     ],
 
 ];
