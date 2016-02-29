@@ -314,7 +314,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The category manager re
             $router->get('requests/categories/{categories}/manager-required', [
-                'as' => 'inquiries.categories.manager-required',
+                'as'   => 'inquiries.categories.manager-required',
                 'uses' => 'InquiryCategoryController@manager',
             ]);
 
