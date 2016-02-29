@@ -193,7 +193,7 @@ class IssuePresenter extends Presenter
 
                     $field->attributes = [
                         'multiple' => true,
-                        'accept' => '.xlx,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png',
+                        'accept'   => '.xlx,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png',
                     ];
                 });
 

@@ -350,8 +350,6 @@ class Issue extends Model
         if ($this->closed_at) {
             return $this->closed_at->diffForHumans();
         }
-
-        return;
     }
 
     /**
@@ -364,8 +362,6 @@ class Issue extends Model
         if ($this->occurred_at) {
             return $this->occurred_at->diffForHumans();
         }
-
-        return;
     }
 
     /**
@@ -378,7 +374,5 @@ class Issue extends Model
         if ($this->occurred_at) {
             return $this->occurred_at->format('m/d/Y g:i A');
         }
-
-        return;
     }
 }

@@ -126,7 +126,5 @@ class Guide extends Model
         if ($this->published) {
             return Carbon::createFromTimestamp(strtotime($this->published_on))->diffForHumans();
         }
-
-        return;
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Traits\CanPurifyTrait;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 abstract class Request extends FormRequest
 {
@@ -41,7 +41,8 @@ abstract class Request extends FormRequest
     /**
      * Format the errors from the given Validator instance.
      *
-     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     *
      * @return array
      */
     protected function formatErrors(Validator $validator)

@@ -7,7 +7,6 @@ use App\Http\Requests\AttachmentRequest;
 use App\Jobs\Attachment\Update;
 use App\Models\Issue;
 use App\Processors\Processor;
-use Orchestra\Support\Facades\ACL;
 
 class IssueAttachmentProcessor extends Processor
 {

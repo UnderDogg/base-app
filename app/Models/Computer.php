@@ -110,8 +110,6 @@ class Computer extends Model
 
             return sprintf('%s %s', $os, $version);
         }
-
-        return;
     }
 
     /**

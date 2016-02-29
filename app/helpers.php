@@ -29,4 +29,3 @@ function isValidSid($sid)
 
     return false;
 }
-

@@ -41,8 +41,6 @@ class Service extends Model
         if ($this->records->count() > 0) {
             return $this->records->first();
         }
-
-        return;
     }
 
     /**

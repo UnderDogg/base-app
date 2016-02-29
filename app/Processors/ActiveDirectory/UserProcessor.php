@@ -189,7 +189,6 @@ class UserProcessor extends Processor
             $user = $this->adldap->users()->find($username);
 
             if ($user instanceof User) {
-
                 $user->setAccountName($request->input('username', $user->getAccountName()));
                 $user->setEmail($request->input('email', $user->getEmail()));
                 $user->setFirstName($request->input('first_name', $user->getFirstName()));

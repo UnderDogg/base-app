@@ -12,79 +12,79 @@ class IssuePermissionSeeder extends Seeder
     {
         // Issue Permissions
         Permission::firstOrCreate([
-            'name' => 'issues.index.all',
+            'name'  => 'issues.index.all',
             'label' => 'View All Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.show',
+            'name'  => 'issues.show',
             'label' => 'View Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.edit',
+            'name'  => 'issues.edit',
             'label' => 'Edit Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.open',
+            'name'  => 'issues.open',
             'label' => 'Re-Open Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.close',
+            'name'  => 'issues.close',
             'label' => 'Close Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.destroy',
+            'name'  => 'issues.destroy',
             'label' => 'Delete Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.labels.store',
+            'name'  => 'issues.labels.store',
             'label' => 'Add Labels to Issues',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.users.store',
+            'name'  => 'issues.users.store',
             'label' => 'Add Users to Issues',
         ]);
 
         // Issue Attachment Permissions
         Permission::firstOrCreate([
-            'name' => 'issue.attachments.show',
+            'name'  => 'issue.attachments.show',
             'label' => 'View Issue Attachments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.attachments.edit',
+            'name'  => 'issues.attachments.edit',
             'label' => 'Edit Issue Attachments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.attachments.destroy',
+            'name'  => 'issues.attachments.destroy',
             'label' => 'Delete Issue Attachments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.attachments.download',
+            'name'  => 'issues.attachments.download',
             'label' => 'Download Issue Attachments',
         ]);
 
         // Issue Comment Permissions
         Permission::firstOrCreate([
-            'name' => 'issues.comments.create',
+            'name'  => 'issues.comments.create',
             'label' => 'Create Issue Comments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.comments.edit',
+            'name'  => 'issues.comments.edit',
             'label' => 'Edit Issue Comments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'issues.comments.destroy',
+            'name'  => 'issues.comments.destroy',
             'label' => 'Delete Issue Comments',
         ]);
     }

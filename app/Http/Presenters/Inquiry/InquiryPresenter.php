@@ -150,7 +150,6 @@ class InquiryPresenter extends Presenter
                             return $inquiry->category_id;
                         }
 
-                        return;
                     });
 
                 $fieldset

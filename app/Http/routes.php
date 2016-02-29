@@ -389,7 +389,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // Download Ticket attachment.
             $router->get('tickets/{tickets}/attachments/{attachments}/download', [
-                'as' => 'issues.attachments.download',
+                'as'   => 'issues.attachments.download',
                 'uses' => 'IssueAttachmentController@download',
             ]);
 
@@ -409,7 +409,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The issue attachments resource.
             $router->resource('tickets.attachments', 'IssueAttachmentController', [
                 'except' => ['index', 'create'],
-                'names' => [
+                'names'  => [
                     'store'     => 'issues.attachments.store',
                     'show'      => 'issues.attachments.show',
                     'edit'      => 'issues.attachments.edit',
