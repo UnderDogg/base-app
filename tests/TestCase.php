@@ -2,7 +2,9 @@
 
 namespace App\Tests;
 
-class TestCase extends \Illuminate\Foundation\Testing\TestCase
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+
+class TestCase extends BaseTestCase
 {
     /**
      * The base URL to use while testing the application.
@@ -18,7 +20,9 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
 
-        $this->artisan('migrate');
+        $this->artisan('migrate', [
+            '--path' => database_path('migrations')
+        ]);
 
         $this->artisan('db:seed');
     }
