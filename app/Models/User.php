@@ -125,7 +125,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function getInitialsAttribute()
     {
-        $name = explode(' ', $this->getRecipientName());
+        $name = explode(' ', $this->name);
 
         if (count($name) > 1) {
             list($first, $last) = $name;

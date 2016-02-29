@@ -90,7 +90,7 @@ class ProfileProcessor extends Processor
         // and they are not from active directory.
         if ($user instanceof User && !$user->from_ad) {
             $user->name = $request->input('full_name', $user->name);
-            $user->email = $request->input('email', $user->getRecipientEmail());
+            $user->email = $request->input('email', $user->email);
 
             return $user->save();
         }

@@ -9,6 +9,7 @@ use App\Models\Inquiry;
 use App\Models\User;
 use App\Policies\InquiryPolicy;
 use Illuminate\Database\Eloquent\Builder;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -141,11 +142,20 @@ class InquiryPresenter extends Presenter
 
             $form->with($inquiry);
 
-            $form->fieldset(function (Fieldset $fieldset) {
-                $fieldset
-                    ->control('select', 'category')
-                    ->label('Request Category')
-                    ->options(Category::getSelectHierarchy('inquiries'));
+            $form->fieldset(function (Fieldset $fieldset) use ($inquiry) {
+                $fieldset->control('select', 'category', function (Field $field) use ($inquiry) {
+                    $field->label = 'Request Category';
+
+                    $field->options = Category::getSelectHierarchy('inquiries');
+
+                    $field->value = function (Inquiry $inquiry) {
+                        return $inquiry->category_id;
+                    };
+
+                    if ($inquiry->category_id) {
+                        $field->attributes = ['disabled'];
+                    }
+                });
 
                 $fieldset
                     ->control('input:text', 'title')
@@ -153,10 +163,19 @@ class InquiryPresenter extends Presenter
                         'placeholder' => 'Enter the title of your request.',
                     ]);
 
-                $fieldset
-                    ->control('input:select', 'manager')
-                    ->label('Manager')
-                    ->options(User::all()->pluck('name', 'id'));
+                $fieldset->control('input:select', 'manager', function (Field $field) use ($inquiry) {
+                    $field->label = 'Manager';
+
+                    $field->options = User::all()->pluck('name', 'id');
+
+                    $field->value = function (Inquiry $inquiry) {
+                        return $inquiry->manager_id;
+                    };
+
+                    if ($inquiry->category_id) {
+                        $field->attributes = ['disabled'];
+                    }
+                });
 
                 $fieldset
                     ->control('input:textarea', 'description')

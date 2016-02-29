@@ -174,12 +174,6 @@ class InquiryCategoryProcessor extends Processor
     {
         $category = $this->category->findOrFail($id);
 
-        $manager = false;
-
-        if (is_array($category->options) && array_key_exists('manager', $category->options)) {
-            $manager = $category->options['manager'];
-        }
-
-        return json_encode($manager);
+        return json_encode($category->manager);
     }
 }

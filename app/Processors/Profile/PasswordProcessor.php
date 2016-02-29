@@ -67,7 +67,7 @@ class PasswordProcessor extends Processor
 
         // Check if we have the correct model instance.
         if ($user instanceof User) {
-            $credentials['email'] = $user->getRecipientEmail();
+            $credentials['email'] = $user->email;
             // Validate the users credentials.
             if ($this->guard->validate($credentials)) {
                 $newPassword = $request->input('password');

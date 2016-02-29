@@ -101,4 +101,18 @@ class Category extends Node
 
         return $name;
     }
+
+    /**
+     * Returns the manager required option.
+     *
+     * @return bool
+     */
+    public function getManagerAttribute()
+    {
+        if (is_array($this->options) && array_key_exists('manager', $this->options)) {
+            return $this->options['manager'] === true;
+        }
+
+        return false;
+    }
 }

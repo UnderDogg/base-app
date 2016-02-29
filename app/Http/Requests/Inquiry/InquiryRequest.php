@@ -15,23 +15,23 @@ class InquiryRequest extends Request
     public function rules()
     {
         $rules = [
-            'category'      => 'required|integer|exists:categories,id,belongs_to,inquiries',
             'title'         => 'required|min:5',
             'description'   => 'min:5',
             'manager'       => '',
         ];
 
+        if ($this->route()->getName() !== 'inquiries.update') {
+            // If the user isn't updating the their request,
+            // we'll make the category field required.
+            $rules['category'] = 'required|integer|exists:categories,id,belongs_to,inquiries';
+        }
+
         $id = $this->request->get('category');
 
         $category = Category::find($id);
 
-        if ($category instanceof Category
-            && is_array($category->options)
-            && array_key_exists('manager', $category->options)
-        ) {
-            if ($category->options['manager'] === true) {
-                $rules['manager'] = 'required|exists:users,id';
-            }
+        if ($category instanceof Category && $category->manager === true) {
+            $rules['manager'] = 'required|exists:users,id';
         }
 
         return $rules;

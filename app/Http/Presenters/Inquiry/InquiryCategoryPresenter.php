@@ -142,10 +142,8 @@ class InquiryCategoryPresenter extends Presenter
                             'class' => 'switch-mark',
                         ];
 
-                        if (is_array($category->options) && array_key_exists('manager', $category->options)) {
-                            if ($category->options['manager']) {
-                                $attributes['checked'] = true;
-                            }
+                        if ($category->manager) {
+                            $attributes['checked'] = true;
                         }
 
                         $field->attributes = $attributes;

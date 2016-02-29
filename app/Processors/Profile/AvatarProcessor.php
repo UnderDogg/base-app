@@ -171,7 +171,7 @@ class AvatarProcessor extends Processor
                 $fileName = $user->getKey().'.jpg';
 
                 // Otherwise we'll generate and retrieve the initials image contents.
-                $image = $this->initialcon->getImageData($user->initials, $user->getRecipientEmail(), $this->size);
+                $image = $this->initialcon->getImageData($user->initials, $user->email, $this->size);
             }
 
             // Generate the storage path.

@@ -37,7 +37,6 @@ class Update extends Job
      */
     public function handle()
     {
-        $this->inquiry->category_id = $this->request->input('category_id', $this->inquiry->category_id);
         $this->inquiry->title = $this->request->input('title', $this->inquiry->title);
         $this->inquiry->description = $this->request->input('description', $this->inquiry->description);
 
