@@ -16,8 +16,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(Gate $gate)
     {
-        $this->policies = config('authorization.policies');
-
         parent::registerPolicies($gate);
     }
 }

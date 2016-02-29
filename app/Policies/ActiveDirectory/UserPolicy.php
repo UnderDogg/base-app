@@ -14,7 +14,7 @@ class UserPolicy
      *
      * @return bool
      */
-    public function index(User $user)
+    public static function index(User $user)
     {
         return $user->can('ad.users.index');
     }
@@ -27,7 +27,7 @@ class UserPolicy
      *
      * @return bool
      */
-    public function store(User $user)
+    public static function store(User $user)
     {
         return $user->can('ad.users.import');
     }

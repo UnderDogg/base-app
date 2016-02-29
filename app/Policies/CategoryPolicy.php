@@ -13,7 +13,7 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function index(User $user)
+    public static function index(User $user)
     {
         return $user->can('categories.index');
     }
@@ -25,7 +25,7 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function edit(User $user)
+    public static function edit(User $user)
     {
         return $user->can('categories.edit');
     }
@@ -37,9 +37,9 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function update(User $user)
+    public static function update(User $user)
     {
-        return $this->edit($user);
+        return self::edit($user);
     }
 
     /**
@@ -49,7 +49,7 @@ class CategoryPolicy
      *
      * @return bool
      */
-    public function destroy(User $user)
+    public static function destroy(User $user)
     {
         return $user->can('categories.destroy');
     }

@@ -62,26 +62,26 @@
 
     <div class="card-actions pull-right">
 
-        @can('edit', $issue)
-        <a
-                class="btn btn-default btn-sm"
-                href="{{ route('issues.edit', [$issue->getKey()]) }}">
-            <i class="fa fa-edit"></i>
-            Edit
-        </a>
-        @endcan
+        @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
+            <a
+                    class="btn btn-default btn-sm"
+                    href="{{ route('issues.edit', [$issue->getKey()]) }}">
+                <i class="fa fa-edit"></i>
+                Edit
+            </a>
+        @endif
 
-        @can('destroy', $issue)
-        <a
-                class="btn btn-default btn-sm"
-                data-post="DELETE"
-                data-title="Delete Ticket?"
-                data-message="Are you sure you want to delete this ticket?"
-                href="{{ route('issues.destroy', [$issue->getKey()]) }}">
-            <i class="fa fa-times"></i>
-            Delete
-        </a>
-        @endcan
+        @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
+            <a
+                    class="btn btn-default btn-sm"
+                    data-post="DELETE"
+                    data-title="Delete Ticket?"
+                    data-message="Are you sure you want to delete this ticket?"
+                    href="{{ route('issues.destroy', [$issue->getKey()]) }}">
+                <i class="fa fa-times"></i>
+                Delete
+            </a>
+        @endif
 
         @include('pages.issues._form-labels')
 

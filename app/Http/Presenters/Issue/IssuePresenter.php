@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
+use App\Policies\IssuePolicy;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -32,9 +33,10 @@ class IssuePresenter extends Presenter
         $issue = $this->applyPolicy($issue);
 
         $label = request('label');
+        $resolution = request('resolution');
 
         // Filter issues with the specified request label.
-        $issue->with($with)->label($label)->latest();
+        $issue->with($with)->label($label)->hasResolution($resolution)->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue, $closure) {
             if ($closure instanceof Closure) {
@@ -168,7 +170,7 @@ class IssuePresenter extends Presenter
 
                 // If the user can add labels we'll allow them to
                 // add them during the creation of the ticket.
-                if (policy($issue)->addLabels(auth()->user())) {
+                if (IssuePolicy::addLabels(auth()->user())) {
                     $labels = Label::all()->pluck('display', 'id');
 
                     $this->labelField($fieldset, $labels);
@@ -176,7 +178,7 @@ class IssuePresenter extends Presenter
 
                 // If the user can add users we'll allow them to
                 // add them during the creation of the ticket.
-                if (policy($issue)->addUsers(auth()->user())) {
+                if (IssuePolicy::addUsers(auth()->user())) {
                     $labels = User::all()->pluck('fullname', 'id');
 
                     $this->userField($fieldset, $labels);
@@ -396,15 +398,9 @@ class IssuePresenter extends Presenter
      */
     protected function applyPolicy($issue)
     {
-        if ($issue instanceof Builder) {
-            $model = $issue->getModel();
-        } else {
-            $model = $issue;
-        }
-
         // Limit the view if the user isn't
         // allowed to view all issues.
-        if (!policy($model)->viewAll(auth()->user())) {
+        if (!IssuePolicy::viewAll(auth()->user())) {
             $issue->where('user_id', auth()->user()->getKey());
         }
 

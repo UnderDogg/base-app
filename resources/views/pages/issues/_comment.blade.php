@@ -32,27 +32,26 @@
     </div>
 
     <div class="card-actions pull-right">
-        @can('edit', $comment)
-            <a
-                    class="btn btn-default btn-sm"
-                    href="{{ $actions['edit'] }}">
-                <i class="fa fa-edit"></i>
-                Edit
-            </a>
-        @endcan
+        @if(\App\Policies\IssueCommentPolicy::edit(auth()->user(), $issue, $comment))
+        <a
+                class="btn btn-default btn-sm"
+                href="{{ route('issues.comments.edit', [$comment->pivot->issue_id, $comment->getKey()]) }}">
+            <i class="fa fa-edit"></i>
+            Edit
+        </a>
+        @endif
 
-        @can('destroy', $comment)
+        @if(\App\Policies\IssueCommentPolicy::destroy(auth()->user(), $issue, $comment))
             <a
                     class="btn btn-default btn-sm"
                     data-post="DELETE"
                     data-title="Delete Comment?"
                     data-message="Are you sure you want to delete this comment?"
-                    href="{{ $actions['destroy'] }}">
+                    href="{{ route('issues.comments.destroy', [$comment->pivot->issue_id, $comment->getKey()]) }}">
                 <i class="fa fa-times"></i>
                 Delete
             </a>
-        @endcan
-
+        @endif
     </div>
 
     <div class="clearfix"></div>

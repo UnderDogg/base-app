@@ -14,7 +14,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function viewAll(User $user)
+    public static function viewAll(User $user)
     {
         return $user->can('inquiries.index');
     }
@@ -27,7 +27,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function approve(User $user)
+    public static function approve(User $user)
     {
         return $user->can('inquiries.approve');
     }
@@ -42,7 +42,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function open(User $user)
+    public static function open(User $user)
     {
         return $user->can('inquiries.open');
     }
@@ -58,7 +58,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function close(User $user, Inquiry $inquiry)
+    public static function close(User $user, Inquiry $inquiry)
     {
         return $user->can('inquiries.close') || $user->getKey() === $inquiry->user_id;
     }
@@ -72,7 +72,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function show(User $user, Inquiry $inquiry)
+    public static function show(User $user, Inquiry $inquiry)
     {
         return $user->can('inquiries.show') || $user->getKey() === $inquiry->user_id;
     }
@@ -86,7 +86,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function edit(User $user, Inquiry $inquiry)
+    public static function edit(User $user, Inquiry $inquiry)
     {
         return $user->can('inquiries.edit') || $user->getKey() === $inquiry->user_id;
     }
@@ -100,9 +100,9 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function update(User $user, Inquiry $inquiry)
+    public static function update(User $user, Inquiry $inquiry)
     {
-        return $this->edit($user, $inquiry);
+        return self::edit($user, $inquiry);
     }
 
     /**
@@ -114,7 +114,7 @@ class InquiryPolicy
      *
      * @return bool
      */
-    public function destroy(User $user, Inquiry $inquiry)
+    public static function destroy(User $user, Inquiry $inquiry)
     {
         return $user->can('inquiries.destroy') || $user->getKey() === $inquiry->user_id;
     }

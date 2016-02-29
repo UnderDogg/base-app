@@ -11,6 +11,7 @@ use App\Jobs\Issue\Update;
 use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
+use App\Policies\IssuePolicy;
 use App\Processors\Processor;
 
 class IssueProcessor extends Processor
@@ -117,20 +118,22 @@ class IssueProcessor extends Processor
         $issue = $this->issue->with($with)->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            // Retrieve the issue resolution if there is one.
+            $resolution = $issue->comments->first(function ($key, Comment $comment) {
+                return $comment->resolution;
+            });
 
-        // Retrieve the issue resolution if there is one.
-        $resolution = $issue->comments->first(function ($key, Comment $comment) {
-            return $comment->resolution;
-        });
+            $formComment = $this->presenter->formComment($issue);
 
-        $formComment = $this->presenter->formComment($issue);
+            $formLabels = $this->presenter->formLabels($issue);
 
-        $formLabels = $this->presenter->formLabels($issue);
+            $formUsers = $this->presenter->formUsers($issue);
 
-        $formUsers = $this->presenter->formUsers($issue);
+            return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
+        }
 
-        return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
+        $this->unauthorized();
     }
 
     /**
@@ -146,11 +149,13 @@ class IssueProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $form = $this->presenter->form($issue);
 
-        $form = $this->presenter->form($issue);
+            return view('pages.issues.edit', compact('form'));
+        }
 
-        return view('pages.issues.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -167,9 +172,11 @@ class IssueProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::update(auth()->user(), $issue)) {
+            return $this->dispatch(new Update($request, $issue));
+        }
 
-        return $this->dispatch(new Update($request, $issue));
+        $this->unauthorized();
     }
 
     /**
@@ -185,9 +192,11 @@ class IssueProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::destroy(auth()->user(), $issue)) {
+            return $issue->delete();
+        }
 
-        return $issue->delete();
+        $this->unauthorized();
     }
 
     /**
@@ -203,9 +212,11 @@ class IssueProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::close(auth()->user(), $issue)) {
+            return $this->dispatch(new Close($issue));
+        }
 
-        return $this->dispatch(new Close($issue));
+        $this->unauthorized();
     }
 
     /**
@@ -221,8 +232,10 @@ class IssueProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         // Check user authorization.
-        $this->authorize($issue);
+        if (IssuePolicy::open(auth()->user())) {
+            return $this->dispatch(new Open($issue));
+        }
 
-        return $this->dispatch(new Open($issue));
+        $this->unauthorized();
     }
 }

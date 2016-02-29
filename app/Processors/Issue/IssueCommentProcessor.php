@@ -5,6 +5,7 @@ namespace App\Processors\Issue;
 use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Models\Issue;
+use App\Policies\IssueCommentPolicy;
 use App\Processors\Processor;
 
 class IssueCommentProcessor extends Processor
@@ -41,23 +42,26 @@ class IssueCommentProcessor extends Processor
      */
     public function store(IssueCommentRequest $request, $id)
     {
+        /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue->comments()->getRelated());
+        if (IssueCommentPolicy::create(auth()->user(), $issue)) {
+            $attributes = [
+                'content' => $request->input('content'),
+                'user_id' => auth()->user()->getAuthIdentifier(),
+            ];
 
-        $attributes = [
-            'content' => $request->input('content'),
-            'user_id' => auth()->user()->getAuthIdentifier(),
-        ];
+            $resolution = $request->has('resolution');
 
-        $resolution = $request->has('resolution');
+            // Make sure we only allow one comment resolution
+            if ($issue->hasCommentResolution()) {
+                $resolution = false;
+            }
 
-        // Make sure we only allow one comment resolution
-        if ($issue->hasCommentResolution()) {
-            $resolution = false;
+            return $issue->comments()->create($attributes, compact('resolution'));
         }
 
-        return $issue->comments()->create($attributes, compact('resolution'));
+        $this->unauthorized();
     }
 
     /**
@@ -72,15 +76,18 @@ class IssueCommentProcessor extends Processor
      */
     public function edit($id, $commentId)
     {
+        /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
         $comment = $issue->comments()->findOrFail($commentId);
 
-        $this->authorize($comment);
+        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
+            $form = $this->presenter->form($issue, $comment);
 
-        $form = $this->presenter->form($issue, $comment);
+            return view('pages.issues.comments.edit', compact('form'));
+        }
 
-        return view('pages.issues.comments.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -94,22 +101,25 @@ class IssueCommentProcessor extends Processor
      */
     public function update(IssueCommentRequest $request, $id, $commentId)
     {
+        /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
         $comment = $issue->comments()->findOrFail($commentId);
 
-        $this->authorize($comment);
+        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
+            $comment->content = $request->input('content', $comment->content);
 
-        $comment->content = $request->input('content', $comment->content);
+            $resolution = $request->input('resolution', false);
 
-        $resolution = $request->input('resolution', false);
+            // Make sure we only allow one comment resolution
+            if (!$issue->hasCommentResolution() || $comment->resolution) {
+                $issue->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
+            }
 
-        // Make sure we only allow one comment resolution
-        if (!$issue->hasCommentResolution() || $comment->resolution) {
-            $issue->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
+            return $comment->save();
         }
 
-        return $comment->save();
+        $this->unauthorized();
     }
 
     /**
@@ -122,14 +132,18 @@ class IssueCommentProcessor extends Processor
      */
     public function destroy($id, $commentId)
     {
+        /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
         $comment = $issue->comments()->findOrFail($commentId);
 
-        $this->authorize($comment);
+        if (IssueCommentPolicy::destroy(auth()->user(), $issue, $comment)) {
 
-        $issue->comments()->detach($comment);
+            $issue->comments()->detach($comment);
 
-        return $comment->delete();
+            return $comment->delete();
+        }
+
+        $this->unauthorized();
     }
 }

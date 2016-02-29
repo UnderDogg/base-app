@@ -11,7 +11,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function index(User $user)
+    public static function index(User $user)
     {
         return $user->can('computers.index');
     }
@@ -21,7 +21,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function create(User $user)
+    public static function create(User $user)
     {
         return $user->can('computers.create');
     }
@@ -31,9 +31,9 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function store(User $user)
+    public static function store(User $user)
     {
-        return $this->create($user);
+        return self::create($user);
     }
 
     /**
@@ -41,7 +41,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function show(User $user)
+    public static function show(User $user)
     {
         return $user->can('computers.show');
     }
@@ -51,7 +51,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function edit(User $user)
+    public static function edit(User $user)
     {
         return $user->can('computers.edit');
     }
@@ -61,9 +61,9 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function update(User $user)
+    public static function update(User $user)
     {
-        return $this->edit($user);
+        return self::edit($user);
     }
 
     /**
@@ -71,7 +71,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function destroy(User $user)
+    public static function destroy(User $user)
     {
         return $user->can('computers.destroy');
     }

@@ -14,7 +14,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function index(User $user)
+    public static function index(User $user)
     {
         return $user->can('ad.computers.index');
     }
@@ -27,7 +27,7 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function store(User $user)
+    public static function store(User $user)
     {
         return $user->can('ad.computers.import');
     }
@@ -40,8 +40,8 @@ class ComputerPolicy
      *
      * @return bool
      */
-    public function storeAll(User $user)
+    public static function storeAll(User $user)
     {
-        return $this->store($user);
+        return self::store($user);
     }
 }

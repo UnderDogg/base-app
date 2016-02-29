@@ -13,7 +13,7 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function index(User $user)
+    public static function index(User $user)
     {
         return $user->can('services.records.index');
     }
@@ -25,7 +25,7 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function create(User $user)
+    public static function create(User $user)
     {
         return $user->can('services.records.create');
     }
@@ -37,9 +37,9 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function store(User $user)
+    public static function store(User $user)
     {
-        return $this->create($user);
+        return self::create($user);
     }
 
     /**
@@ -49,7 +49,7 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function show(User $user)
+    public static function show(User $user)
     {
         return $user->can('services.records.show');
     }
@@ -61,7 +61,7 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function edit(User $user)
+    public static function edit(User $user)
     {
         return $user->can('services.records.edit');
     }
@@ -73,9 +73,9 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function update(User $user)
+    public static function update(User $user)
     {
-        return $this->edit($user);
+        return self::edit($user);
     }
 
     /**
@@ -85,7 +85,7 @@ class ServiceRecordPolicy
      *
      * @return bool
      */
-    public function destroy(User $user)
+    public static function destroy(User $user)
     {
         return $user->can('services.records.destroy');
     }

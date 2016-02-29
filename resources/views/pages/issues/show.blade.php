@@ -21,10 +21,7 @@
 
     <!-- Comments -->
     @foreach($issue->comments as $comment)
-        @decorator('comment', $comment, [
-            'edit'      => route('issues.comments.edit', [$comment->pivot->issue_id, $comment->getKey()]),
-            'destroy'   => route('issues.comments.destroy', [$comment->pivot->issue_id, $comment->getKey()]),
-        ])
+        @include('pages.issues._comment', compact($issue, $comment))
     @endforeach
 
     @if($issue->closed)
@@ -50,7 +47,7 @@
 
         @if($issue->isOpen())
 
-            @can('close', $issue)
+            @if(\App\Policies\IssuePolicy::close(auth()->user(), $issue))
 
                 <a
                         data-post="POST"
@@ -63,11 +60,11 @@
                     Close
                 </a>
 
-            @endcan
+            @endif
 
         @else
 
-            @can('open', $issue)
+            @if(\App\Policies\IssuePolicy::open(auth()->user(), $issue))
 
                 <a
                         data-post="POST"
@@ -80,7 +77,7 @@
                     Re-Open Ticket
                 </a>
 
-            @endcan
+            @endif
 
         @endif
 

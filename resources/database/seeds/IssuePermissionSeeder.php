@@ -71,5 +71,21 @@ class IssuePermissionSeeder extends Seeder
             'name' => 'issues.attachments.download',
             'label' => 'Download Issue Attachments',
         ]);
+
+        // Issue Comment Permissions
+        Permission::firstOrCreate([
+            'name' => 'issues.comments.create',
+            'label' => 'Create Issue Comments',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'issues.comments.edit',
+            'label' => 'Edit Issue Comments',
+        ]);
+
+        Permission::firstOrCreate([
+            'name' => 'issues.comments.destroy',
+            'label' => 'Delete Issue Comments',
+        ]);
     }
 }

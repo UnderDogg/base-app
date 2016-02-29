@@ -1,28 +1,29 @@
-@can('addLabels', $issue)
+@if(\App\Policies\IssuePolicy::addLabels(auth()->user(), $issue))
 
-<a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#label-modal">
-    <i class="fa fa-tag"></i>
-    Labels
-</a>
+    <a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#label-modal">
+        <i class="fa fa-tag"></i>
+        Labels
+    </a>
 
-<div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">
+    <div class="modal fade" id="label-modal" tabindex="-1" role="dialog" aria-labelledby="label-modal">
 
-    <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document">
 
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <div class="modal-header">
+                <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Labels</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Labels</h4>
+
+                </div>
+
+                {!! $formLabels !!}
 
             </div>
-
-            {!! $formLabels !!}
 
         </div>
 
     </div>
 
-</div>
-@endcan
+@endif

@@ -14,7 +14,7 @@ class IssueAttachmentPolicy
      *
      * @return bool
      */
-    public function show(User $user)
+    public static function show(User $user)
     {
         return $user->can('issue.attachments.show');
     }
@@ -27,7 +27,7 @@ class IssueAttachmentPolicy
      *
      * @return bool
      */
-    public function edit(User $user)
+    public static function edit(User $user)
     {
         return $user->can('issues.attachments.edit');
     }
@@ -40,9 +40,9 @@ class IssueAttachmentPolicy
      *
      * @return bool
      */
-    public function update(User $user)
+    public static function update(User $user)
     {
-        return $this->edit($user);
+        return self::edit($user);
     }
 
     /**
@@ -53,7 +53,7 @@ class IssueAttachmentPolicy
      *
      * @return bool
      */
-    public function destroy(User $user)
+    public static function destroy(User $user)
     {
         return $user->can('issues.attachments.destroy');
     }
@@ -66,7 +66,7 @@ class IssueAttachmentPolicy
      *
      * @return bool
      */
-    public function download(User $user)
+    public static function download(User $user)
     {
         return $user->can('issues.attachments.download');
     }

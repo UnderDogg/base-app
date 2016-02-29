@@ -15,7 +15,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function viewAll(User $user)
+    public static function viewAll(User $user)
     {
         return $user->can('issues.index.all');
     }
@@ -29,7 +29,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function show(User $user, Issue $issue)
+    public static function show(User $user, Issue $issue)
     {
         return $user->can('issues.show') || $user->getKey() === $issue->user_id;
     }
@@ -43,7 +43,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function edit(User $user, Issue $issue)
+    public static function edit(User $user, Issue $issue)
     {
         return $user->can('issues.edit') || $user->getKey() === $issue->user_id;
     }
@@ -57,9 +57,9 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function update(User $user, Issue $issue)
+    public static function update(User $user, Issue $issue)
     {
-        return $this->edit($user, $issue);
+        return self::edit($user, $issue);
     }
 
     /**
@@ -72,7 +72,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function open(User $user)
+    public static function open(User $user)
     {
         return $user->can('issues.open');
     }
@@ -88,7 +88,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function close(User $user, Issue $issue)
+    public static function close(User $user, Issue $issue)
     {
         return $user->can('issues.close') || $user->getKey() === $issue->user_id;
     }
@@ -102,7 +102,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function destroy(User $user, Issue $issue)
+    public static function destroy(User $user, Issue $issue)
     {
         return $user->can('issues.destroy') || $user->getKey() === $issue->user_id;
     }
@@ -115,7 +115,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function addLabels(User $user)
+    public static function addLabels(User $user)
     {
         return $user->can('issues.labels.store');
     }
@@ -128,7 +128,7 @@ class IssuePolicy
      *
      * @return bool
      */
-    public function addUsers(User $user)
+    public static function addUsers(User $user)
     {
         return $user->can('issues.users.store');
     }

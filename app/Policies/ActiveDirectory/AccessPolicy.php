@@ -15,7 +15,7 @@ class AccessPolicy
      *
      * @return bool
      */
-    public function access(User $user)
+    public static function access(User $user)
     {
         return $user->can('ad.access');
     }

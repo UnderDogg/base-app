@@ -156,6 +156,25 @@ class Issue extends Model
     }
 
     /**
+     * Scopes the specified query by a labels name.
+     *
+     * @param Builder $query
+     * @param string  $resolution
+     *
+     * @return Builder
+     */
+    public function scopeHasResolution(Builder $query, $resolution = '')
+    {
+        if (!empty($resolution)) {
+            $query->whereHas('comments', function (Builder $query) use ($resolution) {
+                return $query->where(['resolution' => ($resolution === 'yes')]);
+            });
+        }
+
+        return $query;
+    }
+
+    /**
      * Returns the issues comment resolution.
      *
      * @return null|Comment

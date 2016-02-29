@@ -1,28 +1,29 @@
-@can('addUsers', $issue)
+@if(\App\Policies\IssuePolicy::addUsers(auth()->user(), $issue))
 
-<a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#users-modal">
-    <i class="fa fa-users"></i>
-    Users
-</a>
+    <a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#users-modal">
+        <i class="fa fa-users"></i>
+        Users
+    </a>
 
-<div class="modal fade" id="users-modal" tabindex="-1" role="dialog" aria-labelledby="users-modal">
+    <div class="modal fade" id="users-modal" tabindex="-1" role="dialog" aria-labelledby="users-modal">
 
-    <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document">
 
-        <div class="modal-content">
+            <div class="modal-content">
 
-            <div class="modal-header">
+                <div class="modal-header">
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Users Who Are Affected</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Users Who Are Affected</h4>
+
+                </div>
+
+                {!! $formUsers !!}
 
             </div>
-
-            {!! $formUsers !!}
 
         </div>
 
     </div>
 
-</div>
-@endcan
+@endif
