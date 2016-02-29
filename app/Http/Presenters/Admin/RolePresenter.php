@@ -91,7 +91,7 @@ class RolePresenter extends Presenter
                         // aren't apart of the current role.
                         return User::whereDoesntHave('roles', function (Builder $builder) use ($role) {
                             $builder->whereName($role->name);
-                        })->get()->pluck('fullname', 'id');
+                        })->get()->pluck('name', 'id');
                     })
                     ->attributes([
                         'class'    => 'select-users',
@@ -206,14 +206,14 @@ class RolePresenter extends Presenter
      */
     public function tableUsers(Role $role)
     {
-        $users = $role->users()->orderBy('fullname');
+        $users = $role->users()->orderBy('name');
 
         return $this->table->of('roles.users', function (TableGrid $table) use ($role, $users) {
             $table->with($users)->paginate(10);
 
             $table->pageName = 'users';
 
-            $table->column('fullname', function (Column $column) {
+            $table->column('name', function (Column $column) {
                 $column->value = function (User $user) {
                     return link_to_route('admin.users.show', $user->name, [$user->getKey()]);
                 };

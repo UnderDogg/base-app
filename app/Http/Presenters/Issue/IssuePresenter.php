@@ -179,7 +179,7 @@ class IssuePresenter extends Presenter
                 // If the user can add users we'll allow them to
                 // add them during the creation of the ticket.
                 if (IssuePolicy::addUsers(auth()->user())) {
-                    $labels = User::all()->pluck('fullname', 'id');
+                    $labels = User::all()->pluck('name', 'id');
 
                     $this->userField($fieldset, $labels);
                 }
@@ -255,7 +255,7 @@ class IssuePresenter extends Presenter
     public function formUsers(Issue $issue)
     {
         return $this->form->of('issue.users', function (FormGrid $form) use ($issue) {
-            $users = User::all()->pluck('fullname', 'id');
+            $users = User::all()->pluck('name', 'id');
 
             $form->setup($this, route('issues.users.store', [$issue->getKey()]), $issue);
 

@@ -136,7 +136,7 @@ class UserPresenter extends Presenter
         return $this->table->of('users', function (TableGrid $table) use ($user) {
             $table->with($user)->paginate($this->perPage);
 
-            $table->column('fullname', function (Column $column) {
+            $table->column('name', function (Column $column) {
                 $column->value = function (User $user) {
                     return link_to_route('admin.users.show', $user->name, [$user->getKey()]);
                 };
