@@ -23,11 +23,11 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->fullname }}'s Profile Avatar"/>
+        <img src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 
-            <h3>{{ $issue->user->fullname }}</h3>
+            <h3>{{ $issue->user->name }}</h3>
 
             <span>{!! $issue->created_at_human !!}</span>
 

@@ -125,7 +125,7 @@ class UserController extends Controller
         $user = $this->processor->import($request);
 
         if ($user instanceof User) {
-            $name = $user->fullname;
+            $name = $user->name;
 
             flash()->success('Success!', "Successfully added user $name.");
 

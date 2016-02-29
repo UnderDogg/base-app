@@ -172,7 +172,7 @@
                     <li class="dropdown {{ active()->routes(['profile.*', 'passwords.*', 'security-questions.*']) }}" id="user-menu">
 
                         <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            {{ auth()->user()->fullname }}
+                            {{ auth()->user()->name }}
                             <i class="fa fa-caret-down"></i>
                         </a>
 

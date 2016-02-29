@@ -32,7 +32,7 @@ class ProfilePresenter extends Presenter
                 $fieldset->control('input:text', 'full_name')
                     ->label('Full Name')
                     ->value(function (User $user) {
-                        return $user->fullname;
+                        return $user->name;
                     })
                     ->attributes([
                         'placeholder' => 'Your Full Name',

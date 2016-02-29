@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Migrations\Migration;
 
-class OrchestraAuthCreateUsersTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,17 +14,11 @@ class OrchestraAuthCreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->string('email');
+            $table->string('name');
+            $table->string('email')->unique();
             $table->string('password');
-
-            $table->string('fullname', 100)->nullable();
             $table->rememberToken();
-
-            $table->nullableTimestamps();
-            $table->softDeletes();
-
-            $table->unique('email');
+            $table->timestamps();
         });
     }
 
@@ -36,6 +29,6 @@ class OrchestraAuthCreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::drop('users');
     }
 }

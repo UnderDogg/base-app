@@ -27,11 +27,6 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            Middleware\VerifyCsrfToken::class,
             Middleware\PjaxMiddleware::class,
             \Adldap\Laravel\Middleware\WindowsAuthenticate::class,
         ],
@@ -49,8 +44,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth'                            => Middleware\Authenticate::class,
         'auth.basic'                      => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'backend'                         => \Orchestra\Foundation\Http\Middleware\UseBackendTheme::class,
-        'can'                             => \Orchestra\Foundation\Http\Middleware\Can::class,
         'guest'                           => Middleware\RedirectIfAuthenticated::class,
         'throttle'                        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'passwords.locked'                => Middleware\PasswordFolderLocked::class,

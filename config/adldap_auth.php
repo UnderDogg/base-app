@@ -137,7 +137,7 @@ return [
 
     'sync_attributes' => [
 
-        'fullname' => 'cn',
+        'name' => 'cn',
 
     ],
 

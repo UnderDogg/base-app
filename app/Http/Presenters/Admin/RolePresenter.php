@@ -215,7 +215,7 @@ class RolePresenter extends Presenter
 
             $table->column('fullname', function (Column $column) {
                 $column->value = function (User $user) {
-                    return link_to_route('admin.users.show', $user->fullname, [$user->getKey()]);
+                    return link_to_route('admin.users.show', $user->name, [$user->getKey()]);
                 };
             });
 

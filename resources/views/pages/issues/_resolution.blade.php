@@ -15,7 +15,7 @@
 
         <div class="card-heading-header">
 
-            <h3>{{ $comment->user->fullname }}</h3>
+            <h3>{{ $comment->user->name }}</h3>
 
             <span>{!! $comment->created_at_human !!}</span>
 

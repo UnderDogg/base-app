@@ -269,7 +269,7 @@ class Issue extends Model
      */
     public function getTagLine()
     {
-        $user = $this->user->fullname;
+        $user = $this->user->name;
 
         $daysAgo = $this->created_at_human;
 
@@ -289,7 +289,7 @@ class Issue extends Model
      */
     public function getCreatedAtTagLine()
     {
-        $user = $this->user->fullname;
+        $user = $this->user->name;
 
         $daysAgo = $this->created_at_human;
 
@@ -318,7 +318,7 @@ class Issue extends Model
         $user = $this->closedByUser;
 
         if ($user instanceof User) {
-            $name = $user->fullname;
+            $name = $user->name;
 
             $line = "Closed by $name";
         } else {

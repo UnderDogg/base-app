@@ -71,7 +71,7 @@ class Comment extends Model
      */
     public function getCreatedAtTagLineAttribute()
     {
-        $user = $this->user->fullname;
+        $user = $this->user->name;
 
         $daysAgo = $this->created_at_human;
 

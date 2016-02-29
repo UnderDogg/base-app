@@ -11,11 +11,11 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$inquiry->user->getKey()]) }}" alt="{{ $inquiry->user->fullname }}'s Profile Avatar"/>
+        <img src="{{ route('profile.avatar.download', [$inquiry->user->getKey()]) }}" alt="{{ $inquiry->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 
-            <h3>{{ $inquiry->user->fullname }}</h3>
+            <h3>{{ $inquiry->user->name }}</h3>
 
             <span>{!! $inquiry->created_at_human !!}</span>
 

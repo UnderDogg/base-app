@@ -150,7 +150,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     {
         $color = 'primary';
 
-        $name = HTML::entities($this->fullname);
+        $name = HTML::entities($this->name);
 
         $icon = HTML::create('i', '', ['class' => 'fa fa-user']);
 

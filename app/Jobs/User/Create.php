@@ -26,20 +26,20 @@ class Create extends Job
      *
      * @var null|string
      */
-    protected $fullName;
+    protected $name;
 
     /**
      * Constructor.
      *
      * @param string $email
      * @param string $password
-     * @param string $fullName
+     * @param string $name
      */
-    public function __construct($email, $password, $fullName = null)
+    public function __construct($email, $password, $name = null)
     {
         $this->email = $email;
         $this->password = $password;
-        $this->fullName = $fullName;
+        $this->name = $name;
     }
 
     /**
@@ -57,7 +57,7 @@ class Create extends Job
             $user = $model->newInstance();
 
             $user->email = $this->email;
-            $user->fullname = $this->fullName;
+            $user->name = $this->name;
 
             if ($user->hasSetMutator('password')) {
                 // If the user model has a password set mutator, we'll assume
