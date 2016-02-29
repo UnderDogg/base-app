@@ -12,53 +12,53 @@ class GuidePermissionSeeder extends Seeder
     {
         // Guide Permissions
         Permission::firstOrCreate([
-            'name' => 'guides.index.unpublished',
+            'name'  => 'guides.index.unpublished',
             'label' => 'View Unpublished Guides',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.create',
+            'name'  => 'guides.create',
             'label' => 'Create Guides',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.edit',
+            'name'  => 'guides.edit',
             'label' => 'Edit Guides',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.destroy',
+            'name'  => 'guides.destroy',
             'label' => 'Delete Guides',
         ]);
 
         // Guide Step Permissions
         Permission::firstOrCreate([
-            'name' => 'guides.steps.index',
+            'name'  => 'guides.steps.index',
             'label' => 'View Guide Steps',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.steps.create',
+            'name'  => 'guides.steps.create',
             'label' => 'Create Guide Steps',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.steps.edit',
+            'name'  => 'guides.steps.edit',
             'label' => 'Edit Guide Steps',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.steps.images.create',
+            'name'  => 'guides.steps.images.create',
             'label' => 'Create Guide Steps by Images',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.steps.move',
+            'name'  => 'guides.steps.move',
             'label' => 'Move Guide Steps',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'guides.steps.destroy',
+            'name'  => 'guides.steps.destroy',
             'label' => 'Delete Guide Steps',
         ]);
     }

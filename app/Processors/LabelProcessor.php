@@ -53,7 +53,6 @@ class LabelProcessor extends Processor
     public function create()
     {
         if (LabelPolicy::create(auth()->user())) {
-
             $form = $this->presenter->form($this->label);
 
             return view('pages.labels.create', compact('form'));

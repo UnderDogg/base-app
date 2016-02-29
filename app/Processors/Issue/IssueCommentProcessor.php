@@ -138,7 +138,6 @@ class IssueCommentProcessor extends Processor
         $comment = $issue->comments()->findOrFail($commentId);
 
         if (IssueCommentPolicy::destroy(auth()->user(), $issue, $comment)) {
-
             $issue->comments()->detach($comment);
 
             return $comment->delete();

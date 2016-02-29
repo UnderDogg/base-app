@@ -11,53 +11,53 @@ class InquiryPermissionSeeder extends Seeder
     public function run()
     {
         Permission::firstOrCreate([
-            'name' => 'inquiries.index',
+            'name'  => 'inquiries.index',
             'label' => 'View All Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.approve',
+            'name'  => 'inquiries.approve',
             'label' => 'Approve Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.open',
+            'name'  => 'inquiries.open',
             'label' => 'Re-Open Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.close',
+            'name'  => 'inquiries.close',
             'label' => 'Close Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.show',
+            'name'  => 'inquiries.show',
             'label' => 'View Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.edit',
+            'name'  => 'inquiries.edit',
             'label' => 'Edit Requests',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.destroy',
+            'name'  => 'inquiries.destroy',
             'label' => 'Delete Requests',
         ]);
 
         // Inquiry Comment Permissions
         Permission::firstOrCreate([
-            'name' => 'inquiries.comments.create',
+            'name'  => 'inquiries.comments.create',
             'label' => 'Create Request Comments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.comments.edit',
+            'name'  => 'inquiries.comments.edit',
             'label' => 'Edit Request Comments',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'inquiries.comments.destroy',
+            'name'  => 'inquiries.comments.destroy',
             'label' => 'Delete Request Comments',
         ]);
     }

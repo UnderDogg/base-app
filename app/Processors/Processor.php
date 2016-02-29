@@ -2,11 +2,9 @@
 
 namespace App\Processors;
 
-use App\Models\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Orchestra\Support\Facades\ACL;
 
 abstract class Processor
 {

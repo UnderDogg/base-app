@@ -8,7 +8,7 @@ use App\Models\Guide;
 use App\Models\GuideStep;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Upload  extends Job
+class Upload extends Job
 {
     /**
      * @var GuideStepImagesRequest

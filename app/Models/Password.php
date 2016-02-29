@@ -117,8 +117,6 @@ class Password extends Model
         if (!is_null($title)) {
             return $this->decrypt($title);
         }
-
-        return;
     }
 
     /**
@@ -133,8 +131,6 @@ class Password extends Model
         if (!is_null($website)) {
             return $this->decrypt($website);
         }
-
-        return;
     }
 
     /**
@@ -149,8 +145,6 @@ class Password extends Model
         if (!is_null($username)) {
             return $this->decrypt($username);
         }
-
-        return;
     }
 
     /**
@@ -165,8 +159,6 @@ class Password extends Model
         if (!is_null($password)) {
             return $this->decrypt($password);
         }
-
-        return;
     }
 
     /**
@@ -181,7 +173,5 @@ class Password extends Model
         if (!is_null($notes)) {
             return $this->decrypt($notes);
         }
-
-        return;
     }
 }

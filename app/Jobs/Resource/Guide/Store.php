@@ -3,8 +3,8 @@
 namespace App\Jobs\Resource\Guide;
 
 use App\Http\Requests\Resource\GuideRequest;
-use App\Models\Guide;
 use App\Jobs\Job;
+use App\Models\Guide;
 use Illuminate\Support\Str;
 
 class Store extends Job

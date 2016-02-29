@@ -74,8 +74,6 @@ class DrivePresenter extends Presenter
                 });
             });
         }
-
-        return;
     }
 
     /**

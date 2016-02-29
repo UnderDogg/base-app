@@ -5,7 +5,6 @@ namespace App\Tests;
 use App\Models\Password;
 use App\Models\PasswordFolder;
 use App\Models\User;
-use App\Tests\TestCase;
 
 class PasswordFolderTest extends TestCase
 {

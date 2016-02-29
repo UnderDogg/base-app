@@ -21,7 +21,7 @@ class GuideStepImagesRequest extends Request
             foreach ($images as $key => $image) {
                 // We need to go through each image and create
                 // a dot-notated rule for laravel's validation.
-                $rules['images.' . $key] = 'image';
+                $rules['images.'.$key] = 'image';
             }
 
             return $rules;

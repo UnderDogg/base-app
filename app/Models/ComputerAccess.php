@@ -94,8 +94,6 @@ class ComputerAccess extends Model
         if (!is_null($username)) {
             return $this->decrypt($username);
         }
-
-        return;
     }
 
     /**
@@ -110,7 +108,5 @@ class ComputerAccess extends Model
         if (!is_null($password)) {
             return $this->decrypt($password);
         }
-
-        return;
     }
 }

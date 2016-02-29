@@ -11,17 +11,17 @@ class CategoryPermissionSeeder extends Seeder
     public function run()
     {
         Permission::firstOrCreate([
-            'name' => 'categories.index',
+            'name'  => 'categories.index',
             'label' => 'View All Categories',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'categories.edit',
+            'name'  => 'categories.edit',
             'label' => 'Edit Categories',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'categories.destroy',
+            'name'  => 'categories.destroy',
             'label' => 'Delete Categories',
         ]);
     }

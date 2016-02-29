@@ -11,22 +11,22 @@ class LabelPermissionSeeder extends Seeder
     public function run()
     {
         Permission::firstOrCreate([
-            'name' => 'labels.index',
+            'name'  => 'labels.index',
             'label' => 'View All Labels',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'labels.create',
+            'name'  => 'labels.create',
             'label' => 'Create Labels',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'labels.edit',
+            'name'  => 'labels.edit',
             'label' => 'Edit Labels',
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'labels.destroy',
+            'name'  => 'labels.destroy',
             'label' => 'Delete Labels',
         ]);
     }
