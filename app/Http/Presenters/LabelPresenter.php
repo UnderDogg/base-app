@@ -3,6 +3,7 @@
 namespace App\Http\Presenters;
 
 use App\Models\Label;
+use Illuminate\Support\Facades\Gate;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -44,7 +45,7 @@ class LabelPresenter extends Presenter
 
             // Check if the current user has access to edit
             // labels before rendering the label as a link.
-            if (auth()->user()->can('labels.edit')) {
+            if (Gate::allows('labels.edit')) {
                 $table->column('edit', function (Column $column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.edit', 'Edit', [$label->getKey()], [
@@ -56,7 +57,7 @@ class LabelPresenter extends Presenter
 
             // Check if the current user has access to delete
             // labels before rendering the delete column.
-            if (auth()->user()->can('labels.destroy')) {
+            if (Gate::allows('labels.destroy')) {
                 $table->column('delete', function (Column $column) {
                     $column->value = function (Label $label) {
                         return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [

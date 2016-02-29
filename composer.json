@@ -7,7 +7,6 @@
     "require": {
         "php": ">=5.5.9",
         "orchestra/foundation"  : "3.2.*",
-        "orchestra/installer": "3.2.*",
         "stevebauman/revision": "1.1.*",
         "stevebauman/wmi": "1.1.*",
         "stevebauman/winperm": "1.0.*",

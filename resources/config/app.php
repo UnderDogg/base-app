@@ -160,11 +160,6 @@ return [
         Orchestra\Foundation\Providers\FoundationServiceProvider::class,
 
         /*
-         * Orchestra Platform Optional Service Providers...
-         */
-        Orchestra\Installation\InstallerServiceProvider::class,
-
-        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
