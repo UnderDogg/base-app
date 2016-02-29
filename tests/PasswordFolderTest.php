@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Tests;
-
 use App\Models\Password;
 use App\Models\PasswordFolder;
 use App\Models\User;
@@ -86,7 +84,7 @@ class PasswordFolderTest extends TestCase
 
         $user = User::first();
 
-        $folder = PasswordFolder::where('user_id', $user->id)->first();
+        $folder = PasswordFolder::where('user_id', $user->id)->firstOrFail();
 
         $password = factory(Password::class)->create([
             'folder_id' => $folder->getKey(),
