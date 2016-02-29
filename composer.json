@@ -6,7 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "orchestra/foundation"  : "3.2.*",
+        "laravel/framework": "5.2.*",
+        "laravie/html": "~5.2.1",
+        "orchestra/contracts": "~3.2.1",
+        "orchestra/support": "~3.2.0",
+        "orchestra/html": "~3.2.1",
+        "orchestra/view": "~3.2.0",
+        "predis/predis": "~1.0",
         "stevebauman/revision": "1.1.*",
         "stevebauman/wmi": "1.1.*",
         "stevebauman/winperm": "1.0.*",
@@ -32,7 +38,7 @@
     },
     "autoload": {
         "classmap": [
-            "resources/database"
+            "database"
         ],
         "files": [
           "app/helpers.php"
@@ -48,14 +54,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "php artisan clear-compiled",
-            "php artisan orchestra:assemble"
+            "php artisan clear-compiled"
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled"
-        ],
-        "post-update-cmd": [
-            "php artisan orchestra:assemble"
         ],
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""

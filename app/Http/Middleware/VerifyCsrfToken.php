@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Orchestra\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
 class VerifyCsrfToken extends BaseVerifier
 {

@@ -12,7 +12,7 @@
             </button>
 
             <a href="{{ route('welcome.index') }}" class="navbar-brand">
-                {{ memorize('site.name', 'Helpdesk') }}
+                Helpdesk
             </a>
 
         </div>

@@ -3,12 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Extension\Traits\DomainAwareTrait;
 
 class AppServiceProvider extends ServiceProvider
 {
-    use DomainAwareTrait;
-
     /**
      * Bootstrap any application services.
      *

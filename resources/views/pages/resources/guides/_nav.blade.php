@@ -13,14 +13,14 @@
                 Favorites
             </a>
         </li>
-    @endif
 
-    @if(\App\Policies\Resource\GuidePolicy::create(auth()->user()))
-        <li>
-            <a href="{{ route('resources.guides.create') }}">
-                <i class="fa fa-plus"></i> New Guide
-            </a>
-        </li>
+        @if(\App\Policies\Resource\GuidePolicy::create(auth()->user()))
+            <li>
+                <a href="{{ route('resources.guides.create') }}">
+                    <i class="fa fa-plus"></i> New Guide
+                </a>
+            </li>
+        @endif
     @endif
 
 </ul>

@@ -113,9 +113,12 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
+        Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -127,8 +130,11 @@ return [
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
 
         /*
          * Active Directory Providers...
@@ -139,25 +145,7 @@ return [
         /*
          * Orchestra Platform Service Providers...
          */
-        Orchestra\Asset\AssetServiceProvider::class,
-        Orchestra\Auth\AuthServiceProvider::class,
-        Orchestra\Authorization\AuthorizationServiceProvider::class,
         Orchestra\View\DecoratorServiceProvider::class,
-        Orchestra\Extension\ExtensionServiceProvider::class,
-        Orchestra\Html\HtmlServiceProvider::class,
-        Orchestra\Memory\MemoryServiceProvider::class,
-        Orchestra\Messages\MessagesServiceProvider::class,
-        Orchestra\Notifier\NotifierServiceProvider::class,
-        Orchestra\Optimize\OptimizeServiceProvider::class,
-        Orchestra\Auth\Passwords\PasswordResetServiceProvider::class,
-        Orchestra\Publisher\PublisherServiceProvider::class,
-        Orchestra\Foundation\Providers\SupportServiceProvider::class,
-        Orchestra\Translation\TranslationServiceProvider::class,
-        Orchestra\View\ViewServiceProvider::class,
-        Orchestra\Widget\WidgetServiceProvider::class,
-
-        Orchestra\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Orchestra\Foundation\Providers\FoundationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -165,11 +153,11 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\ExtensionServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\AdminRouteServiceProvider::class,
         App\Providers\DecoratorServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
+        App\Providers\HtmlServiceProvider::class,
 
         /*
          * Revision Provider.
@@ -231,7 +219,6 @@ return [
     'aliases' => [
 
         'App'        => Illuminate\Support\Facades\App::class,
-        'ACL'        => Orchestra\Support\Facades\ACL::class,
         'Artisan'    => Illuminate\Support\Facades\Artisan::class,
         'Asset'      => Orchestra\Support\Facades\Asset::class,
         'Auth'       => Illuminate\Support\Facades\Auth::class,
@@ -242,11 +229,11 @@ return [
         'Cookie'     => Illuminate\Support\Facades\Cookie::class,
         'Crypt'      => Illuminate\Support\Facades\Crypt::class,
         'DB'         => Illuminate\Support\Facades\DB::class,
+        'Decorator'  => Orchestra\Support\Facades\Decorator::class,
         'Eloquent'   => Illuminate\Database\Eloquent\Model::class,
         'Event'      => Illuminate\Support\Facades\Event::class,
         'File'       => Illuminate\Support\Facades\File::class,
         'Form'       => Orchestra\Support\Facades\Form::class,
-        'Foundation' => Orchestra\Support\Facades\Foundation::class,
         'Gate'       => Illuminate\Support\Facades\Gate::class,
         'Hash'       => Illuminate\Support\Facades\Hash::class,
         'HTML'       => Orchestra\Support\Facades\HTML::class,
@@ -254,11 +241,7 @@ return [
         'Lang'       => Illuminate\Support\Facades\Lang::class,
         'Log'        => Illuminate\Support\Facades\Log::class,
         'Mail'       => Illuminate\Support\Facades\Mail::class,
-        'Mailer'     => Orchestra\Support\Facades\Mail::class,
         'Memory'     => Orchestra\Support\Facades\Memory::class,
-        'Messages'   => Orchestra\Support\Facades\Messages::class,
-        'Meta'       => Orchestra\Support\Facades\Meta::class,
-        'Notifier'   => Orchestra\Support\Facades\Notifier::class,
         'Password'   => Illuminate\Support\Facades\Password::class,
         'Queue'      => Illuminate\Support\Facades\Queue::class,
         'Redirect'   => Illuminate\Support\Facades\Redirect::class,
@@ -270,7 +253,6 @@ return [
         'Session'    => Illuminate\Support\Facades\Session::class,
         'Storage'    => Illuminate\Support\Facades\Storage::class,
         'Table'      => Orchestra\Support\Facades\Table::class,
-        'Theme'      => Orchestra\Support\Facades\Theme::class,
         'URL'        => Illuminate\Support\Facades\URL::class,
         'Validator'  => Illuminate\Support\Facades\Validator::class,
         'View'       => Illuminate\Support\Facades\View::class,

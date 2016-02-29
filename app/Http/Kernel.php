@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use Orchestra\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
@@ -13,6 +13,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     /**
@@ -29,12 +34,6 @@ class Kernel extends HttpKernel
             Middleware\VerifyCsrfToken::class,
             Middleware\PjaxMiddleware::class,
             \Adldap\Laravel\Middleware\WindowsAuthenticate::class,
-        ],
-
-        'orchestra' => [
-            'web',
-            \Orchestra\Foundation\Http\Middleware\LoginAs::class,
-            \Orchestra\Foundation\Http\Middleware\UseBackendTheme::class,
         ],
 
         'api' => [

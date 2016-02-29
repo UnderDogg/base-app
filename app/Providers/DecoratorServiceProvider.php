@@ -22,6 +22,10 @@ class DecoratorServiceProvider extends ServiceProvider
             return view('components.closed', compact('model'));
         });
 
+        Decorator::macro('navbar', function ($navbar) {
+            return view('components.navbar', compact('navbar'));
+        });
+
         Decorator::macro('navbar.pills', function ($navbar) {
             return view('components.navbar-pills', compact('navbar'));
         });
