@@ -20,7 +20,7 @@ class InquiryCategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            Category::create([
+            Category::firstOrCreate([
                 'name'       => $category,
                 'belongs_to' => $belongsTo,
             ]);

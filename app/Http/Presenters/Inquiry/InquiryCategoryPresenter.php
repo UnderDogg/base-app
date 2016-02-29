@@ -4,6 +4,7 @@ namespace App\Http\Presenters\Inquiry;
 
 use App\Http\Presenters\Presenter;
 use App\Models\Category;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -132,6 +133,23 @@ class InquiryCategoryPresenter extends Presenter
                     ->attributes([
                         'placeholder' => 'Name of the Category',
                     ]);
+
+                $fieldset
+                    ->control('input:checkbox', 'manager', function (Field $field) use ($category) {
+                        $field->label = 'Manager Required?';
+
+                        $attributes = [
+                            'class' => 'switch-mark',
+                        ];
+
+                        if (is_array($category->options) && array_key_exists('manager', $category->options)) {
+                            if ($category->options['manager']) {
+                                $attributes['checked'] = true;
+                            }
+                        }
+
+                        $field->attributes = $attributes;
+                    });
             });
         });
     }

@@ -21,6 +21,13 @@ class Category extends Node
     protected $scoped = ['belongs_to'];
 
     /**
+     * The casted category attributes.
+     *
+     * @var array
+     */
+    protected $casts = ['options' => 'array'];
+
+    /**
      * Returns the complete nested set table in a nested list.
      *
      * @param string $belongsTo

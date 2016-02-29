@@ -46,6 +46,9 @@ class Store extends Job
     {
         $this->category->name = $this->request->input('name');
         $this->category->belongs_to = 'inquiries';
+        $this->category->options = [
+            'manager' => ($this->request->has('manager')),
+        ];
 
         if ($this->request->has('parent')) {
             $this->category->parent_id = $this->request->input('parent');

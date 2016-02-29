@@ -35,6 +35,16 @@ class Inquiry extends Model
     }
 
     /**
+     * The hasOne category relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'category_id');
+    }
+
+    /**
      * Returns true / false if the current inquiry is open.
      *
      * @return bool
