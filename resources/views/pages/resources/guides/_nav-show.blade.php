@@ -1,46 +1,51 @@
 <ul class="nav navbar-left navbar-nav">
-    @can('index', App\Models\GuideStep::class)
-    <li class="{{ active()->route('resources.guides.steps.index') }}">
-        <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}">
-            <i class="fa fa-list"></i>
-            All Steps
-        </a>
-    </li>
-    @endcan
-    @can('create', App\Models\GuideStep::class)
-    <li>
-        <a href="{{ route('resources.guides.images', [$guide->slug]) }}">
-            <i class="fa fa-plus-circle"></i>
-            Add Steps by Images
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('resources.guides.steps.create', [$guide->slug]) }}">
-            <i class="fa fa-plus-circle"></i>
-            New Step
-        </a>
-    </li>
-    @endcan
-    @can('edit', App\Models\Guide::class)
-    <li>
-        <a href="{{ route('resources.guides.edit', [$guide->slug]) }}">
-            <i class="fa fa-edit"></i>
-            Edit
-        </a>
-    </li>
-    @endcan
-    @can('destroy', App\Models\Guide::class)
-    <li>
-        <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
-           data-post="DELETE"
-           data-title="Delete Guide?"
-           data-message="Are you sure you want to delete this guide? It cannot be recovered."
-        >
-            <i class="fa fa-trash"></i>
-            Delete
-        </a>
-    </li>
-    @endcan
+
+    @if(\App\Policies\Resource\GuideStepPolicy::index(auth()->user()))
+        <li class="{{ active()->route('resources.guides.steps.index') }}">
+            <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}">
+                <i class="fa fa-list"></i>
+                All Steps
+            </a>
+        </li>
+    @endif
+
+    @if(\App\Policies\Resource\GuideStepPolicy::create(auth()->user()))
+        <li>
+            <a href="{{ route('resources.guides.images', [$guide->slug]) }}">
+                <i class="fa fa-plus-circle"></i>
+                Add Steps by Images
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('resources.guides.steps.create', [$guide->slug]) }}">
+                <i class="fa fa-plus-circle"></i>
+                New Step
+            </a>
+        </li>
+    @endif
+
+    @if(\App\Policies\Resource\GuideStepPolicy::edit(auth()->user()))
+        <li>
+            <a href="{{ route('resources.guides.edit', [$guide->slug]) }}">
+                <i class="fa fa-edit"></i>
+                Edit
+            </a>
+        </li>
+    @endif
+
+    @if(\App\Policies\Resource\GuideStepPolicy::destroy(auth()->user()))
+        <li>
+            <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
+               data-post="DELETE"
+               data-title="Delete Guide?"
+               data-message="Are you sure you want to delete this guide? It cannot be recovered."
+            >
+                <i class="fa fa-trash"></i>
+                Delete
+            </a>
+        </li>
+    @endif
+
     <li>
         <a href="{{ route('resources.guides.favorite', [$guide->slug]) }}">
             {!! $guide->getFavoriteIcon() !!}

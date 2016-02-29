@@ -8,9 +8,9 @@ use App\Jobs\Resource\Guide\Favorite;
 use App\Jobs\Resource\Guide\Store;
 use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
+use App\Policies\Resource\GuidePolicy;
 use App\Processors\Processor;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
 
 class GuideProcessor extends Processor
 {
@@ -99,7 +99,7 @@ class GuideProcessor extends Processor
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy($guide)->viewUnpublished($guide)) {
+        if (!GuidePolicy::viewUnpublished(auth()->user(), $guide)) {
             $this->unauthorized();
         }
 

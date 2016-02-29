@@ -18,10 +18,7 @@
 
     <!-- Comments -->
     @foreach($inquiry->comments as $comment)
-        @decorator('comment', $comment, [
-            'edit'      => route('inquiries.comments.edit', [$comment->pivot->inquiry_id, $comment->getKey()]),
-            'destroy'   => route('inquiries.comments.destroy', [$comment->pivot->inquiry_id, $comment->getKey()]),
-        ])
+        @include('pages.inquiries._comment', compact('inquiry', 'comment'))
     @endforeach
 
     <!-- Approved -->

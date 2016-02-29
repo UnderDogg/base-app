@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\Device;
 
 use App\Models\User;
 
-class LabelPolicy
+class DrivePolicy
 {
     /**
-     * Returns true / false if the user can view all labels.
+     * Returns true / false if the specified user can view all drives.
      *
      * @param User $user
      *
@@ -15,11 +15,11 @@ class LabelPolicy
      */
     public static function index(User $user)
     {
-        return $user->can('labels.index');
+        return $user->can('drives.index');
     }
 
     /**
-     * Returns true / false if the user can create labels.
+     * Returns true / false if the specified user can create drives.
      *
      * @param User $user
      *
@@ -27,11 +27,11 @@ class LabelPolicy
      */
     public static function create(User $user)
     {
-        return $user->can('labels.create');
+        return $user->can('drives.create');
     }
 
     /**
-     * Returns true / false if the user can edit labels.
+     * Returns true / false if the specified user can edit drives.
      *
      * @param User $user
      *
@@ -39,11 +39,11 @@ class LabelPolicy
      */
     public static function edit(User $user)
     {
-        return $user->can('labels.edit');
+        return $user->can('drives.edit');
     }
 
     /**
-     * Returns true / false if the user can edit labels.
+     * Returns true / false if the specified user can delete drives.
      *
      * @param User $user
      *
@@ -51,6 +51,6 @@ class LabelPolicy
      */
     public static function destroy(User $user)
     {
-        return $user->can('labels.destroy');
+        return $user->can('drives.destroy');
     }
 }

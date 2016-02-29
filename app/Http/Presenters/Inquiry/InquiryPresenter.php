@@ -6,6 +6,7 @@ use App\Http\Presenters\Presenter;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Inquiry;
+use App\Policies\InquiryPolicy;
 use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -209,15 +210,9 @@ class InquiryPresenter extends Presenter
      */
     protected function applyPolicy($inquiry)
     {
-        if ($inquiry instanceof Builder) {
-            $model = $inquiry->getModel();
-        } else {
-            $model = $inquiry;
-        }
-
         // Limit the view if the user isn't
         // allowed to view all issues.
-        if (!policy($model)->viewAll(auth()->user())) {
+        if (!InquiryPolicy::viewAll(auth()->user())) {
             $inquiry->where('user_id', auth()->user()->getKey());
         }
 

@@ -15,9 +15,13 @@
         </li>
     @endif
 
-    @can('create', App\Models\Guide::class)
-        <li><a href="{{ route('resources.guides.create') }}"><i class="fa fa-plus"></i> New Guide</a></li>
-    @endcan
+    @if(\App\Policies\Resource\GuidePolicy::create(auth()->user()))
+        <li>
+            <a href="{{ route('resources.guides.create') }}">
+                <i class="fa fa-plus"></i> New Guide
+            </a>
+        </li>
+    @endif
 
 </ul>
 

@@ -5,6 +5,7 @@ namespace App\Processors\Inquiry;
 use App\Http\Presenters\Inquiry\InquiryCommentPresenter;
 use App\Http\Requests\Inquiry\InquiryCommentRequest;
 use App\Models\Inquiry;
+use App\Policies\InquiryCommentPolicy;
 use App\Processors\Processor;
 
 class InquiryCommentProcessor extends Processor
@@ -38,14 +39,16 @@ class InquiryCommentProcessor extends Processor
     {
         $inquiry = $this->inquiry->findOrFail($inquiryId);
 
-        $this->authorize($inquiry->comments()->getRelated());
+        if (InquiryCommentPolicy::create(auth()->user(), $inquiry)) {
+            $attributes = [
+                'content' => $request->input('content'),
+                'user_id' => auth()->user()->getAuthIdentifier(),
+            ];
 
-        $attributes = [
-            'content' => $request->input('content'),
-            'user_id' => auth()->user()->getAuthIdentifier(),
-        ];
+            return $inquiry->comments()->create($attributes);
+        }
 
-        return $inquiry->comments()->create($attributes);
+        $this->unauthorized();
     }
 
     /**
@@ -62,11 +65,13 @@ class InquiryCommentProcessor extends Processor
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        $this->authorize($comment);
+        if (InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment)) {
+            $form = $this->presenter->form($inquiry, $comment);
 
-        $form = $this->presenter->form($inquiry, $comment);
+            return view('pages.inquiries.comments.edit', compact('form'));
+        }
 
-        return view('pages.inquiries.comments.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -84,9 +89,13 @@ class InquiryCommentProcessor extends Processor
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        $comment->content = $request->input('content', $comment->content);
+        if (InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment)) {
+            $comment->content = $request->input('content', $comment->content);
 
-        return $comment->save();
+            return $comment->save();
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -103,10 +112,12 @@ class InquiryCommentProcessor extends Processor
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        $this->authorize($comment);
+        if (InquiryCommentPolicy::destroy(auth()->user(), $inquiry, $comment)) {
+            $inquiry->comments()->detach($comment);
 
-        $inquiry->comments()->detach($comment);
+            return $comment->delete();
+        }
 
-        return $comment->delete();
+        $this->unauthorized();
     }
 }

@@ -50,26 +50,26 @@
 
     <div class="card-actions pull-right">
 
-        @can('edit', $inquiry)
-        <a
-                class="btn btn-default btn-sm"
-                href="{{ route('inquiries.edit', [$inquiry->getKey()]) }}">
-            <i class="fa fa-edit"></i>
-            Edit
-        </a>
-        @endcan
+        @if(\App\Policies\InquiryPolicy::edit(auth()->user(), $inquiry))
+            <a
+                    class="btn btn-default btn-sm"
+                    href="{{ route('inquiries.edit', [$inquiry->getKey()]) }}">
+                <i class="fa fa-edit"></i>
+                Edit
+            </a>
+        @endif
 
-        @can('destroy', $inquiry)
-        <a
-                class="btn btn-default btn-sm"
-                data-post="DELETE"
-                data-title="Delete Ticket?"
-                data-message="Are you sure you want to delete this request?"
-                href="{{ route('inquiries.destroy', [$inquiry->getKey()]) }}">
-            <i class="fa fa-times"></i>
-            Delete
-        </a>
-        @endcan
+        @if(\App\Policies\InquiryPolicy::destroy(auth()->user(), $inquiry))
+            <a
+                    class="btn btn-default btn-sm"
+                    data-post="DELETE"
+                    data-title="Delete Ticket?"
+                    data-message="Are you sure you want to delete this request?"
+                    href="{{ route('inquiries.destroy', [$inquiry->getKey()]) }}">
+                <i class="fa fa-times"></i>
+                Delete
+            </a>
+        @endif
 
     </div>
 

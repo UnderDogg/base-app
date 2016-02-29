@@ -47,6 +47,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
+
                             <li class="{{ active()->resource('inquiries') }}">
                                 <a href="{{ route('inquiries.index') }}">
                                     <i class="fa fa-bell"></i>
@@ -54,14 +55,15 @@
                                 </a>
                             </li>
 
-                            @can('index', App\Models\Category::class)
+                            @if(\App\Policies\CategoryPolicy::index(auth()->user()))
                                 <li class="{{ active()->route('inquiries.categories.*') }}">
                                     <a href="{{ route('inquiries.categories.index') }}">
                                         <i class="fa fa-folder"></i>
                                         Categories
                                     </a>
                                 </li>
-                            @endcan
+                            @endif
+
                         </ul>
                     </li>
 
@@ -82,47 +84,47 @@
                                 </a>
                             </li>
 
-                            @can('index', App\Models\Label::class)
+                            @if(\App\Policies\LabelPolicy::index(auth()->user()))
                                 <li class="{{ active()->route('labels.*') }}">
                                     <a href="{{ route('labels.index') }}">
                                         <i class="fa fa-tags"></i>
                                         Labels
                                     </a>
                                 </li>
-                            @endcan
+                            @endif
 
                         </ul>
 
                     </li>
 
-                    @can('index', App\Models\Service::class)
+                    @if(\App\Policies\ServicePolicy::index(auth()->user()))
                         <li class="{{ active()->route('services.*') }}">
                             <a href="{{ route('services.index') }}">
                                 <i class="fa fa-server"></i>
                                 Services
                             </a>
                         </li>
-                    @endcan
+                    @endif
 
-                    @can('view-all-computers', App\Models\Computer::class)
+                    @if(\App\Policies\Device\ComputerPolicy::index(auth()->user()))
                         <li class="{{ active()->route('devices.computers.*') }}">
                             <a href="{{ route('devices.computers.index') }}">
                                 <i class="fa fa-desktop"></i>
                                 Computers
                             </a>
                         </li>
-                    @endcan
+                    @endif
 
-                    @can('view-all-drives', App\Models\Drive::class)
+                    @if(\App\Policies\Device\DrivePolicy::index(auth()->user()))
                         <li class="{{ active()->route('devices.drives.*') }}">
                             <a href="{{ route('devices.drives.index') }}">
                                 <i class="fa fa-hdd-o"></i>
                                 Drives
                             </a>
                         </li>
-                    @endcan
+                    @endif
 
-                    @can('index', Adldap\Models\Computer::class)
+                    @if(\App\Policies\ActiveDirectory\ComputerPolicy::index(auth()->user()))
                     <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
 
                         <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -157,7 +159,7 @@
                             </li>
 
                         </ul>
-                    @endcan
+                    @endif
 
                 @endif
 
@@ -196,7 +198,7 @@
 
                             <li class="divider"></li>
 
-                            @can('admin.welcome.index')
+                            @if(\App\Policies\AdminAccessPolicy::index(auth()->user()))
                                 <li>
                                     <a href="{{ route('admin.welcome.index') }}">
                                         <i class="fa fa-user-md"></i> Administration
