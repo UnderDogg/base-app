@@ -35,13 +35,13 @@ class Inquiry extends Model
     }
 
     /**
-     * The hasOne category relationship.
+     * The belongsTo category relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
-        return $this->hasOne(Category::class, 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
     /**
@@ -97,15 +97,17 @@ class Inquiry extends Model
      *
      * @return string
      */
-    public function getStatusIcon()
+    public function getCategoryLabelAttribute()
     {
-        if ($this->isOpen()) {
-            $class = 'text-success fa fa-exclamation-circle';
-        } else {
-            $class = 'text-danger fa fa-check-circle';
+        $category = $this->category;
+
+        if ($category instanceof Category) {
+            $name = "<i class='fa fa-tag'></i> $category->name";
+
+            return "<span class='label label-primary'>$name</span>";
         }
 
-        return HTML::create('i', null, compact('class'));
+        return null;
     }
 
     /**

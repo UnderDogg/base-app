@@ -9,6 +9,7 @@ use App\Jobs\Inquiry\Close;
 use App\Jobs\Inquiry\Open;
 use App\Jobs\Inquiry\Store;
 use App\Jobs\Inquiry\Update;
+use App\Models\Category;
 use App\Models\Inquiry;
 use App\Policies\InquiryPolicy;
 use App\Processors\Processor;
@@ -21,6 +22,11 @@ class InquiryProcessor extends Processor
     protected $inquiry;
 
     /**
+     * @var Category
+     */
+    protected $category;
+
+    /**
      * @var InquiryPresenter
      */
     protected $presenter;
@@ -29,11 +35,13 @@ class InquiryProcessor extends Processor
      * Constructor.
      *
      * @param Inquiry          $inquiry
+     * @param Category         $category
      * @param InquiryPresenter $presenter
      */
-    public function __construct(Inquiry $inquiry, InquiryPresenter $presenter)
+    public function __construct(Inquiry $inquiry, Category $category, InquiryPresenter $presenter)
     {
         $this->inquiry = $inquiry;
+        $this->category = $category;
         $this->presenter = $presenter;
     }
 
@@ -80,29 +88,60 @@ class InquiryProcessor extends Processor
     }
 
     /**
-     * Displays the form for creating a new request.
+     * Displays the inquiry category selection table.
+     *
+     * @param null|int|string $categoryId
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function start($categoryId = null)
     {
-        $form = $this->presenter->form($this->inquiry);
+        if (is_null($categoryId)) {
+            $category = $this->category;
+        } else {
+            $category = $this->category->findOrFail($categoryId);
+        }
 
-        return view('pages.inquiries.create', compact('form'));
+        $categories = $this->presenter->tableCategories($this->inquiry, $category);
+
+        return view('pages.inquiries.start', compact('categories'));
+    }
+
+    /**
+     * Displays the form for creating a new request.
+     *
+     * @param int|string $categoryId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($categoryId)
+    {
+        $category = $this->category
+            ->whereBelongsTo($this->inquiry->getTable())
+            ->findOrFail($categoryId);
+
+        $form = $this->presenter->form($this->inquiry, $category);
+
+        return view('pages.inquiries.create', compact('form', 'category'));
     }
 
     /**
      * Creates a new inquiry.
      *
+     * @param int|string     $categoryId
      * @param InquiryRequest $request
      *
      * @return bool
      */
-    public function store(InquiryRequest $request)
+    public function store($categoryId, InquiryRequest $request)
     {
+        $category = $this->category
+            ->whereBelongsTo($this->inquiry->getTable())
+            ->findOrFail($categoryId);
+
         $inquiry = $this->inquiry->newInstance();
 
-        return $this->dispatch(new Store($request, $inquiry));
+        return $this->dispatch(new Store($request, $inquiry, $category));
     }
 
     /**
@@ -114,7 +153,7 @@ class InquiryProcessor extends Processor
      */
     public function show($id)
     {
-        $inquiry = $this->inquiry->findOrFail($id);
+        $inquiry = $this->inquiry->with(['category'])->findOrFail($id);
 
         if (InquiryPolicy::show(auth()->user(), $inquiry)) {
             $formComment = $this->presenter->formComment($inquiry);
@@ -137,7 +176,7 @@ class InquiryProcessor extends Processor
         $inquiry = $this->inquiry->findOrFail($id);
 
         if (InquiryPolicy::edit(auth()->user(), $inquiry)) {
-            $form = $this->presenter->form($inquiry);
+            $form = $this->presenter->form($inquiry, $inquiry->category);
 
             return view('pages.inquiries.edit', compact('form'));
         }

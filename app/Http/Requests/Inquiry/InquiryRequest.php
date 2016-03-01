@@ -20,13 +20,7 @@ class InquiryRequest extends Request
             'manager'       => '',
         ];
 
-        if ($this->route()->getName() !== 'inquiries.update') {
-            // If the user isn't updating the their request,
-            // we'll make the category field required.
-            $rules['category'] = 'required|integer|exists:categories,id,belongs_to,inquiries';
-        }
-
-        $id = $this->request->get('category');
+        $id = $this->route('categories');
 
         $category = Category::find($id);
 

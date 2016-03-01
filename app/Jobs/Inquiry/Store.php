@@ -20,15 +20,22 @@ class Store extends Job
     protected $inquiry;
 
     /**
+     * @var Category
+     */
+    protected $category;
+
+    /**
      * Constructor.
      *
      * @param InquiryRequest $request
      * @param Inquiry        $inquiry
+     * @param Category       $category
      */
-    public function __construct(InquiryRequest $request, Inquiry $inquiry)
+    public function __construct(InquiryRequest $request, Inquiry $inquiry, Category $category)
     {
         $this->request = $request;
         $this->inquiry = $inquiry;
+        $this->category = $category;
     }
 
     /**
@@ -38,14 +45,12 @@ class Store extends Job
      */
     public function handle()
     {
-        $category = Category::whereBelongsTo($this->inquiry->getTable())->findOrFail($this->request->input('category'));
-
         $this->inquiry->user_id = auth()->id();
-        $this->inquiry->category_id = $category->getKey();
+        $this->inquiry->category_id = $this->category->getKey();
         $this->inquiry->title = $this->request->input('title');
         $this->inquiry->description = $this->request->input('description');
 
-        if ($category->manager === true) {
+        if ($this->category->manager === true) {
             $this->inquiry->manager_id = $this->request->input('manager');
         }
 

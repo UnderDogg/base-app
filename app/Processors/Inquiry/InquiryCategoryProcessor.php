@@ -8,6 +8,7 @@ use App\Http\Requests\Category\CategoryRequest;
 use App\Jobs\Inquiry\Category\Store;
 use App\Jobs\Inquiry\Category\Update;
 use App\Models\Category;
+use App\Models\Inquiry;
 use App\Processors\Processor;
 
 class InquiryCategoryProcessor extends Processor
@@ -18,6 +19,11 @@ class InquiryCategoryProcessor extends Processor
     protected $category;
 
     /**
+     * @var Inquiry
+     */
+    protected $inquiry;
+
+    /**
      * @var InquiryCategoryPresenter
      */
     protected $presenter;
@@ -26,11 +32,13 @@ class InquiryCategoryProcessor extends Processor
      * Constructor.
      *
      * @param Category                 $category
+     * @param Inquiry                  $inquiry
      * @param InquiryCategoryPresenter $presenter
      */
-    public function __construct(Category $category, InquiryCategoryPresenter $presenter)
+    public function __construct(Category $category, Inquiry $inquiry, InquiryCategoryPresenter $presenter)
     {
         $this->category = $category;
+        $this->inquiry = $inquiry;
         $this->presenter = $presenter;
     }
 
@@ -49,7 +57,7 @@ class InquiryCategoryProcessor extends Processor
             $category = $this->category;
         }
 
-        $categories = $this->presenter->table($category);
+        $categories = $this->presenter->table($category, $this->inquiry);
 
         $navbar = $this->presenter->navbar($category);
 
@@ -161,19 +169,5 @@ class InquiryCategoryProcessor extends Processor
         $category->destroyDescendants();
 
         return $category->delete();
-    }
-
-    /**
-     * Returns true / false if the specified category requires a manager.
-     *
-     * @param int|string $id
-     *
-     * @return bool
-     */
-    public function manager($id)
-    {
-        $category = $this->category->findOrFail($id);
-
-        return json_encode($category->manager);
     }
 }

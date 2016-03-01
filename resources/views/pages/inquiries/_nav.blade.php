@@ -19,7 +19,7 @@
     </li>
 
     <li>
-        <a href="{{ route('inquiries.create') }}">
+        <a href="{{ route('inquiries.start') }}">
             <i class="fa fa-plus-square"></i> New
         </a>
     </li>

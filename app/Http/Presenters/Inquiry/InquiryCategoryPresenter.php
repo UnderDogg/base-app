@@ -4,6 +4,7 @@ namespace App\Http\Presenters\Inquiry;
 
 use App\Http\Presenters\Presenter;
 use App\Models\Category;
+use App\Models\Inquiry;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -16,28 +17,25 @@ class InquiryCategoryPresenter extends Presenter
      * Returns a new table of inquiry categories.
      *
      * @param \Illuminate\Database\Eloquent\Builder|Category $category
+     * @param Inquiry                                        $inquiry
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table($category)
+    public function table($category, Inquiry $inquiry)
     {
         if ($category->exists) {
             // If the category exists we're looking to display it's children.
             $category = $category
-                ->children()
-                ->get()
-                ->all();
+                ->children();
         } else {
             // Otherwise we're displaying root nodes.
             $category = $category
                 ->roots()
-                ->where('belongs_to', 'inquiries')
-                ->get()
-                ->all();
+                ->whereBelongsTo($inquiry->getTable());
         }
 
         return $this->table->of('inquiries.categories', function (TableGrid $table) use ($category) {
-            $table->rows($category);
+            $table->with($category)->paginate($this->perPage);
 
             $table->layout('pages.categories._table');
 

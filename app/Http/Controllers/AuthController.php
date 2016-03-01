@@ -6,11 +6,11 @@ use Adldap\Models\User as AdldapUser;
 use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Orchestra\Model\Role;
 
 class AuthController extends Controller
 {
@@ -121,7 +121,7 @@ class AuthController extends Controller
     protected function handleLdapUserWasAuthenticated(User $user, AdldapUser $adldapUser)
     {
         if ($adldapUser->inGroup('Help Desk')) {
-            $admin = Role::admin();
+            $admin = Role::whereName(Role::getAdministratorName())->first();
 
             if ($admin instanceof Role) {
                 $user->attachRole($admin->getKey());

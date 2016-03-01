@@ -41,7 +41,7 @@ class Category extends Node
         $query = static::roots();
 
         if (!is_null($belongsTo)) {
-            $query->where('belongs_to', $belongsTo);
+            $query->whereBelongsTo($belongsTo);
         }
 
         $roots = $query->with(['children' => function ($query) use ($except) {

@@ -36,11 +36,11 @@ class InquiryPresenter extends Presenter
                 'description',
             ]);
 
-            $table->column('status', function (Column $column) {
-                $column->label = '';
+            $table->column('category', function (Column $column) {
+                $column->label = 'Category';
 
                 $column->value = function (Inquiry $inquiry) {
-                    return $inquiry->getStatusIcon();
+                    return $inquiry->category_label;
                 };
 
                 $column->attributes(function () {
@@ -119,22 +119,81 @@ class InquiryPresenter extends Presenter
     }
 
     /**
-     * Returns a new form for the specified inquiry.
+     * Returns a new table of all categories.
      *
-     * @param Inquiry  $inquiry
+     * @param Inquiry       $inquiry
+     * @param Category      $category
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(Inquiry $inquiry)
+    public function tableCategories(Inquiry $inquiry, Category $category)
     {
-        return $this->form->of('inquiries', function (FormGrid $form) use ($inquiry) {
+        if ($category->exists) {
+            // If the category exists we're looking to display it's children.
+            $category = $category
+                ->children();
+        } else {
+            // Otherwise we're displaying root nodes.
+            $category = $category
+                ->roots()
+                ->whereBelongsTo($inquiry->getTable());
+        }
+
+        return $this->table->of('inquiries.categories', function (TableGrid $table) use ($category) {
+            $table->with($category)->paginate($this->perPage);
+
+            $table->layout('pages.categories._table');
+
+            $table->column('name', function (Column $column) {
+                $column->value = function (Category $category) {
+                    return link_to_route('inquiries.start', $category->name, [$category->getKey()]);
+                };
+            });
+
+            $table->column('sub-categories', function (Column $column) {
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
+
+                $column->value = function (Category $category) {
+                    return $category->children()->count();
+                };
+
+                $column->attributes = function ($row) {
+                    return ['class' => 'hidden-xs'];
+                };
+            });
+
+            $table->column('create', function (Column $column) {
+                $column->value = function (Category $category) {
+                    $route = 'inquiries.create';
+
+                    return link_to_route($route, 'Select This Category', [$category->getKey()], [
+                        'class' => 'btn btn-success btn-xs',
+                    ]);
+                };
+            });
+        });
+    }
+
+    /**
+     * Returns a new form for the specified inquiry.
+     *
+     * @param Inquiry  $inquiry
+     * @param Category $category
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function form(Inquiry $inquiry, Category $category)
+    {
+        return $this->form->of('inquiries', function (FormGrid $form) use ($inquiry, $category) {
             if ($inquiry->exists) {
                 $method = 'PATCH';
                 $url = route('inquiries.update', [$inquiry->getKey()]);
                 $form->submit = 'Save';
             } else {
                 $method = 'POST';
-                $url = route('inquiries.store');
+                $url = route('inquiries.store', [$category->getKey()]);
                 $form->submit = 'Create';
             }
 
@@ -142,40 +201,28 @@ class InquiryPresenter extends Presenter
 
             $form->with($inquiry);
 
-            $form->fieldset(function (Fieldset $fieldset) use ($inquiry) {
-                $fieldset->control('select', 'category', function (Field $field) use ($inquiry) {
-                    $field->label = 'Request Category';
-
-                    $field->options = Category::getSelectHierarchy('inquiries');
-
-                    $field->value = function (Inquiry $inquiry) {
-                        return $inquiry->category_id;
-                    };
-
-                    if ($inquiry->category_id) {
-                        $field->attributes = ['disabled'];
-                    }
-                });
-
+            $form->fieldset(function (Fieldset $fieldset) use ($inquiry, $category) {
                 $fieldset
                     ->control('input:text', 'title')
                     ->attributes([
                         'placeholder' => 'Enter the title of your request.',
                     ]);
 
-                $fieldset->control('input:select', 'manager', function (Field $field) use ($inquiry) {
-                    $field->label = 'Manager';
+                if ($category->manager) {
+                    $fieldset->control('input:select', 'manager', function (Field $field) use ($inquiry) {
+                        $field->label = 'Manager';
 
-                    $field->options = User::all()->pluck('name', 'id');
+                        $field->options = User::all()->pluck('name', 'id');
 
-                    $field->value = function (Inquiry $inquiry) {
-                        return $inquiry->manager_id;
-                    };
+                        $field->value = function (Inquiry $inquiry) {
+                            return $inquiry->manager_id;
+                        };
 
-                    if ($inquiry->category_id) {
-                        $field->attributes = ['disabled'];
-                    }
-                });
+                        if ($inquiry->category_id) {
+                            $field->attributes = ['disabled'];
+                        }
+                    });
+                }
 
                 $fieldset
                     ->control('input:textarea', 'description')

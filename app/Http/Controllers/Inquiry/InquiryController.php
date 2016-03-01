@@ -54,25 +54,40 @@ class InquiryController extends Controller
     }
 
     /**
-     * Displays the form for creating an inquiry.
+     * Displays category selection for a new request.
+     *
+     * @param null|int|string $categoryId
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function start($categoryId = null)
     {
-        return $this->processor->create();
+        return $this->processor->start($categoryId);
+    }
+
+    /**
+     * Displays the form for creating an inquiry.
+     *
+     * @param int|string $categoryId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($categoryId)
+    {
+        return $this->processor->create($categoryId);
     }
 
     /**
      * Creates a new inquiry.
-     *
+
+     * @param int|string     $categoryId
      * @param InquiryRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(InquiryRequest $request)
+    public function store($categoryId, InquiryRequest $request)
     {
-        if ($this->processor->store($request)) {
+        if ($this->processor->store($categoryId, $request)) {
             flash()->success('Success!', 'Successfully created request.');
 
             return redirect()->route('inquiries.index');

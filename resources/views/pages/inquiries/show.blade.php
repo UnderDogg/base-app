@@ -1,10 +1,12 @@
 @extends('layouts.master')
 
 @section('extra.top')
+
     <a class="btn btn-primary" href="{{ route('inquiries.index')  }}">
         <i class="fa fa-chevron-left"></i>
         Back to Requests
     </a>
+
 @endsection
 
 @section('title', $inquiry->title)
@@ -65,7 +67,7 @@
 
             @if(!$inquiry->approved)
 
-                @can('approve', $inquiry)
+                @if(\App\Policies\InquiryPolicy::approve(auth()->user()))
 
                     <a
                             data-post="POST"
@@ -78,13 +80,13 @@
                         Complete
                     </a>
 
-                @endcan
+                @endif
 
             @endif
 
             @if($inquiry->isOpen())
 
-                @can('close', $inquiry)
+                @if(\App\Policies\InquiryPolicy::close(auth()->user(), $inquiry))
 
                     <a
                             data-post="POST"
@@ -96,12 +98,12 @@
                         <i class="fa fa-times"></i>
                         Close
                     </a>
-
-                @endcan
+                    
+                @endif
 
             @else
 
-                @can('open', $inquiry)
+                @if(\App\Policies\InquiryPolicy::open(auth()->user()))
 
                     <a
                             data-post="POST"
@@ -114,7 +116,7 @@
                         Re-Open
                     </a>
 
-                @endcan
+                @endif
 
             @endif
 
