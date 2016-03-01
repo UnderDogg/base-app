@@ -33,7 +33,6 @@ class InquiryPresenter extends Presenter
 
             $table->searchable([
                 'title',
-                'description',
             ]);
 
             $table->column('category', function (Column $column) {
@@ -52,20 +51,6 @@ class InquiryPresenter extends Presenter
                 $column->value = function (Inquiry $inquiry) {
                     return link_to_route('inquiries.show', $inquiry->title, [$inquiry->getKey()]);
                 };
-            });
-
-            $table->column('description', function (Column $column) {
-                $column->headers = [
-                    'class' => 'hidden-xs',
-                ];
-
-                $column->value = function (Inquiry $inquiry) {
-                    return str_limit($inquiry->description, 20);
-                };
-
-                $column->attributes(function () {
-                    return ['class' => 'hidden-xs'];
-                });
             });
 
             $table->column('created', function (Column $column) {
@@ -99,7 +84,9 @@ class InquiryPresenter extends Presenter
      */
     public function tableClosed(Inquiry $inquiry)
     {
-        $inquiry = $inquiry->where('closed', true);
+        $inquiry = $inquiry
+            ->where('closed', true)
+            ->where('approved', false);
 
         return $this->table($inquiry);
     }

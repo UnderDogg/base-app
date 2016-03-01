@@ -45,6 +45,7 @@ class Update extends Job
     public function handle()
     {
         $this->category->name = $this->request->input('name');
+
         $this->category->options = [
             'manager' => $this->request->has('manager'),
         ];

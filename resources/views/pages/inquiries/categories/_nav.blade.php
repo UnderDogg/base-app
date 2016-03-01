@@ -20,8 +20,13 @@
         </li>
 
         <li>
-            <a href="{{ route('inquiries.categories.edit', [$category->getKey()]) }}">
-                <i class="fa fa-edit"></i> Edit
+            <a
+                    href="{{ route('inquiries.categories.destroy', [$category->getKey()]) }}"
+                    data-post="DELETE"
+                    data-title="Are you sure?"
+                    data-message="Are you sure you want to delete this category?"
+            >
+                <i class="fa fa-trash"></i> Delete
             </a>
         </li>
     @endif

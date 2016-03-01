@@ -3,7 +3,7 @@
     <div class="col-md-12 ticket-heading">
 
         <h4>
-            
+
             <span class="text-muted">{{ $issue->hash_id }}</span>
             {{ $issue->title }}
 
