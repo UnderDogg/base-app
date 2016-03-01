@@ -20,7 +20,6 @@
         "stevebauman/active": "1.0.*",
         "stevebauman/flash": "1.0.*",
         "stevebauman/authorization": "1.3.*",
-        "stevebauman/administration": "1.0.*",
         "graham-campbell/markdown": "5.3.*",
         "adldap2/adldap2-laravel": "1.4.*",
         "khill/lavacharts": "2.5.*",

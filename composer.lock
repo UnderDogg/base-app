@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "27d5e5901809f4a3da4d7c3a1a2a2f23",
-    "content-hash": "422031b2159b4509cf5ece15c366a23a",
+    "hash": "f77e290a3f994c82719149dc6ce91cbc",
+    "content-hash": "e63036c15d2ca05e5b572d5c7c47d6f4",
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v5.2.12",
+            "version": "v5.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "93930b58f80babb2245d09f28996f1c31b88b283"
+                "reference": "a516012f6bbe6a58385c1ff400038c8f86fe81cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/93930b58f80babb2245d09f28996f1c31b88b283",
-                "reference": "93930b58f80babb2245d09f28996f1c31b88b283",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/a516012f6bbe6a58385c1ff400038c8f86fe81cd",
+                "reference": "a516012f6bbe6a58385c1ff400038c8f86fe81cd",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2016-02-26 14:18:02"
+            "time": "2016-03-01 15:09:11"
         },
         {
             "name": "adldap2/adldap2-laravel",
@@ -2189,52 +2189,6 @@
                 "output"
             ],
             "time": "2016-02-09 03:23:50"
-        },
-        {
-            "name": "stevebauman/administration",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stevebauman/administration.git",
-                "reference": "552cb45356ea508d974ac069e751b9e76d8ef8fb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/administration/zipball/552cb45356ea508d974ac069e751b9e76d8ef8fb",
-                "reference": "552cb45356ea508d974ac069e751b9e76d8ef8fb",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.2",
-                "orchestra/html": "~3.2",
-                "php": ">=5.5.9",
-                "stevebauman/active": "1.0.*",
-                "stevebauman/authorization": "1.3.*",
-                "stevebauman/flash": "1.0.*"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.2",
-                "phpunit/phpunit": "~4.8"
-            },
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "Stevebauman\\Administration\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "An administration backend scaffolding package for Laravel.",
-            "keywords": [
-                "acl",
-                "authorization",
-                "laravel",
-                "permissions",
-                "roles"
-            ],
-            "time": "2016-02-25 22:12:23"
         },
         {
             "name": "stevebauman/authorization",
