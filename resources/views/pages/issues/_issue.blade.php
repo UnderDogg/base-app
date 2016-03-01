@@ -3,6 +3,7 @@
     <div class="col-md-12 ticket-heading">
 
         <h4>
+            
             <span class="text-muted">{{ $issue->hash_id }}</span>
             {{ $issue->title }}
 
@@ -17,6 +18,7 @@
             <span class="pull-right text-muted">
                 <i class="fa fa-ticket"></i>
             </span>
+
         </h4>
 
     </div>
@@ -63,15 +65,18 @@
     <div class="card-actions pull-right">
 
         @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
+
             <a
                     class="btn btn-default btn-sm"
                     href="{{ route('issues.edit', [$issue->getKey()]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
+
         @endif
 
         @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
+
             <a
                     class="btn btn-default btn-sm"
                     data-post="DELETE"
@@ -81,6 +86,7 @@
                 <i class="fa fa-times"></i>
                 Delete
             </a>
+
         @endif
 
         @include('pages.issues._form-labels')
