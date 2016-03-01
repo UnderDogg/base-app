@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Inquiry;
 
-use App\Models\Category;
 use App\Http\Requests\Request;
+use App\Models\Category;
 
 class InquiryRequest extends Request
 {
