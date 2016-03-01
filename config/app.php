@@ -175,11 +175,6 @@ return [
         Stevebauman\Authorization\AuthorizationServiceProvider::class,
 
         /*
-         * Administration Provider
-         */
-        Stevebauman\Administration\AdministrationServiceProvider::class,
-
-        /*
          * Commonmark Wrapper.
          */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
