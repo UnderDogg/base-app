@@ -22,27 +22,39 @@
 
         <ul class="dropdown-menu dropdown-menu-labels">
             @if(count($labels) > 0)
+
                 @foreach($labels as $label)
+
                     <li class="{{ active()->input('label', $label->name) }}">
+
                         <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['label' => $label->name])) }}">
                             {!! $label->display_large !!}
                         </a>
+
                     </li>
+
                 @endforeach
+
             @else
+
                 @if(\App\Policies\LabelPolicy::create(auth()->user()))
+
                     <li>
                         <a href="{{ route('labels.create') }}">
                             <i class="fa fa-plus-square"></i> Create a Label
                         </a>
                     </li>
+
                 @else
+
                     <li>
                         <a>
                             No Labels
                         </a>
                     </li>
+
                 @endif
+
             @endif
         </ul>
 
