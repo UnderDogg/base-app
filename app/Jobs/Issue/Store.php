@@ -66,8 +66,6 @@ class Store extends Job
                 $this->issue->users()->sync($users);
             }
 
-
-
             return true;
         }
 

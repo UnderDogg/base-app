@@ -2,7 +2,6 @@
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
-
     /**
      * The base URL to use while testing the application.
      *
@@ -33,8 +32,8 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver' => 'sqlite',
-            'database' => ':memory:'
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
         ]);
 
         return $app;
