@@ -48,9 +48,13 @@ class ServiceRecordPresenter extends Presenter
             if ($record->exists) {
                 $method = 'PATCH';
                 $url = route('services.records.update', [$service->getKey(), $record->getKey()]);
+
+                $form->submit = 'Save';
             } else {
                 $method = 'POST';
                 $url = route('services.records.store', [$service->getKey(), $record->getKey()]);
+
+                $form->submit = 'Create';
             }
 
             $form->attributes(compact('method', 'url'));

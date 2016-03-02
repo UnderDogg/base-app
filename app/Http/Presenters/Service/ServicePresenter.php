@@ -92,9 +92,13 @@ class ServicePresenter extends Presenter
             if ($service->exists) {
                 $method = 'PATCH';
                 $url = route('services.update', [$service->getKey()]);
+
+                $form->submit = 'Save';
             } else {
                 $method = 'POST';
                 $url = route('services.store', [$service->getKey()]);
+
+                $form->submit = 'Create';
             }
 
             $form->attributes(compact('method', 'url'));

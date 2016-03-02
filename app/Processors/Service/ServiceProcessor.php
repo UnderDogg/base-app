@@ -8,6 +8,7 @@ use App\Jobs\Service\Store;
 use App\Jobs\Service\Update;
 use App\Models\Service;
 use App\Models\ServiceRecord;
+use App\Policies\ServicePolicy;
 use App\Processors\Processor;
 
 class ServiceProcessor extends Processor
@@ -41,13 +42,15 @@ class ServiceProcessor extends Processor
      */
     public function index()
     {
-        $this->authorize($this->service);
+        if (ServicePolicy::index(auth()->user())) {
+            $services = $this->presenter->table($this->service);
 
-        $services = $this->presenter->table($this->service);
+            $navbar = $this->presenter->navbar();
 
-        $navbar = $this->presenter->navbar();
+            return view('pages.services.index', compact('services', 'navbar'));
+        }
 
-        return view('pages.services.index', compact('services', 'navbar'));
+        $this->unauthorized();
     }
 
     /**
@@ -57,11 +60,13 @@ class ServiceProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize($this->service);
+        if (ServicePolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->service);
 
-        $form = $this->presenter->form($this->service);
+            return view('pages.services.create', compact('form'));
+        }
 
-        return view('pages.services.create', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -73,9 +78,11 @@ class ServiceProcessor extends Processor
      */
     public function store(ServiceRequest $request)
     {
-        $this->authorize($this->service);
+        if (ServicePolicy::create(auth()->user())) {
+            return $this->dispatch(new Store($request, $this->service));
+        }
 
-        return $this->dispatch(new Store($request, $this->service));
+        $this->unauthorized();
     }
 
     /**
@@ -87,11 +94,13 @@ class ServiceProcessor extends Processor
      */
     public function show($id)
     {
-        $service = $this->service->findOrFail($id);
+        if (ServicePolicy::show(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-        $this->authorize($service);
+            return view('pages.services.show', compact('service'));
+        }
 
-        return view('pages.services.show', compact('service'));
+        $this->unauthorized();
     }
 
     /**
@@ -124,13 +133,15 @@ class ServiceProcessor extends Processor
      */
     public function edit($id)
     {
-        $service = $this->service->findOrFail($id);
+        if (ServicePolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-        $this->authorize($service);
+            $form = $this->presenter->form($service);
 
-        $form = $this->presenter->form($service);
+            return view('pages.services.edit', compact('form'));
+        }
 
-        return view('pages.services.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -143,11 +154,13 @@ class ServiceProcessor extends Processor
      */
     public function update(ServiceRequest $request, $id)
     {
-        $service = $this->service->findOrFail($id);
+        if (ServicePolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-        $this->authorize($service);
+            return $this->dispatch(new Update($request, $service));
+        }
 
-        return $this->dispatch(new Update($request, $service));
+        $this->unauthorized();
     }
 
     /**
@@ -159,8 +172,12 @@ class ServiceProcessor extends Processor
      */
     public function destroy($id)
     {
-        $service = $this->service->findOrFail($id);
+        if (ServicePolicy::destroy(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-        return $service->delete();
+            return $service->delete();
+        }
+
+        $this->unauthorized();
     }
 }

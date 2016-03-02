@@ -7,6 +7,7 @@ use App\Http\Requests\Service\ServiceRecordRequest;
 use App\Jobs\Service\Record\Store;
 use App\Jobs\Service\Record\Update;
 use App\Models\Service;
+use App\Policies\ServiceRecordPolicy;
 use App\Processors\Processor;
 
 class ServiceRecordProcessor extends Processor
@@ -42,15 +43,17 @@ class ServiceRecordProcessor extends Processor
      */
     public function index($serviceId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::index(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $this->authorize($service->records()->getRelated());
+            $records = $this->presenter->table($service->records());
 
-        $records = $this->presenter->table($service->records());
+            $navbar = $this->presenter->navbar($service);
 
-        $navbar = $this->presenter->navbar($service);
+            return view('pages.services.records.index', compact('records', 'navbar', 'service'));
+        }
 
-        return view('pages.services.records.index', compact('records', 'navbar', 'service'));
+        $this->unauthorized();
     }
 
     /**
@@ -62,15 +65,17 @@ class ServiceRecordProcessor extends Processor
      */
     public function create($serviceId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::create(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $record = $service->records()->getRelated();
+            $record = $service->records()->getRelated();
 
-        $this->authorize($record);
+            $form = $this->presenter->form($service, $record);
 
-        $form = $this->presenter->form($service, $record);
+            return view('pages.services.records.create', compact('form', 'service'));
+        }
 
-        return view('pages.services.records.create', compact('form', 'service'));
+        $this->unauthorized();
     }
 
     /**
@@ -83,11 +88,13 @@ class ServiceRecordProcessor extends Processor
      */
     public function store(ServiceRecordRequest $request, $serviceId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::create(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $this->authorize($service->records()->getRelated());
+            return $this->dispatch(new Store($request, $service));
+        }
 
-        return $this->dispatch(new Store($request, $service));
+        $this->unauthorized();
     }
 
     /**
@@ -100,13 +107,15 @@ class ServiceRecordProcessor extends Processor
      */
     public function show($serviceId, $recordId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::show(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $record = $service->records()->findOrFail($recordId);
+            $record = $service->records()->findOrFail($recordId);
 
-        $this->authorize($record);
+            return view('pages.services.records.show', compact('service', 'record'));
+        }
 
-        return view('pages.services.records.show', compact('service', 'record'));
+        $this->unauthorized();
     }
 
     /**
@@ -119,15 +128,17 @@ class ServiceRecordProcessor extends Processor
      */
     public function edit($serviceId, $recordId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $record = $service->records()->findOrFail($recordId);
+            $record = $service->records()->findOrFail($recordId);
 
-        $this->authorize($record);
+            $form = $this->presenter->form($service, $record);
 
-        $form = $this->presenter->form($service, $record);
+            return view('pages.servicess.records.edit', compact('form', 'service', 'record'));
+        }
 
-        return view('pages.servicess.records.edit', compact('form', 'service', 'record'));
+        $this->unauthorized();
     }
 
     /**
@@ -141,13 +152,15 @@ class ServiceRecordProcessor extends Processor
      */
     public function update(ServiceRecordRequest $request, $serviceId, $recordId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $record = $service->records()->findOrFail($recordId);
+            $record = $service->records()->findOrFail($recordId);
 
-        $this->authorize($record);
+            return $this->dispatch(new Update($request, $record));
+        }
 
-        return $this->dispatch(new Update($request, $record));
+        $this->unauthorized();
     }
 
     /**
@@ -160,12 +173,16 @@ class ServiceRecordProcessor extends Processor
      */
     public function destroy($serviceId, $recordId)
     {
-        $service = $this->service->findOrFail($serviceId);
+        if (ServiceRecordPolicy::destroy(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-        $record = $service->records()->findOrFail($recordId);
+            $record = $service->records()->findOrFail($recordId);
 
-        $this->authorize($record);
+            $this->authorize($record);
 
-        return $record->delete();
+            return $record->delete();
+        }
+
+        $this->unauthorized();
     }
 }
