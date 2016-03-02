@@ -5,7 +5,6 @@
         <h4>
             <span class="text-muted">{{ $inquiry->hash_id }}</span>
             {{ $inquiry->title }}
-            {!! $inquiry->category_label !!}
         </h4>
 
     </div>

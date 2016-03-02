@@ -19,6 +19,9 @@
     <!-- Attachments -->
     @include('pages.issues._files')
 
+    <!-- Issue Tags -->
+    @include('pages.issues._tags')
+
     <!-- Comments -->
     @foreach($issue->comments as $comment)
         @include('pages.issues._comment', compact($issue, $comment))

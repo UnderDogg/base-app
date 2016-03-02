@@ -229,24 +229,6 @@ class Issue extends Model
     }
 
     /**
-     * Returns the status label of the issue.
-     *
-     * @return string
-     */
-    public function getStatusLabel()
-    {
-        if ($this->isOpen()) {
-            $status = 'Open';
-            $class = 'btn btn-success disabled';
-        } else {
-            $status = 'Closed';
-            $class = 'btn btn-danger disabled';
-        }
-
-        return HTML::create('span', $status, compact('class'));
-    }
-
-    /**
      * Returns the status icon of the issue.
      *
      * @return string

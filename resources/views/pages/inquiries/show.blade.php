@@ -15,6 +15,16 @@
 
 @section('content')
 
+    <!-- Spacing -->
+    <p></p>
+
+    <!-- Category -->
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            {!! $inquiry->category_tag !!}
+        </div>
+    </div>
+
     <!-- Request -->
     @include('pages.inquiries._inquiry', compact('inquiry'))
 

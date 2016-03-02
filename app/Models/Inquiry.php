@@ -75,36 +75,48 @@ class Inquiry extends Model
     }
 
     /**
-     * Returns the status label of the inquiry.
+     * Returns the status icon of the inquiry.
      *
-     * @return string
+     * @return string|null
      */
-    public function getStatusLabel()
+    public function getCategoryLabelAttribute()
     {
-        if ($this->isOpen()) {
-            $status = 'Open';
-            $class = 'btn btn-success disabled';
-        } else {
-            $status = 'Closed';
-            $class = 'btn btn-danger disabled';
+        $tag = $this->category_tag;
+
+        if (!empty($tag)) {
+            return "<span class='label label-primary'>$tag</span>";
         }
 
-        return HTML::create('span', $status, compact('class'));
+        return null;
     }
 
     /**
-     * Returns the status icon of the inquiry.
+     * Returns the category tag of the inquiry.
      *
-     * @return string
+     * @return string|null
      */
-    public function getCategoryLabelAttribute()
+    public function getCategoryTagAttribute()
+    {
+        $name = $this->category_name;
+
+        if (!empty($name)) {
+            return "<i class='fa fa-tag'></i> $name";
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the inquiry category's name.
+     *
+     * @return string|null
+     */
+    public function getCategoryNameAttribute()
     {
         $category = $this->category;
 
         if ($category instanceof Category) {
-            $name = "<i class='fa fa-tag'></i> $category->name";
-
-            return "<span class='label label-primary'>$name</span>";
+            return $category->name;
         }
 
         return null;

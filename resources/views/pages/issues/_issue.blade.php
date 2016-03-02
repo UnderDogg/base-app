@@ -7,14 +7,6 @@
             <span class="text-muted">{{ $issue->hash_id }}</span>
             {{ $issue->title }}
 
-            @foreach($issue->labels as $label)
-                {!! $label->display_large !!}
-            @endforeach
-
-            @foreach($issue->users as $user)
-                {!! $user->label_large !!}
-            @endforeach
-
             <span class="pull-right text-muted">
                 <i class="fa fa-ticket"></i>
             </span>
