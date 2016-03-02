@@ -30,7 +30,13 @@
     @if($issue->closed)
 
         <!-- Closed -->
-        @decorator('closed', $issue)
+        <div class="panel panel-danger">
+
+            <div class="panel-heading text-center">
+                Closed
+            </div>
+
+        </div>
 
     @endif
 
