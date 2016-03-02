@@ -4,11 +4,17 @@ namespace App\Jobs\Inquiry;
 
 use App\Http\Requests\Inquiry\InquiryRequest;
 use App\Jobs\Job;
+use App\Jobs\Mail\Notification;
 use App\Models\Category;
 use App\Models\Inquiry;
+use App\Models\User;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Mail\Message;
 
 class Store extends Job
 {
+    use DispatchesJobs;
+
     /**
      * @var InquiryRequest
      */
@@ -45,15 +51,39 @@ class Store extends Job
      */
     public function handle()
     {
+        // Set the inquiry model data.
         $this->inquiry->user_id = auth()->id();
         $this->inquiry->category_id = $this->category->getKey();
         $this->inquiry->title = $this->request->input('title');
         $this->inquiry->description = $this->request->input('description');
 
         if ($this->category->manager === true) {
-            $this->inquiry->manager_id = $this->request->input('manager');
+            // If the category requires manager approval, we'll retrieve the manager record.
+            $manager = User::findOrFail($this->request->input('manager'));
+
+            $this->inquiry->manager_id = $manager->getKey();
+
+            // We'll send the manager a notification.
+            $notification = new Notification(
+                $manager,
+                'emails.inquiries.created',
+                ['inquiry' => $this->inquiry],
+                function (Message $message) use ($manager) {
+                    $message->subject('A New Request Requires Your Approval');
+
+                    $message->to($manager->email);
+                }
+            );
         }
 
-        return $this->inquiry->save();
+        if ($this->inquiry->save()) {
+            if (isset($notification)) {
+                $this->dispatch($notification);
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }
