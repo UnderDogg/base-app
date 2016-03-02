@@ -350,26 +350,26 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // Start a new inquiry.
             $router->get('requests/new/{categories?}', [
-                'as' => 'inquiries.start',
+                'as'   => 'inquiries.start',
                 'uses' => 'InquiryController@start',
             ]);
 
             // Store inquiries by category.
             $router->post('requests/{categories}', [
-                'as' => 'inquiries.store',
+                'as'   => 'inquiries.store',
                 'uses' => 'InquiryController@store',
             ]);
 
             // Create inquiries by category.
             $router->get('requests/{categories}/create', [
-                'as' => 'inquiries.create',
+                'as'   => 'inquiries.create',
                 'uses' => 'InquiryController@create',
             ]);
 
             // The inquiry resource (aliased to requests for ambiguity).
             $router->resource('requests', 'InquiryController', [
                 'except' => ['create', 'store'],
-                'names' => [
+                'names'  => [
                     'index'     => 'inquiries.index',
                     'show'      => 'inquiries.show',
                     'edit'      => 'inquiries.edit',
