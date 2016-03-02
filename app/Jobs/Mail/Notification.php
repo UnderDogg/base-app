@@ -2,10 +2,10 @@
 
 namespace App\Jobs\Mail;
 
-use Illuminate\Contracts\Mail\Mailer;
-use Closure;
-use App\Models\User;
 use App\Jobs\Job;
+use App\Models\User;
+use Closure;
+use Illuminate\Contracts\Mail\Mailer;
 
 class Notification extends Job
 {
@@ -43,7 +43,7 @@ class Notification extends Job
      * @param array   $data
      * @param Closure $message
      */
-    public function __construct(User $user, $view = '', $data = [], Closure $message)
+    public function __construct(User $user, $view, $data, Closure $message)
     {
         $this->user = $user;
         $this->view = $view;
