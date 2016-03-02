@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 class WelcomeTest extends TestCase
 {
     /**

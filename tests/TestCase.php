@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Tests;
+
+use Illuminate\Contracts\Console\Kernel;
+
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -17,6 +21,8 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         parent::setUp();
 
         $this->artisan('migrate');
+
+        $this->artisan('db:seed');
     }
 
     /**
@@ -28,7 +34,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
 
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [

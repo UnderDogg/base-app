@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests;
+
 class GuideTest extends TestCase
 {
     public function test_guest_have_access()
