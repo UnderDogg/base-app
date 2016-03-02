@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Role;
 use App\Models\User;
 use Closure;
-use Illuminate\Contracts\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
 
 class SetupMiddleware
@@ -57,6 +57,6 @@ class SetupMiddleware
 
         // If the administrator role hasn't already been created,
         // we'll throw an Unauthorized Exception.
-        throw new UnauthorizedException();
+        throw new HttpException(403, 'Unauthorized.');
     }
 }
