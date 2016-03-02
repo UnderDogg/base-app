@@ -1,10 +1,7 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
-    use DatabaseMigrations;
 
     /**
      * The base URL to use while testing the application.
@@ -12,6 +9,16 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+
+    /**
+     * Set up the test environment.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->artisan('migrate');
+    }
 
     /**
      * Creates the application.
@@ -23,6 +30,12 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+        $app['config']->set('database.default', 'sqlite');
+        $app['config']->set('database.connections.sqlite', [
+            'driver' => 'sqlite',
+            'database' => ':memory:'
+        ]);
 
         return $app;
     }

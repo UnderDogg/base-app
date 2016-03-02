@@ -137,6 +137,16 @@ class InquiryPresenter extends Presenter
                 };
             });
 
+            $table->column('select', function (Column $column) {
+                $column->value = function (Category $category) {
+                    $route = 'inquiries.create';
+
+                    return link_to_route($route, 'Select This Category', [$category->getKey()], [
+                        'class' => 'btn btn-success btn-sm',
+                    ]);
+                };
+            });
+
             $table->column('sub-categories', function (Column $column) {
                 $column->headers = [
                     'class' => 'hidden-xs',
@@ -148,16 +158,6 @@ class InquiryPresenter extends Presenter
 
                 $column->attributes = function ($row) {
                     return ['class' => 'hidden-xs'];
-                };
-            });
-
-            $table->column('create', function (Column $column) {
-                $column->value = function (Category $category) {
-                    $route = 'inquiries.create';
-
-                    return link_to_route($route, 'Select This Category', [$category->getKey()], [
-                        'class' => 'btn btn-success btn-xs',
-                    ]);
                 };
             });
         });
