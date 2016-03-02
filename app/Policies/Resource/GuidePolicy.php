@@ -11,7 +11,7 @@ class GuidePolicy
      * Allows only users with specific permission
      * to view guides that are unpublished.
      *
-     * @param User|null   $user
+     * @param User|null  $user
      * @param Guide|null $guide
      *
      * @return bool
