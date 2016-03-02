@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Resource;
 
 use App\Http\Requests\Request;
+use App\Policies\Resource\GuidePolicy;
 
 class GuideRequest extends Request
 {
@@ -42,6 +43,6 @@ class GuideRequest extends Request
      */
     public function authorize()
     {
-        return auth()->check();
+        return GuidePolicy::create(auth()->user());
     }
 }

@@ -21,12 +21,12 @@ class GuideTest extends TestCase
     {
         $user = factory(\App\Models\User::class)->create();
 
-        $this->actingAs($user)->call('GET', route('resources.guides.create'))->setStatusCode(403);
+        $this->actingAs($user);
 
         $create = $this->call('GET', route('resources.guides.create'));
-        $store = $this->call('POST', route('resources.guides.store'));
-
         $this->assertEquals(403, $create->getStatusCode());
+
+        $store = $this->call('POST', route('resources.guides.store'));
         $this->assertEquals(403, $store->getStatusCode());
     }
 }

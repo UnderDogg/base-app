@@ -59,11 +59,13 @@ class GuideProcessor extends Processor
      */
     public function create()
     {
-        $this->authorize($this->guide);
+        if (GuidePolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->guide);
 
-        $form = $this->presenter->form($this->guide);
+            return view('pages.resources.guides.create', compact('form'));
+        }
 
-        return view('pages.resources.guides.create', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -75,11 +77,13 @@ class GuideProcessor extends Processor
      */
     public function store(GuideRequest $request)
     {
-        $this->authorize($this->guide);
+        if (GuidePolicy::create(auth()->user())) {
+            $guide = $this->guide->newInstance();
 
-        $guide = $this->guide->newInstance();
+            return $this->dispatch(new Store($request, $guide));
+        }
 
-        return $this->dispatch(new Store($request, $guide));
+        $this->unauthorized();
     }
 
     /**
@@ -119,13 +123,15 @@ class GuideProcessor extends Processor
      */
     public function edit($id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuidePolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+            $form = $this->presenter->form($guide);
 
-        $form = $this->presenter->form($guide);
+            return view('pages.resources.guides.edit', compact('form'));
+        }
 
-        return view('pages.resources.guides.edit', compact('form'));
+        $this->unauthorized();
     }
 
     /**
@@ -138,11 +144,13 @@ class GuideProcessor extends Processor
      */
     public function update(GuideRequest $request, $id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuidePolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+            return $this->dispatch(new Update($request, $guide));
+        }
 
-        return $this->dispatch(new Update($request, $guide));
+        $this->unauthorized();
     }
 
     /**
@@ -168,10 +176,12 @@ class GuideProcessor extends Processor
      */
     public function destroy($id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuidePolicy::destroy(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+            return $guide->delete();
+        }
 
-        return $guide->delete();
+        $this->unauthorized();
     }
 }

@@ -29,6 +29,15 @@ class Guide extends Model
     ];
 
     /**
+     * The casted guide attributes.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'published' => 'boolean',
+    ];
+
+    /**
      * The hasMany steps relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

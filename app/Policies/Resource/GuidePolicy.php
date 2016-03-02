@@ -11,32 +11,44 @@ class GuidePolicy
      * Allows only users with specific permission
      * to view guides that are unpublished.
      *
-     * @param User       $user
+     * @param User|null   $user
      * @param Guide|null $guide
      *
      * @return bool
      */
-    public static function viewUnpublished(User $user, Guide $guide = null)
+    public static function viewUnpublished(User $user = null, Guide $guide = null)
     {
         if ($guide instanceof Guide && $guide->published) {
             return true;
         }
 
-        return $user->can('guides.index.unpublished');
+        if ($user) {
+            return $user->can('guides.index.unpublished');
+        }
+
+        return false;
     }
 
     /**
      * Allows only users with specific permission to create guides.
      *
+     * @param User|null $user
+     *
      * @return bool
      */
-    public static function create(User $user)
+    public static function create(User $user = null)
     {
-        return $user->can('guides.create');
+        if ($user) {
+            return $user->can('guides.create');
+        }
+
+        return false;
     }
 
     /**
      * Allows only users with specific permission to create guides.
+     *
+     * @param User $user
      *
      * @return bool
      */
@@ -48,6 +60,8 @@ class GuidePolicy
     /**
      * Allows only users with specific permission to edit guides.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public static function edit(User $user)
@@ -58,6 +72,8 @@ class GuidePolicy
     /**
      * Allows only users with specific permission to edit guides.
      *
+     * @param User $user
+     *
      * @return bool
      */
     public static function update(User $user)
@@ -67,6 +83,8 @@ class GuidePolicy
 
     /**
      * Allows only users with specific permission to delete guides.
+     *
+     * @param User $user
      *
      * @return bool
      */
