@@ -6,12 +6,9 @@ use Adldap\Models\User as AdUser;
 use App\Jobs\Job;
 use App\Jobs\User\Create as CreateUser;
 use App\Models\User;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ImportUser extends Job
 {
-    use DispatchesJobs;
-
     /**
      * @var AdUser
      */

@@ -4,12 +4,9 @@ namespace App\Jobs\Computer;
 
 use App\Jobs\Job;
 use App\Models\Computer;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Create extends Job
 {
-    use DispatchesJobs;
-
     /**
      * The computers type ID.
      *

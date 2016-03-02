@@ -5,15 +5,12 @@ namespace App\Jobs\Com\Computer;
 use App\Jobs\Computer\CreateProcessor;
 use App\Jobs\Computer\CreateProcessorRecord;
 use App\Models\ComputerProcessor;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Stevebauman\Wmi\ConnectionInterface;
 use Stevebauman\Wmi\Models\Variants\Processor;
 use Stevebauman\Wmi\Schemas\Namespaces;
 
 class ScanProcessor extends AbstractComputerJob
 {
-    use DispatchesJobs;
-
     /**
      * Scans the current computer for its processor and its current load percentage.
      *

@@ -5,12 +5,9 @@ namespace App\Jobs\Computer;
 use App\Jobs\Job;
 use App\Models\Computer;
 use App\Models\ComputerAccess;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class CreateAccess extends Job
 {
-    use DispatchesJobs;
-
     /**
      * The computer to create an access record on.
      *

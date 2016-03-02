@@ -6,12 +6,9 @@ use App\Http\Requests\Service\ServiceRequest;
 use App\Jobs\Job;
 use App\Jobs\Service\Record\CreateFirst;
 use App\Models\Service;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Store extends Job
 {
-    use DispatchesJobs;
-
     /**
      * @var ServiceRequest
      */

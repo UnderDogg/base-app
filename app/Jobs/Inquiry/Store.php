@@ -8,13 +8,10 @@ use App\Jobs\Mail\Notification;
 use App\Models\Category;
 use App\Models\Inquiry;
 use App\Models\User;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Mail\Message;
 
 class Store extends Job
 {
-    use DispatchesJobs;
-
     /**
      * @var InquiryRequest
      */

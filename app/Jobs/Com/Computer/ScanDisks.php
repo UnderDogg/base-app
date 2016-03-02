@@ -5,15 +5,12 @@ namespace App\Jobs\Com\Computer;
 use App\Jobs\Computer\CreateDisk;
 use App\Jobs\Computer\CreateDiskRecord;
 use App\Models\ComputerHardDisk;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Stevebauman\Wmi\ConnectionInterface;
 use Stevebauman\Wmi\Models\Variants\HardDisk;
 use Stevebauman\Wmi\Schemas\Namespaces;
 
 class ScanDisks extends AbstractComputerJob
 {
-    use DispatchesJobs;
-
     /**
      * Scans the current computers hard disks and creates a record of them.
      *

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 abstract class Job
 {
@@ -17,5 +18,5 @@ abstract class Job
     |
     */
 
-    use Queueable;
+    use Queueable, DispatchesJobs;
 }

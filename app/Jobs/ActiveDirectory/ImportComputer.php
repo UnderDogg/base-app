@@ -12,12 +12,9 @@ use App\Jobs\Job;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class ImportComputer extends Job
 {
-    use DispatchesJobs;
-
     /**
      * @var AdComputer
      */
