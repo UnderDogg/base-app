@@ -108,8 +108,8 @@ class InquiryPresenter extends Presenter
     /**
      * Returns a new table of all categories.
      *
-     * @param Inquiry       $inquiry
-     * @param Category      $category
+     * @param Inquiry  $inquiry
+     * @param Category $category
      *
      * @return \Orchestra\Contracts\Html\Builder
      */

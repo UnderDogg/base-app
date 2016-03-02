@@ -86,8 +86,6 @@ class Inquiry extends Model
         if (!empty($tag)) {
             return "<span class='label label-primary'>$tag</span>";
         }
-
-        return null;
     }
 
     /**
@@ -102,8 +100,6 @@ class Inquiry extends Model
         if (!empty($name)) {
             return "<i class='fa fa-tag'></i> $name";
         }
-
-        return null;
     }
 
     /**
@@ -118,8 +114,6 @@ class Inquiry extends Model
         if ($category instanceof Category) {
             return $category->name;
         }
-
-        return null;
     }
 
     /**
