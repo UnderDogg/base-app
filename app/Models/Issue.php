@@ -166,9 +166,11 @@ class Issue extends Model
     public function scopeHasResolution(Builder $query, $resolution = '')
     {
         if (!empty($resolution)) {
-            $query->whereHas('comments', function (Builder $query) use ($resolution) {
-                return $query->where(['resolution' => ($resolution === 'yes')]);
-            });
+            if ($resolution === 'yes') {
+                $query->whereHas('comments', function (Builder $query) {
+                    $query->where(['resolution' => true]);
+                });
+            }
         }
 
         return $query;

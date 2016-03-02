@@ -7,11 +7,13 @@
         <i class="fa fa-paperclip"></i>
 
         @foreach($issue->files as $file)
-            <a class="btn btn-default btn-sm" href="{{ route('issues.attachments.show', [$issue->getKey(), $file->uuid]) }}">
+
+            <a class="btn btn-default btn-xs" href="{{ route('issues.attachments.show', [$issue->getKey(), $file->uuid]) }}">
                 {!! $file->icon !!}
 
                 {{ $file->name }}
             </a>
+
         @endforeach
 
     </div>
