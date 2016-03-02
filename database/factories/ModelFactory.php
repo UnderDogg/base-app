@@ -14,9 +14,9 @@
 use App\Models\Issue;
 use App\Models\Password;
 use App\Models\PasswordFolder;
-use App\Models\User;
-use App\Models\Role;
 use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
 use Faker\Generator;
 
 $factory[User::class] = function (Generator $faker) {
@@ -30,14 +30,14 @@ $factory[User::class] = function (Generator $faker) {
 
 $factory[Role::class] = function (Generator $faker) {
     return [
-        'name' => $faker->name,
+        'name'  => $faker->name,
         'label' => $faker->name,
     ];
 };
 
 $factory[Permission::class] = function (Generator $faker) {
     return [
-        'name' => $faker->name,
+        'name'  => $faker->name,
         'label' => $faker->name,
     ];
 };

@@ -8,7 +8,6 @@ use App\Models\GuideStep;
 use App\Policies\Resource\GuidePolicy;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Gate;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
