@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Models\User;
 use Illuminate\Contracts\Console\Kernel;
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
@@ -26,13 +27,23 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     }
 
     /**
+     * Creates a normal user for testing.
+     *
+     * @return \App\Models\User
+     */
+    protected function createUser()
+    {
+        return factory(User::class)->create();
+    }
+
+    /**
      * Creates an administrator for testing.
      *
      * @return \App\Models\User
      */
     protected function createAdmin()
     {
-        $user = factory(\App\Models\User::class)->create();
+        $user = factory(User::class)->create();
 
         $user->assignRole('administrator');
 

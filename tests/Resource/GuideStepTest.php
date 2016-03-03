@@ -7,7 +7,7 @@ use App\Models\GuideStep;
 
 class GuideStepTest extends GuideTest
 {
-    public function test_guide_step_store()
+    public function test_guide_step_create()
     {
         $user = $this->createAdmin();
 
@@ -15,13 +15,13 @@ class GuideStepTest extends GuideTest
 
         $guide = factory(Guide::class)->create();
 
-        $response = $this->call('POST', route('resources.guides.steps.store', [$guide->slug]), [
-            'title'       => 'New Step',
-            'description' => 'Step Description',
-        ]);
+        $this->visit(route('resources.guides.steps.create', [$guide->slug]))
+            ->type('Step Title', 'title')
+            ->type('Description', 'description')
+            ->press('Create')
+            ->see('Success!');
 
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->seeInDatabase('guide_steps', ['guide_id' => $guide->getKey()]);
     }
 
     public function test_guide_step_create_and_add_another()
