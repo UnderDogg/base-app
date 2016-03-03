@@ -57,7 +57,7 @@ $factory[Issue::class] = function (Generator $faker) {
 $factory[Guide::class] = function (Generator $faker) {
     return [
         'title'       => $faker->title,
-        'slug'        => $faker->slug(),
+        'slug'        => $faker->slug(3),
         'description' => $faker->text(),
     ];
 };
