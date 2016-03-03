@@ -47,7 +47,6 @@ class GuideTest extends TestCase
             'description' => 'Description',
         ]);
 
-        $this->assertSessionHas('flash_message.level', 'success');
         $this->assertEquals(302, $response->getStatusCode());
         $this->seeInDatabase('guides', ['title' => 'Title']);
     }

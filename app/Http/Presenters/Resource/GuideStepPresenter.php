@@ -116,6 +116,7 @@ class GuideStepPresenter extends Presenter
                     $field->label = 'Images';
 
                     $field->attributes([
+                        'id' => 'images',
                         'multiple' => true,
                     ]);
                 });
