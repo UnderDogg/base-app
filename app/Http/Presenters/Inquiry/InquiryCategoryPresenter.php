@@ -144,6 +144,8 @@ class InquiryCategoryPresenter extends Presenter
                             $attributes['checked'] = true;
                         }
 
+                        $field->value = true;
+
                         $field->attributes = $attributes;
                     });
             });
