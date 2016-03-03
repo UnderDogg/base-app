@@ -62,8 +62,8 @@ $factory[Guide::class] = function (Generator $faker) {
 
 $factory[GuideStep::class] = function (Generator $faker) {
     return [
-        'guide_id' => factory(Guide::class)->create()->getKey(),
-        'title' => $faker->title,
+        'guide_id'    => factory(Guide::class)->create()->getKey(),
+        'title'       => $faker->title,
         'description' => $faker->text(),
     ];
 };
