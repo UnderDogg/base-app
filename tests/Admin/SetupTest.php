@@ -40,4 +40,21 @@ class SetupTest extends TestCase
             ->submitForm('Complete Setup')
             ->assertResponseOk();
     }
+
+    public function test_begin_setup_validation()
+    {
+        $this->call('POST', route('admin.setup.finish'));
+
+        $session = session()->all();
+
+        $name = $session['errors']->get('name');
+        $email = $session['errors']->get('email');
+        $password = $session['errors']->get('password');
+        $passwordConfirmation = $session['errors']->get('password_confirmation');
+
+        $this->assertCount(1, $name);
+        $this->assertCount(1, $email);
+        $this->assertCount(1, $password);
+        $this->assertCount(1, $passwordConfirmation);
+    }
 }
