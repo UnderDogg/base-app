@@ -214,8 +214,7 @@ class InquiryPresenter extends Presenter
                 $fieldset
                     ->control('input:textarea', 'description')
                     ->attributes([
-                        'placeholder'   => 'Enter the description of your request.',
-                        'data-provide'  => 'markdown',
+                        'placeholder' => 'Enter the description of your request.',
                     ]);
             });
         });

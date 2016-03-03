@@ -26,6 +26,20 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     }
 
     /**
+     * Creates an administrator for testing.
+     *
+     * @return \App\Models\User
+     */
+    protected function createAdmin()
+    {
+        $user = factory(\App\Models\User::class)->create();
+
+        $user->assignRole('administrator');
+
+        return $user;
+    }
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application

@@ -17,6 +17,7 @@ use App\Models\PasswordFolder;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Guide;
 use Faker\Generator;
 
 $factory[User::class] = function (Generator $faker) {
@@ -47,6 +48,14 @@ $factory[Issue::class] = function (Generator $faker) {
         'user_id'       => factory(User::class)->create()->getKey(),
         'title'         => $faker->title,
         'description'   => $faker->sentence(),
+    ];
+};
+
+$factory[Guide::class] = function (Generator $faker) {
+    return [
+        'title' => 'Title',
+        'slug' => 'guide-slug',
+        'description' => 'Description',
     ];
 };
 
