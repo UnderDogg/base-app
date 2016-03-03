@@ -7,7 +7,6 @@ use App\Tests\TestCase;
 
 class IssueTest extends TestCase
 {
-
     public function test_issue_index_regular_user()
     {
         $user = $this->createUser();
@@ -50,7 +49,7 @@ class IssueTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->call('POST', route('issues.store'), [
-            'title' => 'Issue Title',
+            'title'       => 'Issue Title',
             'occurred_at' => '03/03/2016 12:00 AM',
             'description' => 'Issue Description',
         ]);
