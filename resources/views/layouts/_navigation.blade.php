@@ -22,6 +22,7 @@
             <ul class="nav navbar-nav">
 
                 <li class="dropdown {{ active()->route('resources.*') }}" id="resources-menu">
+
                     <a  href="#resources-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-info-circle"></i>
                         Resources
@@ -29,17 +30,24 @@
                     </a>
 
                     <ul class="dropdown-menu">
+
                         <li class="{{ active()->route('resources.guides.*') }}">
+
                             <a href="{{ route('resources.guides.index') }}">
                                 <i class="fa fa-book"></i>
                                 Guides
                             </a>
+
                         </li>
+
                     </ul>
+
                 </li>
 
                 @if(auth()->check())
+
                     <li class="dropdown {{ active()->route('inquiries.*') }}" id="requests-menu">
+
                         <a  href="#requests-menu" rel="requests-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-question-circle"></i>
                             Requests
@@ -49,22 +57,29 @@
                         <ul class="dropdown-menu">
 
                             <li class="{{ active()->resource('inquiries') }}">
+
                                 <a href="{{ route('inquiries.index') }}">
                                     <i class="fa fa-bell"></i>
                                     Requests
                                 </a>
+
                             </li>
 
                             @if(\App\Policies\CategoryPolicy::index(auth()->user()))
+
                                 <li class="{{ active()->route('inquiries.categories.*') }}">
+
                                     <a href="{{ route('inquiries.categories.index') }}">
                                         <i class="fa fa-folder"></i>
                                         Categories
                                     </a>
+
                                 </li>
+
                             @endif
 
                         </ul>
+
                     </li>
 
                     <li class="dropdown {{ active()->routes(['issues.*', 'labels.*']) }}" id="issues-menu">
@@ -78,19 +93,23 @@
                         <ul class="dropdown-menu">
 
                             <li class="{{ active()->route('issues.*') }}">
+
                                 <a href="{{ route('issues.index') }}">
                                     <i class="fa fa-ticket"></i>
                                     Tickets
                                 </a>
+
                             </li>
 
                             @if(\App\Policies\LabelPolicy::index(auth()->user()))
+
                                 <li class="{{ active()->route('labels.*') }}">
                                     <a href="{{ route('labels.index') }}">
                                         <i class="fa fa-tags"></i>
                                         Labels
                                     </a>
                                 </li>
+
                             @endif
 
                         </ul>
@@ -98,67 +117,83 @@
                     </li>
 
                     @if(\App\Policies\ServicePolicy::index(auth()->user()))
+
                         <li class="{{ active()->route('services.*') }}">
                             <a href="{{ route('services.index') }}">
                                 <i class="fa fa-server"></i>
                                 Services
                             </a>
                         </li>
+
                     @endif
 
                     @if(\App\Policies\Device\ComputerPolicy::index(auth()->user()))
+
                         <li class="{{ active()->route('devices.computers.*') }}">
                             <a href="{{ route('devices.computers.index') }}">
                                 <i class="fa fa-desktop"></i>
                                 Computers
                             </a>
                         </li>
+
                     @endif
 
                     @if(\App\Policies\Device\DrivePolicy::index(auth()->user()))
+
                         <li class="{{ active()->route('devices.drives.*') }}">
                             <a href="{{ route('devices.drives.index') }}">
                                 <i class="fa fa-hdd-o"></i>
                                 Drives
                             </a>
                         </li>
+
                     @endif
 
                     @if(\App\Policies\ActiveDirectory\ComputerPolicy::index(auth()->user()))
-                    <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
 
-                        <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-users"></i>
-                            Active Directory
-                            <i class="fa fa-caret-down"></i>
-                        </a>
+                        <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
 
-                        <ul class="dropdown-menu">
+                            <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-users"></i>
+                                Active Directory
+                                <i class="fa fa-caret-down"></i>
+                            </a>
 
-                            <li class="{{ active()->route('active-directory.users.*') }}">
-                                <a href="{{ route('active-directory.users.index') }}">
-                                    <i class="fa fa-user"></i>
-                                    Users
-                                </a>
-                            </li>
+                            <ul class="dropdown-menu">
 
-                            <li class="{{ active()->route('active-directory.computers.*') }}">
-                                <a href="{{ route('active-directory.computers.index') }}">
-                                    <i class="fa fa-desktop"></i>
-                                    Computers
-                                </a>
-                            </li>
+                                <li class="{{ active()->route('active-directory.users.*') }}">
 
-                            <li class="divider"></li>
+                                    <a href="{{ route('active-directory.users.index') }}">
+                                        <i class="fa fa-user"></i>
+                                        Users
+                                    </a>
 
-                            <li class="{{ active()->route('active-directory.questions.*') }}">
-                                <a href="{{ route('active-directory.questions.index') }}">
-                                    <i class="fa fa-question-circle"></i>
-                                    Security Questions
-                                </a>
-                            </li>
+                                </li>
 
-                        </ul>
+                                <li class="{{ active()->route('active-directory.computers.*') }}">
+
+                                    <a href="{{ route('active-directory.computers.index') }}">
+                                        <i class="fa fa-desktop"></i>
+                                        Computers
+                                    </a>
+
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li class="{{ active()->route('active-directory.questions.*') }}">
+
+                                    <a href="{{ route('active-directory.questions.index') }}">
+                                        <i class="fa fa-question-circle"></i>
+                                        Security Questions
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
                     @endif
 
                 @endif
