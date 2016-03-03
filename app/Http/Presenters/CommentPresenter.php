@@ -27,8 +27,8 @@ class CommentPresenter extends Presenter
                     ->label('Comment')
                     ->attributes([
                         'placeholder'  => 'Leave a comment',
-                        'data-provide' => 'markdown',
                         'id'           => 'comment',
+                        'class'        => 'comment-field',
                     ]);
             });
 

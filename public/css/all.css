@@ -17612,3 +17612,10 @@ tr td a {
   background: white;
   font-family: inherit;
 }
+
+/* Limited Max Width for comment field text-areas */
+
+.comment-field {
+  width: 100%;
+  max-width: 100%;
+}
