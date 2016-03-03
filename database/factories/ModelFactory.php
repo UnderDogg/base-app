@@ -15,6 +15,7 @@ use App\Models\Guide;
 use App\Models\GuideStep;
 use App\Models\Issue;
 use App\Models\Inquiry;
+use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Password;
 use App\Models\PasswordFolder;
@@ -108,5 +109,12 @@ $factory[Issue::class] = function (Generator $faker) {
         'title' => $faker->title,
         'occurred_at' => '03/03/2016 12:00 AM',
         'description' => $faker->text(),
+    ];
+};
+
+$factory[Comment::class] = function (Generator $faker) {
+    return [
+        'user_id' => factory(User::class)->create()->getKey(),
+        'content' => $faker->text(),
     ];
 };

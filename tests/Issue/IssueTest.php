@@ -7,6 +7,7 @@ use App\Tests\TestCase;
 
 class IssueTest extends TestCase
 {
+
     public function test_issue_index_regular_user()
     {
         $user = $this->createUser();
@@ -39,7 +40,35 @@ class IssueTest extends TestCase
         $issue = factory(Issue::class)->create();
 
         $this->visit(route('issues.index'))
-            ->see($issue->title);
+            ->see($issue->getKey());
+    }
+
+    public function test_issue_create()
+    {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $response = $this->call('POST', route('issues.store'), [
+            'title' => 'Issue Title',
+            'occurred_at' => '03/03/2016 12:00 AM',
+            'description' => 'Issue Description',
+        ]);
+
+        $this->assertSessionHas('flash_message.level', 'success');
+        $this->assertEquals(302, $response->getStatusCode());
+    }
+
+    public function test_issue_create_validation_errors()
+    {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $response = $this->call('POST', route('issues.store'));
+
+        $this->assertSessionHasErrors(['title', 'description']);
+        $this->assertEquals(302, $response->getStatusCode());
     }
 
     public function test_regular_users_cannot_see_labels_and_users_field()
