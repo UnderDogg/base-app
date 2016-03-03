@@ -12,6 +12,7 @@ use App\Jobs\Resource\Guide\Step\Update;
 use App\Jobs\Resource\Guide\Step\Upload;
 use App\Models\Guide;
 use App\Models\GuideStep;
+use App\Policies\Resource\GuideStepPolicy;
 use App\Processors\Processor;
 
 class GuideStepProcessor extends Processor
@@ -47,15 +48,17 @@ class GuideStepProcessor extends Processor
      */
     public function index($id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::index(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide->steps()->getRelated());
+            $steps = $this->presenter->table($guide);
 
-        $steps = $this->presenter->table($guide);
+            $navbar = $this->presenter->navbar($guide);
 
-        $navbar = $this->presenter->navbar($guide);
+            return view('pages.resources.guides.steps.index', compact('steps', 'navbar', 'guide'));
+        }
 
-        return view('pages.resources.guides.steps.index', compact('steps', 'navbar', 'guide'));
+        $this->unauthorized();
     }
 
     /**
@@ -67,15 +70,17 @@ class GuideStepProcessor extends Processor
      */
     public function create($id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::create(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide->steps()->getRelated());
+            $steps = count($guide->steps) + 1;
 
-        $steps = count($guide->steps) + 1;
+            $form = $this->presenter->form($guide, new GuideStep());
 
-        $form = $this->presenter->form($guide, new GuideStep());
+            return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
+        }
 
-        return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
+        $this->unauthorized();
     }
 
     /**
@@ -88,11 +93,13 @@ class GuideStepProcessor extends Processor
      */
     public function store(GuideStepRequest $request, $id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::create(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide->steps()->getRelated());
+            return $this->dispatch(new Store($request, $guide));
+        }
 
-        return $this->dispatch(new Store($request, $guide));
+        $this->unauthorized();
     }
 
     /**
@@ -105,15 +112,17 @@ class GuideStepProcessor extends Processor
      */
     public function edit($id, $stepPosition)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $step = $guide->findStepByPosition($stepPosition);
+            $step = $guide->findStepByPosition($stepPosition);
 
-        $this->authorize($step);
+            $form = $this->presenter->form($guide, $step);
 
-        $form = $this->presenter->form($guide, $step);
+            return view('pages.resources.guides.steps.edit', compact('form', 'guide'));
+        }
 
-        return view('pages.resources.guides.steps.edit', compact('form', 'guide'));
+        $this->unauthorized();
     }
 
     /**
@@ -127,13 +136,15 @@ class GuideStepProcessor extends Processor
      */
     public function update(GuideStepRequest $request, $id, $stepPosition)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $step = $guide->findStepByPosition($stepPosition);
+            $step = $guide->findStepByPosition($stepPosition);
 
-        $this->authorize($step);
+            return $this->dispatch(new Update($request, $guide, $step));
+        }
 
-        return $this->dispatch(new Update($request, $guide, $step));
+        $this->unauthorized();
     }
 
     /**
@@ -146,13 +157,15 @@ class GuideStepProcessor extends Processor
      */
     public function destroy($id, $stepPosition)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::destroy(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $step = $guide->findStepByPosition($stepPosition);
+            $step = $guide->findStepByPosition($stepPosition);
 
-        $this->authorize($step);
+            return $step->delete();
+        }
 
-        return $step->delete();
+        $this->unauthorized();
     }
 
     /**
@@ -166,13 +179,15 @@ class GuideStepProcessor extends Processor
      */
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::move(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $step = $guide->findStep($stepId);
+            $step = $guide->findStep($stepId);
 
-        $this->authorize($step);
+            return $this->dispatch(new Move($request, $step));
+        }
 
-        return $this->dispatch(new Move($request, $step));
+        $this->unauthorized();
     }
 
     /**
@@ -184,13 +199,15 @@ class GuideStepProcessor extends Processor
      */
     public function images($id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::images(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize($guide->steps()->getRelated());
+            $form = $this->presenter->formImages($guide);
 
-        $form = $this->presenter->formImages($guide);
+            return view('pages.resources.guides.steps.upload', compact('form', 'guide'));
+        }
 
-        return view('pages.resources.guides.steps.upload', compact('form', 'guide'));
+        $this->unauthorized();
     }
 
     /**
@@ -203,12 +220,14 @@ class GuideStepProcessor extends Processor
      */
     public function upload(GuideStepImagesRequest $request, $id)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepPolicy::images(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $this->authorize('images', $guide->steps()->getRelated());
+            $step = $guide->steps()->getRelated();
 
-        $step = $guide->steps()->getRelated();
+            return $this->dispatch(new Upload($request, $guide, $step));
+        }
 
-        return $this->dispatch(new Upload($request, $guide, $step));
+        $this->unauthorized();
     }
 }

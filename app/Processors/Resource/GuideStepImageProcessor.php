@@ -3,6 +3,7 @@
 namespace App\Processors\Resource;
 
 use App\Models\Guide;
+use App\Policies\Resource\GuideStepImagePolicy;
 use App\Processors\Processor;
 
 class GuideStepImageProcessor extends Processor
@@ -50,12 +51,16 @@ class GuideStepImageProcessor extends Processor
      */
     public function destroy($id, $stepId, $fileUuid)
     {
-        $guide = $this->guide->locate($id);
+        if (GuideStepImagePolicy::destroy(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-        $step = $guide->findStep($stepId);
+            $step = $guide->findStep($stepId);
 
-        $file = $step->findFile($fileUuid);
+            $file = $step->findFile($fileUuid);
 
-        return $file->delete();
+            return $file->delete();
+        }
+
+        $this->unauthorized();
     }
 }

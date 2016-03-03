@@ -53,6 +53,11 @@ class GuidePermissionSeeder extends Seeder
         ]);
 
         Permission::firstOrCreate([
+            'name'  => 'guides.steps.images.destroy',
+            'label' => 'Delete Guide Step Images',
+        ]);
+
+        Permission::firstOrCreate([
             'name'  => 'guides.steps.move',
             'label' => 'Move Guide Steps',
         ]);

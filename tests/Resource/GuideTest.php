@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Resource;
 
 use App\Models\Guide;
+use App\Tests\TestCase;
 
 class GuideTest extends TestCase
 {
@@ -46,9 +47,7 @@ class GuideTest extends TestCase
             'description' => 'Description',
         ]);
 
-        $session = session()->all();
-
-        $this->assertEquals($session['flash_message']['title'], 'Success!');
+        $this->assertSessionHas('flash_message.level', 'success');
         $this->assertEquals(302, $response->getStatusCode());
         $this->seeInDatabase('guides', ['title' => 'Title']);
     }
@@ -67,9 +66,7 @@ class GuideTest extends TestCase
             'description' => 'Description',
         ]);
 
-        $session = session()->all();
-
-        $this->assertEquals($session['flash_message']['title'], 'Success!');
+        $this->assertSessionHas('flash_message.level', 'success');
         $this->assertEquals(302, $response->getStatusCode());
         $this->seeInDatabase('guides', ['title' => 'New Title']);
     }
@@ -86,9 +83,7 @@ class GuideTest extends TestCase
             'description' => 'Description',
         ]);
 
-        $session = session()->all();
-
-        $this->assertCount(1, $session['errors']->get('title'));
+        $this->assertSessionHasErrors(['title']);
         $this->assertEquals(302, $response->getStatusCode());
     }
 
@@ -104,9 +99,7 @@ class GuideTest extends TestCase
             'description' => 'Description',
         ]);
 
-        $session = session()->all();
-
-        $this->assertCount(1, $session['errors']->get('slug'));
+        $this->assertSessionHasErrors(['slug']);
         $this->assertEquals(302, $response->getStatusCode());
     }
 }
