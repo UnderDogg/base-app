@@ -12,7 +12,7 @@
             </button>
 
             <a href="{{ route('welcome.index') }}" class="navbar-brand">
-                Helpdesk
+                {{ env('APP_NAME', 'Helpdesk') }}
             </a>
 
         </div>

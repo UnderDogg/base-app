@@ -1,4 +1,4 @@
-<title>@yield('title') | Helpdesk </title>
+<title>@yield('title') | {{ env('APP_NAME', 'Helpdesk') }} </title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
