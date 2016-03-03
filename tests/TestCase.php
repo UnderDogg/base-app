@@ -4,9 +4,12 @@ namespace App\Tests;
 
 use App\Models\User;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * The base URL to use while testing the application.
      *
@@ -20,8 +23,6 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     protected function setUp()
     {
         parent::setUp();
-
-        $this->artisan('migrate');
 
         $this->artisan('db:seed');
     }

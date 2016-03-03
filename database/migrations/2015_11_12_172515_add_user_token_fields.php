@@ -26,8 +26,13 @@ class AddUserTokenFields extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('forgot_token');
-            $table->dropColumn('reset_token');
+            if (Schema::hasColumn('forgot_token', 'users')) {
+                $table->dropColumn('forgot_token');
+            }
+
+            if (Schema::hasColumn('reset_token', 'users')) {
+                $table->dropColumn('reset_token');
+            }
         });
     }
 }

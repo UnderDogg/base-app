@@ -27,9 +27,17 @@ class UpdateSessionsTable extends Migration
     public function down()
     {
         Schema::table('sessions', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-            $table->dropColumn('ip_address');
-            $table->dropColumn('user_agent');
+            if (Schema::hasColumn('user_id', 'sessions')) {
+                $table->dropColumn('user_id');
+            }
+
+            if (Schema::hasColumn('ip_address', 'sessions')) {
+                $table->dropColumn('ip_address');
+            }
+
+            if (Schema::hasColumn('user_agent', 'sessions')) {
+                $table->dropColumn('user_agent');
+            }
         });
     }
 }
