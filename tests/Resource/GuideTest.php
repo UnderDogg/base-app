@@ -101,4 +101,16 @@ class GuideTest extends TestCase
         $this->assertSessionHasErrors(['slug']);
         $this->assertEquals(302, $response->getStatusCode());
     }
+
+    public function test_delete_guide()
+    {
+        $this->test_guide_store();
+
+        $guide = Guide::first();
+
+        $response = $this->call('DELETE', route('resources.guides.destroy', [$guide->slug]));
+
+        $this->assertSessionHas('flash_message.level', 'success');
+        $this->assertEquals(302, $response->getStatusCode());
+    }
 }

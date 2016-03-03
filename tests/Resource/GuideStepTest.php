@@ -63,7 +63,21 @@ class GuideStepTest extends GuideTest
             ->see('The image must be an image.');
     }
 
-    public function test_delete_image_from_guide()
+    public function test_delete_guide_step()
+    {
+        $this->test_guide_step_store();
+
+        $guide = Guide::first();
+
+        $step = $guide->steps()->first();
+
+        $response = $this->call('DELETE', route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
+
+        $this->assertSessionHas('flash_message.level', 'success');
+        $this->assertEquals(302, $response->getStatusCode());
+    }
+
+    public function test_delete_guide_step_image()
     {
         $this->test_guide_step_store_with_attachment();
 
