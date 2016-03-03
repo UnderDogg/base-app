@@ -3,7 +3,6 @@
 namespace App\Tests\Resource;
 
 use App\Models\Guide;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class GuideStepTest extends GuideTest
 {
