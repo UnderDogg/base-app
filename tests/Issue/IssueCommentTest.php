@@ -10,6 +10,24 @@ class IssueCommentTest extends TestCase
 {
     public function test_issue_comment_create()
     {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $issue = factory(Issue::class)->create([
+            'user_id' => $user->getKey(),
+        ]);
+
+        $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [
+            'content' => 'Testing Comment',
+        ]);
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertSessionHas('flash_message.level', 'success');
+    }
+
+    public function test_issue_comment_create_as_admin()
+    {
         $user = $this->createAdmin();
 
         $this->actingAs($user);
