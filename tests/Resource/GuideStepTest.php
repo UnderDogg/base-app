@@ -72,7 +72,9 @@ class GuideStepTest extends GuideTest
 
         $step = $guide->steps()->first();
 
-        $response = $this->call('DELETE', route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
+        $image = $step->images()->first();
+
+        $response = $this->call('DELETE', route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]));
 
         $this->assertEquals(302, $response->getStatusCode());
     }
