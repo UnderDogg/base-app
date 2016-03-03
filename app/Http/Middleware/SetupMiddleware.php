@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use App\Models\Role;
 use App\Models\User;
 use Closure;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SetupMiddleware
 {
