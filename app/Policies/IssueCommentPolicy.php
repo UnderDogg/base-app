@@ -18,8 +18,7 @@ class IssueCommentPolicy
      */
     public static function create(User $user, Issue $issue)
     {
-        return $user->can('issues.comments.create')
-            || (int) $issue->user_id === (int) $user->getKey();
+        return (int) $issue->user_id === (int) $user->getKey() || $user->can('issues.comments.create');
     }
 
     /**
