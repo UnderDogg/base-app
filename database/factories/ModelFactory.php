@@ -11,11 +11,10 @@
 |
 */
 
+use App\Models\Category;
 use App\Models\Guide;
 use App\Models\GuideStep;
 use App\Models\Issue;
-use App\Models\Inquiry;
-use App\Models\Category;
 use App\Models\Password;
 use App\Models\PasswordFolder;
 use App\Models\Permission;
@@ -97,15 +96,15 @@ $factory[Category::class] = function (Generator $faker) {
 
 $factory->defineAs(Category::class, 'manager', function ($faker) {
     return [
-        'name' => $faker->title,
+        'name'    => $faker->title,
         'options' => ['manager' => true],
     ];
 });
 
 $factory[Issue::class] = function (Generator $faker) {
     return [
-        'user_id' => factory(User::class)->create()->getKey(),
-        'title' => $faker->title,
+        'user_id'     => factory(User::class)->create()->getKey(),
+        'title'       => $faker->title,
         'occurred_at' => '03/03/2016 12:00 AM',
         'description' => $faker->text(),
     ];
