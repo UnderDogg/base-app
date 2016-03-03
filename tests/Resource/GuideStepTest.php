@@ -13,7 +13,7 @@ class GuideStepTest extends GuideTest
         $guide = Guide::first();
 
         $response = $this->call('POST', route('resources.guides.steps.store', [$guide->slug]), [
-            'title' => 'New Step',
+            'title'       => 'New Step',
             'description' => 'Step Description',
         ]);
 

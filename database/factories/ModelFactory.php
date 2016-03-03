@@ -11,13 +11,13 @@
 |
 */
 
+use App\Models\Guide;
 use App\Models\Issue;
 use App\Models\Password;
 use App\Models\PasswordFolder;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Guide;
 use Faker\Generator;
 
 $factory[User::class] = function (Generator $faker) {
@@ -53,8 +53,8 @@ $factory[Issue::class] = function (Generator $faker) {
 
 $factory[Guide::class] = function (Generator $faker) {
     return [
-        'title' => 'Title',
-        'slug' => 'guide-slug',
+        'title'       => 'Title',
+        'slug'        => 'guide-slug',
         'description' => 'Description',
     ];
 };
