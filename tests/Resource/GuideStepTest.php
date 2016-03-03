@@ -3,14 +3,17 @@
 namespace App\Tests\Resource;
 
 use App\Models\Guide;
+use App\Models\GuideStep;
 
 class GuideStepTest extends GuideTest
 {
     public function test_guide_step_store()
     {
-        $this->test_guide_store();
+        $user = $this->createAdmin();
 
-        $guide = Guide::first();
+        $this->actingAs($user);
+
+        $guide = factory(Guide::class)->create();
 
         $response = $this->call('POST', route('resources.guides.steps.store', [$guide->slug]), [
             'title'       => 'New Step',
@@ -23,9 +26,11 @@ class GuideStepTest extends GuideTest
 
     public function test_guide_step_create_and_add_another()
     {
-        $this->test_guide_store();
+        $user = $this->createAdmin();
 
-        $guide = Guide::first();
+        $this->actingAs($user);
+
+        $guide = factory(Guide::class)->create();
 
         $this->visit(route('resources.guides.steps.create', [$guide->slug]))
             ->type('Step Title', 'title')
@@ -37,9 +42,11 @@ class GuideStepTest extends GuideTest
 
     public function test_guide_step_store_with_attachment()
     {
-        $this->test_guide_store();
+        $user = $this->createAdmin();
 
-        $guide = Guide::first();
+        $this->actingAs($user);
+
+        $guide = factory(Guide::class)->create();
 
         $this->visit(route('resources.guides.steps.create', [$guide->slug]))
             ->type('Step Title', 'title')
@@ -51,9 +58,11 @@ class GuideStepTest extends GuideTest
 
     public function test_guide_step_store_with_invalid_attachment()
     {
-        $this->test_guide_store();
+        $user = $this->createAdmin();
 
-        $guide = Guide::first();
+        $this->actingAs($user);
+
+        $guide = factory(Guide::class)->create();
 
         $this->visit(route('resources.guides.steps.create', [$guide->slug]))
             ->type('Step Title', 'title')
@@ -65,11 +74,13 @@ class GuideStepTest extends GuideTest
 
     public function test_delete_guide_step()
     {
-        $this->test_guide_step_store();
+        $user = $this->createAdmin();
 
-        $guide = Guide::first();
+        $this->actingAs($user);
 
-        $step = $guide->steps()->first();
+        $step = factory(GuideStep::class)->create();
+
+        $guide = $step->guide;
 
         $response = $this->call('DELETE', route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
 

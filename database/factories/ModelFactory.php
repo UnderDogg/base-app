@@ -12,6 +12,7 @@
 */
 
 use App\Models\Guide;
+use App\Models\GuideStep;
 use App\Models\Issue;
 use App\Models\Password;
 use App\Models\PasswordFolder;
@@ -53,9 +54,17 @@ $factory[Issue::class] = function (Generator $faker) {
 
 $factory[Guide::class] = function (Generator $faker) {
     return [
-        'title'       => 'Title',
-        'slug'        => 'guide-slug',
-        'description' => 'Description',
+        'title'       => $faker->title,
+        'slug'        => $faker->slug(),
+        'description' => $faker->text(),
+    ];
+};
+
+$factory[GuideStep::class] = function (Generator $faker) {
+    return [
+        'guide_id' => factory(Guide::class)->create()->getKey(),
+        'title' => $faker->title,
+        'description' => $faker->text(),
     ];
 };
 
