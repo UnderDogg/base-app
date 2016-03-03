@@ -66,8 +66,8 @@ class IssueTest extends TestCase
 
         $response = $this->call('POST', route('issues.store'));
 
-        $this->assertSessionHasErrors(['title', 'description']);
         $this->assertEquals(302, $response->getStatusCode());
+        $this->assertSessionHasErrors(['title', 'description']);
     }
 
     public function test_regular_users_cannot_see_labels_and_users_field()
