@@ -84,7 +84,7 @@ class IssueTest extends TestCase
 
         $issue = factory(Issue::class)->create([
             'user_id' => $user->getKey(),
-            'closed' => true,
+            'closed'  => true,
         ]);
 
         $this->visit(route('issues.index'))
