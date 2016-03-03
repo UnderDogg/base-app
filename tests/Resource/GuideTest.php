@@ -42,8 +42,8 @@ class GuideTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->call('POST', route('resources.guides.store'), [
-            'title' => 'Title',
-            'slug' => 'guide-slug',
+            'title'       => 'Title',
+            'slug'        => 'guide-slug',
             'description' => 'Description',
         ]);
 
@@ -61,8 +61,8 @@ class GuideTest extends TestCase
         $guide = factory(Guide::class)->create();
 
         $response = $this->call('PUT', route('resources.guides.update', $guide->slug), [
-            'title' => 'New Title',
-            'slug' => 'new-slug',
+            'title'       => 'New Title',
+            'slug'        => 'new-slug',
             'description' => 'Description',
         ]);
 
@@ -78,8 +78,8 @@ class GuideTest extends TestCase
         $guide = Guide::first();
 
         $response = $this->call('POST', route('resources.guides.store'), [
-            'title' => $guide->title,
-            'slug' => 'guide-slug',
+            'title'       => $guide->title,
+            'slug'        => 'guide-slug',
             'description' => 'Description',
         ]);
 
@@ -94,8 +94,8 @@ class GuideTest extends TestCase
         $guide = Guide::first();
 
         $response = $this->call('POST', route('resources.guides.store'), [
-            'title' => 'New Title',
-            'slug' => $guide->slug,
+            'title'       => 'New Title',
+            'slug'        => $guide->slug,
             'description' => 'Description',
         ]);
 

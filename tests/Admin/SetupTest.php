@@ -33,14 +33,14 @@ class SetupTest extends TestCase
     public function test_begin_setup()
     {
         $this->call('POST', route('admin.setup.finish'), [
-            'name' => 'Admin',
-            'email' => 'test@email.com',
-            'password' => 'Password123',
+            'name'                  => 'Admin',
+            'email'                 => 'test@email.com',
+            'password'              => 'Password123',
             'password_confirmation' => 'Password123',
         ]);
 
         $this->seeInDatabase('users', [
-            'name' => 'Admin',
+            'name'  => 'Admin',
             'email' => 'test@email.com',
         ]);
     }
