@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Traits\CanPurifyTrait;
@@ -9,7 +10,7 @@ use Orchestra\Support\Facades\HTML;
 
 class Comment extends Model
 {
-    use HasUserTrait, HasMarkdownTrait, CanPurifyTrait;
+    use HasUserTrait, HasFilesTrait, HasMarkdownTrait, CanPurifyTrait;
 
     /**
      * The comment table.
