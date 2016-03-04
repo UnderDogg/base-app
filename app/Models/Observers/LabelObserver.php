@@ -16,6 +16,5 @@ class LabelObserver extends Observer
         if (!$label->deleted_at) {
             $label->issues()->detach();
         }
-
     }
 }
