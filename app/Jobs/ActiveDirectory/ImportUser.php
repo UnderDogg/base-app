@@ -44,7 +44,6 @@ class ImportUser extends Job
         }
 
         // Synchronize their AD attributes.
-        $user->ad_username = $this->user->getAccountName();
         $user->from_ad = true;
 
         if ($user->isDirty()) {
