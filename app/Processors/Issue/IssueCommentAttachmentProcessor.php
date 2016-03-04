@@ -2,11 +2,11 @@
 
 namespace App\Processors\Issue;
 
-use App\Jobs\Attachment\Update;
-use App\Http\Requests\AttachmentRequest;
 use App\Http\Presenters\Issue\IssueCommentAttachmentPresenter;
-use App\Policies\IssueCommentPolicy;
+use App\Http\Requests\AttachmentRequest;
+use App\Jobs\Attachment\Update;
 use App\Models\Issue;
+use App\Policies\IssueCommentPolicy;
 use App\Policies\IssuePolicy;
 use App\Processors\Processor;
 

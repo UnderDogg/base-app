@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Issue;
 
-use App\Http\Requests\AttachmentRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AttachmentRequest;
 use App\Processors\Issue\IssueCommentAttachmentProcessor;
 
 class IssueCommentAttachmentController extends Controller
