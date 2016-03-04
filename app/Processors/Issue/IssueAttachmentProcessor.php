@@ -6,6 +6,7 @@ use App\Http\Presenters\Issue\IssueAttachmentPresenter;
 use App\Http\Requests\AttachmentRequest;
 use App\Jobs\Attachment\Update;
 use App\Models\Issue;
+use App\Policies\IssuePolicy;
 use App\Processors\Processor;
 
 class IssueAttachmentProcessor extends Processor
@@ -44,9 +45,13 @@ class IssueAttachmentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($issueId);
 
-        $file = $issue->findFile($fileUuid);
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
 
-        return view('pages.issues.attachments.show', compact('issue', 'file'));
+            return view('pages.issues.attachments.show', compact('issue', 'file'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -61,11 +66,15 @@ class IssueAttachmentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($issueId);
 
-        $file = $issue->findFile($fileUuid);
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
 
-        $form = $this->presenter->form($issue, $file);
+            $form = $this->presenter->form($issue, $file);
 
-        return view('pages.issues.attachments.edit', compact('form'));
+            return view('pages.issues.attachments.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -81,9 +90,13 @@ class IssueAttachmentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($issueId);
 
-        $file = $issue->findFile($fileUuid);
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
 
-        return $this->dispatch(new Update($request, $file));
+            return $this->dispatch(new Update($request, $file));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -98,9 +111,13 @@ class IssueAttachmentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($issueId);
 
-        $file = $issue->findFile($fileUuid);
+        if (IssuePolicy::destroy(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
 
-        return $file->delete();
+            return $file->delete();
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -115,8 +132,12 @@ class IssueAttachmentProcessor extends Processor
     {
         $issue = $this->issue->findOrFail($issueId);
 
-        $file = $issue->findFile($fileUuid);
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
 
-        return response()->download($file->complete_path);
+            return response()->download($file->complete_path);
+        }
+
+        $this->unauthorized();
     }
 }
