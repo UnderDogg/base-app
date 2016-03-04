@@ -416,6 +416,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'uses' => 'IssueAttachmentController@download',
             ]);
 
+            // Download Ticket comment attachment.
+            $router->get('tickets/{tickets}/comments/{comments}/attachments/{attachments}/download', [
+                'as'   => 'issues.comments.attachments.download',
+                'uses' => 'IssueCommentAttachmentController@download',
+            ]);
+
             // The issue resource.
             $router->resource('tickets', 'IssueController', [
                 'names' => [
@@ -449,6 +455,18 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'edit'      => 'issues.comments.edit',
                     'update'    => 'issues.comments.update',
                     'destroy'   => 'issues.comments.destroy',
+                ],
+            ]);
+
+            // The issue comment attachments resource.
+            $router->resource('tickets.comments.attachments', 'IssueCommentAttachmentController', [
+                'except' => ['index', 'create'],
+                'names'  => [
+                    'store'     => 'issues.comments.attachments.store',
+                    'show'      => 'issues.comments.attachments.show',
+                    'edit'      => 'issues.comments.attachments.edit',
+                    'update'    => 'issues.comments.attachments.update',
+                    'destroy'   => 'issues.comments.attachments.destroy',
                 ],
             ]);
 
