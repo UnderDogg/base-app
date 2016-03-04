@@ -6,6 +6,7 @@ use App\Http\Presenters\CommentPresenter;
 use App\Http\Presenters\Presenter;
 use App\Models\Comment;
 use App\Models\Issue;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 
@@ -38,11 +39,22 @@ class IssueCommentPresenter extends Presenter
                 $form->submit = 'Comment';
             }
 
-            $form->attributes(compact('url', 'method'));
+            $files = true;
+
+            $form->attributes(compact('url', 'method', 'files'));
 
             // Setup the form fieldset
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution) {
                 $isResolution = $comment->resolution;
+
+                $fieldset->control('input:file', 'files[]', function (Field $field){
+                    $field->label = 'Attach Files to this Comment';
+
+                    $field->attributes = [
+                        'multiple' => true,
+                        'accept'   => '.xlx,.xlsx,.pdf,.doc,.docx,.jpg,.jpeg,.png',
+                    ];
+                });
 
                 // If the issue doesn't have a resolution, or the current comment
                 // is the resolution, we'll add the mark resolution checkbox

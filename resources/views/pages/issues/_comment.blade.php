@@ -26,9 +26,11 @@
     </div>
 
     <div class="card-body">
-        <p>
-            {!! $comment->content_from_markdown !!}
-        </p>
+
+        <p>{!! $comment->content_from_markdown !!}</p>
+
+        @include('pages.issues.comments._files', compact('comment'))
+
     </div>
 
     <div class="card-actions pull-right">
@@ -57,3 +59,4 @@
     <div class="clearfix"></div>
 
 </div>
+

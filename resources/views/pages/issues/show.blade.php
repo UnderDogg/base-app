@@ -16,9 +16,6 @@
     <!-- Issue -->
     @include('pages.issues._issue', compact('resolution'))
 
-    <!-- Attachments -->
-    @include('pages.issues._files')
-
     <!-- Issue Tags -->
     @include('pages.issues._tags')
 

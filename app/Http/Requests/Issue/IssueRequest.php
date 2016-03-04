@@ -18,6 +18,7 @@ class IssueRequest extends Request
         'xlsx',
         'png',
         'jpg',
+        'jpeg',
         'bmp',
         'pdf',
     ];

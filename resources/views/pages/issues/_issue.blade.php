@@ -52,6 +52,9 @@
             @endif
 
         @endif
+
+        <!-- Attachments -->
+        @include('pages.issues._files', compact('issue'))
     </div>
 
     <div class="card-actions pull-right">

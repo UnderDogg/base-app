@@ -4,6 +4,7 @@ namespace App\Processors\Issue;
 
 use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentRequest;
+use App\Jobs\Issue\Comment\Store;
 use App\Models\Issue;
 use App\Policies\IssueCommentPolicy;
 use App\Processors\Processor;
@@ -46,19 +47,7 @@ class IssueCommentProcessor extends Processor
         $issue = $this->issue->findOrFail($id);
 
         if (IssueCommentPolicy::create(auth()->user(), $issue)) {
-            $attributes = [
-                'content' => $request->input('content'),
-                'user_id' => auth()->user()->getAuthIdentifier(),
-            ];
-
-            $resolution = $request->has('resolution');
-
-            // Make sure we only allow one comment resolution
-            if ($issue->hasCommentResolution()) {
-                $resolution = false;
-            }
-
-            return $issue->comments()->create($attributes, compact('resolution'));
+            return $this->dispatch(new Store($request, $issue));
         }
 
         $this->unauthorized();

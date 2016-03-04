@@ -1,23 +1,17 @@
 @if ($issue->files->count() > 0)
 
-<div class="panel panel-default">
+    <i class="fa fa-paperclip"></i>
 
-    <div class="panel-body">
+    @foreach($issue->files as $file)
 
-        <i class="fa fa-paperclip"></i>
+        <a class="btn btn-default btn-xs" href="{{ route('issues.attachments.show', [$issue->getKey(), $file->uuid]) }}">
+            {!! $file->icon !!}
 
-        @foreach($issue->files as $file)
+            {{ $file->name }}
+        </a>
 
-            <a class="btn btn-default btn-xs" href="{{ route('issues.attachments.show', [$issue->getKey(), $file->uuid]) }}">
-                {!! $file->icon !!}
+    @endforeach
 
-                {{ $file->name }}
-            </a>
-
-        @endforeach
-
-    </div>
-
-</div>
+    <hr>
 
 @endif

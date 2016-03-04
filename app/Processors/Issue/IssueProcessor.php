@@ -112,7 +112,7 @@ class IssueProcessor extends Processor
      */
     public function show($id)
     {
-        $with = ['comments', 'labels', 'files'];
+        $with = ['comments', 'comments.files', 'labels', 'files'];
 
         // Find the issue.
         $issue = $this->issue->with($with)->findOrFail($id);
