@@ -30,7 +30,7 @@ class IssueCommentTest extends TestCase
     public function test_issue_comment_create_as_admin()
     {
         $user = $this->createAdmin();
-        dd($user->roles->contains(Role::first()));
+        
         $this->actingAs($user);
 
         $issue = factory(Issue::class)->create();
