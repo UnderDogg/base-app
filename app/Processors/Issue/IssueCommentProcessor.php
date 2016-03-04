@@ -40,9 +40,9 @@ class IssueCommentProcessor extends Processor
      * @param IssueCommentRequest $request
      * @param int|string          $id
      *
-     * @return bool|Issue
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool|Issue
      */
     public function store(IssueCommentRequest $request, $id)
     {
@@ -62,9 +62,9 @@ class IssueCommentProcessor extends Processor
      * @param int|string $id
      * @param int|string $commentId
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id, $commentId)
     {
@@ -93,9 +93,9 @@ class IssueCommentProcessor extends Processor
      * @param int|string          $id
      * @param int|string          $commentId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function update(IssueCommentRequest $request, $id, $commentId)
     {
@@ -118,9 +118,9 @@ class IssueCommentProcessor extends Processor
      * @param int|string $id
      * @param int|string $commentId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function destroy($id, $commentId)
     {

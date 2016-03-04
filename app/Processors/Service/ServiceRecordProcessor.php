@@ -39,9 +39,9 @@ class ServiceRecordProcessor extends Processor
      *
      * @param int|string $serviceId
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index($serviceId)
     {
@@ -63,9 +63,9 @@ class ServiceRecordProcessor extends Processor
      *
      * @param int|string $serviceId
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function create($serviceId)
     {
@@ -88,9 +88,9 @@ class ServiceRecordProcessor extends Processor
      * @param ServiceRecordRequest $request
      * @param int|string           $serviceId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function store(ServiceRecordRequest $request, $serviceId)
     {
@@ -109,9 +109,9 @@ class ServiceRecordProcessor extends Processor
      * @param int|string $serviceId
      * @param int|string $recordId
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show($serviceId, $recordId)
     {
@@ -132,9 +132,9 @@ class ServiceRecordProcessor extends Processor
      * @param int|string $serviceId
      * @param int|string $recordId
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($serviceId, $recordId)
     {
@@ -158,9 +158,9 @@ class ServiceRecordProcessor extends Processor
      * @param int|string           $serviceId
      * @param int|string           $recordId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function update(ServiceRecordRequest $request, $serviceId, $recordId)
     {
@@ -181,9 +181,9 @@ class ServiceRecordProcessor extends Processor
      * @param int|string $serviceId
      * @param int|string $recordId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function destroy($serviceId, $recordId)
     {

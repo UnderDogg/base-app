@@ -149,9 +149,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -171,9 +171,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -194,9 +194,9 @@ class InquiryProcessor extends Processor
      * @param InquiryRequest $request
      * @param int|string     $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function update(InquiryRequest $request, $id)
     {
@@ -214,9 +214,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function destroy($id)
     {
@@ -234,9 +234,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function close($id)
     {
@@ -254,9 +254,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function open($id)
     {
@@ -274,9 +274,9 @@ class InquiryProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function approve($id)
     {
