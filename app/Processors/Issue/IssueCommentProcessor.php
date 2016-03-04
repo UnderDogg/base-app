@@ -5,6 +5,7 @@ namespace App\Processors\Issue;
 use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Jobs\Issue\Comment\Store;
+use App\Jobs\Issue\Comment\Update;
 use App\Models\Issue;
 use App\Policies\IssueCommentPolicy;
 use App\Processors\Processor;
@@ -97,19 +98,11 @@ class IssueCommentProcessor extends Processor
         /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
+        // Retrieve the comment from the issue.
         $comment = $issue->comments()->findOrFail($commentId);
 
         if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
-            $comment->content = $request->input('content', $comment->content);
-
-            $resolution = $request->input('resolution', false);
-
-            // Make sure we only allow one comment resolution
-            if (!$issue->hasCommentResolution() || $comment->resolution) {
-                $issue->comments()->updateExistingPivot($comment->getKey(), compact('resolution'));
-            }
-
-            return $comment->save();
+            return $this->dispatch(new Update($request, $issue, $comment));
         }
 
         $this->unauthorized();
