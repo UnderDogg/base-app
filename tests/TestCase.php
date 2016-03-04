@@ -2,6 +2,7 @@
 
 namespace App\Tests;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -46,7 +47,12 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         $user = factory(User::class)->create();
 
-        $user->assignRole('administrator');
+        $admin = $user->roles()
+            ->getRelated()
+            ->whereName(Role::getAdministratorName())
+            ->firstOrFail();
+
+        $user->assignRole($admin);
 
         return $user;
     }

@@ -53,7 +53,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function passwordFolder()
     {
-        return $this->hasOne(PasswordFolder::class, 'user_id');
+        return $this->hasOne(PasswordFolder::class);
     }
 
     /**

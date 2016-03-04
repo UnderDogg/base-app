@@ -39,6 +39,13 @@ $factory[Role::class] = function (Generator $faker) {
     ];
 };
 
+$factory->defineAs(Role::class, 'admin', function (Generator $faker) {
+    return [
+        'name' => Role::getAdministratorName(),
+        'label' => 'Administrator',
+    ];
+});
+
 $factory[Permission::class] = function (Generator $faker) {
     return [
         'name'  => $faker->name,
