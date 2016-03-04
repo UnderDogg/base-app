@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
-
+dd(app()->getLoadedProviders());
 /* @var Router $router */
 $router->group(['middleware' => ['web']], function (Router $router) {
     // Welcome Page.
