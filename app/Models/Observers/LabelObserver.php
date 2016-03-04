@@ -13,6 +13,9 @@ class LabelObserver extends Observer
      */
     public function deleting(Label $label)
     {
-        $label->issues()->detach();
+        if (!$label->deleted_at) {
+            $label->issues()->detach();
+        }
+
     }
 }

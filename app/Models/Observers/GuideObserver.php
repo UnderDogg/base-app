@@ -13,10 +13,12 @@ class GuideObserver extends Observer
      */
     public function deleting(Guide $guide)
     {
-        $steps = $guide->steps()->get();
+        if (!$guide->deleted_at) {
+            $steps = $guide->steps()->get();
 
-        foreach ($steps as $step) {
-            $step->delete();
+            foreach ($steps as $step) {
+                $step->delete();
+            }
         }
     }
 }

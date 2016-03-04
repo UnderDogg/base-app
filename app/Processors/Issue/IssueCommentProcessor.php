@@ -68,7 +68,11 @@ class IssueCommentProcessor extends Processor
         /** @var Issue $issue */
         $issue = $this->issue->findOrFail($id);
 
+        // Find the issue comment.
         $comment = $issue->comments()->findOrFail($commentId);
+
+        // Load it's files.
+        $comment->load(['files']);
 
         if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
             $form = $this->presenter->form($issue, $comment);

@@ -13,10 +13,12 @@ class GuideStepObserver extends Observer
      */
     public function deleting(GuideStep $step)
     {
-        $files = $step->images()->get();
+        if (!$step->deleted_at) {
+            $files = $step->images()->get();
 
-        foreach ($files as $file) {
-            $file->delete();
+            foreach ($files as $file) {
+                $file->delete();
+            }
         }
     }
 }

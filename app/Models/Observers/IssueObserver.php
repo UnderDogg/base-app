@@ -13,8 +13,28 @@ class IssueObserver extends Observer
      */
     public function deleting(Issue $issue)
     {
-        if (property_exists($issue, 'forceDeleting') && $issue->forceDeleting) {
+        // Make sure the model isn't soft deleted.
+        if (!$issue->deleted_at) {
+            // Detach the issue labels.
             $issue->labels()->detach();
+
+            // Retrieve the comments attached to the current issue.
+            $comments = $issue->comments()->get();
+
+            // Detach the comments issue comments.
+            $issue->comments()->detach();
+
+            // Delete all of the comments.
+            foreach ($comments as $comment) {
+                $comment->delete();
+            }
+
+            // Delete the issue attachments.
+            $files = $issue->files()->get();
+
+            foreach ($files as $file) {
+                $file->delete();
+            }
         }
     }
 }

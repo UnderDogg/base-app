@@ -43,12 +43,16 @@ class IssueCommentPresenter extends Presenter
 
             $form->attributes(compact('url', 'method', 'files'));
 
-            // Setup the form fieldset
+            // Setup the comment form fieldset.
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution) {
                 $isResolution = $comment->resolution;
 
-                $fieldset->control('input:file', 'files[]', function (Field $field){
-                    $field->label = 'Attach Files to this Comment';
+                $fieldset->control('input:file', 'files[]', function (Field $field) use ($comment) {
+                    if ($comment->exists) {
+                        $field->label = 'Attach More Files to this Comment';
+                    } else {
+                        $field->label = 'Attach Files to this Comment';
+                    }
 
                     $field->attributes = [
                         'multiple' => true,

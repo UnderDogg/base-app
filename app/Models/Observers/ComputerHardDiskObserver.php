@@ -13,6 +13,8 @@ class ComputerHardDiskObserver extends Observer
      */
     public function deleting(ComputerHardDisk $disk)
     {
-        $disk->records()->delete();
+        if (!$disk->deleted_at) {
+            $disk->records()->delete();
+        }
     }
 }
