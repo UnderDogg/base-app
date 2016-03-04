@@ -47,7 +47,7 @@ class IssueCommentPresenter extends Presenter
             $form->fieldset(function (Fieldset $fieldset) use ($comment, $hasResolution) {
                 $isResolution = $comment->resolution;
 
-                $fieldset->control('input:file', 'files[]', function (Field $field){
+                $fieldset->control('input:file', 'files[]', function (Field $field) {
                     $field->label = 'Attach Files to this Comment';
 
                     $field->attributes = [
