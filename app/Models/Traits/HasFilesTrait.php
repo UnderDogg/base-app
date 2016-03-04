@@ -104,6 +104,14 @@ trait HasFilesTrait
      */
     public function deleteFiles()
     {
-        return $this->files()->delete();
+        $files = $this->files()->get();
+
+        $count = 0;
+
+        foreach ($files as $file) {
+            if ($file->delete()) $count++;
+        }
+
+        return $count;
     }
 }
