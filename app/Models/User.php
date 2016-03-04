@@ -47,6 +47,41 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     protected $tableQuestionsPivot = 'user_questions';
 
     /**
+     * Determine if the user may perform the given permission.
+     *
+     * @param string|Model $permission
+     *
+     * @return bool
+     */
+    public function hasPermission($permission)
+    {
+        if (is_string($permission)) {
+            // If we weren't given a permission model, we'll try to find it by name.
+            $model = config('authorization.permission');
+
+            $permission = (new $model())->whereName($permission)->first();
+        }
+
+        dd($this->permissions);
+
+        if ($this->permissions->contains($permission)) {
+            return true;
+        }
+
+        if ($permission instanceof Model) {
+            $roles = $permission->roles;
+
+            foreach ($roles as $role) {
+                if ($this->hasRole($role)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * The hasOne password folder relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
