@@ -39,13 +39,13 @@ class Upload extends Model
     /**
      * Returns the complete file path of the upload.
      *
-     * @return string
+     * @return string|false
      */
     public function getCompletePathAttribute()
     {
         $storage = config('filesystems.disks.local.root');
 
-        return $storage.DIRECTORY_SEPARATOR.$this->path;
+        return realpath($storage.DIRECTORY_SEPARATOR.$this->path);
     }
 
     /**

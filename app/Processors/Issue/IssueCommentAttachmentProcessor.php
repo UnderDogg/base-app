@@ -151,7 +151,16 @@ class IssueCommentAttachmentProcessor extends Processor
         if (IssuePolicy::show(auth()->user(), $issue)) {
             $file = $comment->findFile($fileUuid);
 
-            return response()->download($file->complete_path);
+            if ($path = $file->complete_path) {
+                return response()->download($path);
+            }
+
+            // The path doesn't exist, which means the file does
+            // not exist. We'll delete the file to prevent
+            // users from accessing it again.
+            $file->delete();
+
+            abort(404);
         }
 
         $this->unauthorized();

@@ -134,7 +134,15 @@ class AvatarProcessor extends Processor
 
             $avatar = $user->avatar();
 
-            return response()->download($avatar->complete_path);
+            if ($path = $avatar->complete_path) {
+                return response()->download($path);
+            }
+
+            // If the avatar doesn't exist anymore,
+            // we'll delete the database record.
+            $avatar->delete();
+
+            abort(404);
         }
 
         throw new NotFoundHttpException();

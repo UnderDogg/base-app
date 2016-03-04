@@ -135,7 +135,13 @@ class IssueAttachmentProcessor extends Processor
         if (IssuePolicy::show(auth()->user(), $issue)) {
             $file = $issue->findFile($fileUuid);
 
-            return response()->download($file->complete_path);
+            if ($path = $file->complete_path) {
+                return response()->download($path);
+            }
+
+            $file->delete();
+
+            abort(404);
         }
 
         $this->unauthorized();
