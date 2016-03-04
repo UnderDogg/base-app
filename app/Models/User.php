@@ -62,15 +62,13 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
             $permission = (new $model())->whereName($permission)->first();
         }
 
-        dd($this->permissions);
-
         if ($this->permissions->contains($permission)) {
             return true;
         }
 
         if ($permission instanceof Model) {
             $roles = $permission->roles;
-
+            dd($permission->roles->pluck('name'));
             foreach ($roles as $role) {
                 if ($this->hasRole($role)) {
                     return true;
