@@ -26,7 +26,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         parent::setUp();
 
         $this->afterApplicationCreated(function () {
-            $this->artisan('db:seed');
+            dd($this->artisan('db:seed'));
         });
     }
 
