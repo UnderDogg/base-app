@@ -42,6 +42,8 @@ class IssueCommentAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($issueId, $commentId, $fileUuid)
     {
@@ -66,6 +68,8 @@ class IssueCommentAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($issueId, $commentId, $fileUuid)
     {
@@ -93,6 +97,8 @@ class IssueCommentAttachmentProcessor extends Processor
      * @param string            $fileUuid
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(AttachmentRequest $request, $issueId, $commentId, $fileUuid)
     {
@@ -117,6 +123,8 @@ class IssueCommentAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($issueId, $commentId, $fileUuid)
     {
@@ -141,6 +149,8 @@ class IssueCommentAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function download($issueId, $commentId, $fileUuid)
     {

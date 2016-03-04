@@ -49,6 +49,8 @@ class LabelProcessor extends Processor
      * Displays the form for creating a new label.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function create()
     {
@@ -67,6 +69,8 @@ class LabelProcessor extends Processor
      * @param LabelRequest $request
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(LabelRequest $request)
     {
@@ -88,6 +92,8 @@ class LabelProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($id)
     {
@@ -109,6 +115,8 @@ class LabelProcessor extends Processor
      * @param int|string   $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(LabelRequest $request, $id)
     {
@@ -130,6 +138,8 @@ class LabelProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($id)
     {

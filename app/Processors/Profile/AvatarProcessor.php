@@ -212,6 +212,7 @@ class AvatarProcessor extends Processor
         // Resize the image.
         $image->resize($this->size, $this->size);
 
+        // Return the re-sized image.
         return $image;
     }
 

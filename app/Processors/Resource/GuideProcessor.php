@@ -56,6 +56,8 @@ class GuideProcessor extends Processor
      * Displays the form to create a new guide.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function create()
     {
@@ -74,6 +76,8 @@ class GuideProcessor extends Processor
      * @param GuideRequest $request
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(GuideRequest $request)
     {
@@ -91,7 +95,9 @@ class GuideProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($id)
     {
@@ -120,6 +126,8 @@ class GuideProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($id)
     {
@@ -141,6 +149,8 @@ class GuideProcessor extends Processor
      * @param int|string   $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(GuideRequest $request, $id)
     {
@@ -173,6 +183,8 @@ class GuideProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($id)
     {

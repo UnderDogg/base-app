@@ -40,6 +40,8 @@ class IssueAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($issueId, $fileUuid)
     {
@@ -61,6 +63,8 @@ class IssueAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($issueId, $fileUuid)
     {
@@ -85,6 +89,8 @@ class IssueAttachmentProcessor extends Processor
      * @param string            $fileUuid
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(AttachmentRequest $request, $issueId, $fileUuid)
     {
@@ -106,6 +112,8 @@ class IssueAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($issueId, $fileUuid)
     {
@@ -127,6 +135,8 @@ class IssueAttachmentProcessor extends Processor
      * @param string     $fileUuid
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function download($issueId, $fileUuid)
     {

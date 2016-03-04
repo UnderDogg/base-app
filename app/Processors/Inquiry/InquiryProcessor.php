@@ -150,6 +150,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($id)
     {
@@ -170,6 +172,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($id)
     {
@@ -191,6 +195,8 @@ class InquiryProcessor extends Processor
      * @param int|string     $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(InquiryRequest $request, $id)
     {
@@ -209,6 +215,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($id)
     {
@@ -227,6 +235,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function close($id)
     {
@@ -245,6 +255,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function open($id)
     {
@@ -263,6 +275,8 @@ class InquiryProcessor extends Processor
      * @param int|string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function approve($id)
     {

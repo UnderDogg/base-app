@@ -49,6 +49,8 @@ class ComputerProcessor extends Processor
      * Displays all computers.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function index()
     {
@@ -67,6 +69,8 @@ class ComputerProcessor extends Processor
      * Displays the form to create a computer.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function create()
     {
@@ -85,6 +89,8 @@ class ComputerProcessor extends Processor
      * @param ComputerRequest $request
      *
      * @return bool|Computer
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(ComputerRequest $request)
     {
@@ -108,6 +114,8 @@ class ComputerProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($id)
     {
@@ -133,6 +141,8 @@ class ComputerProcessor extends Processor
      * @param int|string $id
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($id)
     {
@@ -154,6 +164,8 @@ class ComputerProcessor extends Processor
      * @param int|string      $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(ComputerRequest $request, $id)
     {
@@ -185,6 +197,8 @@ class ComputerProcessor extends Processor
      * @param string $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($id)
     {

@@ -39,6 +39,8 @@ class IssueLabelProcessor extends Processor
      * @param int|string        $id
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(IssueLabelRequest $request, $id)
     {

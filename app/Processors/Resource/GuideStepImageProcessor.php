@@ -48,6 +48,8 @@ class GuideStepImageProcessor extends Processor
      * @param int|string $fileUuid
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($id, $stepId, $fileUuid)
     {

@@ -45,6 +45,8 @@ class UserProcessor extends Processor
      * @param Request $request
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function index(Request $request)
     {
@@ -78,6 +80,8 @@ class UserProcessor extends Processor
      * Displays a form for creating a new user.
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function create()
     {
@@ -98,6 +102,8 @@ class UserProcessor extends Processor
      * @param UserRequest $request
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(UserRequest $request)
     {
@@ -128,9 +134,10 @@ class UserProcessor extends Processor
      *
      * @param string $username
      *
-     * @throws NotFoundHttpException
-     *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function show($username)
     {
@@ -152,9 +159,10 @@ class UserProcessor extends Processor
      *
      * @param string $username
      *
-     * @throws NotFoundHttpException
-     *
      * @return \Illuminate\View\View
+     *
+     * @throws NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($username)
     {
@@ -179,9 +187,10 @@ class UserProcessor extends Processor
      * @param UserRequest $request
      * @param string      $username
      *
-     * @throws NotFoundHttpException
-     *
      * @return bool
+     *
+     * @throws NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(UserRequest $request, $username)
     {
@@ -217,6 +226,8 @@ class UserProcessor extends Processor
      * @param UserImportRequest $request
      *
      * @return bool|mixed
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function import(UserImportRequest $request)
     {

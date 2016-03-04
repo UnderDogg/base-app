@@ -34,6 +34,8 @@ class InquiryCommentProcessor extends Processor
      * @param int|string            $inquiryId
      *
      * @return \App\Models\Comment|bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function store(InquiryCommentRequest $request, $inquiryId)
     {
@@ -58,6 +60,8 @@ class InquiryCommentProcessor extends Processor
      * @param int|string $commentId
      *
      * @return \Illuminate\View\View
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function edit($inquiryId, $commentId)
     {
@@ -82,6 +86,8 @@ class InquiryCommentProcessor extends Processor
      * @param int|string            $commentId
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function update(InquiryCommentRequest $request, $inquiryId, $commentId)
     {
@@ -105,6 +111,8 @@ class InquiryCommentProcessor extends Processor
      * @param int|string $commentId
      *
      * @return bool
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
     public function destroy($inquiryId, $commentId)
     {
