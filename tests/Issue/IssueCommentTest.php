@@ -4,7 +4,6 @@ namespace App\Tests\Issue;
 
 use App\Models\Comment;
 use App\Models\Issue;
-use App\Models\Role;
 use App\Tests\TestCase;
 
 class IssueCommentTest extends TestCase
@@ -30,7 +29,7 @@ class IssueCommentTest extends TestCase
     public function test_issue_comment_create_as_admin()
     {
         $user = $this->createAdmin();
-        
+
         $this->actingAs($user);
 
         $issue = factory(Issue::class)->create();
