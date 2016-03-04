@@ -44,9 +44,9 @@ class GuideStepProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index($id)
     {
@@ -68,9 +68,9 @@ class GuideStepProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function create($id)
     {
@@ -93,9 +93,9 @@ class GuideStepProcessor extends Processor
      * @param GuideStepRequest $request
      * @param int|string       $id
      *
-     * @return GuideStep|bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return GuideStep|bool
      */
     public function store(GuideStepRequest $request, $id)
     {
@@ -114,9 +114,9 @@ class GuideStepProcessor extends Processor
      * @param int|string $id
      * @param int        $stepPosition
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id, $stepPosition)
     {
@@ -140,9 +140,9 @@ class GuideStepProcessor extends Processor
      * @param int|string       $id
      * @param int              $stepPosition
      *
-     * @return GuideStep|bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return GuideStep|bool
      */
     public function update(GuideStepRequest $request, $id, $stepPosition)
     {
@@ -163,9 +163,9 @@ class GuideStepProcessor extends Processor
      * @param int|string $id
      * @param int        $stepPosition
      *
-     * @return bool|null
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool|null
      */
     public function destroy($id, $stepPosition)
     {
@@ -187,9 +187,9 @@ class GuideStepProcessor extends Processor
      * @param int|string           $id
      * @param int                  $stepId
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
@@ -209,9 +209,9 @@ class GuideStepProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\
      */
     public function images($id)
     {
@@ -232,9 +232,9 @@ class GuideStepProcessor extends Processor
      * @param GuideStepImagesRequest $request
      * @param int|string             $id
      *
-     * @return int
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return int
      */
     public function upload(GuideStepImagesRequest $request, $id)
     {

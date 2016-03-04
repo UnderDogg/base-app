@@ -41,9 +41,9 @@ class ComputerProcessor extends Processor
      *
      * @param Request $request
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -76,9 +76,9 @@ class ComputerProcessor extends Processor
      *
      * @param ComputerImportRequest $request
      *
-     * @return bool|mixed
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool|mixed
      */
     public function store(ComputerImportRequest $request)
     {
@@ -98,9 +98,9 @@ class ComputerProcessor extends Processor
     /**
      * Imports all active directory computers.
      *
-     * @return array
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return array
      */
     public function storeAll()
     {

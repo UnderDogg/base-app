@@ -38,9 +38,9 @@ class ServiceProcessor extends Processor
     /**
      * Displays all services.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -58,9 +58,9 @@ class ServiceProcessor extends Processor
     /**
      * Displays the form for creating a new service.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -78,9 +78,9 @@ class ServiceProcessor extends Processor
      *
      * @param ServiceRequest $request
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function store(ServiceRequest $request)
     {
@@ -96,9 +96,9 @@ class ServiceProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -137,9 +137,9 @@ class ServiceProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -160,9 +160,9 @@ class ServiceProcessor extends Processor
      * @param ServiceRequest $request
      * @param int|string     $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function update(ServiceRequest $request, $id)
     {
@@ -180,9 +180,9 @@ class ServiceProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function destroy($id)
     {

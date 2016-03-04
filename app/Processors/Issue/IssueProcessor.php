@@ -108,9 +108,9 @@ class IssueProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return Issue
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return Issue
      */
     public function show($id)
     {
@@ -143,9 +143,9 @@ class IssueProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -168,9 +168,9 @@ class IssueProcessor extends Processor
      * @param IssueRequest $request
      * @param int|string   $id
      *
-     * @return Issue|false
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return Issue|false
      */
     public function update(IssueRequest $request, $id)
     {
@@ -190,9 +190,9 @@ class IssueProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function destroy($id)
     {
@@ -212,9 +212,9 @@ class IssueProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function close($id)
     {
@@ -234,9 +234,9 @@ class IssueProcessor extends Processor
      *
      * @param int|string $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function open($id)
     {

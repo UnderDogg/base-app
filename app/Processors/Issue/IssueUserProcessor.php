@@ -38,9 +38,9 @@ class IssueUserProcessor extends Processor
      * @param IssueUserRequest $request
      * @param int|string       $id
      *
-     * @return bool
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     *
+     * @return bool
      */
     public function store(IssueUserRequest $request, $id)
     {
