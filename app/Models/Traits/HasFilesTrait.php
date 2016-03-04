@@ -109,7 +109,9 @@ trait HasFilesTrait
         $count = 0;
 
         foreach ($files as $file) {
-            if ($file->delete()) $count++;
+            if ($file->delete()) {
+                $count++;
+            }
         }
 
         return $count;
