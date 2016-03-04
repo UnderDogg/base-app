@@ -31,7 +31,7 @@ class IssuePolicy
      */
     public static function show(User $user, Issue $issue)
     {
-        return $user->can('issues.show') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.show') || (int) $user->getKey() === (int) $issue->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class IssuePolicy
      */
     public static function edit(User $user, Issue $issue)
     {
-        return $user->can('issues.edit') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.edit') || (int) $user->getKey() === (int) $issue->user_id;
     }
 
     /**
@@ -90,7 +90,7 @@ class IssuePolicy
      */
     public static function close(User $user, Issue $issue)
     {
-        return $user->can('issues.close') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.close') || (int) $user->getKey() === (int) $issue->user_id;
     }
 
     /**
@@ -104,7 +104,7 @@ class IssuePolicy
      */
     public static function destroy(User $user, Issue $issue)
     {
-        return $user->can('issues.destroy') || $user->getKey() === $issue->user_id;
+        return $user->can('issues.destroy') || (int) $user->getKey() === (int) $issue->user_id;
     }
 
     /**
