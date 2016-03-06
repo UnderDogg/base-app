@@ -14,8 +14,6 @@ class HtmlServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register(OrchestraHtmlServiceProvider::class);
-
         // Bind the form factory.
         $this->app->bind('Orchestra\Contracts\Html\Form\Factory', function ($app) {
             $factory = new FormFactory($app);

@@ -31,6 +31,8 @@
 
                         <div class="col-md-12">
 
+                            <div class="clearfix"></div>
+
                             <div class="visible-xs">
                                 <a class="btn btn-sm btn-success pull-left" href="{{ route('issues.create') }}">
                                     <i class="fa fa-exclamation-circle"></i>

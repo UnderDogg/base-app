@@ -155,9 +155,12 @@ return [
         Adldap\Laravel\AdldapAuthServiceProvider::class,
 
         /*
-         * Orchestra Platform Service Providers...
+         * Orchestra Service Providers...
          */
         Orchestra\View\DecoratorServiceProvider::class,
+        Orchestra\Html\HtmlServiceProvider::class,
+        Orchestra\Memory\MemoryServiceProvider::class,
+        Orchestra\Foundation\Providers\FoundationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -169,47 +172,18 @@ return [
         App\Providers\AdminRouteServiceProvider::class,
         App\Providers\DecoratorServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
-        App\Providers\HtmlServiceProvider::class,
 
         /*
-         * Revision Provider.
+         * Additional App Service Providers
          */
         Stevebauman\Revision\RevisionServiceProvider::class,
-
-        /*
-         * Purification Provider.
-         */
         Stevebauman\Purify\PurifyServiceProvider::class,
-
-        /*
-         * Authorization Provider
-         */
         Stevebauman\Authorization\AuthorizationServiceProvider::class,
-
-        /*
-         * Commonmark Wrapper.
-         */
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
-
-        /*
-         * Intervention Image Manipulation.
-         */
         Intervention\Image\ImageServiceProvider::class,
-
-        /*
-         * RSS Feed Fetcher.
-         */
         Vinelab\Rss\RssServiceProvider::class,
-
-        /*
-         * Charts Service Provider.
-         */
-        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
-
-        /*
-         * Nested Set Service Provider.
-         */
         Baum\Providers\BaumServiceProvider::class,
+
     ],
 
     /*
