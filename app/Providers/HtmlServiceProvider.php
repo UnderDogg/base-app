@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Html\Form\Factory as FormFactory;
-use Orchestra\Html\HtmlServiceProvider as OrchestraHtmlServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
 
 class HtmlServiceProvider extends ServiceProvider
