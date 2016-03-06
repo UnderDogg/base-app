@@ -159,7 +159,6 @@ return [
          */
         Orchestra\View\DecoratorServiceProvider::class,
         Orchestra\Html\HtmlServiceProvider::class,
-        Orchestra\Memory\MemoryServiceProvider::class,
         Orchestra\Foundation\Providers\FoundationServiceProvider::class,
 
         /*
