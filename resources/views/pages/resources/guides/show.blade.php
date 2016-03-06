@@ -12,7 +12,7 @@
 @section('content')
 
     @if(auth()->check())
-        @decorator('navbar', $navbar)
+        {!! Decorator::render('navbar', $navbar) !!}
     @endif
 
     @if ($guide->description)

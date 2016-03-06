@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @decorator('navbar', $navbar)
+    {!! Decorator::render('navbar', $navbar) !!}
 
     {!! $attributes !!}
 
