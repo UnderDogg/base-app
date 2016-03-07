@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\Inspire::class,
         Commands\Com\ScanComputers::class,
+        Commands\ActiveDirectory\SyncRole::class,
         Commands\ActiveDirectory\SyncUsers::class,
         Commands\ActiveDirectory\SyncComputers::class,
         Commands\ClearMonthlyData::class,

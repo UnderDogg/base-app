@@ -8,6 +8,7 @@ use App\Jobs\Mail\Notification;
 use App\Models\Category;
 use App\Models\Inquiry;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Mail\Message;
 
 class Store extends Job
@@ -57,7 +58,9 @@ class Store extends Job
 
         if ($this->category->manager === true) {
             // If the category requires manager approval, we'll retrieve the manager record.
-            $manager = User::findOrFail($this->request->input('manager'));
+            $manager = User::whereHas('roles', function (Builder $query) {
+                $query->whereName('managers');
+            })->findOrFail($this->request->input('manager'));
 
             $this->inquiry->manager_id = $manager->getKey();
 

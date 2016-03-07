@@ -203,7 +203,9 @@ class InquiryPresenter extends Presenter
                     $fieldset->control('input:select', 'manager', function (Field $field) use ($inquiry) {
                         $field->label = 'Manager';
 
-                        $field->options = User::all()->pluck('name', 'id');
+                        $field->options = User::whereHas('roles', function (Builder $query) {
+                            $query->whereName('Managers');
+                        })->orderBy('name')->pluck('name', 'id');
 
                         $field->value = function (Inquiry $inquiry) {
                             return $inquiry->manager_id;

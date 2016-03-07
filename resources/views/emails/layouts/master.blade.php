@@ -537,7 +537,7 @@
                         <td class="footer__inner" style="padding: 0;font-size: 12px;line-height: 19px;">
 
                             <div>
-                                <div>{{ env('APP_NAME') }}</div>
+                                <div>{{ env('APP_NAME', 'Helpdesk') }}</div>
                             </div>
                             <div class="footer__permission" style="Margin-top: 18px;">
 
