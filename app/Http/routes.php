@@ -330,6 +330,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'uses' => 'InquiryController@approved',
             ]);
 
+            // Approve an inquiry via UUID.
+            $router->get('requests/approve/{uuid}', [
+                'as'   => 'inquiries.approve.uuid',
+                'uses' => 'InquiryController@approveUuid',
+            ]);
+
             // Close an inquiry.
             $router->post('requests/{inquiries}/close', [
                 'as'   => 'inquiries.close',

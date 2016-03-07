@@ -39,10 +39,7 @@
         <div class="panel panel-success">
             <div class="panel-heading text-center">
                 <i class="fa fa-check-circle"></i>
-                Complete
-                @if($inquiry->closed)
-                    & Closed
-                @endif
+                Approved
             </div>
         </div>
 
@@ -87,7 +84,7 @@
                             href="{{ route('inquiries.approve', [$inquiry->getKey()]) }}"
                     >
                         <i class="fa fa-check"></i>
-                        Complete
+                        Approve
                     </a>
 
                 @endif

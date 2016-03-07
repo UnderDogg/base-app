@@ -50,6 +50,7 @@ class Store extends Job
     {
         // Set the inquiry model data.
         $this->inquiry->user_id = auth()->id();
+        $this->inquiry->uuid = uuid();
         $this->inquiry->category_id = $this->category->getKey();
         $this->inquiry->title = $this->request->input('title');
         $this->inquiry->description = $this->request->input('description');

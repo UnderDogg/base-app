@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions\Devices;
+namespace App\Exceptions\Device;
 
 class UnableToMountDriveException extends \Exception
 {

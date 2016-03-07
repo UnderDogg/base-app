@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Inquiry;
 
+use App\Exceptions\Inquiry\AlreadyApprovedException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Inquiry\InquiryRequest;
 use App\Processors\Inquiry\InquiryProcessor;
@@ -192,14 +193,46 @@ class InquiryController extends Controller
      */
     public function approve($id)
     {
-        if ($this->processor->approve($id)) {
-            flash()->success('Success!', 'Successfully approved request.');
+        try {
+            if ($this->processor->approve($id)) {
+                flash()->success('Success!', 'Successfully approved request.');
+
+                return redirect()->route('inquiries.show', [$id]);
+            } else {
+                flash()->success('Success!', 'There was an issue approving this request. Please try again.');
+
+                return redirect()->route('inquiries.show', [$id]);
+            }
+        } catch (AlreadyApprovedException $e) {
+            flash()->error('Error!', $e->getMessage());
 
             return redirect()->route('inquiries.show', [$id]);
-        } else {
-            flash()->success('Success!', 'There was an issue approving this request. Please try again.');
+        }
+    }
 
-            return redirect()->route('inquiries.show', [$id]);
+    /**
+     * Approves the specified inquiry via UUID.
+     *
+     * @param string $uuid
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approveUuid($uuid)
+    {
+        try {
+            if ($this->processor->approveUuid($uuid)) {
+                flash()->success('Success!', 'Successfully approved users request.');
+
+                return redirect()->route('inquiries.index');
+            } else {
+                flash()->error('Error!', 'There was an issue approving this users request. Please try again.');
+
+                return redirect()->route('inquiries.index');
+            }
+        } catch (AlreadyApprovedException $e) {
+            flash()->setTimer(null)->error('Error!', $e->getMessage());
+
+            return redirect()->route('inquiries.index');
         }
     }
 

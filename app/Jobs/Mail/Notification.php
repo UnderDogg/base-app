@@ -62,11 +62,7 @@ class Notification extends Job
     {
         $this->data['user'] = $this->user;
 
-        try {
-            $mailer->send($this->view, $this->data, $this->message);
-        } catch (\Exception $e) {
-            return false;
-        }
+        $mailer->send($this->view, $this->data, $this->message);
 
         return true;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Inquiry;
 
+use App\Exceptions\Inquiry\AlreadyApprovedException;
 use App\Jobs\Job;
 use App\Models\Inquiry;
 
@@ -26,6 +27,8 @@ class Approve extends Job
      * Approves the current inquiry.
      *
      * @return bool
+     *
+     * @throws AlreadyApprovedException
      */
     public function handle()
     {
@@ -38,6 +41,6 @@ class Approve extends Job
             return $this->inquiry->save();
         }
 
-        return false;
+        throw new AlreadyApprovedException('This request has already been approved.');
     }
 }

@@ -288,4 +288,18 @@ class InquiryProcessor extends Processor
 
         $this->unauthorized();
     }
+
+    /**
+     * Approves the inquiry by it's UUID.
+     *
+     * @param string $uuid
+     *
+     * @return bool
+     */
+    public function approveUuid($uuid)
+    {
+        $inquiry = $this->inquiry->whereUuid($uuid)->firstOrFail();
+
+        return $this->dispatch(new Approve($inquiry));
+    }
 }
