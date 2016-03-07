@@ -382,7 +382,7 @@ class IssuePresenter extends Presenter
 
             $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->tag_line);
 
-            return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
+            return "$link $labels $users $tagLine";
         };
 
         return $column;

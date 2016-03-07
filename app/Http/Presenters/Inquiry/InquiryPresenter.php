@@ -49,7 +49,11 @@ class InquiryPresenter extends Presenter
 
             $table->column('title', function (Column $column) {
                 $column->value = function (Inquiry $inquiry) {
-                    return link_to_route('inquiries.show', $inquiry->title, [$inquiry->getKey()]);
+                    $link = link_to_route('inquiries.show', $inquiry->title, [$inquiry->getKey()]);
+
+                    $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $inquiry->tag_line);
+
+                    return "$link $tagLine";
                 };
             });
 

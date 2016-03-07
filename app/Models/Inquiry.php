@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
-use Orchestra\Support\Facades\HTML;
+use App\Models\Traits\HasComments;
 
 class Inquiry extends Model
 {
-    use HasUserTrait, HasMarkdownTrait;
+    use HasUserTrait, HasComments, HasMarkdownTrait;
 
     /**
      * The requests table.
@@ -18,20 +18,11 @@ class Inquiry extends Model
     protected $table = 'inquiries';
 
     /**
-     * The request comments pivot table.
-     *
-     * @var string
+     * {@inheritdoc}
      */
-    protected $tablePivotComments = 'inquiry_comments';
-
-    /**
-     * The belongsToMany comments relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function comments()
+    public function getCommentsPivotTable()
     {
-        return $this->belongsToMany(Comment::class, $this->tablePivotComments);
+        return 'inquiry_comments';
     }
 
     /**
@@ -114,6 +105,26 @@ class Inquiry extends Model
         if ($category instanceof Category) {
             return $category->name;
         }
+    }
+
+    /**
+     * Accessor for the tag line of the issue.
+     *
+     * @return string
+     */
+    public function getTagLineAttribute()
+    {
+        $user = $this->user->name;
+
+        $daysAgo = $this->created_at_human;
+
+        $comments = count($this->comments);
+
+        $icon = '<i class="fa fa-comments"></i>';
+
+        $hash = $this->hash_id;
+
+        return "$hash created $daysAgo by $user - $icon $comments";
     }
 
     /**
