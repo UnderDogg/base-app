@@ -60,7 +60,7 @@ class IssuePresenter extends Presenter
                 $column->label = '';
 
                 $column->value = function (Issue $issue) {
-                    return $issue->getStatusIcon();
+                    return $issue->status_icon;
                 };
 
                 $column->attributes(function () {
@@ -165,7 +165,7 @@ class IssuePresenter extends Presenter
                         'placeholder' => 'Click to select a date / time when the issue occured.',
                     ])
                     ->value(function (Issue $issue) {
-                        return $issue->occurredAtForInput();
+                        return $issue->occurred_at_for_input;
                     });
 
                 // If the user can add labels we'll allow them to
@@ -380,7 +380,7 @@ class IssuePresenter extends Presenter
             $labels = implode(null, $labels);
             $users = implode(null, $users);
 
-            $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->getTagLine());
+            $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->tag_line);
 
             return sprintf('%s %s %s %s', $link, $labels, $users, $tagLine);
         };

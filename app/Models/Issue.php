@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasComments;
 use App\Models\Traits\HasFilesTrait;
+use App\Models\Traits\HasLabels;
 use App\Models\Traits\HasMarkdownTrait;
+use App\Models\Traits\HasUsers;
 use App\Models\Traits\HasUserTrait;
 use App\Traits\CanPurifyTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +15,16 @@ use Orchestra\Support\Facades\HTML;
 
 class Issue extends Model
 {
-    use HasUserTrait, HasFilesTrait, CanPurifyTrait, HasMarkdownTrait, SoftDeletes;
+    use HasComments,
+        HasUsers,
+        HasUserTrait,
+        HasFilesTrait,
+        HasLabels,
+        HasMarkdownTrait,
+        CanPurifyTrait,
+        SoftDeletes {
+        comments as traitComments;
+    }
 
     /**
      * The issues table.
@@ -20,27 +32,6 @@ class Issue extends Model
      * @var string
      */
     protected $table = 'issues';
-
-    /**
-     * The issue labels pivot table.
-     *
-     * @var string
-     */
-    protected $tablePivotLabels = 'issue_labels';
-
-    /**
-     * The issue comments pivot table.
-     *
-     * @var string
-     */
-    protected $tablePivotComments = 'issue_comments';
-
-    /**
-     * The issue users pivot table.
-     *
-     * @var string
-     */
-    protected $tablePivotUsers = 'issue_users';
 
     /**
      * The fillable issue attributes.
@@ -97,6 +88,38 @@ class Issue extends Model
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getCommentsPivotTable()
+    {
+        return 'issue_comments';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLabelsPivotTable()
+    {
+        return 'issue_labels';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsersPivotTable()
+    {
+        return 'issue_users';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function comments()
+    {
+        return $this->traitComments()->withPivot(['resolution']);
+    }
+
+    /**
      * The belongsTo closed by user relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -104,36 +127,6 @@ class Issue extends Model
     public function closedByUser()
     {
         return $this->belongsTo(User::class, 'closed_by_user_id');
-    }
-
-    /**
-     * The belongsToMany labels relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function labels()
-    {
-        return $this->belongsToMany(Label::class, $this->tablePivotLabels);
-    }
-
-    /**
-     * The belongsToMany users relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany(User::class, $this->tablePivotUsers);
-    }
-
-    /**
-     * The belongsToMany comments relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function comments()
-    {
-        return $this->belongsToMany(Comment::class, $this->tablePivotComments)->withPivot(['resolution']);
     }
 
     /**
@@ -193,7 +186,7 @@ class Issue extends Model
      */
     public function hasCommentResolution()
     {
-        return $this->findCommentResolution() ? true : false;
+        return $this->findCommentResolution() instanceof Comment;
     }
 
     /**
@@ -231,11 +224,11 @@ class Issue extends Model
     }
 
     /**
-     * Returns the status icon of the issue.
+     * Accessor for the status icon of the issue.
      *
      * @return string
      */
-    public function getStatusIcon()
+    public function getStatusIconAttribute()
     {
         if ($this->isOpen()) {
             $class = 'text-success fa fa-exclamation-circle';
@@ -247,11 +240,11 @@ class Issue extends Model
     }
 
     /**
-     * Returns the tag line of the issue.
+     * Accessor for the tag line of the issue.
      *
      * @return string
      */
-    public function getTagLine()
+    public function getTagLineAttribute()
     {
         $user = $this->user->name;
 
@@ -271,7 +264,7 @@ class Issue extends Model
      *
      * @return string
      */
-    public function getCreatedAtTagLine()
+    public function getCreatedAtTagLineAttribute()
     {
         $user = $this->user->name;
 
@@ -285,9 +278,9 @@ class Issue extends Model
      *
      * @return string
      */
-    public function getOccurredAtTagLine()
+    public function getOccurredAtTagLineAttribute()
     {
-        $daysAgo = $this->occurredAtHuman();
+        $daysAgo = $this->occurred_at_human;
 
         return "Issue occurred $daysAgo";
     }
@@ -297,7 +290,7 @@ class Issue extends Model
      *
      * @return string
      */
-    public function getClosedByUserTagLine()
+    public function getClosedByUserTagLineAttribute()
     {
         $user = $this->closedByUser;
 
@@ -309,7 +302,7 @@ class Issue extends Model
             $line = 'Closed';
         }
 
-        $daysAgo = $this->closedAtHuman();
+        $daysAgo = $this->closed_at_human;
 
         return "$line $daysAgo";
     }
@@ -319,7 +312,7 @@ class Issue extends Model
      *
      * @return string
      */
-    public function getDescriptionFromMarkdown()
+    public function getDescriptionFromMarkdownAttribute()
     {
         return $this->fromMarkdown($this->description);
     }
@@ -329,7 +322,7 @@ class Issue extends Model
      *
      * @return string|null
      */
-    public function closedAtHuman()
+    public function getClosedAtHumanAttribute()
     {
         if ($this->closed_at) {
             return $this->closed_at->diffForHumans();
@@ -341,7 +334,7 @@ class Issue extends Model
      *
      * @return string|null
      */
-    public function occurredAtHuman()
+    public function getOccurredAtHumanAttribute()
     {
         if ($this->occurred_at) {
             return $this->occurred_at->diffForHumans();
@@ -353,7 +346,7 @@ class Issue extends Model
      *
      * @return string|null
      */
-    public function occurredAtForInput()
+    public function getOccurredAtForInputAttribute()
     {
         if ($this->occurred_at) {
             return $this->occurred_at->format('m/d/Y g:i A');

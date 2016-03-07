@@ -31,7 +31,7 @@
 
     <div class="card-body">
         <p>
-            {!! $issue->getDescriptionFromMarkdown() !!}
+            {!! $issue->description_from_markdown !!}
         </p>
 
         {{--
