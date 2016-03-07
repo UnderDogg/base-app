@@ -26,9 +26,9 @@ class Approve extends Job
     /**
      * Approves the current inquiry.
      *
-     * @return bool
-     *
      * @throws AlreadyApprovedException
+     *
+     * @return bool
      */
     public function handle()
     {
