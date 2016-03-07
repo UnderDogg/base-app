@@ -78,6 +78,8 @@ class Store extends Job
         }
 
         if ($this->inquiry->save()) {
+            // If the inquiry was successfully created, we'll
+            // send out the notification if one has been set.
             if (isset($notification)) {
                 $this->dispatch($notification);
             }
