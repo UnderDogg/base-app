@@ -13,7 +13,7 @@ class SyncRole extends Command
     use DispatchesJobs;
 
     /**
-     * The command signature
+     * The command signature.
      *
      * @var string
      */
@@ -51,7 +51,7 @@ class SyncRole extends Command
         $group = $this->adldap->groups()->find($this->argument('group-name'));
 
         if ($group instanceof Group) {
-            if($this->dispatch(new ImportGroup($group))) {
+            if ($this->dispatch(new ImportGroup($group))) {
                 $this->info("Successfully imported group: {$group->getName()}");
             }
         } else {

@@ -3,8 +3,8 @@
 namespace App\Jobs\ActiveDirectory;
 
 use Adldap\Models\Group;
-use App\Models\Role;
 use App\Jobs\Job;
+use App\Models\Role;
 
 class ImportGroup extends Job
 {
