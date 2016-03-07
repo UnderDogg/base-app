@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasComments;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
-use App\Models\Traits\HasComments;
 
 class Inquiry extends Model
 {
