@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Device;
+namespace App\Http\Controllers\Device\Computer;
 
 use App\Http\Controllers\Controller;
-use App\Processors\Device\ComputerStatusProcessor;
+use App\Processors\Device\Computer\ComputerStatusProcessor;
 
 class ComputerStatusController extends Controller
 {

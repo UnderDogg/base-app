@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Device;
+namespace App\Http\Controllers\Device\Computer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Device\ComputerAccessRequest;
-use App\Processors\Device\ComputerAccessProcessor;
+use App\Processors\Device\Computer\ComputerAccessProcessor;
 
 class ComputerAccessController extends Controller
 {

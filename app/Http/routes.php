@@ -147,62 +147,57 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The drives resource.
             $router->resource('drives', 'DriveController');
 
-            // The computers resource.
-            $router->resource('computers', 'ComputerController');
+            // The device Computer group
+            $router->group(['namespace' => 'Computer'], function (Router $router) {
+                // The computers resource.
+                $router->resource('computers', 'ComputerController');
 
-            // The Devices group.
-            $router->group(['as' => 'devices.'], function (Router $router) {
-                // The Computer Device group.
-                $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
-                    // View Computer Hard Disks.
-                    $router->get('disks', [
-                        'as'   => 'disks.index',
-                        'uses' => 'ComputerDiskController@index',
-                    ]);
+                // The Devices group.
+                $router->group(['as' => 'devices.'], function (Router $router) {
+                    // The Computer Device group.
+                    $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
+                        // View Computer Hard Disks.
+                        $router->get('disks', [
+                            'as'   => 'disks.index',
+                            'uses' => 'ComputerDiskController@index',
+                        ]);
 
-                    // Sync Computer Hard Disks.
-                    $router->post('disks/synchronize', [
-                        'as'   => 'disks.sync',
-                        'uses' => 'ComputerDiskController@synchronize',
-                    ]);
+                        // Sync Computer Hard Disks.
+                        $router->post('disks/synchronize', [
+                            'as'   => 'disks.sync',
+                            'uses' => 'ComputerDiskController@synchronize',
+                        ]);
 
-                    // View Computer CPU usage.
-                    $router->get('cpu', [
-                        'as'   => 'cpu.index',
-                        'uses' => 'ComputerCpuController@index',
-                    ]);
+                        // View Computer CPU usage.
+                        $router->get('cpu', [
+                            'as'   => 'cpu.index',
+                            'uses' => 'ComputerCpuController@index',
+                        ]);
 
-                    // View Computer CPU usage (JSON).
-                    $router->get('cpu/json', [
-                        'as'   => 'cpu.json',
-                        'uses' => 'ComputerCpuController@json',
-                    ]);
+                        // View Computer CPU usage (JSON).
+                        $router->get('cpu/json', [
+                            'as'   => 'cpu.json',
+                            'uses' => 'ComputerCpuController@json',
+                        ]);
 
-                    // Edit Computer Access.
-                    $router->get('access', [
-                        'as'   => 'access.edit',
-                        'uses' => 'ComputerAccessController@edit',
-                    ]);
+                        // Edit Computer Access.
+                        $router->get('access', [
+                            'as'   => 'access.edit',
+                            'uses' => 'ComputerAccessController@edit',
+                        ]);
 
-                    // Update Computer Access.
-                    $router->post('access', [
-                        'as'   => 'access.update',
-                        'uses' => 'ComputerAccessController@update',
-                    ]);
+                        // Update Computer Access.
+                        $router->post('access', [
+                            'as'   => 'access.update',
+                            'uses' => 'ComputerAccessController@update',
+                        ]);
 
-                    // Computer Status Check.
-                    $router->post('status/check', [
-                        'as'   => 'status.check',
-                        'uses' => 'ComputerStatusController@check',
-                    ]);
-                });
-
-                // The Drive Device group.
-                $router->group(['prefix' => 'drives/{drives}', 'as' => 'drives.'], function (Router $router) {
-                    $router->get('{path}', [
-                        'as'   => 'show',
-                        'uses' => 'DriveController@show',
-                    ]);
+                        // Computer Status Check.
+                        $router->post('status/check', [
+                            'as'   => 'status.check',
+                            'uses' => 'ComputerStatusController@check',
+                        ]);
+                    });
                 });
             });
         });

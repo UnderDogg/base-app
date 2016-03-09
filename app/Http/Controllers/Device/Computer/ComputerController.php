@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Device;
+namespace App\Http\Controllers\Device\Computer;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Device\ComputerRequest;
 use App\Models\Computer;
-use App\Processors\Device\ComputerProcessor;
+use App\Processors\Device\Computer\ComputerProcessor;
 
 class ComputerController extends Controller
 {

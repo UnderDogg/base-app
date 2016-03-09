@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Processors\Device;
+namespace App\Processors\Device\Computer;
 
 use App\Http\Presenters\Device\ComputerCpuPresenter;
 use App\Jobs\Com\Computer\Processes;

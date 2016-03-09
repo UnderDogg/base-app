@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Processors\Device;
+namespace App\Processors\Device\Computer;
 
 use Adldap\Contracts\Adldap;
 use Adldap\Models\Computer as AdComputer;

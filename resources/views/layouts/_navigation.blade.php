@@ -129,12 +129,49 @@
 
                     @if(\App\Policies\Device\ComputerPolicy::index(auth()->user()))
 
-                        <li class="{{ active()->route('devices.computers.*') }}">
-                            <a href="{{ route('devices.computers.index') }}">
+                        <li class="dropdown {{ active()->route('devices.computers.*') }}" id="computers-menu">
+
+                            <a href="#computers-menu" rel="computers-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-desktop"></i>
                                 Computers
+                                <i class="fa fa-caret-down"></i>
                             </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li class="">
+
+                                    <a href="#">
+                                        <i class="fa fa-sitemap"></i>
+                                        Types
+                                    </a>
+
+                                </li>
+
+                                <li class="">
+
+                                    <a href="#">
+                                        <i class="fa fa-windows"></i>
+                                        Operating Systems
+                                    </a>
+
+                                </li>
+
+                                <li class="divider"></li>
+
+                                <li class="{{ active()->route('devices.computers.*') }}">
+
+                                    <a href="{{ route('devices.computers.index') }}">
+                                        <i class="fa fa-list"></i>
+                                        All Computers
+                                    </a>
+
+                                </li>
+
+                            </ul>
+
                         </li>
+
 
                     @endif
 
@@ -154,7 +191,7 @@
                         <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
 
                             <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-book"></i>
                                 Active Directory
                                 <i class="fa fa-caret-down"></i>
                             </a>
