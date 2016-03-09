@@ -36,8 +36,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($user);
 
-        $issue = factory(Issue::class)->create();
-
+        $issue = factory(Issue::class)->make();
         $this->visit(route('issues.index'))
             ->see($issue->getKey());
     }
@@ -114,9 +113,6 @@ class IssueTest extends TestCase
             'user_id' => $user->getKey(),
             'closed'  => true,
         ]);
-
-        $this->visit(route('issues.index'))
-            ->see('There are no records to display.');
 
         $this->visit(route('issues.closed'))
             ->see($issue->title);
