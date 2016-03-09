@@ -164,7 +164,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function getLabelLargeAttribute()
     {
-        return HTML::create('span', $this->getLabel(), ['class' => 'label-large']);
+        return HTML::create('span', $this->label, ['class' => 'label-large']);
     }
 
     /**
