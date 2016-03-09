@@ -524,7 +524,6 @@
                     <tr>
                         <td class="footer__inner" style="padding: 0;">
 
-
                         </td>
                     </tr>
                     </tbody>
