@@ -3,8 +3,8 @@
 namespace App\Jobs\Computer\Type;
 
 use App\Http\Requests\Device\ComputerTypeRequest;
-use App\Models\ComputerType;
 use App\Jobs\Job;
+use App\Models\ComputerType;
 
 class Update extends Job
 {
