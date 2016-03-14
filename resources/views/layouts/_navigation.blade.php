@@ -139,9 +139,9 @@
 
                             <ul class="dropdown-menu">
 
-                                <li class="">
+                                <li class="{{ active()->route('devices.computer-types.*') }}">
 
-                                    <a href="#">
+                                    <a href="{{ route('devices.computer-types.index') }}">
                                         <i class="fa fa-sitemap"></i>
                                         Types
                                     </a>

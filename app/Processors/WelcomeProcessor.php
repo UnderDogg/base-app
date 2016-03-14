@@ -77,11 +77,11 @@ class WelcomeProcessor extends Processor
 
         try {
             $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
-                return $this->feed($weatherFeed);
+                return $this->feed($weatherFeed, 1);
             });
 
             $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
-                return $this->feed($articleFeed);
+                return $this->feed($articleFeed, 4);
             });
         } catch (Exception $e) {
             //
@@ -102,10 +102,11 @@ class WelcomeProcessor extends Processor
      * Creates a new RSS collection feed from the specified URL.
      *
      * @param string $url
+     * @param int    $entries
      *
      * @return Fluent
      */
-    protected function feed($url)
+    protected function feed($url, $entries = 5)
     {
         $fluent = new Fluent();
 
@@ -114,12 +115,13 @@ class WelcomeProcessor extends Processor
         $feed = RSS::feed($url);
 
         if ($feed->articles instanceof Collection) {
-            $articles = $feed->articles->take(5)->each(function ($article) {
+            $articles = $feed->articles->take($entries)->each(function ($article) {
+                // We'll clean the articles description of any HTML.
                 $cleaned = $this->clean($article->description, [
                     'HTML.Allowed' => '',
                 ]);
 
-                // We'll clean the articles description of any HTML.
+                // Set the new article description.
                 $article->description = str_limit($cleaned);
 
                 $date = Carbon::createFromTimestamp(strtotime($article->pubDate));

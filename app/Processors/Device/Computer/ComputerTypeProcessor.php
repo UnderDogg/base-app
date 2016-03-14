@@ -3,6 +3,9 @@
 namespace App\Processors\Device\Computer;
 
 use App\Http\Presenters\Device\ComputerTypePresenter;
+use App\Http\Requests\Device\ComputerTypeRequest;
+use App\Jobs\Computer\Type\Store;
+use App\Jobs\Computer\Type\Update;
 use App\Models\ComputerType;
 use App\Processors\Processor;
 
@@ -56,11 +59,27 @@ class ComputerTypeProcessor extends Processor
         return view('pages.devices.computers.types.create', compact('form'));
     }
 
-    public function store()
+    /**
+     * Creates a new computer type.
+     *
+     * @param ComputerTypeRequest $request
+     *
+     * @return bool
+     */
+    public function store(ComputerTypeRequest $request)
     {
-        //
+        $type = $this->type->newInstance();
+
+        return $this->dispatch(new Store($request, $type));
     }
 
+    /**
+     * Displays the form for editing the specified computer type.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id)
     {
         $type = $this->type->findOrFail($id);
@@ -70,9 +89,19 @@ class ComputerTypeProcessor extends Processor
         return view('pages.devices.computers.types.edit', compact('form'));
     }
 
-    public function update($id)
+    /**
+     * Updates the specified computer type.
+     *
+     * @param ComputerTypeRequest $request
+     * @param int|string          $id
+     *
+     * @return bool
+     */
+    public function update(ComputerTypeRequest $request, $id)
     {
-        //
+        $type = $this->type->findOrFail($id);
+
+        return $this->dispatch(new Update($request, $type));
     }
 
     /**

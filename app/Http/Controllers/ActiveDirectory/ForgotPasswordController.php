@@ -102,7 +102,7 @@ class ForgotPasswordController extends Controller
 
         $message = 'Hmmm, it looks there was an issue with one of your answers. Try again!';
 
-        flash()->error('Error', $message);
+        flash()->setTimer(null)->error('Error', $message);
 
         return redirect()->route('auth.forgot-password.questions', [$token])->withInput($request->all());
     }

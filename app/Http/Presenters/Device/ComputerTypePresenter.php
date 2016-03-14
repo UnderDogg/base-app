@@ -4,6 +4,7 @@ namespace App\Http\Presenters\Device;
 
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use App\Http\Presenters\Presenter;
 use App\Models\ComputerType;
@@ -23,6 +24,10 @@ class ComputerTypePresenter extends Presenter
             $table->with($type)->paginate($this->perPage);
 
             $table->column('name');
+
+            $table->column('created_at_human', function (Column $column) {
+                $column->label = 'Created';
+            });
         });
     }
 
