@@ -38,8 +38,16 @@ class LabelPresenter extends Presenter
             $table->column('issues', function (Column $column) {
                 $column->label = 'Open Issues';
 
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
+
                 $column->value = function (Label $label) {
                     return $label->numberOfOpenIssues();
+                };
+
+                $column->attributes = function () {
+                    return ['class' => 'hidden-xs'];
                 };
             });
 

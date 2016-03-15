@@ -154,6 +154,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'except' => ['show'],
                 ]);
 
+                // The computer systems resource.
+                $router->resource('computer-systems', 'ComputerSystemController', [
+                    'except' => ['show'],
+                ]);
+
                 // The computers resource.
                 $router->resource('computers', 'ComputerController');
 

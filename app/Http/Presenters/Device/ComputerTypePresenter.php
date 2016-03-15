@@ -27,6 +27,37 @@ class ComputerTypePresenter extends Presenter
 
             $table->column('created_at_human', function (Column $column) {
                 $column->label = 'Created';
+
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
+
+                $column->attributes = function () {
+                    return ['class' => 'hidden-xs'];
+                };
+            });
+
+            $table->column('edit', function (Column $column) {
+                $column->label = 'Edit';
+
+                $column->value = function (ComputerType $type) {
+                    return link_to_route('devices.computer-types.edit', 'Edit', [$type->getKey()], [
+                        'class' => 'btn btn-xs btn-warning',
+                    ]);
+                };
+            });
+
+            $table->column('delete', function (Column $column) {
+                $column->label = 'Delete';
+
+                $column->value = function (ComputerType $type) {
+                    return link_to_route('devices.computer-types.destroy', 'Delete', [$type->getKey()], [
+                        'data-post' => 'DELETE',
+                        'data-title' => 'Are you sure?',
+                        'data-message' => 'Are you sure you want to delete this computer type?',
+                        'class' => 'btn btn-xs btn-danger',
+                    ]);
+                };
             });
         });
     }
