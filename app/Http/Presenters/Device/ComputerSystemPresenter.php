@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\Device;
 
+use App\Http\Presenters\Presenter;
+use App\Models\OperatingSystem;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\OperatingSystem;
 
 class ComputerSystemPresenter extends Presenter
 {

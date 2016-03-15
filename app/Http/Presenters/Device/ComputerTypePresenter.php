@@ -52,10 +52,10 @@ class ComputerTypePresenter extends Presenter
 
                 $column->value = function (ComputerType $type) {
                     return link_to_route('devices.computer-types.destroy', 'Delete', [$type->getKey()], [
-                        'data-post' => 'DELETE',
-                        'data-title' => 'Are you sure?',
+                        'data-post'    => 'DELETE',
+                        'data-title'   => 'Are you sure?',
                         'data-message' => 'Are you sure you want to delete this computer type?',
-                        'class' => 'btn btn-xs btn-danger',
+                        'class'        => 'btn btn-xs btn-danger',
                     ]);
                 };
             });
