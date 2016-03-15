@@ -34,10 +34,8 @@ class ComputerSystemController extends Controller
 
     public function store()
     {
-        if($this->processor->store()) {
-
+        if ($this->processor->store()) {
         } else {
-
         }
     }
 
@@ -48,19 +46,15 @@ class ComputerSystemController extends Controller
 
     public function update($id)
     {
-        if($this->processor->update($id)) {
-
+        if ($this->processor->update($id)) {
         } else {
-
         }
     }
 
     public function destroy($id)
     {
-        if($this->processor->destroy($id)) {
-
+        if ($this->processor->destroy($id)) {
         } else {
-
         }
     }
 }
