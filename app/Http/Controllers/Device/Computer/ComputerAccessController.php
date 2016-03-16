@@ -45,12 +45,18 @@ class ComputerAccessController extends Controller
      */
     public function update(ComputerAccessRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated settings.');
+        try {
+            if ($this->processor->update($request, $id)) {
+                flash()->success('Success!', 'Successfully updated settings.');
 
-            return redirect()->back();
-        } else {
-            flash()->error('Error!', 'There was an issue updating settings. Please try again.');
+                return redirect()->back();
+            } else {
+                flash()->error('Error!', 'There was an issue updating settings. Please try again.');
+
+                return redirect()->back();
+            }
+        } catch (\COM_Exception $e) {
+            flash()->error('Error!', "We can't connect to this PC via WMI.");
 
             return redirect()->back();
         }
