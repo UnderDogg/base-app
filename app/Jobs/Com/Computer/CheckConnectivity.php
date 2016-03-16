@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Com\Computer;
 
-use App\Jobs\Computer\CreateAccess;
 use Stevebauman\Wmi\Schemas\Namespaces;
 
 class CheckConnectivity extends AbstractComputerJob
