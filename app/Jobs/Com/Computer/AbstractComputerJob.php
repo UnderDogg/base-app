@@ -51,13 +51,33 @@ abstract class AbstractComputerJob extends Job
     }
 
     /**
+     * Sets the username for the current computer.
+     *
+     * @param string $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Sets the password for the current computer.
+     *
+     * @param $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
      * Returns credentials for the specified computer.
      *
      * @return array
      */
     protected function getCredentials()
     {
-        $access = $this->computer->wmi_access;
+        $access = $this->computer->access;
 
         $username = null;
         $password = null;

@@ -15,8 +15,6 @@ class CheckConnectivity extends AbstractComputerJob
     public function handle()
     {
         if ($this->wmi->connect(Namespaces::ROOT_CIMV2)) {
-            $this->dispatch(new CreateAccess($this->computer, $ad = true, $wmi = true, $this->username, $this->password));
-
             return true;
         }
 
