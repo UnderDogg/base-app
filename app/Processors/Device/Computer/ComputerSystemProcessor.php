@@ -2,9 +2,9 @@
 
 namespace App\Processors\Device\Computer;
 
-use App\Jobs\Computer\System\Store;
 use App\Http\Presenters\Device\ComputerSystemPresenter;
 use App\Http\Requests\Device\ComputerSystemRequest;
+use App\Jobs\Computer\System\Store;
 use App\Jobs\Computer\System\Update;
 use App\Models\OperatingSystem;
 use App\Processors\Processor;
