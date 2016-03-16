@@ -38,7 +38,7 @@ return [
              * Currently only MySQL- and PostgreSQL-databases are supported.
              */
             'databases' => [
-                'mysql'
+                'mysql',
             ],
         ],
 
@@ -91,10 +91,9 @@ return [
              * After cleaning up the backups remove the oldest backup until
              * this amount of megabytes has been reached.
              */
-            'deleteOldestBackupsWhenUsingMoreMegabytesThan' => 5000
-        ]
+            'deleteOldestBackupsWhenUsingMoreMegabytesThan' => 5000,
+        ],
     ],
-
 
     /*
      *  In this array you can specify which backups should be monitored.
@@ -103,9 +102,9 @@ return [
      */
     'monitorBackups' => [
         [
-            'name' => env('APP_URL'),
-            'disks' => ['local'],
-            'newestBackupsShouldNotBeOlderThanDays' => 1,
+            'name'                                   => env('APP_URL'),
+            'disks'                                  => ['local'],
+            'newestBackupsShouldNotBeOlderThanDays'  => 1,
             'storageUsedMayNotBeHigherThanMegabytes' => 5000,
         ],
 
@@ -138,7 +137,7 @@ return [
             'whenHealthyBackupWasFound'   => ['log'],
             'whenBackupHasFailed'         => ['log', 'mail'],
             'whenCleanupHasFailed'        => ['log', 'mail'],
-            'whenUnHealthyBackupWasFound' => ['log', 'mail']
+            'whenUnHealthyBackupWasFound' => ['log', 'mail'],
         ],
 
         /*
@@ -157,5 +156,5 @@ return [
             'username' => 'Backup bot',
             'icon'     => ':robot:',
         ],
-    ]
+    ],
 ];
