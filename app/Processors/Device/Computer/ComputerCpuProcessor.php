@@ -44,9 +44,13 @@ class ComputerCpuProcessor extends Processor
 
         $processes = $this->dispatch(new Processes($computer));
 
-        $cpu = $this->presenter->cpu($processes);
+        if (is_array($processes)) {
+            $cpu = $this->presenter->cpu($processes);
 
-        return view('pages.devices.computers.show.cpu', compact('computer', 'cpu'));
+            return view('pages.devices.computers.show.cpu', compact('computer', 'cpu'));
+        }
+
+        return false;
     }
 
     /**

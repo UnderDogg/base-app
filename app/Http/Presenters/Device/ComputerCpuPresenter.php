@@ -58,9 +58,9 @@ class ComputerCpuPresenter extends Presenter
         /* @var \Khill\Lavacharts\Charts\GaugeChart */
         $chart = Lava::GaugeChart('cpu');
 
+        $chart->datatable = $table;
+
         $chart->setOptions([
-            'datatable'  => $table,
-            'width'      => 400,
             'greenFrom'  => 0,
             'greenTo'    => 69,
             'yellowFrom' => 70,

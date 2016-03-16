@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'All Computer Types')
+@section('title', 'All Operating Systems')
 
 @section('content')
 
     {!! Decorator::render('navbar', $navbar) !!}
 
-    {!! $types !!}
+    {!! $systems !!}
 
 @endsection

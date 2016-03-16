@@ -6,6 +6,7 @@ use App\Http\Presenters\Presenter;
 use App\Models\OperatingSystem;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class ComputerSystemPresenter extends Presenter
@@ -13,36 +14,77 @@ class ComputerSystemPresenter extends Presenter
     /**
      * Returns a new table of all operating systems.
      *
-     * @param OperatingSystem $os
+     * @param OperatingSystem $system
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(OperatingSystem $os)
+    public function table(OperatingSystem $system)
     {
-        return $this->table->of('computers.operating-systems', function (TableGrid $table) use ($os) {
-            $table->with($os)->paginate($this->perPage);
+        return $this->table->of('computers.operating-systems', function (TableGrid $table) use ($system) {
+            $table->with($system)->paginate($this->perPage);
 
             $table->column('name');
-            $table->column('version');
-            $table->column('service_pack');
+            $table->column('version', function (Column $column) {
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
 
-            $table->column('edit');
-            $table->column('delete');
+                $column->attributes = function () {
+                    return [
+                        'class' => 'hidden-xs',
+                    ];
+                };
+            });
+
+            $table->column('service_pack', function (Column $column) {
+                $column->headers = [
+                    'class' => 'hidden-xs',
+                ];
+
+                $column->attributes = function () {
+                    return [
+                        'class' => 'hidden-xs',
+                    ];
+                };
+            });
+
+            $table->column('edit', function (Column $column) {
+                $column->label = 'Edit';
+
+                $column->value = function (OperatingSystem $system) {
+                    return link_to_route('devices.computer-systems.edit', 'Edit', [$system->getKey()], [
+                        'class' => 'btn btn-xs btn-warning',
+                    ]);
+                };
+            });
+
+            $table->column('delete', function (Column $column) {
+                $column->label = 'Delete';
+
+                $column->value = function (OperatingSystem $system) {
+                    return link_to_route('devices.computer-systems.destroy', 'Delete', [$system->getKey()], [
+                        'data-post'    => 'DELETE',
+                        'data-title'   => 'Are you sure?',
+                        'data-message' => 'Are you sure you want to delete this operating system?',
+                        'class'        => 'btn btn-xs btn-danger',
+                    ]);
+                };
+            });
         });
     }
 
     /**
      * Returns a new form for the specified operating system.
      *
-     * @param OperatingSystem $os
+     * @param OperatingSystem $system
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function form(OperatingSystem $os)
+    public function form(OperatingSystem $system)
     {
-        return $this->form->of('computers.operating-systems', function (FormGrid $form) use ($os) {
-            if ($os->exists) {
-                $url = route('devices.computer-systems.update', [$os->getKey()]);
+        return $this->form->of('computers.operating-systems', function (FormGrid $form) use ($system) {
+            if ($system->exists) {
+                $url = route('devices.computer-systems.update', [$system->getKey()]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';
@@ -55,7 +97,7 @@ class ComputerSystemPresenter extends Presenter
 
             $form->attributes(compact('url', 'method'));
 
-            $form->with($os);
+            $form->with($system);
 
             $form->fieldset(function (Fieldset $fieldset) {
                 $fieldset

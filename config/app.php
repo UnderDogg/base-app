@@ -182,6 +182,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Vinelab\Rss\RssServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
+        Spatie\Backup\BackupServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
     ],
 
@@ -238,6 +240,7 @@ return [
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Purify'    => Stevebauman\Purify\Facades\Purify::class,
         'Image'     => Intervention\Image\Facades\Image::class,
+        'Lava'      => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 
         /*
          * Orchestra Facades

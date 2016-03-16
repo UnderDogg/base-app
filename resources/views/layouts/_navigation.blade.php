@@ -148,9 +148,9 @@
 
                                 </li>
 
-                                <li class="">
+                                <li class="{{ active()->route('devices.computer-systems.*') }}">
 
-                                    <a href="#">
+                                    <a href="{{ route('devices.computer-systems.index') }}">
                                         <i class="fa fa-windows"></i>
                                         Operating Systems
                                     </a>
