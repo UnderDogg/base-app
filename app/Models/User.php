@@ -63,7 +63,9 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function questions()
     {
-        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')->withPivot(['answer'])->withTimestamps();
+        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')
+            ->withPivot(['answer'])
+            ->withTimestamps();
     }
 
     /**

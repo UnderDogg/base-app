@@ -250,6 +250,12 @@
 
                         <ul class="dropdown-menu">
 
+                            <li class="text-center">
+                                <img src="{{ auth()->user()->avatar_url }}" alt="User Profile Image">
+                            </li>
+
+                            <li class="divider"></li>
+
                             <li class="{{ active()->route('profile.*') }}">
                                 <a href="{{ route('profile.show') }}">
                                     <i class="fa fa-user"></i> Profile

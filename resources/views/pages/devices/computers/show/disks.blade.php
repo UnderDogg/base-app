@@ -5,6 +5,7 @@
     Hard Disks
 
     <span class="pull-right btn-group">
+
         <a
                 class="btn btn-xs btn-warning"
                 data-post="POST"
@@ -15,6 +16,7 @@
             <i class="fa fa-refresh"></i>
             Synchronize
         </a>
+
     </span>
 
 @endsection
@@ -29,7 +31,7 @@
 
     @if($diskGraph && $diskGraph instanceof \Khill\Lavacharts\Charts\LineChart)
 
-        @linechart('Disks', 'disks-div')
+        {!! Lava::render('LineChart', 'Disks', 'disks-div') !!}
 
     @endif
 

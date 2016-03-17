@@ -299,7 +299,7 @@ class IssuePresenter extends Presenter
     protected function labelField(Fieldset $fieldset, $labels = [])
     {
         return $fieldset->control('select', 'labels[]')
-            ->label('Labels')
+            ->label('Add Labels')
             ->options($labels)
             ->value(function (Issue $issue) {
                 $labels = [];
@@ -330,7 +330,7 @@ class IssuePresenter extends Presenter
     protected function userField(Fieldset $fieldset, $users = [])
     {
         return $fieldset->control('select', 'users[]')
-            ->label('Users')
+            ->label('Tag Users')
             ->options($users)
             ->value(function (Issue $issue) {
                 $users = [];

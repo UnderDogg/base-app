@@ -37,10 +37,6 @@ class CheckComputerExists extends Job
     {
         $computer = $adldap->computers()->find($this->name);
 
-        if ($computer instanceof Computer) {
-            return true;
-        }
-
-        return false;
+        return $computer instanceof Computer;
     }
 }
