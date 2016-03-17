@@ -4,6 +4,7 @@ namespace App\Processors\Device\Computer;
 
 use App\Http\Presenters\Device\ComputerAccessPresenter;
 use App\Http\Requests\Device\ComputerAccessRequest;
+use App\Jobs\ActiveDirectory\CheckComputerExists;
 use App\Jobs\Com\Computer\CheckConnectivity;
 use App\Jobs\Computer\CreateAccess;
 use App\Models\Computer;
@@ -72,15 +73,25 @@ class ComputerAccessProcessor extends Processor
             $wmiPassword = null;
         }
 
-        $connectivity = new CheckConnectivity($computer);
+        if ($ad) {
+            // Check that the computer exists in active
+            // directory if the user specifies it.
+            $check = new CheckComputerExists($computer->name);
 
-        $connectivity->setUsername($wmiUsername);
-        $connectivity->setPassword($wmiPassword);
+            if (!$this->dispatch($check)) {
+                return false;
+            }
+        }
 
         if ($wmi) {
+            $check = new CheckConnectivity($computer);
+
+            $check->setUsername($wmiUsername);
+            $check->setPassword($wmiPassword);
+
             // If the user specifies a WMI connection, we need to
             // make sure we can connect to it before proceeding.
-            $this->dispatch($connectivity);
+            $this->dispatch($check);
         }
 
         return $this->dispatch(new CreateAccess($computer, $ad, $wmi, $wmiUsername, $wmiPassword));
