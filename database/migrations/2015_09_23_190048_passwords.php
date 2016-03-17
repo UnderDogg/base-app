@@ -36,7 +36,8 @@ class Passwords extends Migration
             $table->string('password');
             $table->text('notes')->nullable();
 
-            $table->foreign('folder_id')->references('id')->on('password_folders');
+            $table->foreign('folder_id')->references('id')->on('password_folders')
+                ->onDelete('cascade');
         });
     }
 

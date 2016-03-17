@@ -28,8 +28,11 @@ class CreateIssuesTable extends Migration
             $table->integer('issue_id')->unsigned();
             $table->integer('label_id')->unsigned();
 
-            $table->foreign('issue_id')->references('id')->on('issues');
-            $table->foreign('label_id')->references('id')->on('labels');
+            $table->foreign('issue_id')->references('id')->on('issues')
+                ->onDelete('cascade');
+
+            $table->foreign('label_id')->references('id')->on('labels')
+                ->onDelete('cascade');
         });
 
         Schema::create('issue_comments', function (Blueprint $table) {
@@ -37,10 +40,13 @@ class CreateIssuesTable extends Migration
             $table->integer('comment_id')->unsigned();
             $table->boolean('resolution')->default(false);
 
-            $table->foreign('issue_id')->references('id')->on('issues');
-            $table->foreign('comment_id')->references('id')->on('comments');
+            $table->foreign('issue_id')->references('id')->on('issues')
+                ->onDelete('cascade');
 
-            // Make sure only one resolution can be made per issue
+            $table->foreign('comment_id')->references('id')->on('comments')
+                ->onDelete('cascade');
+
+            // Make sure only one resolution can be made per issue.
             $table->unique(['issue_id', 'comment_id', 'resolution']);
         });
 
@@ -48,8 +54,11 @@ class CreateIssuesTable extends Migration
             $table->integer('issue_id')->unsigned();
             $table->integer('user_id')->unsigned();
 
-            $table->foreign('issue_id')->references('id')->on('issues');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('issue_id')->references('id')->on('issues')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

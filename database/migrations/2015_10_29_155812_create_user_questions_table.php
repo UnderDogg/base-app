@@ -28,8 +28,11 @@ class CreateUserQuestionsTable extends Migration
             $table->integer('question_id')->unsigned();
             $table->string('answer');
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('question_id')->references('id')->on('questions');
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('question_id')->references('id')->on('questions')
+                ->onDelete('cascade');
 
             // Allow only unique questions per user.
             $table->unique(['user_id', 'question_id']);

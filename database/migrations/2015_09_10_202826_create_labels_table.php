@@ -19,7 +19,7 @@ class CreateLabelsTable extends Migration
             $table->string('color');
 
             // Don't allow multiple labels of the
-            // same name and color
+            // same name and color.
             $table->unique(['name', 'color']);
         });
     }

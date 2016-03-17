@@ -27,7 +27,8 @@ class CreateServicesTables extends Migration
             $table->text('description')->nullable();
             $table->smallInteger('status')->default(1);
 
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('service_id')->references('id')->on('services')
+                ->onDelete('cascade');
         });
     }
 

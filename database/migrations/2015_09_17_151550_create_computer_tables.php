@@ -82,8 +82,11 @@ class CreateComputerTables extends Migration
             $table->integer('computer_id')->unsigned();
             $table->integer('software_id')->unsigned();
 
-            $table->foreign('computer_id')->references('id')->on('computers');
-            $table->foreign('software_id')->references('id')->on('software');
+            $table->foreign('computer_id')->references('id')->on('computers')
+                ->onDelete('cascade');
+
+            $table->foreign('software_id')->references('id')->on('software')
+                ->onDelete('cascade');
         });
 
         Schema::create('computer_processors', function (Blueprint $table) {
@@ -94,7 +97,8 @@ class CreateComputerTables extends Migration
             $table->string('manufacturer')->nullable();
             $table->string('speed')->nullable();
 
-            $table->foreign('computer_id')->references('id')->on('computers');
+            $table->foreign('computer_id')->references('id')->on('computers')
+                ->onDelete('cascade');
         });
 
         Schema::create('computer_processor_records', function (Blueprint $table) {
@@ -103,7 +107,8 @@ class CreateComputerTables extends Migration
             $table->integer('load');
             $table->string('status')->nullable();
 
-            $table->foreign('processor_id')->references('id')->on('computer_processors');
+            $table->foreign('processor_id')->references('id')->on('computer_processors')
+                ->onDelete('cascade');
         });
 
         Schema::create('computer_hard_disks', function (Blueprint $table) {
@@ -115,7 +120,8 @@ class CreateComputerTables extends Migration
             $table->dateTime('installed')->nullable();
             $table->string('description')->nullable();
 
-            $table->foreign('computer_id')->references('id')->on('computers');
+            $table->foreign('computer_id')->references('id')->on('computers')
+                ->onDelete('cascade');
         });
 
         Schema::create('computer_hard_disk_records', function (Blueprint $table) {
@@ -125,7 +131,8 @@ class CreateComputerTables extends Migration
             $table->double('free');
             $table->string('status')->nullable();
 
-            $table->foreign('disk_id')->references('id')->on('computer_hard_disks');
+            $table->foreign('disk_id')->references('id')->on('computer_hard_disks')
+                ->onDelete('cascade');
         });
 
         Schema::create('computer_status_records', function (Blueprint $table) {
@@ -135,7 +142,8 @@ class CreateComputerTables extends Migration
             $table->boolean('online')->default(false);
             $table->integer('latency')->nullable();
 
-            $table->foreign('computer_id')->references('id')->on('computers');
+            $table->foreign('computer_id')->references('id')->on('computers')
+                ->onDelete('cascade');
         });
     }
 

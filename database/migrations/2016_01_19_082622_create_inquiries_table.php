@@ -33,8 +33,11 @@ class CreateInquiriesTable extends Migration
             $table->integer('inquiry_id')->unsigned();
             $table->integer('comment_id')->unsigned();
 
-            $table->foreign('inquiry_id')->references('id')->on('inquiries');
-            $table->foreign('comment_id')->references('id')->on('comments');
+            $table->foreign('inquiry_id')->references('id')->on('inquiries')
+                ->onDelete('cascade');
+
+            $table->foreign('comment_id')->references('id')->on('comments')
+                ->onDelete('cascade');
         });
     }
 
