@@ -76,7 +76,7 @@ class ScanComputers extends Command
 
                     $this->info(sprintf('Scanned: %s', $computer->name));
 
-                    ++$scanned;
+                    $scanned++;
                 } catch (COM_Exception $e) {
                     //
                 }

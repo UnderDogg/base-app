@@ -164,8 +164,8 @@ class ComputerPresenter extends Presenter
     public function navbar()
     {
         return $this->fluent([
-            'id'         => 'computers',
-            'title'      => 'Computers',
+            'id'         => 'devices',
+            'title'      => 'Devices',
             'url'        => route('devices.computers.index'),
             'menu'       => view('pages.devices.computers._nav'),
             'attributes' => [

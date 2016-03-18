@@ -35,12 +35,12 @@ class ImportUser extends Job
     {
         $user = $user->where('email', $this->user->getEmail())->first();
 
-        if (!$user) {
+        if (!$user instanceof User) {
             $email = $this->user->getEmail();
             $password = str_random(40);
             $fullName = $this->user->getName();
 
-            return $this->dispatch(new CreateUser($email, $password, $fullName));
+            $user = $this->dispatch(new CreateUser($email, $password, $fullName));
         }
 
         // Synchronize their AD attributes.

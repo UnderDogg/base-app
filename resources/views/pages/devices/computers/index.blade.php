@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'All Computers')
+@section('title', 'All Devices')
 
 @section('content')
 

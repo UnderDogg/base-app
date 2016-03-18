@@ -3,18 +3,30 @@
 @section('title', $computer->name)
 
 @section('title.header')
-    <h3>@yield('title') <span class="text-muted">created {{ $computer->created_at_human }}</span></h3>
 
-    <hr>
 @endsection
 
 @section('content')
 
-    <div class="col-md-3">
-        @include('pages.devices.computers._show-nav')
+    <div class="col-md-12">
+
+        {!!
+            Decorator::render('navbar', (new \Illuminate\Support\Fluent([
+                'id'         => "devices-{$computer->getKey()}",
+                'title'      => $computer->name,
+                'url'        => route('devices.computers.show', [$computer->getKey()]),
+                'menu'       => view('pages.devices.computers._nav-show', compact('computer')),
+                'attributes' => [
+                    'class' => 'navbar-default',
+                ],
+            ])))
+        !!}
+
     </div>
 
-    <div class="col-md-9">
+    <div class="clearfix"></div>
+
+    <div class="col-md-12">
 
         <div class="panel panel-default">
 

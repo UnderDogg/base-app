@@ -133,7 +133,7 @@
 
                             <a href="#computers-menu" rel="computers-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-desktop"></i>
-                                Computers
+                                Devices
                                 <i class="fa fa-caret-down"></i>
                             </a>
 
@@ -163,7 +163,7 @@
 
                                     <a href="{{ route('devices.computers.index') }}">
                                         <i class="fa fa-list"></i>
-                                        All Computers
+                                        All Devices
                                     </a>
 
                                 </li>
