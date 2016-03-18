@@ -6,6 +6,8 @@
     @section('title', 'All Categories')
 @endif
 
+@section('title.header', ' ')
+
 @section('content')
 
     {!! Decorator::render('navbar', $navbar) !!}

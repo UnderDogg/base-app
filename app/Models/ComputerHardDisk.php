@@ -54,8 +54,7 @@ class ComputerHardDisk extends Model
     {
         $size = $this->size;
 
-        for ($i = 0; ($size / 1024) > 0.9; $i++, $size /= 1024) {
-        }
+        for ($i = 0; ($size / 1024) > 0.9; $i++, $size /= 1024) {}
 
         return round($size, $precision).['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][$i];
     }
@@ -102,7 +101,11 @@ class ComputerHardDisk extends Model
     {
         $free = $this->percent_used;
 
-        $bar = HTML::create('div', "$free%", ['class' => 'progress-bar', 'role' => 'progressbar', 'style' => "width: $free%;"]);
+        $bar = HTML::create('div', "$free%", [
+            'class' => 'progress-bar',
+            'role' => 'progressbar',
+            'style' => "width: $free%;"
+        ]);
 
         return HTML::raw("<div class='progress'>$bar</div>");
     }

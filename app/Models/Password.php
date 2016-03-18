@@ -20,14 +20,24 @@ class Password extends Model
      *
      * @var array
      */
-    protected $hidden = ['username', 'website', 'password', 'notes'];
+    protected $hidden = [
+        'username',
+        'website',
+        'password',
+        'notes',
+    ];
 
     /**
      * The guarded password attributes.
      *
      * @var array
      */
-    protected $guarded = ['username', 'website', 'password', 'notes'];
+    protected $guarded = [
+        'username',
+        'website',
+        'password',
+        'notes',
+    ];
 
     /**
      * The belongsTo folder relationship.

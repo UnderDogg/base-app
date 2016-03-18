@@ -20,14 +20,20 @@ class ComputerAccess extends Model
      *
      * @var array
      */
-    protected $guarded = ['wmi_username', 'wmi_password'];
+    protected $guarded = [
+        'wmi_username',
+        'wmi_password',
+    ];
 
     /**
      * The hidden computer access attributes.
      *
      * @var array
      */
-    protected $hidden = ['wmi_username', 'wmi_password'];
+    protected $hidden = [
+        'wmi_username',
+        'wmi_password',
+    ];
 
     /**
      * The fillable computer access attributes.

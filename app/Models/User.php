@@ -31,15 +31,6 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     ];
 
     /**
-     * The appends attributes.
-     *
-     * @var array
-     */
-    protected $appends = [
-        'avatar_url',
-    ];
-
-    /**
      * The user questions pivot table.
      *
      * @var string

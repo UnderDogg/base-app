@@ -38,7 +38,10 @@ class Issue extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description'];
+    protected $fillable = [
+        'title',
+        'description',
+    ];
 
     /**
      * The casted attributes.

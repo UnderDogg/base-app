@@ -2,6 +2,8 @@
 
 @section('title', 'All Computer Types')
 
+@section('title.header', ' ')
+
 @section('content')
 
     {!! Decorator::render('navbar', $navbar) !!}
