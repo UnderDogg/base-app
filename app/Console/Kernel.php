@@ -41,5 +41,8 @@ class Kernel extends ConsoleKernel
 
         // Synchronize LDAP computers.
         $schedule->command('computers:sync')->hourly();
+
+        // Schedule database backup daily.
+        $schedule->command('backup:run')->daily();
     }
 }

@@ -66,13 +66,9 @@ class AuthController extends Controller
         }
 
         $credentials = $this->getCredentials($request);
-
-        try {
-            if (Auth::attempt($credentials, $request->has('remember'))) {
-                return $this->handleUserWasAuthenticated($request, $throttles);
-            }
-        } catch (\Exception $e) {
-            // Catch LDAP bind errors.
+        
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

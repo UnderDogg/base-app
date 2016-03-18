@@ -19,7 +19,7 @@ return [
                  * specify individual files as well.
                  */
                 'include' => [
-                    base_path(),
+                    //
                 ],
 
                 /*
@@ -27,9 +27,7 @@ return [
                  * You can specify individual files as well.
                  */
                 'exclude' => [
-                    base_path('vendor'),
-                    base_path('node_modules'),
-                    storage_path(),
+                    //
                 ],
             ],
 
@@ -48,7 +46,7 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks' => [
-                'local',
+                'backup',
             ],
         ],
     ],
@@ -135,9 +133,9 @@ return [
             'whenBackupWasSuccessful'     => ['log'],
             'whenCleanupWasSuccessful'    => ['log'],
             'whenHealthyBackupWasFound'   => ['log'],
-            'whenBackupHasFailed'         => ['log', 'mail'],
-            'whenCleanupHasFailed'        => ['log', 'mail'],
-            'whenUnHealthyBackupWasFound' => ['log', 'mail'],
+            'whenBackupHasFailed'         => ['log'],
+            'whenCleanupHasFailed'        => ['log'],
+            'whenUnHealthyBackupWasFound' => ['log'],
         ],
 
         /*
