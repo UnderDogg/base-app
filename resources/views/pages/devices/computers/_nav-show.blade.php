@@ -7,8 +7,8 @@
         </a>
     </li>
 
-    <li class="{{ active()->route('devices.computers.patches.show') }}">
-        <a title="Computer Details" href="#">
+    <li class="{{ active()->route('devices.computers.patches.*') }}">
+        <a title="Computer Details" href="{{ route('devices.computers.patches.index', [$computer->getKey()]) }}">
             <i class="fa fa-medkit"></i>
             Patches
         </a>
@@ -39,6 +39,25 @@
         <a title="Computer Settings" href="{{ route('devices.computers.access.edit', [$computer->getKey()]) }}">
             <i class="fa fa-cogs"></i>
             Access
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('devices.computers.edit', [$computer->getKey()]) }}">
+            <i class="fa fa-edit"></i>
+            Edit
+        </a>
+    </li>
+
+    <li>
+        <a
+                data-post="DELETE"
+                data-title="Delete Computer?"
+                data-message="Are you sure you want to delete this computer?"
+                href="{{ route('devices.computers.destroy', [$computer->getKey()]) }}"
+        >
+            <i class="fa fa-trash"></i>
+            Delete
         </a>
     </li>
 

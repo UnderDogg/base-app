@@ -151,7 +151,7 @@ class ComputerProcessor extends Processor
 
             $form = $this->presenter->form($computer);
 
-            return view('pages.devices.computers.edit', compact('form'));
+            return view('pages.devices.computers.edit', compact('form', 'computer'));
         }
 
         $this->unauthorized();

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Edit Computer')
+@section('title', "Editing {$computer->name}")
 
 @section('content')
 

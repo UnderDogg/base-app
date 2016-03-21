@@ -159,6 +159,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'except' => ['show'],
                 ]);
 
+                // The computer patch resource.
+                $router->resource('computers.patches', 'ComputerPatchController');
+
                 // The computers resource.
                 $router->resource('computers', 'ComputerController');
 

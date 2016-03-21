@@ -4,21 +4,6 @@
 
 Details
 
-<span class="pull-right btn-group">
-    <a class="btn btn-xs btn-warning" href="{{ route('devices.computers.edit', [$computer->getKey()]) }}">
-        Edit
-    </a>
-    <a
-            class="btn btn-xs btn-danger"
-            data-post="DELETE"
-            data-title="Delete Computer?"
-            data-message="Are you sure you want to delete this computer?"
-            href="{{ route('devices.computers.destroy', [$computer->getKey()]) }}"
-            >
-        Delete
-    </a>
-</span>
-
 @endsection
 
 @section('show.panel.body')
