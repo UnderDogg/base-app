@@ -5,7 +5,7 @@ namespace App\Processors\Device\Computer;
 use App\Models\Computer;
 use App\Processors\Processor;
 
-class ComputerPatchController extends Processor
+class ComputerPatchProcessor extends Processor
 {
     /**
      * @var Computer
@@ -47,7 +47,8 @@ class ComputerPatchController extends Processor
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -58,7 +59,8 @@ class ComputerPatchController extends Processor
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -69,7 +71,8 @@ class ComputerPatchController extends Processor
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -80,8 +83,9 @@ class ComputerPatchController extends Processor
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -92,7 +96,8 @@ class ComputerPatchController extends Processor
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
