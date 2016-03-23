@@ -44,7 +44,7 @@ class Computer extends Model
      */
     public function type()
     {
-        return $this->belongsTo(ComputerType::class, 'type_id');
+        return $this->belongsTo(ComputerType::class);
     }
 
     /**
@@ -54,7 +54,7 @@ class Computer extends Model
      */
     public function os()
     {
-        return $this->belongsTo(OperatingSystem::class, 'os_id');
+        return $this->belongsTo(OperatingSystem::class);
     }
 
     /**
@@ -64,7 +64,7 @@ class Computer extends Model
      */
     public function access()
     {
-        return $this->hasOne(ComputerAccess::class, 'computer_id');
+        return $this->hasOne(ComputerAccess::class);
     }
 
     /**
@@ -74,7 +74,7 @@ class Computer extends Model
      */
     public function statuses()
     {
-        return $this->hasMany(ComputerStatus::class, 'computer_id');
+        return $this->hasMany(ComputerStatus::class);
     }
 
     /**
@@ -84,7 +84,17 @@ class Computer extends Model
      */
     public function disks()
     {
-        return $this->hasMany(ComputerHardDisk::class, 'computer_id');
+        return $this->hasMany(ComputerHardDisk::class);
+    }
+
+    /**
+     * The hasMany patches relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function patches()
+    {
+        return $this->hasMany(ComputerPatch::class);
     }
 
     /**

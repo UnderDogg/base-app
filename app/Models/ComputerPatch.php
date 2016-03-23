@@ -12,6 +12,16 @@ class ComputerPatch extends Model
     protected $table = 'computer_patches';
 
     /**
+     * The fillable computer patch attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
+    /**
      * The belongsTo computer relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
