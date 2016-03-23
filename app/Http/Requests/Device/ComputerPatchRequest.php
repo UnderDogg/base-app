@@ -14,25 +14,9 @@ class ComputerPatchRequest extends Request
     public function rules()
     {
         return [
-            'title'         => 'required|min:5',
-            'description'   => 'required|min:5',
+            'title'         => 'required|min:5|max:40',
+            'description'   => 'required|min:5|max:2000',
         ];
-    }
-
-    /**
-     * Sanitizes the input.
-     *
-     * @return array
-     */
-    public function sanitize()
-    {
-        $input = $this->all();
-
-        $input['description'] = $this->clean($input['description']);
-
-        $this->replace($input);
-
-        return $this->all();
     }
 
     /**

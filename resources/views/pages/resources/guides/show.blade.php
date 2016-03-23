@@ -2,7 +2,7 @@
 
 @section('extra.top')
     <a class="btn btn-primary" href="{{ route('resources.guides.index') }}">
-        <i class="fa fa-chevron-left"></i>
+        <i class="fa fa-caret-left"></i>
         Back to Guides
     </a>
 @endsection

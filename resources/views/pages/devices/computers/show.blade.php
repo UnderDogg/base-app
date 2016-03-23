@@ -4,51 +4,50 @@
 
 @section('title.header')
 
+    <a href="{{ route('devices.computers.index') }}" class="btn btn-primary">
+        <i class="fa fa-caret-left"></i>
+        Back To Devices
+    </a>
+
+    <hr>
+
 @endsection
 
 @section('content')
 
-    <div class="col-md-12">
-
-        {!!
-            Decorator::render('navbar', (new \Illuminate\Support\Fluent([
-                'id'         => "devices-{$computer->getKey()}",
-                'title'      => $computer->name,
-                'url'        => route('devices.computers.show', [$computer->getKey()]),
-                'menu'       => view('pages.devices.computers._nav-show', compact('computer')),
-                'attributes' => [
-                    'class' => 'navbar-default',
-                ],
-            ])))
-        !!}
-
-    </div>
+    {!!
+        Decorator::render('navbar', (new \Illuminate\Support\Fluent([
+            'id'         => "devices-{$computer->getKey()}",
+            'title'      => $computer->name,
+            'url'        => route('devices.computers.show', [$computer->getKey()]),
+            'menu'       => view('pages.devices.computers._nav-show', compact('computer')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ])))
+    !!}
 
     <div class="clearfix"></div>
 
-    <div class="col-md-12">
+    <div class="panel panel-default">
 
-        <div class="panel panel-default">
+        <div class="panel-heading">
 
-            <div class="panel-heading">
-
-                <div class="panel-title">
-                    @yield('show.panel.title')
-                </div>
-
+            <div class="panel-title">
+                @yield('show.panel.title')
             </div>
 
-            <div class="panel-body">
+        </div>
 
-                @yield('show.panel.body')
+        <div class="panel-body">
 
-            </div>
+            @yield('show.panel.body')
 
-            <div class="panel-footer">
+        </div>
 
-                @yield('show.panel.footer')
+        <div class="panel-footer">
 
-            </div>
+            @yield('show.panel.footer')
 
         </div>
 

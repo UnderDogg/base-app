@@ -1,17 +1,17 @@
 @extends('layouts.master')
 
-@section('extra.top')
+@section('title', $inquiry->title)
+
+@section('title.header')
 
     <a class="btn btn-primary" href="{{ route('inquiries.index')  }}">
-        <i class="fa fa-chevron-left"></i>
+        <i class="fa fa-caret-left"></i>
         Back to Requests
     </a>
 
+    <hr>
+
 @endsection
-
-@section('title', $inquiry->title)
-
-@section('title.header', ' ')
 
 @section('content')
 

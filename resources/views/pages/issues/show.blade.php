@@ -1,15 +1,17 @@
 @extends('layouts.master')
 
-@section('extra.top')
-    <a class="btn btn-primary" href="{{ route('issues.index') }}">
-        <i class="fa fa-chevron-left"></i>
-        Back to Tickets
-    </a>
-@endsection
-
 @section('title', $issue->title)
 
-@section('title.header', ' ')
+@section('title.header')
+
+    <a class="btn btn-primary" href="{{ route('issues.index') }}">
+        <i class="fa fa-caret-left"></i>
+        Back to Tickets
+    </a>
+
+    <hr>
+
+@endsection
 
 @section('content')
 

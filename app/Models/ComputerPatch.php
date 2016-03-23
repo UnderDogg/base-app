@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasMarkdownTrait;
+use App\Traits\CanPurifyTrait;
+
 class ComputerPatch extends Model
 {
+    use HasMarkdownTrait, CanPurifyTrait;
+
     /**
      * The computer patch table.
      *
@@ -29,5 +34,25 @@ class ComputerPatch extends Model
     public function computer()
     {
         return $this->belongsTo(Computer::class);
+    }
+
+    /**
+     * Sets the issue's description attribute.
+     *
+     * @param string $description
+     */
+    public function setDescriptionAttribute($description)
+    {
+        $this->attributes['description'] = $this->clean($description);
+    }
+
+    /**
+     * Returns the description from markdown to HTML.
+     *
+     * @return string
+     */
+    public function getDescriptionFromMarkdownAttribute()
+    {
+        return $this->fromMarkdown($this->description);
     }
 }

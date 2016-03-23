@@ -5,6 +5,7 @@ namespace App\Processors\Device\Computer;
 use App\Http\Presenters\Device\ComputerPatchPresenter;
 use App\Http\Requests\Device\ComputerPatchRequest;
 use App\Jobs\Computer\Patch\Store;
+use App\Jobs\Computer\Patch\Update;
 use App\Models\Computer;
 use App\Processors\Processor;
 
@@ -99,30 +100,46 @@ class ComputerPatchProcessor extends Processor
 
         $patch = $computer->patches()->findOrFail($patchId);
 
-        return view('pages.devices.computers.patches.show', compact('computer', 'patch'));
+        $navbar = $this->presenter->navbarShow($computer, $patch);
+
+        return view('pages.devices.computers.patches.show', compact('computer', 'patch', 'navbar'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int|string $computerId
+     * @param int|string $patchId
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($computerId, $patchId)
     {
-        //
+        $computer = $this->computer->findOrFail($computerId);
+
+        $patch = $computer->patches()->findOrFail($patchId);
+
+        $form = $this->presenter->form($computer, $patch);
+
+        return view('pages.devices.computers.patches.edit', compact('computer', 'patch', 'form'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ComputerPatchRequest $request
+     * @param int|string           $computerId
+     * @param int|string           $patchId
+     *
+     * @return bool
      */
-    public function update(Request $request, $id)
+    public function update(ComputerPatchRequest $request, $computerId, $patchId)
     {
-        //
+        $computer = $this->computer->findOrFail($computerId);
+
+        $patch = $computer->patches()->findOrFail($patchId);
+
+        return $this->dispatch(new Update($request, $patch));
     }
 
     /**

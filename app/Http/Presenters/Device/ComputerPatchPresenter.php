@@ -21,8 +21,15 @@ class ComputerPatchPresenter extends Presenter
      */
     public function table(Computer $computer)
     {
-        return $this->table->of('computers.patches', function (TableGrid $table) use ($computer) {
-            $table->with($computer->patches())->paginate($this->perPage);
+        $patches = $computer->patches()->latest();
+
+        return $this->table->of('computers.patches', function (TableGrid $table) use ($computer, $patches) {
+            $table->with($patches)->paginate($this->perPage);
+
+            $table->searchable([
+                'title',
+                'description',
+            ]);
 
             $table->column('title', function (Column $column) use ($computer) {
                 $column->value = function (ComputerPatch $patch) use ($computer) {
@@ -81,7 +88,7 @@ class ComputerPatchPresenter extends Presenter
     }
 
     /**
-     * Returns a new navbar for the guide step index.
+     * Returns a new navbar for the computer patch index.
      *
      * @param Computer $computer
      *
@@ -94,6 +101,27 @@ class ComputerPatchPresenter extends Presenter
             'title'      => "{$computer->name} | Patches",
             'url'        => route('devices.computers.patches.index', [$computer->getKey()]),
             'menu'       => view('pages.devices.computers.patches._nav', compact('computer')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
+
+    /**
+     * Returns a new navbar when displaying the specified computer patch.
+     *
+     * @param Computer      $computer
+     * @param ComputerPatch $patch
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarShow(Computer $computer, ComputerPatch $patch)
+    {
+        return $this->fluent([
+            'id'         => 'computer-patches-show',
+            'title'      => "{$patch->title}",
+            'url'        => route('devices.computers.patches.show', [$computer->getKey(), $patch->getKey()]),
+            'menu'       => view('pages.devices.computers.patches._nav-show', compact('computer', 'patch')),
             'attributes' => [
                 'class' => 'navbar-default',
             ],

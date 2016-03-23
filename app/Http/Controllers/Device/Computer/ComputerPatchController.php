@@ -84,24 +84,36 @@ class ComputerPatchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int|string $computerId
+     * @param int|string $patchId
+     *
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($computerId, $patchId)
     {
-        //
+        return $this->processor->edit($computerId, $patchId);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ComputerPatchRequest $request
+     * @param int|string           $computerId
+     * @param int|string           $patchId
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ComputerPatchRequest $request, $computerId, $patchId)
     {
-        //
+        if ($this->processor->update($request, $computerId, $patchId)) {
+            flash()->success('Success!', 'Successfully updated patch.');
+
+            return redirect()->route('devices.computers.patches.show', [$computerId, $patchId]);
+        } else {
+            flash()->error('Error!', 'There was an issue updating this patch. Please try again.');
+
+            return redirect()->route('devices.computers.patches.edit', [$computerId, $patchId]);
+        }
     }
 
     /**
