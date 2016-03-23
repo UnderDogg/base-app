@@ -38,7 +38,7 @@ class Store extends Job
     public function handle()
     {
         return $this->computer->patches()->create([
-            'title' => $this->request->input('title'),
+            'title'       => $this->request->input('title'),
             'description' => $this->request->input('description'),
         ]);
     }
