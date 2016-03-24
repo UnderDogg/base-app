@@ -48,7 +48,7 @@ class ComputerPatchController extends Controller
     }
 
     /**
-     * Creates a new computer
+     * Creates a new computer.
      *
      * @param ComputerPatchRequest $request
      * @param int|string           $computerId
@@ -119,7 +119,8 @@ class ComputerPatchController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
