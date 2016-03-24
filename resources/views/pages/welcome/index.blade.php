@@ -4,14 +4,6 @@
 
 @section('content')
 
-    <div class="text-center text-white">
-
-        <h1 class="hidden-xs">Welcome.</h1>
-
-        <h2 class="visible-xs">Welcome.</h2>
-
-    </div>
-
     <div class="row" id="panels">
 
         <div class="col-md-12">
@@ -33,40 +25,6 @@
                         </div>
 
                         <div class="panel-body">
-
-                            <div class="col-md-12">
-
-                                <div class="clearfix"></div>
-
-                                <div class="visible-xs">
-                                    <a class="btn btn-sm btn-success pull-left" href="{{ route('issues.create') }}">
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        Create An Ticket
-                                    </a>
-
-                                    <a class="btn btn-sm btn-default pull-right" href="{{ route('issues.index') }}">
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        View My Ticket
-                                    </a>
-                                </div>
-
-                                <div class="hidden-xs">
-                                    <a class="btn btn-md btn-success pull-left" href="{{ route('issues.create') }}">
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        Create A Ticket
-                                    </a>
-
-                                    <a class="btn btn-md btn-default pull-right" href="{{ route('issues.index') }}">
-                                        <i class="fa fa-exclamation-circle"></i>
-                                        View Tickets
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-12">
-                                <p><br></p>
-                            </div>
 
                             <div class="col-md-12">
                                 {!! $issues !!}

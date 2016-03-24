@@ -57,6 +57,14 @@ class GuidePresenter extends Presenter
                 ->column('published')
                 ->value(function (Guide $guide) {
                     return $guide->published_label;
+                })
+                ->headers([
+                    'class' => 'hidden-xs',
+                ])
+                ->attributes(function () {
+                    return [
+                        'class' => 'hidden-xs',
+                    ];
                 });
 
             // Only allow users with create guide permissions
