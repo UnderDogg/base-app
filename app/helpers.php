@@ -9,7 +9,7 @@ use Rhumsaa\Uuid\Uuid;
  */
 function uuid()
 {
-    return Uuid::uuid3(Uuid::NAMESPACE_DNS, str_random())->toString();
+    return Uuid::uuid4()->toString();
 }
 
 /**
