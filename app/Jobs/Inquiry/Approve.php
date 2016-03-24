@@ -36,8 +36,13 @@ class Approve extends Job
             // Close the inquiry while approving.
             $this->dispatch(new Close($this->inquiry));
 
+            // Set the inquiry to approved.
             $this->inquiry->approved = true;
 
+            // Reset the inquiries UUID.
+            $this->inquiry->uuid = null;
+
+            // Save the inquiry.
             return $this->inquiry->save();
         }
 
