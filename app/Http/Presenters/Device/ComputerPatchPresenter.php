@@ -2,13 +2,13 @@
 
 namespace App\Http\Presenters\Device;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Computer;
 use App\Models\ComputerPatch;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\Computer;
 
 class ComputerPatchPresenter extends Presenter
 {
