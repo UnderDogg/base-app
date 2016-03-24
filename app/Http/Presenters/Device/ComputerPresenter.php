@@ -9,6 +9,7 @@ use App\Models\OperatingSystem;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use Orchestra\Html\Table\Column;
 
 class ComputerPresenter extends Presenter
 {
@@ -38,17 +39,17 @@ class ComputerPresenter extends Presenter
                 'description',
             ]);
 
+            $table->column('type', function (Column $column) {
+                $column->label = 'Type';
+                $column->value = function (Computer $computer) {
+                    return $computer->type->name;
+                };
+            });
+
             $table->column('name', function ($column) {
                 $column->label = 'Name';
                 $column->value = function (Computer $computer) {
                     return link_to_route('devices.computers.show', $computer->name, [$computer->getKey()]);
-                };
-            });
-
-            $table->column('access', function ($column) {
-                $column->label = 'Access';
-                $column->value = function (Computer $computer) {
-                    return $computer->access_checks;
                 };
             });
 
@@ -164,8 +165,8 @@ class ComputerPresenter extends Presenter
     public function navbar()
     {
         return $this->fluent([
-            'id'         => 'devices',
-            'title'      => 'Devices',
+            'id'         => 'computers',
+            'title'      => 'Computers',
             'url'        => route('devices.computers.index'),
             'menu'       => view('pages.devices.computers._nav'),
             'attributes' => [

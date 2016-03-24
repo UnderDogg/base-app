@@ -181,18 +181,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             'uses' => 'ComputerDiskController@synchronize',
                         ]);
 
-                        // View Computer CPU usage.
-                        $router->get('cpu', [
-                            'as'   => 'cpu.index',
-                            'uses' => 'ComputerCpuController@index',
-                        ]);
-
-                        // View Computer CPU usage (JSON).
-                        $router->get('cpu/json', [
-                            'as'   => 'cpu.json',
-                            'uses' => 'ComputerCpuController@json',
-                        ]);
-
                         // Edit Computer Access.
                         $router->get('access', [
                             'as'   => 'access.edit',
@@ -513,48 +501,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The services record controller.
             $router->resource('services.records', 'ServiceRecordController');
-        });
-
-        // The active directory route group.
-        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'active-directory'], function (Router $router) {
-            // The computers resource.
-            $router->resource('computers', 'ComputerController', [
-                'only' => ['index', 'store'],
-            ]);
-
-            // The users resource.
-            $router->resource('users', 'UserController');
-
-            // The user attributes resource.
-            $router->resource('users.attributes', 'UserAttributeController', [
-                'except' => ['show'],
-            ]);
-
-            // The questions resource.
-            $router->resource('questions', 'QuestionController', [
-                'except' => ['show'],
-            ]);
-
-            // Active Directory Routes.
-            $router->group(['as' => 'active-directory.'], function (Router $router) {
-                // Active Directory User Routes
-                $router->group(['as' => 'users.'], function (Router $router) {
-                    // Import an AD user.
-                    $router->post('users/import', [
-                        'as'   => 'import',
-                        'uses' => 'UserController@import',
-                    ]);
-                });
-
-                // Active Directory Computer Routes.
-                $router->group(['as' => 'computers.'], function (Router $router) {
-                    // Add all computers.
-                    $router->post('add-all', [
-                        'as'   => 'store.all',
-                        'uses' => 'ComputerController@storeAll',
-                    ]);
-                });
-            });
         });
 
         $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'security-questions', 'as' => 'security-questions.'], function (Router $router) {

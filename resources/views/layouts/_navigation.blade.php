@@ -133,7 +133,7 @@
 
                             <a href="#computers-menu" rel="computers-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-desktop"></i>
-                                Devices
+                                Computers
                                 <i class="fa fa-caret-down"></i>
                             </a>
 
@@ -163,7 +163,7 @@
 
                                     <a href="{{ route('devices.computers.index') }}">
                                         <i class="fa fa-list"></i>
-                                        All Devices
+                                        All Computers
                                     </a>
 
                                 </li>
@@ -171,7 +171,6 @@
                             </ul>
 
                         </li>
-
 
                     @endif
 
@@ -182,53 +181,6 @@
                                 <i class="fa fa-hdd-o"></i>
                                 Drives
                             </a>
-                        </li>
-
-                    @endif
-
-                    @if(\App\Policies\ActiveDirectory\ComputerPolicy::index(auth()->user()))
-
-                        <li class="dropdown {{ active()->routes(['active-directory.*']) }}" id="active-directory-menu">
-
-                            <a href="#active-directory-menu" rel="active-directory-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-book"></i>
-                                Active Directory
-                                <i class="fa fa-caret-down"></i>
-                            </a>
-
-                            <ul class="dropdown-menu">
-
-                                <li class="{{ active()->route('active-directory.users.*') }}">
-
-                                    <a href="{{ route('active-directory.users.index') }}">
-                                        <i class="fa fa-user"></i>
-                                        Users
-                                    </a>
-
-                                </li>
-
-                                <li class="{{ active()->route('active-directory.computers.*') }}">
-
-                                    <a href="{{ route('active-directory.computers.index') }}">
-                                        <i class="fa fa-desktop"></i>
-                                        Computers
-                                    </a>
-
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li class="{{ active()->route('active-directory.questions.*') }}">
-
-                                    <a href="{{ route('active-directory.questions.index') }}">
-                                        <i class="fa fa-question-circle"></i>
-                                        Security Questions
-                                    </a>
-
-                                </li>
-
-                            </ul>
-
                         </li>
 
                     @endif

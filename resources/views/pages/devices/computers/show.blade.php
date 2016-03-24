@@ -6,7 +6,7 @@
 
     <a href="{{ route('devices.computers.index') }}" class="btn btn-primary">
         <i class="fa fa-caret-left"></i>
-        Back To Devices
+        Back To Computers
     </a>
 
     <hr>
@@ -17,7 +17,7 @@
 
     {!!
         Decorator::render('navbar', (new \Illuminate\Support\Fluent([
-            'id'         => "devices-{$computer->getKey()}",
+            'id'         => "computers-{$computer->getKey()}",
             'title'      => $computer->name,
             'url'        => route('devices.computers.show', [$computer->getKey()]),
             'menu'       => view('pages.devices.computers._nav-show', compact('computer')),

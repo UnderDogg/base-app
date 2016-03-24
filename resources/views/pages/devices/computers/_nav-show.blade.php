@@ -21,20 +21,6 @@
         </a>
     </li>
 
-    <li class="{{ active()->route('devices.computers.cpu.*') }}">
-        <a title="Computer CPU Details" href="{{ route('devices.computers.cpu.index', [$computer->getKey()]) }}">
-            <i class="fa fa-line-chart"></i>
-            CPU
-        </a>
-    </li>
-
-    <li>
-        <a title="Computer Software" href="#">
-            <i class="fa fa-terminal"></i>
-            Software
-        </a>
-    </li>
-
     <li class="{{ active()->route('devices.computers.access.edit') }}">
         <a title="Computer Settings" href="{{ route('devices.computers.access.edit', [$computer->getKey()]) }}">
             <i class="fa fa-cogs"></i>
