@@ -59,7 +59,7 @@ class InquiryCategoryPresenter extends Presenter
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Delete Category?',
                         'data-message' => 'Are you sure you want to delete this category? All child categories will be destroyed.',
-                        'class'        => 'btn btn-sm btn-danger',
+                        'class'        => 'btn btn-xs btn-danger',
                     ]);
                 };
             });

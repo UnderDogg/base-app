@@ -1,10 +1,16 @@
 @extends('layouts.master')
 
-@section('extra.top')
+@section('title.header')
+
     <a class="btn btn-primary" href="{{ route('resources.guides.index') }}">
         <i class="fa fa-caret-left"></i>
         Back to Guides
     </a>
+
+    <hr>
+
+    <h2>{{ $guide->title }}</h2>
+
 @endsection
 
 @section('title', $guide->title)
