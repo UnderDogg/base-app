@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Resource\PatchRequest;
 use App\Models\Patch;
 use App\Processors\Resource\PatchProcessor;
-use App\Http\Controllers\Controller;
 
 class PatchController extends Controller
 {
@@ -47,7 +47,7 @@ class PatchController extends Controller
     /**
      * Creates a new patch.
      *
-     * @param  PatchRequest $request
+     * @param PatchRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -93,8 +93,8 @@ class PatchController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PatchRequest  $request
-     * @param int|string    $id
+     * @param PatchRequest $request
+     * @param int|string   $id
      *
      * @return \Illuminate\Http\Response
      */

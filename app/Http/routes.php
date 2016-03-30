@@ -144,7 +144,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
         });
-        
+
         // The device Computer group
         $router->group(['namespace' => 'Computer'], function (Router $router) {
             // The computer types resource.

@@ -2,12 +2,12 @@
 
 namespace App\Http\Presenters\Resource;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Computer;
+use App\Models\Patch;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\Patch;
-use App\Models\Computer;
 
 class PatchPresenter extends Presenter
 {
@@ -56,8 +56,8 @@ class PatchPresenter extends Presenter
                 $fieldset->control('input:select', 'computers[]')
                     ->label('Applies To')
                     ->attributes([
-                        'class'    => 'select-users',
-                        'multiple' => true,
+                        'class'            => 'select-users',
+                        'multiple'         => true,
                         'data-placeholder' => 'Select Computers Applied To',
                     ])->value(function (Patch $patch) {
                         if ($patch->exists) {
@@ -74,8 +74,8 @@ class PatchPresenter extends Presenter
 
                 $fieldset->control('input:textarea', 'description')
                     ->attributes([
-                        'placeholder' => 'What was done to the machine?',
-                        'style' => 'min-height:350px;',
+                        'placeholder'  => 'What was done to the machine?',
+                        'style'        => 'min-height:350px;',
                         'data-provide' => 'markdown',
                     ]);
             });
