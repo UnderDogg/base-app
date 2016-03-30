@@ -13,7 +13,7 @@ class ComputerController extends Controller
      * @var ComputerProcessor
      */
     protected $processor;
-    
+
     /**
      * Constructor.
      *
