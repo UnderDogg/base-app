@@ -12,16 +12,6 @@ class CreateComputerTables extends Migration
      */
     public function up()
     {
-        Schema::create('software', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->string('name');
-            $table->string('version')->nullable();
-
-            $table->foreign('user_id')->references('id')->on('users');
-        });
-
         Schema::create('operating_systems', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
@@ -49,6 +39,7 @@ class CreateComputerTables extends Migration
             $table->integer('type_id')->unsigned()->nullable();
             $table->integer('os_id')->unsigned()->nullable();
             $table->string('dn')->nullable();
+            $table->string('ip')->nullable();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('model')->nullable();
@@ -76,17 +67,6 @@ class CreateComputerTables extends Migration
 
             $table->foreign('computer_id')->references('id')->on('computers');
             $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        Schema::create('computer_software', function (Blueprint $table) {
-            $table->integer('computer_id')->unsigned();
-            $table->integer('software_id')->unsigned();
-
-            $table->foreign('computer_id')->references('id')->on('computers')
-                ->onDelete('cascade');
-
-            $table->foreign('software_id')->references('id')->on('software')
-                ->onDelete('cascade');
         });
 
         Schema::create('computer_processors', function (Blueprint $table) {
@@ -160,11 +140,9 @@ class CreateComputerTables extends Migration
         Schema::dropIfExists('computer_processor_records');
         Schema::dropIfExists('computer_processors');
         Schema::dropIfExists('computer_users');
-        Schema::dropIfExists('computer_software');
         Schema::dropIfExists('computer_access');
         Schema::dropIfExists('computers');
         Schema::dropIfExists('computer_types');
         Schema::dropIfExists('operating_systems');
-        Schema::dropIfExists('software');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
+use Adldap\Exceptions\ModelNotFoundException;
 use App\Exceptions\ActiveDirectory\NotEnoughSecurityQuestionsException;
-use App\Exceptions\ActiveDirectory\UserNotFoundException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
@@ -56,7 +56,7 @@ class ForgotPasswordController extends Controller
             $message = "Unfortunately this account hasn't finished their forgot password setup.";
 
             flash()->setTimer(false)->error('Error', $message);
-        } catch (UserNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             $message = "We couldn't locate the user you're looking for. Try again!";
 
             flash()->setTimer(false)->error('Error', $message);

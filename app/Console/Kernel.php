@@ -13,12 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Inspire::class,
-        Commands\Com\ScanComputers::class,
+        Commands\CheckComputers::class,
         Commands\ActiveDirectory\SyncRole::class,
         Commands\ActiveDirectory\SyncUsers::class,
         Commands\ActiveDirectory\SyncComputers::class,
-        Commands\ClearMonthlyData::class,
     ];
 
     /**
@@ -31,10 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // Scan computers every five minutes.
-        $schedule->command('computers:scan')->everyFiveMinutes();
-
-        // Clear computer records older than one month.
-        $schedule->command('computers:clear-monthly')->weekly();
+        $schedule->command('computers:check')->everyMinute();
 
         // Synchronize LDAP users.
         $schedule->command('users:sync')->hourly();

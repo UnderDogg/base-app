@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Computer\Patch;
 
-use App\Http\Requests\Device\ComputerPatchRequest;
+use App\Http\Requests\Computer\ComputerPatchRequest;
 use App\Jobs\Job;
 use App\Models\ComputerPatch;
 

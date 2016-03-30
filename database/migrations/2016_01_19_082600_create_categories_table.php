@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('depth')->unsigned()->nullable();
             $table->string('name');
             $table->string('belongs_to')->nullable();
+            $table->text('options')->nullable();
         });
     }
 

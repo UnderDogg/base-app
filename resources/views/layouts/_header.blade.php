@@ -6,8 +6,6 @@
 <meta name="author" content="Steve Bauman">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300,500" rel="stylesheet" type="text/css">
-
 <link rel="stylesheet" href="{{ asset('css/all.css') }}">
 <script type="text/javascript" src="{{ asset('js/all.js') }}"></script>
 

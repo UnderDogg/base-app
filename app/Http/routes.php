@@ -73,6 +73,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The guide steps resource.
         $router->resource('guides.steps', 'GuideStepController');
+
+        // The patches resource.
+        $router->resource('patches', 'PatchController');
     });
 
     // Non-Auth service routes.
@@ -141,64 +144,58 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
         });
+        
+        // The device Computer group
+        $router->group(['namespace' => 'Computer'], function (Router $router) {
+            // The computer types resource.
+            $router->resource('computer-types', 'ComputerTypeController', [
+                'except' => ['show'],
+            ]);
 
-        // The Devices namespace group.
-        $router->group(['namespace' => 'Device', 'prefix' => 'devices'], function (Router $router) {
-            // The drives resource.
-            $router->resource('drives', 'DriveController');
+            // The computer systems resource.
+            $router->resource('computer-systems', 'ComputerSystemController', [
+                'except' => ['show'],
+            ]);
 
-            // The device Computer group
-            $router->group(['namespace' => 'Computer'], function (Router $router) {
-                // The computer types resource.
-                $router->resource('computer-types', 'ComputerTypeController', [
-                    'except' => ['show'],
-                ]);
+            // The computer patch resource.
+            $router->resource('computers.patches', 'ComputerPatchController');
 
-                // The computer systems resource.
-                $router->resource('computer-systems', 'ComputerSystemController', [
-                    'except' => ['show'],
-                ]);
+            // The computers resource.
+            $router->resource('computers', 'ComputerController');
 
-                // The computer patch resource.
-                $router->resource('computers.patches', 'ComputerPatchController');
+            // The Devices group.
+            $router->group(['as' => ''], function (Router $router) {
+                // The Computer Device group.
+                $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
+                    // View Computer Hard Disks.
+                    $router->get('disks', [
+                        'as'   => 'disks.index',
+                        'uses' => 'ComputerDiskController@index',
+                    ]);
 
-                // The computers resource.
-                $router->resource('computers', 'ComputerController');
+                    // Sync Computer Hard Disks.
+                    $router->post('disks/synchronize', [
+                        'as'   => 'disks.sync',
+                        'uses' => 'ComputerDiskController@synchronize',
+                    ]);
 
-                // The Devices group.
-                $router->group(['as' => 'devices.'], function (Router $router) {
-                    // The Computer Device group.
-                    $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
-                        // View Computer Hard Disks.
-                        $router->get('disks', [
-                            'as'   => 'disks.index',
-                            'uses' => 'ComputerDiskController@index',
-                        ]);
+                    // Edit Computer Access.
+                    $router->get('access', [
+                        'as'   => 'access.edit',
+                        'uses' => 'ComputerAccessController@edit',
+                    ]);
 
-                        // Sync Computer Hard Disks.
-                        $router->post('disks/synchronize', [
-                            'as'   => 'disks.sync',
-                            'uses' => 'ComputerDiskController@synchronize',
-                        ]);
+                    // Update Computer Access.
+                    $router->post('access', [
+                        'as'   => 'access.update',
+                        'uses' => 'ComputerAccessController@update',
+                    ]);
 
-                        // Edit Computer Access.
-                        $router->get('access', [
-                            'as'   => 'access.edit',
-                            'uses' => 'ComputerAccessController@edit',
-                        ]);
-
-                        // Update Computer Access.
-                        $router->post('access', [
-                            'as'   => 'access.update',
-                            'uses' => 'ComputerAccessController@update',
-                        ]);
-
-                        // Computer Status Check.
-                        $router->post('status/check', [
-                            'as'   => 'status.check',
-                            'uses' => 'ComputerStatusController@check',
-                        ]);
-                    });
+                    // Computer Status Check.
+                    $router->post('status/check', [
+                        'as'   => 'status.check',
+                        'uses' => 'ComputerStatusController@check',
+                    ]);
                 });
             });
         });

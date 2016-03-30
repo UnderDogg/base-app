@@ -16,12 +16,16 @@ class CreateIssuesTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
+            $table->timestamp('closed_at')->nullable();
+            $table->timestamp('occurred_at')->nullable();
             $table->integer('user_id')->unsigned();
+            $table->integer('closed_by_user_id')->unsigned()->nullable();
             $table->boolean('closed')->default(false);
             $table->string('title');
             $table->text('description');
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('closed_by_user_id')->references('id')->on('users');
         });
 
         Schema::create('issue_labels', function (Blueprint $table) {

@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
      * @var array
      */
     protected $permissionSeeders = [
-        AdPermissionSeeder::class,
         CategoryPermissionSeeder::class,
         DevicePermissionSeeder::class,
         GuidePermissionSeeder::class,

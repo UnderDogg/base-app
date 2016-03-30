@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Computer\Type;
 
-use App\Http\Requests\Device\ComputerTypeRequest;
+use App\Http\Requests\Computer\ComputerTypeRequest;
 use App\Jobs\Job;
 use App\Models\ComputerType;
 

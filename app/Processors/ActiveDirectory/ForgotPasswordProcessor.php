@@ -3,9 +3,9 @@
 namespace App\Processors\ActiveDirectory;
 
 use Adldap\Contracts\Adldap;
+use Adldap\Exceptions\ModelNotFoundException;
 use Adldap\Models\User as AdldapUser;
 use App\Exceptions\ActiveDirectory\NotEnoughSecurityQuestionsException;
-use App\Exceptions\ActiveDirectory\UserNotFoundException;
 use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
@@ -72,30 +72,26 @@ class ForgotPasswordProcessor extends Processor
      * @param DiscoverRequest $request
      *
      * @throws NotEnoughSecurityQuestionsException
-     * @throws UserNotFoundException
+     * @throws ModelNotFoundException
      *
      * @return string
      */
     public function find(DiscoverRequest $request)
     {
-        $profile = $this->adldap->users()->find($request->input('username'));
+        $profile = $this->adldap->users()->findOrFail($request->input('username'));
 
-        if ($profile instanceof AdldapUser) {
-            // Retrieve the user that has 3 or more security questions.
-            $user = $this->user
-                ->where('email', $profile->getEmail())
-                ->has('questions', '>=', 3)
-                ->first();
+        // Retrieve the user that has 3 or more security questions.
+        $user = $this->user
+            ->where('email', $profile->getEmail())
+            ->has('questions', '>=', 3)
+            ->first();
 
-            // Check that we've retrieved a user from the query.
-            if ($user instanceof User) {
-                return $user->generateForgotToken();
-            }
-
-            throw new NotEnoughSecurityQuestionsException();
+        // Check that we've retrieved a user from the query.
+        if ($user instanceof User) {
+            return $user->generateForgotToken();
         }
 
-        throw new UserNotFoundException();
+        throw new NotEnoughSecurityQuestionsException();
     }
 
     /**

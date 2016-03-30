@@ -99,4 +99,4 @@
 
 </ul>
 
-@include('pages.issues._search')
+@include('components.search')

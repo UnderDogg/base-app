@@ -26,4 +26,4 @@
 
 </ul>
 
-@include('pages.inquiries._search')
+@include('components.search')

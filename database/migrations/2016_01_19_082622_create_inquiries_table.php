@@ -17,6 +17,7 @@ class CreateInquiriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('user_id')->unsigned();
+            $table->integer('manager_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();
             $table->boolean('closed')->default(false);
             $table->boolean('approved')->default(false);
@@ -24,7 +25,7 @@ class CreateInquiriesTable extends Migration
             $table->text('description')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
-
+            $table->foreign('manager_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories')
                 ->onDelete('set null');
         });

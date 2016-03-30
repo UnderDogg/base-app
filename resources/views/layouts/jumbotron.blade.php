@@ -5,11 +5,10 @@
     <style>
         .jumbotron-welcome {
             position: relative;
-            background: #000 url('{{ asset('img/jumbotron-bg.png') }}') center center;
+            background: #39475A url('{{ asset('img/geometry.png') }}') center center;
             width: 100%;
             height: 100%;
             min-height: 100vh;
-            background-size: cover;
             overflow: hidden;
             margin-bottom: 0;
         }

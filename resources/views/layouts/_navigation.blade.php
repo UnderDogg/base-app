@@ -34,8 +34,26 @@
                         <li class="{{ active()->route('resources.guides.*') }}">
 
                             <a href="{{ route('resources.guides.index') }}">
-                                <i class="fa fa-book"></i>
+                                <i class="fa fa-bookmark"></i>
                                 Guides
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+                                <i class="fa fa-book"></i>
+                                Wiki
+                            </a>
+
+                        </li>
+
+                        <li class="{{ active()->route('resources.patches.*') }}">
+
+                            <a href="{{ route('resources.patches.index') }}">
+                                <i class="fa fa-medkit"></i>
+                                Patches
                             </a>
 
                         </li>
@@ -59,18 +77,20 @@
                             <li class="{{ active()->resource('inquiries') }}">
 
                                 <a href="{{ route('inquiries.index') }}">
-                                    <i class="fa fa-bell"></i>
-                                    Requests
+                                    <i class="fa fa-list"></i>
+                                    All Requests
                                 </a>
 
                             </li>
 
                             @if(\App\Policies\CategoryPolicy::index(auth()->user()))
 
+                                <li class="divider"></li>
+
                                 <li class="{{ active()->route('inquiries.categories.*') }}">
 
                                     <a href="{{ route('inquiries.categories.index') }}">
-                                        <i class="fa fa-folder"></i>
+                                        <i class="fa fa-sitemap"></i>
                                         Categories
                                     </a>
 
@@ -95,17 +115,19 @@
                             <li class="{{ active()->route('issues.*') }}">
 
                                 <a href="{{ route('issues.index') }}">
-                                    <i class="fa fa-ticket"></i>
-                                    Tickets
+                                    <i class="fa fa-list"></i>
+                                    All Tickets
                                 </a>
 
                             </li>
 
                             @if(\App\Policies\LabelPolicy::index(auth()->user()))
 
+                                <li class="divider"></li>
+
                                 <li class="{{ active()->route('labels.*') }}">
                                     <a href="{{ route('labels.index') }}">
-                                        <i class="fa fa-tags"></i>
+                                        <i class="fa fa-tag"></i>
                                         Labels
                                     </a>
                                 </li>
@@ -119,17 +141,19 @@
                     @if(\App\Policies\ServicePolicy::index(auth()->user()))
 
                         <li class="{{ active()->route('services.*') }}">
+
                             <a href="{{ route('services.index') }}">
                                 <i class="fa fa-server"></i>
                                 Services
                             </a>
+
                         </li>
 
                     @endif
 
-                    @if(\App\Policies\Device\ComputerPolicy::index(auth()->user()))
+                    @if(\App\Policies\ComputerPolicy::index(auth()->user()))
 
-                        <li class="dropdown {{ active()->route('devices.computers.*') }}" id="computers-menu">
+                        <li class="dropdown {{ active()->route('computers.*') }}" id="computers-menu">
 
                             <a href="#computers-menu" rel="computers-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-desktop"></i>
@@ -139,48 +163,37 @@
 
                             <ul class="dropdown-menu">
 
-                                <li class="{{ active()->route('devices.computer-types.*') }}">
+                                <li class="{{ active()->route('computers.*') }}">
 
-                                    <a href="{{ route('devices.computer-types.index') }}">
-                                        <i class="fa fa-sitemap"></i>
-                                        Types
-                                    </a>
-
-                                </li>
-
-                                <li class="{{ active()->route('devices.computer-systems.*') }}">
-
-                                    <a href="{{ route('devices.computer-systems.index') }}">
-                                        <i class="fa fa-windows"></i>
-                                        Operating Systems
-                                    </a>
-
-                                </li>
-
-                                <li class="divider"></li>
-
-                                <li class="{{ active()->route('devices.computers.*') }}">
-
-                                    <a href="{{ route('devices.computers.index') }}">
+                                    <a href="{{ route('computers.index') }}">
                                         <i class="fa fa-list"></i>
                                         All Computers
                                     </a>
 
                                 </li>
 
+                                <li class="divider"></li>
+
+                                <li class="{{ active()->route('computer-types.*') }}">
+
+                                    <a href="{{ route('computer-types.index') }}">
+                                        <i class="fa fa-sitemap"></i>
+                                        Types
+                                    </a>
+
+                                </li>
+
+                                <li class="{{ active()->route('computer-systems.*') }}">
+
+                                    <a href="{{ route('computer-systems.index') }}">
+                                        <i class="fa fa-windows"></i>
+                                        Operating Systems
+                                    </a>
+
+                                </li>
+
                             </ul>
 
-                        </li>
-
-                    @endif
-
-                    @if(\App\Policies\Device\DrivePolicy::index(auth()->user()))
-
-                        <li class="{{ active()->route('devices.drives.*') }}">
-                            <a href="{{ route('devices.drives.index') }}">
-                                <i class="fa fa-hdd-o"></i>
-                                Drives
-                            </a>
                         </li>
 
                     @endif

@@ -2,7 +2,7 @@
 
 namespace App\Jobs\Computer\System;
 
-use App\Http\Requests\Device\ComputerSystemRequest;
+use App\Http\Requests\Computer\ComputerSystemRequest;
 use App\Jobs\Job;
 use App\Models\OperatingSystem;
 
