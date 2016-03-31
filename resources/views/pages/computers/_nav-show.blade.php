@@ -7,13 +7,15 @@
         </a>
     </li>
 
+    <!--
     <li class="{{ active()->route('computers.patches.*') }}">
         <a title="Computer Details" href="{{ route('computers.patches.index', [$computer->getKey()]) }}">
             <i class="fa fa-medkit"></i>
             Patches
         </a>
     </li>
-
+    -->
+    
     <li class="{{ active()->route('computers.disks.*') }}">
         <a title="Computer Hard Disks" href="{{ route('computers.disks.index', [$computer->getKey()]) }}">
             <i class="fa fa-hdd-o"></i>
