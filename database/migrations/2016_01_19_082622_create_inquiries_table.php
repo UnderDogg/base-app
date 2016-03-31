@@ -23,6 +23,7 @@ class CreateInquiriesTable extends Migration
             $table->boolean('approved')->default(false);
             $table->string('title');
             $table->text('description')->nullable();
+            $table->uuid('uuid')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('manager_id')->references('id')->on('users');
