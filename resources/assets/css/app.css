@@ -1,10 +1,3 @@
-/* Alternate body font. */
-body {
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6em;
-    background-color:rgba(238, 238, 238, 0.50);
-}
-
 /* Add label-large class */
 .label-large {
     font-size: 19px;
