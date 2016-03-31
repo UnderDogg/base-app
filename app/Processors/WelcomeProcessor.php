@@ -6,18 +6,10 @@ use App\Http\Presenters\WelcomePresenter;
 use App\Models\Guide;
 use App\Models\Issue;
 use App\Models\Service;
-use App\Traits\CanPurifyTrait;
-use Carbon\Carbon;
-use Exception;
 use Illuminate\Contracts\Cache\Repository as Cache;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Fluent;
-use Vinelab\Rss\Facades\RSS;
 
 class WelcomeProcessor extends Processor
 {
-    use CanPurifyTrait;
-
     /**
      * @var WelcomePresenter
      */
@@ -68,25 +60,6 @@ class WelcomeProcessor extends Processor
      */
     public function index()
     {
-        $feeds = config('rss.feeds');
-
-        $weatherFeed = $feeds['weather'];
-        $articleFeed = $feeds['articles'];
-
-        $minutes = 30;
-
-        try {
-            $forecast = $this->cache->remember('feeds.weather', $minutes, function () use ($weatherFeed) {
-                return $this->feed($weatherFeed, 1);
-            });
-
-            $news = $this->cache->remember('feeds.articles', $minutes, function () use ($articleFeed) {
-                return $this->feed($articleFeed, 4);
-            });
-        } catch (Exception $e) {
-            //
-        }
-
         if (auth()->check()) {
             $issues = $this->presenter->issues($this->issue);
         }
@@ -95,48 +68,6 @@ class WelcomeProcessor extends Processor
 
         $guides = $this->presenter->guides($this->guide);
 
-        return view('pages.welcome.index', compact('forecast', 'news', 'issues', 'services', 'guides'));
-    }
-
-    /**
-     * Creates a new RSS collection feed from the specified URL.
-     *
-     * @param string $url
-     * @param int    $entries
-     *
-     * @return Fluent
-     */
-    protected function feed($url, $entries = 5)
-    {
-        $fluent = new Fluent();
-
-        $collection = new Collection();
-
-        $feed = RSS::feed($url);
-
-        if ($feed->articles instanceof Collection) {
-            $articles = $feed->articles->take($entries)->each(function ($article) {
-                // We'll clean the articles description of any HTML.
-                $cleaned = $this->clean($article->description, [
-                    'HTML.Allowed' => '',
-                ]);
-
-                // Set the new article description.
-                $article->description = str_limit($cleaned);
-
-                $date = Carbon::createFromTimestamp(strtotime($article->pubDate));
-
-                // Reformat the publish date for clearer
-                // indication of how old the article is.
-                $article->pubDate = $date->diffForHumans();
-            });
-
-            $fluent->title = $feed->title;
-            $fluent->link = $feed->link;
-            $fluent->description = $feed->description;
-            $fluent->articles = $collection->merge($articles);
-        }
-
-        return $fluent;
+        return view('pages.welcome.index', compact('issues', 'services', 'guides'));
     }
 }

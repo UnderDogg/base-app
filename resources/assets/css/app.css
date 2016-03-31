@@ -1,11 +1,6 @@
-/* Remove bootstrap rounded corners. */
-* {
-    border-radius: 0 !important;
-}
-
 /* Alternate body font. */
 body {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.6em;
     background-color:rgba(238, 238, 238, 0.50);
 }

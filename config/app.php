@@ -180,7 +180,6 @@ return [
         Stevebauman\Authorization\AuthorizationServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Vinelab\Rss\RssServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
