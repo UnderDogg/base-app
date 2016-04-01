@@ -1,3 +1,10 @@
+/* Remove all rounded corners except for sweet alert notifications. */
+* :not(.sa-icon) {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 /* Grey background. */
 body {
     background-color:rgba(238, 238, 238, 0.50);
