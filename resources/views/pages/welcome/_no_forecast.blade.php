@@ -1,1 +1,0 @@
-<p class="text-center">Unfortunately the forecast is unavailable at the current time.</p>

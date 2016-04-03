@@ -20,7 +20,11 @@
 
         <p class="text-center">
             <br>
-            <a href="{{ route('auth.forgot-password.discover') }}">Forgot Your Password?</a>
+
+            <a class="btn btn-default btn-block"
+               href="{{ route('auth.forgot-password.discover') }}">
+                Forgot Your Password?
+            </a>
         </p>
 
     </div>

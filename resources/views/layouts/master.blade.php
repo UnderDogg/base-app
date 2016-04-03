@@ -14,7 +14,7 @@
 
         @section('container')
 
-            <section id="main" class="container main">
+            <div id="main" class="container main">
 
                 <div class="col-md-12">
                     @yield('extra.top')
@@ -38,7 +38,7 @@
                     @yield('extra.bottom')
                 </div>
 
-            </section>
+            </div>
 
         @show
 

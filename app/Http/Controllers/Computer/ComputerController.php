@@ -2,26 +2,49 @@
 
 namespace App\Http\Controllers\Computer;
 
-use App\Http\Controllers\Controller;
+use Adldap\Contracts\Adldap;
+use Adldap\Models\Computer as AdComputer;
+use App\Http\Presenters\Computer\ComputerPresenter;
 use App\Http\Requests\Computer\ComputerRequest;
+use App\Jobs\ActiveDirectory\ImportComputer;
+use App\Jobs\Computer\Create;
+use App\Jobs\Computer\Store;
+use App\Jobs\Computer\Update;
 use App\Models\Computer;
-use App\Processors\Computer\ComputerProcessor;
+use App\Models\ComputerType;
+use App\Models\OperatingSystem;
+use App\Policies\ComputerPolicy;
+use App\Http\Controllers\Controller;
 
 class ComputerController extends Controller
 {
     /**
-     * @var ComputerProcessor
+     * @var Computer
      */
-    protected $processor;
+    protected $computer;
+
+    /**
+     * @var Adldap
+     */
+    protected $adldap;
+
+    /**
+     * @var ComputerPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param ComputerProcessor $processor
+     * @param Computer          $computer
+     * @param Adldap            $adldap
+     * @param ComputerPresenter $presenter
      */
-    public function __construct(ComputerProcessor $processor)
+    public function __construct(Computer $computer, Adldap $adldap, ComputerPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->computer = $computer;
+        $this->adldap = $adldap;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -31,7 +54,15 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        if (ComputerPolicy::index(auth()->user())) {
+            $computers = $this->presenter->table($this->computer);
+
+            $navbar = $this->presenter->navbar();
+
+            return view('pages.computers.index', compact('computers', 'navbar'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -41,7 +72,13 @@ class ComputerController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        if (ComputerPolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->computer);
+
+            return view('pages.computers.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -53,17 +90,28 @@ class ComputerController extends Controller
      */
     public function store(ComputerRequest $request)
     {
-        $computer = $this->processor->store($request);
+        if (ComputerPolicy::create(auth()->user())) {
+            // If the user is looking to import the computer from active
+            // directory, then we'll try to find the computer by
+            // the given name and dispatch the import job.
+            if ($request->input('active_directory')) {
+                $computer = $this->storeFromActiveDirectory($request);
+            } else {
+                $computer = $this->storeFromRequest($request);
+            }
 
-        if ($computer instanceof Computer) {
-            flash()->success('Success!', 'Successfully created computer.');
+            if ($computer instanceof Computer) {
+                flash()->success('Success!', 'Successfully created computer.');
 
-            return redirect()->route('computers.index');
-        } else {
-            flash()->error('Error!', 'There was an issue creating a computer. Please try again.');
+                return redirect()->route('computers.index');
+            } else {
+                flash()->error('Error!', 'There was an issue creating a computer. Please try again.');
 
-            return redirect()->route('computers.create');
+                return redirect()->route('computers.create');
+            }
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -75,7 +123,20 @@ class ComputerController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        if (ComputerPolicy::show(auth()->user())) {
+            $with = [
+                'os',
+                'type',
+                'users',
+                'access',
+            ];
+
+            $computer = $this->computer->with($with)->findOrFail($id);
+
+            return view('pages.computers.show.details', compact('computer'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -87,7 +148,15 @@ class ComputerController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        if (ComputerPolicy::edit(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
+
+            $form = $this->presenter->form($computer);
+
+            return view('pages.computers.edit', compact('form', 'computer'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -100,15 +169,21 @@ class ComputerController extends Controller
      */
     public function update(ComputerRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated computer.');
+        if (ComputerPolicy::edit(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-            return redirect()->route('computers.show', [$id]);
-        } else {
+            if ($this->dispatch(new Update($request, $computer))) {
+                flash()->success('Success!', 'Successfully updated computer.');
+
+                return redirect()->route('computers.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was an issue updating this computer. Please try again.');
 
             return redirect()->route('computers.edit', [$id]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -120,14 +195,52 @@ class ComputerController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted computer.');
+        if (ComputerPolicy::destroy(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-            return redirect()->route('computers.index');
-        } else {
+            if ($computer->delete()) {
+                flash()->success('Success!', 'Successfully deleted computer.');
+
+                return redirect()->route('computers.index');
+            }
+
             flash()->error('Error!', 'There was an issue deleting this computer. Please try again.');
 
             return redirect()->route('computers.show', [$id]);
         }
+
+        $this->unauthorized();
+    }
+
+    /**
+     * Creates a new computer from a request.
+     *
+     * @param ComputerRequest $request
+     *
+     * @return Computer|bool
+     */
+    protected function storeFromRequest(ComputerRequest $request)
+    {
+        $computer = $this->computer->newInstance();
+
+        return $this->dispatch(new Store($request, $computer));
+    }
+
+    /**
+     * Creates a new computer from active directory.
+     *
+     * @param ComputerRequest $request
+     *
+     * @return Computer|bool
+     */
+    protected function storeFromActiveDirectory(ComputerRequest $request)
+    {
+        $computer = $this->adldap->computers()->find($request->input('name'));
+
+        if ($computer instanceof AdComputer) {
+            return $this->dispatch(new ImportComputer($computer));
+        }
+
+        return false;
     }
 }
