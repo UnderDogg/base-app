@@ -74,7 +74,7 @@ class ServiceRecord extends Model
             default:
                 $title = 'Unknown';
                 break;
-        };
+        }
 
         return $title;
     }
@@ -99,7 +99,7 @@ class ServiceRecord extends Model
             default:
                 $color = 'default';
                 break;
-        };
+        }
 
         return $color;
     }

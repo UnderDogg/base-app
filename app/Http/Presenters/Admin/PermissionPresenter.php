@@ -185,7 +185,7 @@ class PermissionPresenter extends Presenter
 
                     foreach ($permission->roles as $role) {
                         $labels .= $role->display_label.'<br>';
-                    };
+                    }
 
                     return $labels;
                 };
