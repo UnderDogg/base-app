@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Computer;
 
 use Adldap\Contracts\Adldap;
 use Adldap\Models\Computer as AdComputer;
+use App\Http\Controllers\Controller;
 use App\Http\Presenters\Computer\ComputerPresenter;
 use App\Http\Requests\Computer\ComputerRequest;
 use App\Jobs\ActiveDirectory\ImportComputer;
@@ -11,10 +12,7 @@ use App\Jobs\Computer\Create;
 use App\Jobs\Computer\Store;
 use App\Jobs\Computer\Update;
 use App\Models\Computer;
-use App\Models\ComputerType;
-use App\Models\OperatingSystem;
 use App\Policies\ComputerPolicy;
-use App\Http\Controllers\Controller;
 
 class ComputerController extends Controller
 {

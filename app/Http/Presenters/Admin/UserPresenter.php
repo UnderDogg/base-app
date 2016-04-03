@@ -162,7 +162,7 @@ class UserPresenter extends Presenter
 
                     foreach ($user->roles as $role) {
                         $labels .= $role->display_label.'<br>';
-                    };
+                    }
 
                     return $labels;
                 };
