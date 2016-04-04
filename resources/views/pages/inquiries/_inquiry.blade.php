@@ -1,6 +1,6 @@
-<div class="card ticket">
+<div class="card card-primary">
 
-    <div class="col-md-12 ticket-heading">
+    <div class="card-heading col-md-12">
 
         <h4>
             <span class="text-muted">{{ $inquiry->hash_id }}</span>

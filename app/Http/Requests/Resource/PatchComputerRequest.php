@@ -4,23 +4,23 @@ namespace App\Http\Requests\Resource;
 
 use App\Http\Requests\Request;
 
-class PatchRequest extends Request
+class PatchComputerRequest extends Request
 {
     /**
-     * The patch request validation rules.
+     * Returns the computer patch rules.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            'title'         => 'required|min:5|max:50',
-            'description'   => 'required|min:5|max:2000',
+            'computers.*' => 'exists:computers,id',
+            'patched'     => 'patched',
         ];
     }
 
     /**
-     * Allows all users to create patches.
+     * Allows all users to add computers to patches.
      *
      * @return bool
      */

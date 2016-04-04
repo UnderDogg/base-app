@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasUserTrait;
 use JJG\Ping;
+use App\Models\Traits\HasUserTrait;
 use Orchestra\Support\Facades\HTML;
 
 class Computer extends Model
@@ -94,7 +94,7 @@ class Computer extends Model
      */
     public function patches()
     {
-        return $this->hasMany(ComputerPatch::class);
+        return $this->hasMany(Patch::class);
     }
 
     /**

@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Models\Traits\HasMarkdownTrait;
+use App\Models\Traits\HasUserTrait;
 use App\Traits\CanPurifyTrait;
 
 class Patch extends Model
 {
-    use HasMarkdownTrait, CanPurifyTrait;
+    use HasUserTrait, HasMarkdownTrait, CanPurifyTrait;
 
     /**
      * The patch table.

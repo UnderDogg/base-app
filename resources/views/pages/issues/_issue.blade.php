@@ -1,6 +1,6 @@
-<div class="card ticket">
+<div class="card card-primary">
 
-    <div class="col-md-12 ticket-heading">
+    <div class="card-title col-md-12">
 
         <h4>
 

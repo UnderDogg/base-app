@@ -15,7 +15,7 @@ class CreatePatchesTable extends Migration
         Schema::create('patches', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned();
             $table->string('title');
             $table->text('description')->nullable();
 
@@ -26,6 +26,7 @@ class CreatePatchesTable extends Migration
         Schema::create('patch_computers', function (Blueprint $table) {
             $table->integer('patch_id')->unsigned();
             $table->integer('computer_id')->unsigned();
+            $table->timestamp('patched_at')->nullable();
 
             $table->foreign('patch_id')->references('id')->on('patches')
                 ->onDelete('cascade');

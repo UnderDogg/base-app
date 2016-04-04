@@ -42,12 +42,6 @@ class Store extends Job
         $this->patch->description = $this->request->input('description');
 
         if ($this->patch->save()) {
-            $computers = $this->request->input('computers');
-
-            if (is_array($computers)) {
-                $this->patch->computers()->sync($computers);
-            }
-
             return $this->patch;
         }
 

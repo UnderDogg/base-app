@@ -362,7 +362,9 @@ class IssuePresenter extends Presenter
         $column->label = 'Ticket';
 
         $column->value = function (Issue $issue) {
-            $link = link_to_route('issues.show', $issue->title, [$issue->getKey()]);
+            $link = link_to_route('issues.show', $issue->title, [$issue->getKey()], [
+                'class' => 'issue-title'
+            ]);
 
             $labels = [];
             $users = [];
@@ -380,7 +382,7 @@ class IssuePresenter extends Presenter
             $labels = implode(null, $labels);
             $users = implode(null, $users);
 
-            $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $issue->tag_line);
+            $tagLine = sprintf('<p class="h5 issue-summary">%s</p>', $issue->tag_line);
 
             return "$link $labels $users $tagLine";
         };

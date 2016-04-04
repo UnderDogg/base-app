@@ -259,7 +259,9 @@ class Issue extends Model
 
         $hash = $this->hash_id;
 
-        return "$hash opened $daysAgo by $user - $icon $comments";
+        $comments = "<span class='pull-right hidden-xs'>$icon $comments</span>";
+
+        return "$hash opened $daysAgo by $user $comments";
     }
 
     /**

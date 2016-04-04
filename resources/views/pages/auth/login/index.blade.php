@@ -1,7 +1,9 @@
 @extends('layouts.master')
 
 @section('title.header')
+
     @section('title', 'Login')
+
 @endsection
 
 @section('content')

@@ -76,6 +76,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The patches resource.
         $router->resource('patches', 'PatchController');
+
+        // The patch computer resource.
+        $router->resource('patches.computers', 'PatchComputerController', [
+            'only' => ['store']
+        ]);
     });
 
     // Non-Auth service routes.

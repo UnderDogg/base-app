@@ -4,24 +4,31 @@ namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Resource\PatchRequest;
+use App\Http\Presenters\Resource\PatchPresenter;
 use App\Models\Patch;
-use App\Processors\Resource\PatchProcessor;
 
 class PatchController extends Controller
 {
     /**
-     * @var PatchProcessor
+     * @var Patch
      */
-    protected $processor;
+    protected $patch;
+
+    /**
+     * @var PatchPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param PatchProcessor $processor
+     * @param Patch          $patch
+     * @param PatchPresenter $presenter
      */
-    public function __construct(PatchProcessor $processor)
+    public function __construct(Patch $patch, PatchPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->patch = $patch;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -31,7 +38,11 @@ class PatchController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $patches = $this->presenter->table($this->patch);
+
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.resources.patches.index', compact('patches', 'navbar'));
     }
 
     /**
@@ -41,7 +52,9 @@ class PatchController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $form = $this->presenter->form($this->patch);
+
+        return view('pages.resources.patches.create', compact('form'));
     }
 
     /**
@@ -53,7 +66,7 @@ class PatchController extends Controller
      */
     public function store(PatchRequest $request)
     {
-        $patch = $this->processor->store($request);
+        $patch = $this->dispatch(new Store($request, $this->patch));
 
         if ($patch instanceof Patch) {
             flash()->success('Success!', 'Successfully created patch.');
@@ -75,7 +88,9 @@ class PatchController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $patch = $this->patch->findOrFail($id);
+
+        return view('pages.resources.patches.show', compact('patch'));
     }
 
     /**
@@ -87,7 +102,11 @@ class PatchController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $patch = $this->patch->findOrFail($id);
+
+        $form = $this->presenter->form($patch);
+
+        return view('pages.resources.patches.edit', compact('form'));
     }
 
     /**

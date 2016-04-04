@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'All Guides')
+@section('title', 'All Patches')
 
 @section('title.header', ' ')
 

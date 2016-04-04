@@ -7,6 +7,7 @@ use App\Models\Computer;
 use App\Models\Patch;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class PatchPresenter extends Presenter
@@ -23,7 +24,16 @@ class PatchPresenter extends Presenter
         return $this->table->of('patches', function (TableGrid $table) use ($patch) {
             $table->with($patch)->paginate($this->perPage);
 
-            $table->column('title');
+            $table->searchable([
+                'title',
+                'description',
+            ]);
+
+            $table->column('title', function (Column $column) {
+                $column->value = function (Patch $patch) {
+                    return link_to_route('resources.patches.show', $patch->title, [$patch->getKey()]);
+                };
+            });
 
             $table->column('created_at_human')
                 ->label('Created');
@@ -53,24 +63,16 @@ class PatchPresenter extends Presenter
             $form->with($patch);
 
             $form->fieldset(function (Fieldset $fieldset) {
-                $fieldset->control('input:select', 'computers[]')
-                    ->label('Applies To')
-                    ->attributes([
-                        'class'            => 'select-users',
-                        'multiple'         => true,
-                        'data-placeholder' => 'Select Computers Applied To',
-                    ])->value(function (Patch $patch) {
-                        if ($patch->exists) {
-                            return $patch->computers()->get()->pluck('id');
-                        }
-                    })->options(function () {
-                        return Computer::all()->pluck('name', 'id');
-                    });
-
                 $fieldset->control('input:text', 'title')
                     ->attributes([
                         'placeholder' => 'Enter a Summary of the Patch.',
                     ]);
+
+                $fieldset->control('input:file', 'files[]')
+                    ->label('Attach Files')
+                    ->attributes([
+                        'multiple' => true,
+                    ]) ;
 
                 $fieldset->control('input:textarea', 'description')
                     ->attributes([
