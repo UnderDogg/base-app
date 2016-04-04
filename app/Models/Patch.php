@@ -41,7 +41,7 @@ class Patch extends Model
      */
     public function computers()
     {
-        return $this->belongsToMany(Computer::class, $this->tableComputersPivot);
+        return $this->belongsToMany(Computer::class, $this->tableComputersPivot)->withPivot(['patched_at']);
     }
 
     /**
@@ -62,5 +62,27 @@ class Patch extends Model
     public function getDescriptionFromMarkdownAttribute()
     {
         return $this->fromMarkdown($this->description);
+    }
+
+    /**
+     * Accessor for the tag line of the patch.
+     *
+     * @return string
+     */
+    public function getTagLineAttribute()
+    {
+        $user = $this->user->name;
+
+        $daysAgo = $this->created_at_human;
+
+        $computers = count($this->computers);
+
+        $icon = '<i class="fa fa-desktop"></i>';
+
+        $hash = $this->hash_id;
+
+        $comments = "<span class='pull-right hidden-xs'>$icon $computers</span>";
+
+        return "$hash created $daysAgo by $user $comments";
     }
 }

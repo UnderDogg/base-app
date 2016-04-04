@@ -5,6 +5,7 @@ namespace App\Jobs\Resource\Patch\Computer;
 use App\Http\Requests\Resource\PatchComputerRequest;
 use App\Jobs\Job;
 use App\Models\Patch;
+use Carbon\Carbon;
 
 class Store extends Job
 {
@@ -40,9 +41,15 @@ class Store extends Job
         $computers = $this->request->input('computers');
 
         if (is_array($computers)) {
-            $this->patch->computers()->attach($computers, [
-                'patched_at' => $this->request->input('patched')
-            ]);
+            foreach ($computers as $computer) {
+                // Make sure the computer isn't already attached.
+                if (!$this->patch->computers()->find($computer)) {
+                    // Attach the computer to the patch.
+                    $this->patch->computers()->attach($computer, [
+                        'patched_at' => new Carbon($this->request->input('patched')),
+                    ]);
+                }
+            }
 
             return true;
         }

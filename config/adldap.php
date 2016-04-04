@@ -4,156 +4,210 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Auto Connect
+    | Connections
     |--------------------------------------------------------------------------
     |
-    | If auto connect is true, anytime Adldap is instantiated it will automatically
-    | connect to your AD server. If this is set to false, you must connect manually
-    | using: Adldap::connect().
+    | This array stores the connections that are added to Adldap. You can add
+    | as many connections as you like.
+    |
+    | The key is the name of the connection you wish to use and the value is
+    | an array of configuration settings.
     |
     */
 
-    'auto_connect' => env('ADLDAP_AUTO_CONNECT', false),
+    'connections' => [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Connection
-    |--------------------------------------------------------------------------
-    |
-    | The connection class to use to run operations on.
-    |
-    | Custom connection classes must implement \Adldap\Connections\ConnectionInterface
-    |
-    */
+        'default' => [
 
-    'connection' => 'Adldap\Connections\Ldap',
+            /*
+            |--------------------------------------------------------------------------
+            | Auto Connect
+            |--------------------------------------------------------------------------
+            |
+            | If auto connect is true, anytime Adldap is instantiated it will automatically
+            | connect to your AD server. If this is set to false, you must connect manually
+            | using: Adldap::connect().
+            |
+            */
 
-    /*
-    |--------------------------------------------------------------------------
-    | Connection Settings
-    |--------------------------------------------------------------------------
-    |
-    | This connection settings array is directly passed into the Adldap constructor.
-    |
-    | Feel free to add or remove settings you don't need.
-    |
-    */
+            'auto_connect' => env('ADLDAP_AUTO_CONNECT', false),
 
-    'connection_settings' => [
+            /*
+            |--------------------------------------------------------------------------
+            | Connection
+            |--------------------------------------------------------------------------
+            |
+            | The connection class to use to run operations on.
+            |
+            | You can also set this option to `null` to use the default connection class.
+            |
+            | Custom connection classes must implement \Adldap\Contracts\Connections\ConnectionInterface
+            |
+            */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Account Suffix
-        |--------------------------------------------------------------------------
-        |
-        | The account suffix option is the suffix of your user accounts in AD.
-        |
-        | For example, if your domain DN is DC=corp,DC=acme,DC=org, then your
-        | account suffix would be @corp.acme.org. This is then appended to
-        | then end of your user accounts on authentication.
-        |
-        */
+            'connection' => Adldap\Connections\Ldap::class,
 
-        'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX'),
+            /*
+            |--------------------------------------------------------------------------
+            | Schema
+            |--------------------------------------------------------------------------
+            |
+            | The schema class to use for retrieving attributes and generating models.
+            |
+            | You can also set this option to `null` to use the default schema class.
+            |
+            | Custom schema classes must implement \Adldap\Contracts\Schemas\SchemaInterface
+            |
+            */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Domain Controllers
-        |--------------------------------------------------------------------------
-        |
-        | The domain controllers option is an array of servers located on your
-        | network that serve Active Directory. You can insert as many servers or
-        | as little as you'd like depending on your forest (with the
-        | minimum of one of course).
-        |
-        */
+            'schema' => Adldap\Schemas\ActiveDirectory::class,
 
-        'domain_controllers' => [env('ADLDAP_DC1'), env('ADLDAP_DC2')],
+            /*
+            |--------------------------------------------------------------------------
+            | Connection Settings
+            |--------------------------------------------------------------------------
+            |
+            | This connection settings array is directly passed into the Adldap constructor.
+            |
+            | Feel free to add or remove settings you don't need.
+            |
+            */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Port
-        |--------------------------------------------------------------------------
-        |
-        | The port option is used for authenticating and binding to your AD server.
-        |
-        */
+            'connection_settings' => [
 
-        'port' => env('ADLDAP_PORT'),
+                /*
+                |--------------------------------------------------------------------------
+                | Account Prefix
+                |--------------------------------------------------------------------------
+                |
+                | The account prefix option is the prefix of your user accounts in AD.
+                |
+                | For example, if you'd prefer your users to use only their username instead
+                | of specifying a domain ('ACME\jdoe'), enter your domain name.
+                |
+                */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Base Distinguished Name
-        |--------------------------------------------------------------------------
-        |
-        | The base distinguished name is the base distinguished name you'd like
-        | to perform operations on. An example base DN would be DC=corp,DC=acme,DC=org.
-        |
-        | If one is not defined, then Adldap will try to find it automatically
-        | by querying your server. It's recommended to include it to
-        | limit queries executed per request.
-        |
-        */
+                'account_prefix' => '',
 
-        'base_dn' => env('ADLDAP_BASE_DN'),
+                /*
+                |--------------------------------------------------------------------------
+                | Account Suffix
+                |--------------------------------------------------------------------------
+                |
+                | The account suffix option is the suffix of your user accounts in AD.
+                |
+                | For example, if your domain DN is DC=corp,DC=acme,DC=org, then your
+                | account suffix would be @corp.acme.org. This is then appended to
+                | then end of your user accounts on authentication.
+                |
+                */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Administrator Username & Password
-        |--------------------------------------------------------------------------
-        |
-        | When connecting to your AD server, an administrator username and
-        | password is required to be able to query and run operations on
-        | your server(s). You can use any user account that has
-        | these permissions.
-        |
-        */
+                'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX', '@acme.org'),
 
-        'admin_username' => env('ADLDAP_ADMIN_USERNAME'),
-        'admin_password' => env('ADLDAP_ADMIN_PASSWORD'),
+                /*
+                |--------------------------------------------------------------------------
+                | Domain Controllers
+                |--------------------------------------------------------------------------
+                |
+                | The domain controllers option is an array of servers located on your
+                | network that serve Active Directory. You can insert as many servers or
+                | as little as you'd like depending on your forest (with the
+                | minimum of one of course).
+                |
+                */
 
-        /*
-        |--------------------------------------------------------------------------
-        | Base Distinguished Name
-        |--------------------------------------------------------------------------
-        |
-        | The follow referrals option is a boolean to tell active directory
-        | to follow a referral to another server on your network if the
-        | server queried knows the information your asking for exists,
-        | but does not yet contain a copy of it locally.
-        |
-        | This option is defaulted to false.
-        |
-        */
+                'domain_controllers' => [env('ADLDAP_DC1'), env('ADLDAP_DC2')],
 
-        'follow_referrals' => false,
+                /*
+                |--------------------------------------------------------------------------
+                | Port
+                |--------------------------------------------------------------------------
+                |
+                | The port option is used for authenticating and binding to your AD server.
+                |
+                */
 
-        /*
-        |--------------------------------------------------------------------------
-        | SSL & TLS
-        |--------------------------------------------------------------------------
-        |
-        | If you need to be able to change user passwords on your server, then an
-        | SSL or TLS connection is required. All other operations are allowed
-        | on unsecured protocols. One of these options are definitely recommended
-        | if you have the ability to connect to your server securely.
-        |
-        */
+                'port' => 389,
 
-        'use_ssl' => env('ADLDAP_USE_SSL'),
-        'use_tls' => env('ADLDAP_USE_TLS'),
+                /*
+                |--------------------------------------------------------------------------
+                | Base Distinguished Name
+                |--------------------------------------------------------------------------
+                |
+                | The base distinguished name is the base distinguished name you'd like
+                | to perform operations on. An example base DN would be DC=corp,DC=acme,DC=org.
+                |
+                | If one is not defined, then Adldap will try to find it automatically
+                | by querying your server. It's recommended to include it to
+                | limit queries executed per request.
+                |
+                */
 
-        /*
-        |--------------------------------------------------------------------------
-        | SSO (Single Sign On)
-        |--------------------------------------------------------------------------
-        |
-        | If you enable single sign on, be sure you've properly set it up
-        | on your server before hand.
-        |
-        */
+                'base_dn' => env('ADLDAP_BASE_DN'),
 
-        'use_sso' => false,
+                /*
+                |--------------------------------------------------------------------------
+                | Administrator Account Suffix
+                |--------------------------------------------------------------------------
+                |
+                | This option allows you to set a different account suffix for your
+                | configured administrator account upon binding.
+                |
+                | If left empty, your `account_suffix` option will be used.
+                |
+                */
+
+                'admin_account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX'),
+
+                /*
+                |--------------------------------------------------------------------------
+                | Administrator Username & Password
+                |--------------------------------------------------------------------------
+                |
+                | When connecting to your AD server, an administrator username and
+                | password is required to be able to query and run operations on
+                | your server(s). You can use any user account that has
+                | these permissions.
+                |
+                */
+
+                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'username'),
+                'admin_password' => env('ADLDAP_ADMIN_PASSWORD', 'password'),
+
+                /*
+                |--------------------------------------------------------------------------
+                | Follow Referrals
+                |--------------------------------------------------------------------------
+                |
+                | The follow referrals option is a boolean to tell active directory
+                | to follow a referral to another server on your network if the
+                | server queried knows the information your asking for exists,
+                | but does not yet contain a copy of it locally.
+                |
+                | This option is defaulted to false.
+                |
+                */
+
+                'follow_referrals' => false,
+
+                /*
+                |--------------------------------------------------------------------------
+                | SSL & TLS
+                |--------------------------------------------------------------------------
+                |
+                | If you need to be able to change user passwords on your server, then an
+                | SSL or TLS connection is required. All other operations are allowed
+                | on unsecured protocols. One of these options are definitely recommended
+                | if you have the ability to connect to your server securely.
+                |
+                */
+
+                'use_ssl' => false,
+                'use_tls' => false,
+
+            ],
+
+        ],
 
     ],
 

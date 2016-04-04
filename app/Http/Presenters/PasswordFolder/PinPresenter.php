@@ -4,7 +4,7 @@ namespace App\Http\Presenters\PasswordFolder;
 
 use App\Http\Presenters\Presenter;
 use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 
 class PinPresenter extends Presenter
 {

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\ActiveDirectory;
 
-use Adldap\Contracts\Adldap;
+use Adldap\Contracts\AdldapInterface;
 use App\Jobs\ActiveDirectory\ImportComputer;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -28,16 +28,16 @@ class SyncComputers extends Command
     /**
      * The Adldap instance.
      *
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
     /**
      * Constructor.
      *
-     * @param Adldap $adldap
+     * @param AdldapInterface $adldap
      */
-    public function __construct(Adldap $adldap)
+    public function __construct(AdldapInterface $adldap)
     {
         parent::__construct();
 
@@ -50,8 +50,10 @@ class SyncComputers extends Command
     public function handle()
     {
         $computers = $this->adldap
+            ->getProvider('default')
+            ->search()
             ->computers()
-            ->all();
+            ->get();
 
         $i = 0;
 

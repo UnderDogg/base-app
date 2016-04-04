@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\ActiveDirectory;
 
-use Adldap\Contracts\Adldap;
+use Adldap\Contracts\AdldapInterface;
 use Adldap\Models\Group;
 use App\Jobs\ActiveDirectory\ImportGroup;
 use Illuminate\Console\Command;
@@ -27,16 +27,16 @@ class SyncRole extends Command
     protected $description = 'Synchronizes Active Directory groups with local roles.';
 
     /**
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
     /**
      * Constructor.
      *
-     * @param Adldap $adldap
+     * @param AdldapInterface $adldap
      */
-    public function __construct(Adldap $adldap)
+    public function __construct(AdldapInterface $adldap)
     {
         parent::__construct();
 
@@ -48,7 +48,11 @@ class SyncRole extends Command
      */
     public function handle()
     {
-        $group = $this->adldap->groups()->find($this->argument('group-name'));
+        $group = $this->adldap
+            ->getProvider('default')
+            ->search()
+            ->groups()
+            ->find($this->argument('group-name'));
 
         if ($group instanceof Group) {
             if ($this->dispatch(new ImportGroup($group))) {

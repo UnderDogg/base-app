@@ -2,14 +2,59 @@
 
 namespace App\Http\Presenters\Resource;
 
-use  Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Html\Form\Grid as FormGrid;
+use Carbon\Carbon;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\Patch;
 
 class PatchComputerPresenter extends Presenter
 {
+    /**
+     * Returns a new table of all computers
+     * that contain the specified patch.
+     *
+     * @param Patch $patch
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function table(Patch $patch)
+    {
+        $computers = $patch->computers();
+
+        return $this->table->of('patches.computers', function (TableGrid $table) use ($patch, $computers) {
+            $table->with($computers);
+
+            $table->column('name', function (Column $column) {
+                $column->value = function (Computer $computer) {
+                    return link_to_route('computers.show', $computer->name, [$computer->getKey()]);
+                };
+            });
+
+            $table->column('patched', function (Column $column) {
+                $column->value = function (Computer $computer) {
+                    return (new Carbon($computer->patched_at))->diffForHumans();
+                };
+            });
+
+            $table->column('remove', function (Column $column) use ($patch) {
+               $column->value = function (Computer $computer) use ($patch) {
+                   $params = [$patch->getKey(), $computer->getKey()];
+
+                    return link_to_route('resources.patches.computers.destroy', 'Remove', $params, [
+                        'data-post' => 'DELETE',
+                        'data-title' => 'Are you Sure?',
+                        'data-message' => 'Are you sure you want to remove this computer?',
+                        'class' => 'btn btn-xs btn-danger',
+                    ]);
+               };
+            });
+        });
+    }
+
     /**
      * Returns a new form of the specified patch computers.
      *
@@ -21,25 +66,32 @@ class PatchComputerPresenter extends Presenter
     {
         return $this->form->of('patches.computers', function (FormGrid $form) use ($patch) {
             $form->attributes([
-                'method' => 'PATCH',
-                'url' => route('patches.computers.store', [$patch->getKey()]),
+                'method' => 'POST',
+                'url' => route('resources.patches.computers.store', [$patch->getKey()]),
             ]);
+
+            $form->with($patch);
 
             $form->layout('components.form-modal');
 
             $form->fieldset(function (Fieldset $fieldset) {
+                $fieldset->control('input:text', 'patched')
+                    ->label('Patched On')
+                    ->attributes([
+                        'class'       => 'date-picker',
+                        'placeholder' => 'Click to select a date / time when the patch was applied.',
+                    ]);
+
                 $fieldset->control('input:select', 'computers[]')
                     ->label('Computers')
                     ->attributes([
                         'class'            => 'select-users',
                         'multiple'         => true,
-                        'data-placeholder' => 'Select Computers Applied To',
-                    ])->value(function (Patch $patch) {
-                        if ($patch->exists) {
-                            return $patch->computers()->get()->pluck('id');
-                        }
-                    })->options(function () {
-                        return Computer::all()->pluck('name', 'id');
+                        'data-placeholder' => 'Select Computers',
+                    ])->options(function (Patch $patch) {
+                        $computers = $patch->computers()->get()->pluck('id');
+
+                        return Computer::whereNotIn('id', $computers)->pluck('name', 'id');
                     });
             });
         });

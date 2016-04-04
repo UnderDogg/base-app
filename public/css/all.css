@@ -17626,10 +17626,10 @@ tr td a {
   max-width: 100%;
 }
 
-.issue-title {
+.table-lead-title {
   font-size: 18px;
 }
 
-.issue-summary {
+.table-lead-summary {
   color: #7D848A;
 }

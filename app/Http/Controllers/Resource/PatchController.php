@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Resource\Patch\Store;
 use App\Http\Requests\Resource\PatchRequest;
 use App\Http\Presenters\Resource\PatchPresenter;
 use App\Models\Patch;
@@ -90,7 +91,11 @@ class PatchController extends Controller
     {
         $patch = $this->patch->findOrFail($id);
 
-        return view('pages.resources.patches.show', compact('patch'));
+        $computers = $this->presenter->tableComputers($patch);
+
+        $form = $this->presenter->formComputers($patch);
+
+        return view('pages.resources.patches.show', compact('patch', 'computers', 'form'));
     }
 
     /**

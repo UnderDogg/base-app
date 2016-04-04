@@ -15,7 +15,7 @@ class PatchComputerRequest extends Request
     {
         return [
             'computers.*' => 'exists:computers,id',
-            'patched'     => 'patched',
+            'patched'     => 'min:18|max:19',
         ];
     }
 

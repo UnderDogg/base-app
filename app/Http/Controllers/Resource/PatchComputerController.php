@@ -36,7 +36,7 @@ class PatchComputerController extends Controller
      * Attaches computers to the specified patch.
      *
      * @param PatchComputerRequest $request
-     * @param                      $patchId
+     * @param int|string           $patchId
      *
      * @return mixed
      */
@@ -52,6 +52,29 @@ class PatchComputerController extends Controller
             flash()->error('Error!', 'There was an issue attaching computers to this patch. Please try again.');
 
             return redirect()->route('resources.patches.show', [$patchId]);
+        }
+    }
+
+    /**
+     * Removes the specified computer from the specified patch.
+     *
+     * @param int|string $patchId
+     * @param int|string $computerId
+     *
+     * @return mixed
+     */
+    public function destroy($patchId, $computerId)
+    {
+        $patch = $this->patch->findOrFail($patchId);
+
+        if ($patch->computers()->detach($computerId) === 1) {
+            flash()->success('Success!', 'Successfully removed computer..');
+
+            return redirect()->route('resources.patches.show', [$patch->getKey()]);
+        } else {
+            flash()->error('Error!', 'There was an issue removing this computer from this patch. Please try again.');
+
+            return redirect()->route('resources.patches.show', [$patch->getKey()]);
         }
     }
 }

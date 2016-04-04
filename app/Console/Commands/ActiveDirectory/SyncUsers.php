@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands\ActiveDirectory;
 
-use Adldap\Contracts\Adldap;
-use Adldap\Schemas\ActiveDirectory;
+use Adldap\Contracts\AdldapInterface;
 use App\Jobs\ActiveDirectory\ImportUser;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -29,16 +28,16 @@ class SyncUsers extends Command
     /**
      * The Adldap instance.
      *
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
     /**
      * Constructor.
      *
-     * @param Adldap $adldap
+     * @param AdldapInterface $adldap
      */
-    public function __construct(Adldap $adldap)
+    public function __construct(AdldapInterface $adldap)
     {
         parent::__construct();
 
@@ -51,9 +50,10 @@ class SyncUsers extends Command
     public function handle()
     {
         $users = $this->adldap
-            ->users()
+            ->getProvider('default')
             ->search()
-            ->whereHas(ActiveDirectory::EMAIL)
+            ->users()
+            ->whereHas('mail')
             ->get();
 
         $i = 0;

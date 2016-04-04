@@ -21,6 +21,8 @@ class PatchPresenter extends Presenter
      */
     public function table(Patch $patch)
     {
+        $patch = $patch->with(['computers']);
+
         return $this->table->of('patches', function (TableGrid $table) use ($patch) {
             $table->with($patch)->paginate($this->perPage);
 
@@ -31,13 +33,22 @@ class PatchPresenter extends Presenter
 
             $table->column('title', function (Column $column) {
                 $column->value = function (Patch $patch) {
-                    return link_to_route('resources.patches.show', $patch->title, [$patch->getKey()]);
+                    $link = link_to_route('resources.patches.show', $patch->title, [$patch->getKey()]);
+
+                    $tagLine = sprintf('<p class="h5 table-lead-summary">%s</p>', $patch->tag_line);
+
+                    return "$link $tagLine";
                 };
             });
-
-            $table->column('created_at_human')
-                ->label('Created');
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function tableComputers(Patch $patch)
+    {
+        return (new PatchComputerPresenter($this->form, $this->table))->table($patch);
     }
 
     /**
@@ -82,6 +93,14 @@ class PatchPresenter extends Presenter
                     ]);
             });
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function formComputers(Patch $patch)
+    {
+        return (new PatchComputerPresenter($this->form, $this->table))->form($patch);
     }
 
     /**
