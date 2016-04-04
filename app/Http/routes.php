@@ -79,7 +79,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The patch computer resource.
         $router->resource('patches.computers', 'PatchComputerController', [
-            'only' => ['store']
+            'only' => ['store'],
         ]);
     });
 

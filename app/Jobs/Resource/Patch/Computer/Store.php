@@ -41,7 +41,7 @@ class Store extends Job
 
         if (is_array($computers)) {
             $this->patch->computers()->attach($computers, [
-                'patched_at' => $this->request->input('patched')
+                'patched_at' => $this->request->input('patched'),
             ]);
 
             return true;
