@@ -91,7 +91,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             'uses' => 'ServiceController@status',
         ]);
     });
-
+    
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
