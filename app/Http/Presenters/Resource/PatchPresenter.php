@@ -3,7 +3,6 @@
 namespace App\Http\Presenters\Resource;
 
 use App\Http\Presenters\Presenter;
-use App\Models\Computer;
 use App\Models\Patch;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -72,7 +71,7 @@ class PatchPresenter extends Presenter
                     ->label('Attach Files')
                     ->attributes([
                         'multiple' => true,
-                    ]) ;
+                    ]);
 
                 $fieldset->control('input:textarea', 'description')
                     ->attributes([

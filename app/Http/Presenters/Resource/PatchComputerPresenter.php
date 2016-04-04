@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\Resource;
 
-use  Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
+use  App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\Patch;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Html\Form\Grid as FormGrid;
 
 class PatchComputerPresenter extends Presenter
 {
@@ -22,7 +22,7 @@ class PatchComputerPresenter extends Presenter
         return $this->form->of('patches.computers', function (FormGrid $form) use ($patch) {
             $form->attributes([
                 'method' => 'PATCH',
-                'url' => route('patches.computers.store', [$patch->getKey()]),
+                'url'    => route('patches.computers.store', [$patch->getKey()]),
             ]);
 
             $form->layout('components.form-modal');

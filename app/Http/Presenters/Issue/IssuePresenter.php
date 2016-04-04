@@ -363,7 +363,7 @@ class IssuePresenter extends Presenter
 
         $column->value = function (Issue $issue) {
             $link = link_to_route('issues.show', $issue->title, [$issue->getKey()], [
-                'class' => 'issue-title'
+                'class' => 'issue-title',
             ]);
 
             $labels = [];

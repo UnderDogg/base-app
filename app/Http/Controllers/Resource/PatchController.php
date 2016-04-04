@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Resource\PatchRequest;
 use App\Http\Presenters\Resource\PatchPresenter;
+use App\Http\Requests\Resource\PatchRequest;
 use App\Models\Patch;
 
 class PatchController extends Controller
