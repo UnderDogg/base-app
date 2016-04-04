@@ -79,7 +79,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The patch computer resource.
         $router->resource('patches.computers', 'PatchComputerController', [
-            'only' => ['store', 'destroy']
+            'only' => ['store', 'destroy'],
         ]);
     });
 
@@ -91,7 +91,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             'uses' => 'ServiceController@status',
         ]);
     });
-    
+
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {

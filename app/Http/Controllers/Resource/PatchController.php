@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Resource\Patch\Store;
-use App\Http\Requests\Resource\PatchRequest;
 use App\Http\Presenters\Resource\PatchPresenter;
+use App\Http\Requests\Resource\PatchRequest;
+use App\Jobs\Resource\Patch\Store;
 use App\Models\Patch;
 
 class PatchController extends Controller
