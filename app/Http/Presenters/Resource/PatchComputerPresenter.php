@@ -2,14 +2,14 @@
 
 namespace App\Http\Presenters\Resource;
 
-use Carbon\Carbon;
-use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Contracts\Html\Table\Column;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\Patch;
+use Carbon\Carbon;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class PatchComputerPresenter extends Presenter
 {
@@ -45,10 +45,10 @@ class PatchComputerPresenter extends Presenter
                    $params = [$patch->getKey(), $computer->getKey()];
 
                     return link_to_route('resources.patches.computers.destroy', 'Remove', $params, [
-                        'data-post' => 'DELETE',
-                        'data-title' => 'Are you Sure?',
+                        'data-post'    => 'DELETE',
+                        'data-title'   => 'Are you Sure?',
                         'data-message' => 'Are you sure you want to remove this computer?',
-                        'class' => 'btn btn-xs btn-danger',
+                        'class'        => 'btn btn-xs btn-danger',
                     ]);
                };
             });
@@ -67,7 +67,7 @@ class PatchComputerPresenter extends Presenter
         return $this->form->of('patches.computers', function (FormGrid $form) use ($patch) {
             $form->attributes([
                 'method' => 'POST',
-                'url' => route('resources.patches.computers.store', [$patch->getKey()]),
+                'url'    => route('resources.patches.computers.store', [$patch->getKey()]),
             ]);
 
             $form->with($patch);

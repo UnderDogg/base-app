@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use JJG\Ping;
 use App\Models\Traits\HasUserTrait;
+use JJG\Ping;
 use Orchestra\Support\Facades\HTML;
 
 class Computer extends Model
