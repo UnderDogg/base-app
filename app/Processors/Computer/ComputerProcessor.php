@@ -2,7 +2,7 @@
 
 namespace App\Processors\Computer;
 
-use Adldap\Contracts\Adldap;
+use Adldap\Contracts\AdldapInterface;
 use Adldap\Models\Computer as AdComputer;
 use App\Http\Presenters\Computer\ComputerPresenter;
 use App\Http\Requests\Computer\ComputerRequest;
@@ -22,7 +22,7 @@ class ComputerProcessor extends Processor
     protected $computer;
 
     /**
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
@@ -35,10 +35,10 @@ class ComputerProcessor extends Processor
      * Constructor.
      *
      * @param Computer          $computer
-     * @param Adldap            $adldap
+     * @param AdldapInterface   $adldap
      * @param ComputerPresenter $presenter
      */
-    public function __construct(Computer $computer, Adldap $adldap, ComputerPresenter $presenter)
+    public function __construct(Computer $computer, AdldapInterface $adldap, ComputerPresenter $presenter)
     {
         $this->computer = $computer;
         $this->adldap = $adldap;
@@ -239,7 +239,11 @@ class ComputerProcessor extends Processor
      */
     protected function storeFromActiveDirectory(ComputerRequest $request)
     {
-        $computer = $this->adldap->computers()->find($request->input('name'));
+        $computer = $this->adldap
+            ->getProvider('default')
+            ->search()
+            ->computers()
+            ->find($request->input('name'));
 
         if ($computer instanceof AdComputer) {
             return $this->dispatch(new ImportComputer($computer));

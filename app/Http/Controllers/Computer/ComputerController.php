@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Computer;
 
-use Adldap\Contracts\Adldap;
+use Adldap\Contracts\AdldapInterface;
 use Adldap\Models\Computer as AdComputer;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Computer\ComputerPresenter;
 use App\Http\Requests\Computer\ComputerRequest;
 use App\Jobs\ActiveDirectory\ImportComputer;
-use App\Jobs\Computer\Create;
 use App\Jobs\Computer\Store;
 use App\Jobs\Computer\Update;
 use App\Models\Computer;
@@ -22,7 +21,7 @@ class ComputerController extends Controller
     protected $computer;
 
     /**
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
@@ -35,10 +34,10 @@ class ComputerController extends Controller
      * Constructor.
      *
      * @param Computer          $computer
-     * @param Adldap            $adldap
+     * @param AdldapInterface   $adldap
      * @param ComputerPresenter $presenter
      */
-    public function __construct(Computer $computer, Adldap $adldap, ComputerPresenter $presenter)
+    public function __construct(Computer $computer, AdldapInterface $adldap, ComputerPresenter $presenter)
     {
         $this->computer = $computer;
         $this->adldap = $adldap;
@@ -233,7 +232,11 @@ class ComputerController extends Controller
      */
     protected function storeFromActiveDirectory(ComputerRequest $request)
     {
-        $computer = $this->adldap->computers()->find($request->input('name'));
+        $computer = $this->adldap
+            ->getProvider('default')
+            ->search()
+            ->computers()
+            ->find($request->input('name'));
 
         if ($computer instanceof AdComputer) {
             return $this->dispatch(new ImportComputer($computer));

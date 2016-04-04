@@ -2,7 +2,7 @@
 
 namespace App\Processors\ActiveDirectory;
 
-use Adldap\Contracts\Adldap;
+use Adldap\Contracts\AdldapInterface;
 use Adldap\Exceptions\ModelNotFoundException;
 use Adldap\Models\User as AdldapUser;
 use App\Exceptions\ActiveDirectory\NotEnoughSecurityQuestionsException;
@@ -23,7 +23,7 @@ class ForgotPasswordProcessor extends Processor
     protected $user;
 
     /**
-     * @var Adldap
+     * @var AdldapInterface
      */
     protected $adldap;
 
@@ -41,11 +41,11 @@ class ForgotPasswordProcessor extends Processor
      * Constructor.
      *
      * @param User                    $user
-     * @param Adldap                  $adldap
+     * @param AdldapInterface         $adldap
      * @param Encrypter               $encrypter
      * @param ForgotPasswordPresenter $presenter
      */
-    public function __construct(User $user, Adldap $adldap, Encrypter $encrypter, ForgotPasswordPresenter $presenter)
+    public function __construct(User $user, AdldapInterface $adldap, Encrypter $encrypter, ForgotPasswordPresenter $presenter)
     {
         $this->user = $user;
         $this->adldap = $adldap;
@@ -78,7 +78,11 @@ class ForgotPasswordProcessor extends Processor
      */
     public function find(DiscoverRequest $request)
     {
-        $profile = $this->adldap->users()->findOrFail($request->input('username'));
+        $profile = $this->adldap
+            ->getProvider('default')
+            ->search()
+            ->users()
+            ->findOrFail($request->input('username'));
 
         // Retrieve the user that has 3 or more security questions.
         $user = $this->user

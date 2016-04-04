@@ -32,7 +32,9 @@ class PatchPresenter extends Presenter
 
             $table->column('title', function (Column $column) {
                 $column->value = function (Patch $patch) {
-                    $link = link_to_route('resources.patches.show', $patch->title, [$patch->getKey()]);
+                    $link = link_to_route('resources.patches.show', $patch->title, [$patch->getKey()], [
+                        'class' => 'table-lead-title',
+                    ]);
 
                     $tagLine = sprintf('<p class="h5 table-lead-summary">%s</p>', $patch->tag_line);
 
