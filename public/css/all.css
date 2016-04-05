@@ -17626,10 +17626,22 @@ tr td a {
   max-width: 100%;
 }
 
+/* Large table titles. */
+
 .table-lead-title {
   font-size: 18px;
 }
 
+/* Faded table summaries. */
+
 .table-lead-summary {
   color: #7D848A;
+}
+
+/* Extra large buttons. */
+
+.btn-xl {
+  padding: 30px 40px;
+  font-size: 22px;
+  line-height: normal;
 }
