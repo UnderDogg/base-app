@@ -52,7 +52,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function store(User $user)
+    public static function store(User $user = null)
     {
         return self::create($user);
     }
@@ -64,9 +64,13 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function edit(User $user)
+    public static function edit(User $user = null)
     {
-        return $user->can('guides.edit');
+        if ($user instanceof User) {
+            return $user->can('guides.edit');
+        }
+
+        return false;
     }
 
     /**
@@ -76,7 +80,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function update(User $user)
+    public static function update(User $user = null)
     {
         return static::edit($user);
     }
@@ -88,8 +92,12 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function destroy(User $user)
+    public static function destroy(User $user = null)
     {
-        return $user->can('guides.destroy');
+        if ($user instanceof User) {
+            return $user->can('guides.destroy');
+        }
+
+        return false;
     }
 }

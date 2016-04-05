@@ -56,12 +56,14 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         $router->delete('images/{images}', [
                             'as'   => 'images.destroy',
                             'uses' => 'GuideStepImageController@destroy',
+                            'middleware' => ['auth'],
                         ]);
 
                         // The guide step move route.
                         $router->post('move', [
                             'as'   => 'move.position',
                             'uses' => 'GuideStepController@move',
+                            'middleware' => ['auth'],
                         ]);
                     });
                 });
@@ -71,16 +73,19 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         // The guides resource.
         $router->resource('guides', 'GuideController');
 
-        // The guide steps resource.
-        $router->resource('guides.steps', 'GuideStepController');
+        // The resource auth covered routes.
+        $router->group(['middleware' => ['auth']], function (Router $router) {
+            // The guide steps resource.
+            $router->resource('guides.steps', 'GuideStepController');
 
-        // The patches resource.
-        $router->resource('patches', 'PatchController');
+            // The patches resource.
+            $router->resource('patches', 'PatchController');
 
-        // The patch computer resource.
-        $router->resource('patches.computers', 'PatchComputerController', [
-            'only' => ['store', 'destroy'],
-        ]);
+            // The patch computer resource.
+            $router->resource('patches.computers', 'PatchComputerController', [
+                'only' => ['store', 'destroy'],
+            ]);
+        });
     });
 
     // Non-Auth service routes.
