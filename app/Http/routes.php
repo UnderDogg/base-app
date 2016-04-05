@@ -54,15 +54,15 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                         // The guide step delete route.
                         $router->delete('images/{images}', [
-                            'as'   => 'images.destroy',
-                            'uses' => 'GuideStepImageController@destroy',
+                            'as'         => 'images.destroy',
+                            'uses'       => 'GuideStepImageController@destroy',
                             'middleware' => ['auth'],
                         ]);
 
                         // The guide step move route.
                         $router->post('move', [
-                            'as'   => 'move.position',
-                            'uses' => 'GuideStepController@move',
+                            'as'         => 'move.position',
+                            'uses'       => 'GuideStepController@move',
                             'middleware' => ['auth'],
                         ]);
                     });
