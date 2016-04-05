@@ -11,6 +11,9 @@ $(function ()
         // Show Password Toggle
         $('.password-show').password();
 
+        // Add img-responsive class to all inserted summernote images.
+        $('img[data-filename]').addClass('img-responsive');
+
         // Markdown
         $("textarea[data-provide='markdown']").markdown();
 
@@ -59,6 +62,16 @@ $(function ()
             if (field != undefined) {
                 field.val(getSlug(self.val()));
             }
+        });
+
+        // Summernote editor.
+        $('.editor').summernote({
+            toolbar: [
+                ['para', ['style', 'ul', 'ol']],
+                ['style', ['bold', 'underline']],
+                ['insert', ['picture']],
+                ['misc', ['undo', 'redo']]
+            ]
         });
 
         /**

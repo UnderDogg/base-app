@@ -24,6 +24,6 @@ return [
     |
     */
 
-    'view' => 'admin.components.table',
+    'view' => 'components.table',
 
 ];

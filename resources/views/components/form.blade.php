@@ -24,6 +24,12 @@
         <div>
 
             <button type="submit" class="btn btn-primary">
+                @if(strtolower($submit) == 'create')
+                    <i class="fa fa-plus-circle"></i>
+                @elseif(strtolower($submit) == 'save')
+                    <i class="fa fa-save"></i>
+                @endif
+
                 {!! $submit !!}
             </button>
 

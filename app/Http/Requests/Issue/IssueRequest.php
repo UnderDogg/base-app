@@ -50,6 +50,18 @@ class IssueRequest extends Request
     }
 
     /**
+     * Sanitizes the current request of HTML.
+     *
+     * @return array
+     */
+    public function sanitize()
+    {
+        $this->description = $this->clean($this->description);
+
+        return $this->all();
+    }
+
+    /**
      * Allows all users to create issues.
      *
      * @return bool

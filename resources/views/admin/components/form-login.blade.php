@@ -11,7 +11,7 @@
     {!! $hidden !!}
 @endforeach
 
-@include('admin.components.fieldsets')
+@include('components.fieldsets')
 
 <fieldset>
 
