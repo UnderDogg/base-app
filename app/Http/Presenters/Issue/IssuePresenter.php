@@ -200,8 +200,7 @@ class IssuePresenter extends Presenter
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
                     ->attributes([
-                        'class'         => 'editor',
-                        'placeholder'   => 'Enter the description of the issue.',
+                        'placeholder' => 'Enter the description of the issue.',
                     ]);
             });
         });

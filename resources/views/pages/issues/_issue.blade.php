@@ -1,7 +1,7 @@
 <div class="card card-primary">
 
     <div class="card-title col-md-12">
-
+        
         <h4>
 
             <span class="text-muted">{{ $issue->hash_id }}</span>

@@ -66,16 +66,6 @@ class Issue extends Model
     ];
 
     /**
-     * Sets the issue's description attribute.
-     *
-     * @param string $description
-     */
-    public function setDescriptionAttribute($description)
-    {
-        $this->attributes['description'] = $this->clean($description);
-    }
-
-    /**
      * Sets the issue's occurred at date.
      *
      * @param string $occurredAt
@@ -227,6 +217,16 @@ class Issue extends Model
     }
 
     /**
+     * Returns the description in raw HTML from markdown.
+     *
+     * @return string
+     */
+    public function getDescriptionFromMarkdownAttribute()
+    {
+        return $this->fromMarkdown($this->description);
+    }
+
+    /**
      * Accessor for the status icon of the issue.
      *
      * @return string
@@ -310,16 +310,6 @@ class Issue extends Model
         $daysAgo = $this->closed_at_human;
 
         return "$line $daysAgo";
-    }
-
-    /**
-     * Returns the description from markdown to HTML.
-     *
-     * @return string
-     */
-    public function getDescriptionFromMarkdownAttribute()
-    {
-        return $this->fromMarkdown($this->description);
     }
 
     /**

@@ -44,21 +44,9 @@ class IssueRequest extends Request
         return [
             'title'             => 'required|min:5',
             'occurred_at'       => 'min:18|max:19',
-            'description'       => 'required|min:5',
+            'description'       => "required|min:5|max:1000",
             'files.*'           => "mimes:$mimes|max:$size",
         ];
-    }
-
-    /**
-     * Sanitizes the current request of HTML.
-     *
-     * @return array
-     */
-    public function sanitize()
-    {
-        $this->description = $this->clean($this->description);
-
-        return $this->all();
     }
 
     /**

@@ -41,7 +41,6 @@ elixir(function(mix) {
         'libs/bootstrap-show-password.min.js',
         'libs/show-password.min.js',
         'libs/speakingurl.min.js',
-        'libs/summernote.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
@@ -56,12 +55,10 @@ elixir(function(mix) {
         'libs/select2-bootstrap.css',
         'libs/bootstrap-datetimepicker.min.css',
         'libs/bootplus.min.css',
-        'libs/summernote.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')
         .copy('resources/assets/fonts/libs/bootstrap/', 'public/fonts')
-        .copy('resources/assets/fonts/libs/summernote/', 'public/fonts')
         .copy('resources/assets/img/libs/', 'public/css')
         .copy('resources/assets/js/libs/html5.js', 'public/js');
 });
