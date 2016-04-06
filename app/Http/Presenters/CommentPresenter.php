@@ -24,11 +24,12 @@ class CommentPresenter extends Presenter
 
             $form->fieldset(function (Fieldset $fieldset) {
                 $fieldset->control('input:textarea', 'content')
-                    ->label('Comment')
+                    ->label(' ')
                     ->attributes([
-                        'placeholder'  => 'Leave a comment',
-                        'id'           => 'comment',
-                        'class'        => 'comment-field',
+                        'placeholder'   => 'Enter your comment.',
+                        'id'            => 'comment',
+                        'class'         => 'comment-field',
+                        'style'         => 'padding:20px;',
                     ]);
             });
 

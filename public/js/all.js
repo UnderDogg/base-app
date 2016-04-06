@@ -4274,17 +4274,7 @@ $(function ()
                 field.val(getSlug(self.val()));
             }
         });
-
-        // Summernote editor.
-        $('.editor').summernote({
-            toolbar: [
-                ['para', ['style', 'ul', 'ol']],
-                ['style', ['bold', 'underline']],
-                ['insert', ['picture']],
-                ['misc', ['undo', 'redo']]
-            ]
-        });
-
+        
         /**
          * Formats a select2 label.
          *

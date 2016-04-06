@@ -40,8 +40,23 @@
     @endif
 
     <!-- Comment Form -->
-    <div class="col-md-12">
-        {!! $formComment !!}
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <div class="panel-title">
+                Leave a Reply
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="col-md-12">
+                {!! $formComment !!}
+            </div>
+
+        </div>
+
     </div>
 
     <div class="col-md-12">
