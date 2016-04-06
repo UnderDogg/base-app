@@ -44,7 +44,7 @@ class IssueRequest extends Request
         return [
             'title'             => 'required|min:5',
             'occurred_at'       => 'min:18|max:19',
-            'description'       => "required|min:5|max:1000",
+            'description'       => 'required|min:5|max:1000',
             'files.*'           => "mimes:$mimes|max:$size",
         ];
     }
