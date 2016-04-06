@@ -22,7 +22,7 @@ class CreateIssuesTable extends Migration
             $table->integer('closed_by_user_id')->unsigned()->nullable();
             $table->boolean('closed')->default(false);
             $table->string('title');
-            $table->longText('description');
+            $table->text('description');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('closed_by_user_id')->references('id')->on('users');
