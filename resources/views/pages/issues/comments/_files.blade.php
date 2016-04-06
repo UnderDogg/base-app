@@ -1,16 +1,18 @@
 @if ($comment->files->count() > 0)
 
-    <i class="fa fa-paperclip"></i>
+    <div class="well">
 
-    @foreach($comment->files as $file)
+        @foreach($comment->files as $file)
 
-        <a class="btn btn-default btn-xs" href="{{ route('issues.comments.attachments.show', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}">
-            {!! $file->icon !!}
+            <a class="btn btn-info btn-xs" href="{{ route('issues.comments.attachments.show', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}">
+                {!! $file->icon !!}
 
-            {{ $file->name }}
-        </a>
+                {{ $file->name }}
+            </a>
 
-    @endforeach
+        @endforeach
+
+    </div>
 
     <hr>
 

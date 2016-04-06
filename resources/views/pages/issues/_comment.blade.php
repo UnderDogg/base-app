@@ -1,7 +1,7 @@
-<div class="card @if($comment->resolution) answer @endif">
+<div class="card @if($comment->resolution) card-answer @endif">
 
     @if($comment->resolution)
-        <div class="col-md-12 answer-heading">
+        <div class="col-md-12 card-title card-answer-heading">
 
             <h4>
                 <i class="fa fa-check-square"></i>

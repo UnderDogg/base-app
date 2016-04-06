@@ -49,9 +49,9 @@ class IssueCommentPresenter extends Presenter
 
                 $fieldset->control('input:file', 'files[]', function (Field $field) use ($comment) {
                     if ($comment->exists) {
-                        $field->label = 'Attach More Files to this Comment';
+                        $field->label = 'Attach More Files';
                     } else {
-                        $field->label = 'Attach Files to this Comment';
+                        $field->label = 'Attach Files';
                     }
 
                     $field->attributes = [

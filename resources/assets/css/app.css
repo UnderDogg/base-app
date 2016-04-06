@@ -3,6 +3,11 @@ body {
     background-color:rgba(238, 238, 238, 0.50);
 }
 
+/* Textarea padding. */
+textarea {
+    padding: 20px !important;
+}
+
 /* Add label-large class */
 .label-large {
     font-size: 19px;
@@ -29,15 +34,21 @@ td .label {
     float: none;
 }
 
+/* MD Editor rounded corners. */
+.md-editor {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 /* Add padding to md-editor text area instances */
 .md-editor > textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
+    border: none;
 }
 
 /* Add padding to md-preview instances */
 .md-preview {
-    padding: 10px;
+    padding: 20px;
 }
 
 /* Extra Large Font Awesome Icons */
@@ -117,13 +128,18 @@ tr td a {
     left: -5px;
 }
 
-/* Card answer padding */
-.answer {
+/* No card top padding. */
+.card {
     padding-top: 0;
 }
 
-/* Card answer heading colors and layout */
-.answer .answer-heading {
+/* Card answer padding. */
+.card .card-answer {
+    padding-top: 0;
+}
+
+/* Card answer heading colors and layout. */
+.card-answer .card-answer-heading {
     background-color:#e9f2dd;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -138,6 +154,11 @@ tr td a {
     border: none;
 }
 
+/* Rounded profile images. */
+.card .card-heading.image img {
+    border-radius: 4px;
+}
+
 /* Card ticket padding */
 .card-primary {
     padding-top: 0;
@@ -149,6 +170,11 @@ tr td a {
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 10px;
+}
+
+.card-title, .card-answer-heading {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
 }
 
 /* Step headers, no padding */
@@ -183,13 +209,4 @@ tr td a {
     padding: 30px 40px;
     font-size: 22px;
     line-height: normal;
-}
-
-/* Fix summernote pathing. */
-@font-face {
-    font-family: "summernote";
-    font-style: normal;
-    font-weight: normal;
-    src: url("/fonts/summernote.eot?ad8d7e2d177d2473aecd9b35d16211fb");
-    src: url("/fonts/summernote.eot?#iefix") format("embedded-opentype"), url("/fonts/summernote.woff?ad8d7e2d177d2473aecd9b35d16211fb") format("woff"), url("/fonts/summernote.ttf?ad8d7e2d177d2473aecd9b35d16211fb") format("truetype")
 }

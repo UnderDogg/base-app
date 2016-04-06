@@ -46,6 +46,10 @@
         <div class="panel-heading">
             <div class="panel-title">
                 Leave a Reply
+
+                <div class="pull-right text-muted">
+                    <i class="fa fa-comment"></i>
+                </div>
             </div>
         </div>
 

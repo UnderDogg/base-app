@@ -29,7 +29,6 @@ class CommentPresenter extends Presenter
                         'placeholder'   => 'Enter your comment.',
                         'id'            => 'comment',
                         'class'         => 'comment-field',
-                        'style'         => 'padding:20px;',
                     ]);
             });
 
