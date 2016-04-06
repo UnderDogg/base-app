@@ -48,7 +48,7 @@
                 Leave a Reply
 
                 <div class="pull-right text-muted">
-                    <i class="fa fa-comment"></i>
+                    <i class="fa fa-commenting"></i>
                 </div>
             </div>
         </div>

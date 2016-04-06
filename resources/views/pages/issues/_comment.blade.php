@@ -4,11 +4,26 @@
         <div class="col-md-12 card-title card-answer-heading">
 
             <h4>
-                <i class="fa fa-check-square"></i>
                 Answer
+
+                <span class="pull-right text-muted">
+                    <i class="fa fa-check"></i>
+                </span>
             </h4>
 
         </div>
+    @else
+
+        <div class="col-md-12 card-title">
+
+            <h4>
+                <span class="pull-right text-muted">
+                    <i class="fa fa-comment"></i>
+                </span>
+            </h4>
+
+        </div>
+
     @endif
 
     <div class="card-heading image">
