@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\DomCrawler\Crawler;
@@ -22,7 +21,7 @@ class PjaxMiddleware
     {
         $response = $next($request);
 
-        if (!$request->pjax()|| $response->isRedirection()) {
+        if (!$request->pjax() || $response->isRedirection()) {
             return $response;
         }
 
