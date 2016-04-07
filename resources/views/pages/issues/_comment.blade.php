@@ -28,7 +28,7 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$comment->user->getKey()]) }}" alt=""/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->getKey()]) }}" alt=""/>
 
         <div class="card-heading-header">
 

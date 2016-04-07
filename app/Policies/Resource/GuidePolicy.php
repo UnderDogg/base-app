@@ -11,38 +11,18 @@ class GuidePolicy
      * Allows only users with specific permission
      * to view guides that are unpublished.
      *
-     * @param User|null  $user
+     * @param User       $user
      * @param Guide|null $guide
      *
      * @return bool
      */
-    public static function viewUnpublished(User $user = null, Guide $guide = null)
+    public static function viewUnpublished(User $user, Guide $guide = null)
     {
         if ($guide instanceof Guide && $guide->published) {
             return true;
         }
 
-        if ($user) {
-            return $user->can('guides.index.unpublished');
-        }
-
-        return false;
-    }
-
-    /**
-     * Allows only users with specific permission to create guides.
-     *
-     * @param User|null $user
-     *
-     * @return bool
-     */
-    public static function create(User $user = null)
-    {
-        if ($user) {
-            return $user->can('guides.create');
-        }
-
-        return false;
+        return $user->can('guides.index.unpublished');
     }
 
     /**
@@ -52,7 +32,19 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function store(User $user = null)
+    public static function create(User $user)
+    {
+        return $user->can('guides.create');
+    }
+
+    /**
+     * Allows only users with specific permission to create guides.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public static function store(User $user)
     {
         return self::create($user);
     }
@@ -64,13 +56,9 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function edit(User $user = null)
+    public static function edit(User $user)
     {
-        if ($user instanceof User) {
-            return $user->can('guides.edit');
-        }
-
-        return false;
+        return $user->can('guides.edit');
     }
 
     /**
@@ -80,7 +68,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function update(User $user = null)
+    public static function update(User $user)
     {
         return static::edit($user);
     }
@@ -92,12 +80,8 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function destroy(User $user = null)
+    public static function destroy(User $user)
     {
-        if ($user instanceof User) {
-            return $user->can('guides.destroy');
-        }
-
-        return false;
+        return $user->can('guides.destroy');
     }
 }

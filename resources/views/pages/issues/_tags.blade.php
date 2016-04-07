@@ -2,9 +2,23 @@
 
     <div class="panel panel-default">
 
-        <div class="panel-body">
+        <div class="panel-heading">
 
-            <i class="fa fa-tags"></i>
+            <div class="panel-title">
+
+                <span class="pull-right text-muted">
+
+                    <i class="fa fa-tags"></i>
+
+                </span>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+        </div>
+
+        <div class="panel-body">
 
             @foreach($issue->labels as $label)
                 {!! $label->display_large !!}

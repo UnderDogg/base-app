@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v6.0.1",
+            "version": "v6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "635a09807c4c217a70fe5f8d34198afe7f2ee44a"
+                "reference": "41bfb71f3c1ded18a44a3d1ac49cf86f2097ed94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/635a09807c4c217a70fe5f8d34198afe7f2ee44a",
-                "reference": "635a09807c4c217a70fe5f8d34198afe7f2ee44a",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/41bfb71f3c1ded18a44a3d1ac49cf86f2097ed94",
+                "reference": "41bfb71f3c1ded18a44a3d1ac49cf86f2097ed94",
                 "shasum": ""
             },
             "require": {
@@ -57,20 +57,20 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2016-04-04 13:11:51"
+            "time": "2016-04-07 13:49:56"
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-Laravel.git",
-                "reference": "aa1e8f13c7bf4222b3cbadf2ab06978993d894d2"
+                "reference": "2d675c1c3e69e967f08453d91930b92489c0036a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/aa1e8f13c7bf4222b3cbadf2ab06978993d894d2",
-                "reference": "aa1e8f13c7bf4222b3cbadf2ab06978993d894d2",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/2d675c1c3e69e967f08453d91930b92489c0036a",
+                "reference": "2d675c1c3e69e967f08453d91930b92489c0036a",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2016-04-04 02:24:45"
+            "time": "2016-04-06 21:13:56"
         },
         {
             "name": "baum/baum",

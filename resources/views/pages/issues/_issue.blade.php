@@ -17,7 +17,7 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 

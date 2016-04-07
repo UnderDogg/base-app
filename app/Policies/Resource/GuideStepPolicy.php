@@ -66,13 +66,9 @@ class GuideStepPolicy
      *
      * @return bool
      */
-    public static function images(User $user = null)
+    public static function images(User $user)
     {
-        if ($user instanceof User) {
-            return $user->can('guides.steps.images.create');
-        }
-
-        return false;
+        return $user->can('guides.steps.images.create');
     }
 
     /**

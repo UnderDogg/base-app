@@ -8,6 +8,10 @@
 
     {!! Decorator::render('navbar', $navbar) !!}
 
-    {!! $labels !!}
+    <div class="panel panel-default">
+
+        {!! $labels !!}
+
+    </div>
 
 @endsection

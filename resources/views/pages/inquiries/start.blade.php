@@ -4,6 +4,10 @@
 
 @section('content')
 
-    {!! $categories !!}
+    <div class="panel panel-default">
+
+        {!! $categories !!}
+
+    </div>
 
 @endsection

@@ -17428,7 +17428,7 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
 /* Grey background. */
 
 body {
-  background-color: rgba(238, 238, 238, 0.50);
+  background: #f0f0f0;
 }
 
 /* Textarea padding. */
@@ -17613,8 +17613,8 @@ tr td a {
 
 /* Rounded profile images. */
 
-.card .card-heading.image img {
-  border-radius: 4px;
+.avatar {
+  border-radius: 4px !important;
 }
 
 /* Card ticket padding */
@@ -17676,4 +17676,10 @@ tr td a {
   padding: 30px 40px;
   font-size: 22px;
   line-height: normal;
+}
+
+/* Attachment button spacing for mobile views. */
+
+.btn-attachment {
+  margin: 2px;
 }

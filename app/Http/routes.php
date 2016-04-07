@@ -10,84 +10,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         'uses' => 'WelcomeController@index',
     ]);
 
-    // The resources route group. Unprotected by auth, but by policies.
-    $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function (Router $router) {
-        // The resources group.
-        $router->group(['as' => 'resources.'], function (Router $router) {
-            // The guides group.
-            $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
-                // The guide favorites route (guarded by auth).
-                $router->get('favorites', [
-                    'as'         => 'favorites',
-                    'uses'       => 'GuideController@favorites',
-                    'middleware' => ['auth'],
-                ]);
-
-                // The specific guides group.
-                $router->group(['prefix' => '{guides}'], function (Router $router) {
-                    // The guide favorite route (guarded by auth).
-                    $router->get('favorite', [
-                        'as'         => 'favorite',
-                        'uses'       => 'GuideController@favorite',
-                        'middleware' => ['auth'],
-                    ]);
-
-                    // The guide step images route.
-                    $router->get('images', [
-                        'as'   => 'images',
-                        'uses' => 'GuideStepController@images',
-                    ]);
-
-                    // The guide step images upload route.
-                    $router->post('images/upload', [
-                        'as'   => 'images.upload',
-                        'uses' => 'GuideStepController@upload',
-                    ]);
-
-                    // The guide steps group.
-                    $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function (Router $router) {
-                        // The guide step image download route.
-                        $router->get('images/{images}', [
-                            'as'   => 'images.download',
-                            'uses' => 'GuideStepImageController@download',
-                        ]);
-
-                        // The guide step delete route.
-                        $router->delete('images/{images}', [
-                            'as'         => 'images.destroy',
-                            'uses'       => 'GuideStepImageController@destroy',
-                            'middleware' => ['auth'],
-                        ]);
-
-                        // The guide step move route.
-                        $router->post('move', [
-                            'as'         => 'move.position',
-                            'uses'       => 'GuideStepController@move',
-                            'middleware' => ['auth'],
-                        ]);
-                    });
-                });
-            });
-        });
-
-        // The guides resource.
-        $router->resource('guides', 'GuideController');
-
-        // The resource auth covered routes.
-        $router->group(['middleware' => ['auth']], function (Router $router) {
-            // The guide steps resource.
-            $router->resource('guides.steps', 'GuideStepController');
-
-            // The patches resource.
-            $router->resource('patches', 'PatchController');
-
-            // The patch computer resource.
-            $router->resource('patches.computers', 'PatchComputerController', [
-                'only' => ['store', 'destroy'],
-            ]);
-        });
-    });
-
     // Non-Auth service routes.
     $router->group(['namespace' => 'Service'], function (Router $router) {
         // The service status route.
@@ -99,6 +21,80 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
+        // The resources route group. Unprotected by auth, but by policies.
+        $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function (Router $router) {
+            // The resources group.
+            $router->group(['as' => 'resources.'], function (Router $router) {
+                // The guides group.
+                $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
+                    // The guide favorites route (guarded by auth).
+                    $router->get('favorites', [
+                        'as'         => 'favorites',
+                        'uses'       => 'GuideController@favorites',
+                    ]);
+
+                    // The specific guides group.
+                    $router->group(['prefix' => '{guides}'], function (Router $router) {
+                        // The guide favorite route (guarded by auth).
+                        $router->get('favorite', [
+                            'as'         => 'favorite',
+                            'uses'       => 'GuideController@favorite',
+                        ]);
+
+                        // The guide step images route.
+                        $router->get('images', [
+                            'as'   => 'images',
+                            'uses' => 'GuideStepController@images',
+                        ]);
+
+                        // The guide step images upload route.
+                        $router->post('images/upload', [
+                            'as'   => 'images.upload',
+                            'uses' => 'GuideStepController@upload',
+                        ]);
+
+                        // The guide steps group.
+                        $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function (Router $router) {
+                            // The guide step image download route.
+                            $router->get('images/{images}', [
+                                'as'   => 'images.download',
+                                'uses' => 'GuideStepImageController@download',
+                            ]);
+
+                            // The guide step delete route.
+                            $router->delete('images/{images}', [
+                                'as'         => 'images.destroy',
+                                'uses'       => 'GuideStepImageController@destroy',
+                            ]);
+
+                            // The guide step move route.
+                            $router->post('move', [
+                                'as'         => 'move.position',
+                                'uses'       => 'GuideStepController@move',
+                            ]);
+                        });
+                    });
+                });
+            });
+
+            // The guides resource.
+            $router->resource('guides', 'GuideController');
+
+            // The resource auth covered routes.
+            $router->group(['middleware' => ['auth']], function (Router $router) {
+                // The guide steps resource.
+                $router->resource('guides.steps', 'GuideStepController');
+
+                // The patches resource.
+                $router->resource('patches', 'PatchController');
+
+                // The patch computer resource.
+                $router->resource('patches.computers', 'PatchComputerController', [
+                    'only' => ['store', 'destroy'],
+                ]);
+            });
+        });
+
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
             // The user profile details route.
             $router->get('/', [

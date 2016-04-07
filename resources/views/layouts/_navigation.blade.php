@@ -21,48 +21,48 @@
 
             <ul class="nav navbar-nav">
 
-                <li class="dropdown {{ active()->route('resources.*') }}" id="resources-menu">
-
-                    <a  href="#resources-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-info-circle"></i>
-                        Resources
-                        <i class="fa fa-caret-down"></i>
-                    </a>
-
-                    <ul class="dropdown-menu">
-
-                        <li class="{{ active()->route('resources.guides.*') }}">
-
-                            <a href="{{ route('resources.guides.index') }}">
-                                <i class="fa fa-bookmark"></i>
-                                Guides
-                            </a>
-
-                        </li>
-
-                        <li>
-
-                            <a href="#">
-                                <i class="fa fa-book"></i>
-                                Wiki
-                            </a>
-
-                        </li>
-
-                        <li class="{{ active()->route('resources.patches.*') }}">
-
-                            <a href="{{ route('resources.patches.index') }}">
-                                <i class="fa fa-medkit"></i>
-                                Patches
-                            </a>
-
-                        </li>
-
-                    </ul>
-
-                </li>
-
                 @if(auth()->check())
+
+                    <li class="dropdown {{ active()->route('resources.*') }}" id="resources-menu">
+
+                        <a  href="#resources-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-info-circle"></i>
+                            Resources
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li class="{{ active()->route('resources.guides.*') }}">
+
+                                <a href="{{ route('resources.guides.index') }}">
+                                    <i class="fa fa-bookmark"></i>
+                                    Guides
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    Wiki
+                                </a>
+
+                            </li>
+
+                            <li class="{{ active()->route('resources.patches.*') }}">
+
+                                <a href="{{ route('resources.patches.index') }}">
+                                    <i class="fa fa-medkit"></i>
+                                    Patches
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
 
                     <li class="dropdown {{ active()->route('inquiries.*') }}" id="requests-menu">
 
@@ -216,7 +216,7 @@
                         <ul class="dropdown-menu">
 
                             <li class="text-center">
-                                <img src="{{ auth()->user()->avatar_url }}" alt="User Profile Image">
+                                <img class="avatar" src="{{ auth()->user()->avatar_url }}" alt="User Profile Image">
                             </li>
 
                             <li class="divider"></li>
