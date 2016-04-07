@@ -1,15 +1,19 @@
 <ul class="nav navbar-left navbar-nav">
 
     <li class="{{ active()->route('issues.index') }}">
+
         <a href="{{ route('issues.index') }}">
-            <i class="fa fa-exclamation-circle"></i> Open
+            <i class="fa fa-exclamation-circle"></i> Open ({{ $open }})
         </a>
+
     </li>
 
     <li class="{{ active()->route('issues.closed') }}" >
+
         <a href="{{ route('issues.closed') }}">
-            <i class="fa fa-check-circle"></i> Closed
+            <i class="fa fa-check-circle"></i> Closed ({{ $closed }})
         </a>
+
     </li>
 
     <li class="dropdown {{ active()->input('label') }}">

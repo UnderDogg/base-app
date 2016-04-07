@@ -171,6 +171,7 @@ return [
         App\Providers\AdminRouteServiceProvider::class,
         App\Providers\DecoratorServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
         /*
          * Additional App Service Providers
