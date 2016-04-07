@@ -4222,8 +4222,8 @@ $(function ()
         // Show Password Toggle
         $('.password-show').password();
 
-        // Add img-responsive class to all inserted summernote images.
-        $('img[data-filename]').addClass('img-responsive');
+        // Add img-responsive class to all images.
+        $('img').addClass('img-responsive');
 
         // Markdown
         $("textarea[data-provide='markdown']").markdown();
