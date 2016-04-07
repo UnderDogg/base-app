@@ -51,4 +51,30 @@
 
     </div>
 
+    @if($file->is_image)
+
+        <hr>
+
+        <div class="col-md-12">
+
+            <h4>
+
+                <i class="fa fa-link"></i>
+
+                Markdown Link
+
+            </h4>
+
+            <div class="well">
+
+                ![Image]({{ route('issues.comments.attachments.download', [$issue->id, $comment->id, $file->uuid]) }})
+
+            </div>
+
+            <p></p>
+
+        </div>
+
+    @endif
+
 @endsection
