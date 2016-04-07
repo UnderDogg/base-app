@@ -8,7 +8,6 @@ use App\Models\Traits\HasLabels;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUsers;
 use App\Models\Traits\HasUserTrait;
-use App\Traits\CanPurifyTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Orchestra\Support\Facades\HTML;
@@ -21,7 +20,6 @@ class Issue extends Model
         HasFilesTrait,
         HasLabels,
         HasMarkdownTrait,
-        CanPurifyTrait,
         SoftDeletes {
         comments as traitComments;
     }

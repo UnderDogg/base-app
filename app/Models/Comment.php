@@ -5,12 +5,11 @@ namespace App\Models;
 use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
-use App\Traits\CanPurifyTrait;
 use Orchestra\Support\Facades\HTML;
 
 class Comment extends Model
 {
-    use HasUserTrait, HasFilesTrait, HasMarkdownTrait, CanPurifyTrait;
+    use HasUserTrait, HasFilesTrait, HasMarkdownTrait;
 
     /**
      * The comment table.
@@ -28,16 +27,6 @@ class Comment extends Model
         'user_id',
         'content',
     ];
-
-    /**
-     * Set the comments content.
-     *
-     * @param $content
-     */
-    public function setContentAttribute($content)
-    {
-        $this->attributes['content'] = $this->clean($content);
-    }
 
     /**
      * The resolution accessor.
