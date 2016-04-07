@@ -56,11 +56,11 @@ class Upload extends Model
     public function getIsImageAttribute()
     {
         $type = getimagesize($this->complete_path);
-        
-        // Types of valid images.
-        $valid = [IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP];
 
-        if(in_array($type[2] , $valid)) {
+        // Types of valid images.
+        $valid = [IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP];
+
+        if (in_array($type[2], $valid)) {
             // This file is a valid image.
             return true;
         }
