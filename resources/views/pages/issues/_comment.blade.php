@@ -22,6 +22,8 @@
                 </span>
             </h4>
 
+            <div class="clearfix"></div>
+
         </div>
 
     @endif
