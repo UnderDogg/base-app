@@ -51,7 +51,7 @@ class Update extends Job
 
         // Make sure we only allow one comment resolution
         if (!$this->issue->hasCommentResolution() || $this->comment->resolution) {
-            $this->issue->comments()->updateExistingPivot($this->comment->getKey(), compact('resolution'));
+            $this->issue->comments()->updateExistingPivot($this->comment->id, compact('resolution'));
         }
 
         if ($this->comment->save()) {

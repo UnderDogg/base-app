@@ -52,7 +52,7 @@ class ComputerSystemPresenter extends Presenter
                 $column->label = 'Edit';
 
                 $column->value = function (OperatingSystem $system) {
-                    return link_to_route('computer-systems.edit', 'Edit', [$system->getKey()], [
+                    return link_to_route('computer-systems.edit', 'Edit', [$system->id], [
                         'class' => 'btn btn-xs btn-warning',
                     ]);
                 };
@@ -62,7 +62,7 @@ class ComputerSystemPresenter extends Presenter
                 $column->label = 'Delete';
 
                 $column->value = function (OperatingSystem $system) {
-                    return link_to_route('computer-systems.destroy', 'Delete', [$system->getKey()], [
+                    return link_to_route('computer-systems.destroy', 'Delete', [$system->id], [
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you sure?',
                         'data-message' => 'Are you sure you want to delete this operating system?',
@@ -84,7 +84,7 @@ class ComputerSystemPresenter extends Presenter
     {
         return $this->form->of('computers.operating-systems', function (FormGrid $form) use ($system) {
             if ($system->exists) {
-                $url = route('computer-systems.update', [$system->getKey()]);
+                $url = route('computer-systems.update', [$system->id]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';

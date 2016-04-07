@@ -26,7 +26,7 @@ class IssueCommentAttachmentPresenter extends Presenter
             $form->with($file);
 
             $method = 'PATCH';
-            $url = route('issues.comments.attachments.update', [$issue->getKey(), $comment->getKey(), $file->uuid]);
+            $url = route('issues.comments.attachments.update', [$issue->id, $comment->id, $file->uuid]);
 
             $form->attributes(compact('method', 'url'));
 

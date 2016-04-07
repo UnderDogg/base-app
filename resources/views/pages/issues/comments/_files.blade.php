@@ -4,7 +4,7 @@
 
         @foreach($comment->files as $file)
 
-            <a class="btn btn-info btn-xs btn-attachment" href="{{ route('issues.comments.attachments.show', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}">
+            <a class="btn btn-info btn-xs btn-attachment" href="{{ route('issues.comments.attachments.show', [$issue->id, $comment->id, $file->uuid]) }}">
                 {!! $file->icon !!}
 
                 {{ $file->name }}

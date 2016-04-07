@@ -12,7 +12,7 @@
 
             <div class="btn-group pull-right">
 
-                <a href="{{ route('admin.permissions.edit', [$permission->getKey()]) }}" class="btn btn-xs btn-warning">
+                <a href="{{ route('admin.permissions.edit', [$permission->id]) }}" class="btn btn-xs btn-warning">
                     <i class="fa fa-edit"></i>
                     Edit
                 </a>
@@ -21,7 +21,7 @@
                         data-post="DELETE"
                         data-title="Delete Permission?"
                         data-message="Are you sure you want to delete this permission?"
-                        href="{{ route('admin.permissions.destroy', [$permission->getKey()]) }}"
+                        href="{{ route('admin.permissions.destroy', [$permission->id]) }}"
                         class="btn btn-xs btn-danger"
                 >
                     <i class="fa fa-trash"></i>

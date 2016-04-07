@@ -26,7 +26,7 @@ class UserPresenter extends Presenter
         return $this->form->of('users', function (FormGrid $form) use ($user) {
             if ($user->exists) {
                 $method = 'PATCH';
-                $url = route('admin.users.update', [$user->getKey()]);
+                $url = route('admin.users.update', [$user->id]);
 
                 $form->submit = 'Save';
             } else {
@@ -95,7 +95,7 @@ class UserPresenter extends Presenter
     {
         return $this->form->of('users.permissions', function (FormGrid $form) use ($user) {
             $method = 'POST';
-            $url = route('admin.users.permissions.store', [$user->getKey()]);
+            $url = route('admin.users.permissions.store', [$user->id]);
 
             $form->attributes(compact('method', 'url'));
 
@@ -138,7 +138,7 @@ class UserPresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (User $user) {
-                    return link_to_route('admin.users.show', $user->name, [$user->getKey()]);
+                    return link_to_route('admin.users.show', $user->name, [$user->id]);
                 };
             });
 
@@ -204,7 +204,7 @@ class UserPresenter extends Presenter
 
             $table->column('label', function (Column $column) {
                 $column->value = function (Permission $permission) {
-                    return link_to_route('admin.permissions.show', $permission->label, [$permission->getKey()]);
+                    return link_to_route('admin.permissions.show', $permission->label, [$permission->id]);
                 };
             });
 
@@ -224,7 +224,7 @@ class UserPresenter extends Presenter
 
             $table->column('remove', function (Column $column) use ($user) {
                 $column->value = function (Permission $permission) use ($user) {
-                    return link_to_route('admin.users.permissions.destroy', 'Remove', [$user->getKey(), $permission->getKey()], [
+                    return link_to_route('admin.users.permissions.destroy', 'Remove', [$user->id, $permission->id], [
                         'class'        => 'btn btn-xs btn-danger',
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you sure?',

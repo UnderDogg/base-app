@@ -60,7 +60,7 @@ class InquiryPolicy
      */
     public static function close(User $user, Inquiry $inquiry)
     {
-        return $user->can('inquiries.close') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.close') || $user->id === $inquiry->user_id;
     }
 
     /**
@@ -74,7 +74,7 @@ class InquiryPolicy
      */
     public static function show(User $user, Inquiry $inquiry)
     {
-        return $user->can('inquiries.show') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.show') || $user->id === $inquiry->user_id;
     }
 
     /**
@@ -88,7 +88,7 @@ class InquiryPolicy
      */
     public static function edit(User $user, Inquiry $inquiry)
     {
-        return $user->can('inquiries.edit') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.edit') || $user->id === $inquiry->user_id;
     }
 
     /**
@@ -116,6 +116,6 @@ class InquiryPolicy
      */
     public static function destroy(User $user, Inquiry $inquiry)
     {
-        return $user->can('inquiries.destroy') || $user->getKey() === $inquiry->user_id;
+        return $user->can('inquiries.destroy') || $user->id === $inquiry->user_id;
     }
 }

@@ -53,7 +53,7 @@ class ComputerAccess extends Model
      */
     public function getEncryptionKey()
     {
-        $key = $this->computer->getKey().config('app.key');
+        $key = $this->computer->id.config('app.key');
 
         return substr($key, 0, 32);
     }

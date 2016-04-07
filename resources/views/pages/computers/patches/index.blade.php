@@ -4,7 +4,7 @@
 
 @section('title.header')
 
-    <a href="{{ route('computers.show', [$computer->getKey()]) }}" class="btn btn-primary">
+    <a href="{{ route('computers.show', [$computer->id]) }}" class="btn btn-primary">
         <i class="fa fa-caret-left"></i>
         Back To {{ $computer->name }}
     </a>

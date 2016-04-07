@@ -32,7 +32,7 @@ class CreateStatus extends Job
      */
     public function handle(ComputerStatus $status)
     {
-        $status->computer_id = $this->computer->getKey();
+        $status->computer_id = $this->computer->id;
 
         $latency = $this->computer->ping();
 

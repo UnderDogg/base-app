@@ -136,7 +136,7 @@ class IssuePresenter extends Presenter
     {
         return $this->form->of('issue', function (FormGrid $form) use ($issue) {
             if ($issue->exists) {
-                $url = route('issues.update', [$issue->getKey()]);
+                $url = route('issues.update', [$issue->id]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';
@@ -232,7 +232,7 @@ class IssuePresenter extends Presenter
         return $this->form->of('issue.labels', function (FormGrid $form) use ($issue) {
             $labels = Label::all()->pluck('display', 'id');
 
-            $form->setup($this, route('issues.labels.store', [$issue->getKey()]), $issue);
+            $form->setup($this, route('issues.labels.store', [$issue->id]), $issue);
 
             $form->layout('components.form-modal');
 
@@ -256,7 +256,7 @@ class IssuePresenter extends Presenter
         return $this->form->of('issue.users', function (FormGrid $form) use ($issue) {
             $users = User::all()->pluck('name', 'id');
 
-            $form->setup($this, route('issues.users.store', [$issue->getKey()]), $issue);
+            $form->setup($this, route('issues.users.store', [$issue->id]), $issue);
 
             $form->layout('components.form-modal');
 
@@ -362,7 +362,7 @@ class IssuePresenter extends Presenter
         $column->label = 'Ticket';
 
         $column->value = function (Issue $issue) {
-            $link = link_to_route('issues.show', $issue->title, [$issue->getKey()], [
+            $link = link_to_route('issues.show', $issue->title, [$issue->id], [
                 'class' => 'table-lead-title',
             ]);
 
@@ -402,7 +402,7 @@ class IssuePresenter extends Presenter
         // Limit the view if the user isn't
         // allowed to view all issues.
         if (!IssuePolicy::viewAll(auth()->user())) {
-            $issue->where('user_id', auth()->user()->getKey());
+            $issue->where('user_id', auth()->user()->id);
         }
 
         return $issue;

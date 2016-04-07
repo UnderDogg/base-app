@@ -170,13 +170,13 @@ class AvatarProcessor extends Processor
 
             if ($image) {
                 // Generate the uploaded images file name.
-                $fileName = sprintf('%s.%s', $user->getKey(), $image->getClientOriginalExtension());
+                $fileName = sprintf('%s.%s', $user->id, $image->getClientOriginalExtension());
 
                 // If we've been given an uploaded image we'll retrieve the contents.
                 $image = $this->resize($image)->stream();
             } else {
                 // Generate the initials image file name.
-                $fileName = $user->getKey().'.jpg';
+                $fileName = $user->id.'.jpg';
 
                 // Otherwise we'll generate and retrieve the initials image contents.
                 $image = $this->initialcon->getImageData($user->initials, $user->email, $this->size);

@@ -17,7 +17,7 @@
 
     <div class="card-heading image">
 
-        <img class="avatar" src="{{ route('profile.avatar.download', [$patch->user->getKey()]) }}" alt="{{ $patch->user->name }}'s Profile Avatar"/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$patch->user->id]) }}" alt="{{ $patch->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 
@@ -41,7 +41,7 @@
 
         <a
                 class="btn btn-default btn-sm"
-                href="#">
+                href="{{ route('resources.patches.edit', [$patch->id]) }}">
             <i class="fa fa-edit"></i>
             Edit
         </a>

@@ -108,7 +108,7 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function getAvatarUrlAttribute()
     {
-        return route('profile.avatar.download', [$this->getKey()]);
+        return route('profile.avatar.download', [$this->id]);
     }
 
     /**

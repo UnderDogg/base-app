@@ -95,7 +95,7 @@ class PasswordProcessor extends Processor
             $folder = $user->passwordFolder;
 
             if ($folder instanceof PasswordFolder) {
-                $this->password->folder_id = $folder->getKey();
+                $this->password->folder_id = $folder->id;
                 $this->password->title = $request->input('title');
                 $this->password->website = $request->input('website');
                 $this->password->username = $request->input('username');

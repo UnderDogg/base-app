@@ -49,7 +49,7 @@ class ComputerPresenter extends Presenter
             $table->column('name', function ($column) {
                 $column->label = 'Name';
                 $column->value = function (Computer $computer) {
-                    return link_to_route('computers.show', $computer->name, [$computer->getKey()]);
+                    return link_to_route('computers.show', $computer->name, [$computer->id]);
                 };
             });
 
@@ -83,7 +83,7 @@ class ComputerPresenter extends Presenter
             $types = ComputerType::all()->pluck('name', 'id');
 
             if ($computer->exists) {
-                $form->setup($this, route('computers.update', [$computer->getKey()]), $computer, [
+                $form->setup($this, route('computers.update', [$computer->id]), $computer, [
                     'method' => 'PATCH',
                 ]);
 
@@ -108,7 +108,7 @@ class ComputerPresenter extends Presenter
                     ->options($operatingSystems)
                     ->value(function (Computer $computer) {
                         if ($computer->os instanceof OperatingSystem) {
-                            return $computer->os->getKey();
+                            return $computer->os->id;
                         }
                     })
                     ->attributes([
@@ -122,7 +122,7 @@ class ComputerPresenter extends Presenter
                     ->options($types)
                     ->value(function (Computer $computer) {
                         if ($computer->type instanceof ComputerType) {
-                            return $computer->type->getKey();
+                            return $computer->type->id;
                         }
                     })
                     ->attributes([

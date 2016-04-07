@@ -46,7 +46,7 @@ class ImportGroup extends Job
                 $user = $this->dispatch(new ImportUser($member));
 
                 // Make sure the user isn't already apart of the role.
-                $exists = $role->users()->find($user->getKey());
+                $exists = $role->users()->find($user->id);
 
                 if (!$exists) {
                     // Attach the user to the role if they

@@ -54,13 +54,13 @@ class GuideStepPresenter extends Presenter
                         // Generate a field for removing images from the current step.
                         $control->field = function () use ($guide, $step, $image) {
                             // Generate the url of the image.
-                            $url = route('resources.guides.steps.images.download', [$guide->slug, $step->getKey(), $image->uuid]);
+                            $url = route('resources.guides.steps.images.download', [$guide->slug, $step->id, $image->uuid]);
 
                             // Generate the HTML image tag
                             $photo = HTML::image($url, null, ['class' => 'img-responsive']);
 
                             // Generate the button for deleting the current image.
-                            $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]), 'Delete', [
+                            $button = HTML::link(route('resources.guides.steps.images.destroy', [$guide->slug, $step->id, $image->uuid]), 'Delete', [
                                 'class'        => 'btn btn-danger',
                                 'data-post'    => 'DELETE',
                                 'data-title'   => 'Delete Image?',
@@ -144,7 +144,7 @@ class GuideStepPresenter extends Presenter
                 ->attributes(function (GuideStep $step) {
                     return [
                         'class'   => 'sortable-handle',
-                        'data-id' => $step->getKey(),
+                        'data-id' => $step->id,
                     ];
                 })
                 ->value(function () {

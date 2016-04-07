@@ -5,7 +5,7 @@
 @section('actions')
 
     <div class="btn-group" role="group">
-        <a class="btn btn-primary btn-lg" href="{{ route('issues.attachments.download', [$issue->getKey(), $file->uuid]) }}">
+        <a class="btn btn-primary btn-lg" href="{{ route('issues.attachments.download', [$issue->id, $file->uuid]) }}">
             <i class="fa fa-download"></i>
             Download
         </a>
@@ -25,7 +25,7 @@
 
                 <li>
 
-                    <a href="{{ route('issues.attachments.edit', [$issue->getKey(), $file->uuid]) }}">
+                    <a href="{{ route('issues.attachments.edit', [$issue->id, $file->uuid]) }}">
                         <i class="fa fa-edit"></i>
                         Edit
                     </a>
@@ -37,7 +37,7 @@
                             data-title="Delete Attachment?"
                             data-message="Are you sure you want to delete this attachment?"
                             data-post="DELETE"
-                            href="{{ route('issues.attachments.destroy', [$issue->getKey(), $file->uuid]) }}"
+                            href="{{ route('issues.attachments.destroy', [$issue->id, $file->uuid]) }}"
                     >
                         <i class="fa fa-trash"></i>
                         Delete

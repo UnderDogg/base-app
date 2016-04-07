@@ -50,7 +50,7 @@ class CreateProcessorRecord extends Job
     {
         $record = new ComputerProcessorRecord();
 
-        $record->processor_id = $this->processor->getKey();
+        $record->processor_id = $this->processor->id;
         $record->load = $this->load;
         $record->status = $this->status;
 

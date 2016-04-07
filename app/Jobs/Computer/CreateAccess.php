@@ -72,7 +72,7 @@ class CreateAccess extends Job
      */
     public function handle(ComputerAccess $access)
     {
-        $access = $access->firstOrNew(['computer_id' => $this->computer->getKey()]);
+        $access = $access->firstOrNew(['computer_id' => $this->computer->id]);
 
         $access->active_directory = $this->ad;
         $access->wmi = $this->wmi;

@@ -60,7 +60,7 @@ class Password extends Model
 
         $user = $folder->user;
 
-        $key = $user->getKey().config('app.key').$folder->pin;
+        $key = $user->id.config('app.key').$folder->pin;
 
         return substr($key, 0, 32);
     }

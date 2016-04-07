@@ -67,7 +67,7 @@ class CreateDisk extends Job
     public function handle()
     {
         $disk = ComputerHardDisk::firstOrNew([
-            'computer_id' => $this->computer->getKey(),
+            'computer_id' => $this->computer->id,
             'name'        => $this->name,
         ]);
 

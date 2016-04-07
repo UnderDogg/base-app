@@ -45,18 +45,18 @@ class SetupQuestionPresenter extends Presenter
     public function form(User $user, Question $question)
     {
         $questions = $question->whereHas('users', function ($query) use ($user) {
-            $query->where('user_id', '=', $user->getKey());
+            $query->where('user_id', '=', $user->id);
         }, '<', 1)->get()->pluck('content', 'id');
 
         return $this->form->of('active-directory.security-questions.setup', function (FormGrid $form) use ($questions, $question) {
             if ($question->exists) {
                 // If the question exists, we'll add it to the questions
                 // collection so it's available for selection.
-                $questions[$question->getKey()] = $question->content;
+                $questions[$question->id] = $question->content;
 
                 // We'll also assume the user is editing the security
                 // question so we'll set the route path to update.
-                $route = route('security-questions.update', [$question->getKey()]);
+                $route = route('security-questions.update', [$question->id]);
 
                 $form->submit = 'Save';
             } else {
@@ -72,7 +72,7 @@ class SetupQuestionPresenter extends Presenter
                     ->label('Question')
                     ->options($questions)
                     ->value(function () use ($question) {
-                        return $question->getKey();
+                        return $question->id;
                     });
 
                 $fieldset->control('input:password', 'answer')

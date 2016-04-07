@@ -120,7 +120,7 @@ class AuthController extends Controller
             $admin = Role::whereName(Role::getAdministratorName())->first();
 
             if ($admin instanceof Role) {
-                $user->attachRole($admin->getKey());
+                $user->attachRole($admin->id);
             }
         }
     }

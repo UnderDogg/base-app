@@ -19,7 +19,7 @@ class IssueCommentPolicy
     public static function create(User $user, Issue $issue)
     {
         return $user->can('issues.comments.create')
-            || (int) $issue->user_id === (int) $user->getKey();
+            || (int) $issue->user_id === (int) $user->id;
     }
 
     /**
@@ -34,8 +34,8 @@ class IssueCommentPolicy
     public static function edit(User $user, Issue $issue, Comment $comment)
     {
         return $user->can('issues.comments.edit') || (
-            (int) $issue->user_id === (int) $user->getKey()
-                && (int) $comment->user_id === (int) $user->getKey()
+            (int) $issue->user_id === (int) $user->id
+                && (int) $comment->user_id === (int) $user->id
         );
     }
 
@@ -51,8 +51,8 @@ class IssueCommentPolicy
     public static function destroy(User $user, Issue $issue, Comment $comment)
     {
         return $user->can('issues.comments.destroy') || (
-            (int) $issue->user_id === (int) $user->getKey()
-            && (int) $comment->user_id === (int) $user->getKey()
+            (int) $issue->user_id === (int) $user->id
+            && (int) $comment->user_id === (int) $user->id
         );
     }
 }

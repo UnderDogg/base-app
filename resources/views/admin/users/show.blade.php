@@ -12,19 +12,19 @@
 
             <div class="btn-group pull-right">
 
-                <a href="{{ route('admin.users.edit', [$user->getKey()]) }}" class="btn btn-xs btn-warning">
+                <a href="{{ route('admin.users.edit', [$user->id]) }}" class="btn btn-xs btn-warning">
                     <i class="fa fa-edit"></i>
                     Edit
                 </a>
 
                 {{-- Prevent user from deleting self. --}}
-                @if (request()->user()->getKey() != $user->getKey())
+                @if (request()->user()->id != $user->id)
 
                     <a
                             data-post="DELETE"
                             data-title="Delete User?"
                             data-message="Are you sure you want to delete this user?"
-                            href="{{ route('admin.users.destroy', [$user->getKey()]) }}"
+                            href="{{ route('admin.users.destroy', [$user->id]) }}"
                             class="btn btn-xs btn-danger"
                     >
                         <i class="fa fa-trash"></i>

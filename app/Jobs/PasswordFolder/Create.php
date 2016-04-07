@@ -33,7 +33,7 @@ class Create extends Job
      */
     public function handle(PasswordFolder $folder)
     {
-        $folder->user_id = auth()->user()->getKey();
+        $folder->user_id = auth()->user()->id;
         $folder->locked = true;
         $folder->uuid = uuid();
         $folder->pin = $this->pin;

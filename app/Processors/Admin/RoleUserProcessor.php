@@ -91,7 +91,7 @@ class RoleUserProcessor extends Processor
         // that they can't do that. Though we want to allow the user to remove the
         // administrator role if more than one administrator exists.
         if ($user->hasRole($admin)
-            && $user->getKey() === auth()->user()->getKey()
+            && $user->id === auth()->user()->id
             && count($administrators) === 1) {
             throw new CannotRemoveRolesException("Unable to remove the administrator role from this user. You're the only administrator.");
         }

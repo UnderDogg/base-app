@@ -178,8 +178,8 @@ class ComputerProcessor extends Processor
             $computer->name = $request->input('name');
             $computer->model = $request->input('model');
             $computer->description = $request->input('description');
-            $computer->os_id = $os->getKey();
-            $computer->type_id = $type->getKey();
+            $computer->os_id = $os->id;
+            $computer->type_id = $type->id;
 
             if ($computer->save()) {
                 return $computer;
@@ -227,7 +227,7 @@ class ComputerProcessor extends Processor
         $model = $request->input('model');
         $description = $request->input('description');
 
-        return $this->dispatch(new Create($type->getKey(), $os->getKey(), $name, $description, $model));
+        return $this->dispatch(new Create($type->id, $os->id, $name, $description, $model));
     }
 
     /**

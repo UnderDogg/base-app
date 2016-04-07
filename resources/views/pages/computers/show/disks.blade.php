@@ -11,7 +11,7 @@
                 data-post="POST"
                 data-title="Synchronize hard disks?"
                 data-message="Are you sure you want to synchronize this computers hard disks?"
-                href="{{ route('computers.disks.sync', [$computer->getKey()]) }}"
+                href="{{ route('computers.disks.sync', [$computer->id]) }}"
                 >
             <i class="fa fa-refresh"></i>
             Synchronize

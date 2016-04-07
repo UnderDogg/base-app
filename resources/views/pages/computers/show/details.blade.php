@@ -19,7 +19,7 @@ Details
             data-post="POST"
             data-title="Check status?"
             data-message="Are you sure you want to check the status of this computer?"
-            href="{{ route('computers.status.check', [$computer->getKey()]) }}"
+            href="{{ route('computers.status.check', [$computer->id]) }}"
             >
         <i class="fa fa-refresh"></i> Refresh Status
     </a>

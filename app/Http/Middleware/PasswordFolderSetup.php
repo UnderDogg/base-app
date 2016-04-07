@@ -33,7 +33,7 @@ class PasswordFolderSetup
      */
     public function handle(Request $request, Closure $next)
     {
-        $folder = $this->folder->where('user_id', auth()->user()->getKey())->first();
+        $folder = $this->folder->where('user_id', auth()->user()->id)->first();
 
         if ($folder instanceof PasswordFolder) {
             // If a folder already exists, the user is trying to access

@@ -51,7 +51,7 @@ class ForgotPasswordPresenter extends Presenter
 
             $form->fieldset(function (Fieldset $fieldset) use ($questions) {
                 foreach ($questions as $question) {
-                    $key = $question->getKey();
+                    $key = $question->id;
 
                     $fieldset->control('input:text', "questions[$key]")
                         ->label($question->content)

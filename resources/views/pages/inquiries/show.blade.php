@@ -81,7 +81,7 @@
                             data-title="Approve Request?"
                             data-message="Are you sure you want to complete this request? It cannot be un-approved."
                             class="btn btn-success"
-                            href="{{ route('inquiries.approve', [$inquiry->getKey()]) }}"
+                            href="{{ route('inquiries.approve', [$inquiry->id]) }}"
                     >
                         <i class="fa fa-check"></i>
                         Approve
@@ -100,7 +100,7 @@
                             data-title="Close Request?"
                             data-message="Are you sure you want to close this request?"
                             class="btn btn-danger"
-                            href="{{ route('inquiries.close', [$inquiry->getKey()]) }}"
+                            href="{{ route('inquiries.close', [$inquiry->id]) }}"
                     >
                         <i class="fa fa-times"></i>
                         Close
@@ -117,7 +117,7 @@
                             data-title="Re-Open Request?"
                             data-message="Are you sure you want to re-open this request?"
                             class="btn btn-danger"
-                            href="{{ route('inquiries.open', [$inquiry->getKey()]) }}"
+                            href="{{ route('inquiries.open', [$inquiry->id]) }}"
                     >
                         <i class="fa fa-check"></i>
                         Re-Open

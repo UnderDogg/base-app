@@ -22,13 +22,13 @@ class InquiryCommentPresenter extends Presenter
     {
         return (new CommentPresenter($this->form, $this->table))->form($comment, function (FormGrid $form, Comment $comment) use ($inquiry) {
             if ($comment->exists) {
-                $hash = sprintf('#comment-%s', $comment->getKey());
-                $url = route('inquiries.comments.update', [$inquiry->getKey(), $comment->getKey(), $hash]);
+                $hash = sprintf('#comment-%s', $comment->id);
+                $url = route('inquiries.comments.update', [$inquiry->id, $comment->id, $hash]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
-                $url = route('inquiries.comments.store', [$inquiry->getKey(), '#comment']);
+                $url = route('inquiries.comments.store', [$inquiry->id, '#comment']);
                 $method = 'POST';
 
                 $form->submit = 'Comment';

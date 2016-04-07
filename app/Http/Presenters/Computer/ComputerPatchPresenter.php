@@ -36,7 +36,7 @@ class ComputerPatchPresenter extends Presenter
                     return link_to_route(
                         'computers.patches.show',
                         $patch->title,
-                        [$computer->getKey(), $patch->getKey()]
+                        [$computer->id, $patch->id]
                     );
                 };
             });
@@ -59,12 +59,12 @@ class ComputerPatchPresenter extends Presenter
         return $this->form->of('computers.patches', function (FormGrid $form) use ($computer, $patch) {
             if ($patch->exists) {
                 $method = 'PATCH';
-                $url = route('computers.patches.update', [$computer->getKey(), $patch->getKey()]);
+                $url = route('computers.patches.update', [$computer->id, $patch->id]);
 
                 $form->submit = 'Save';
             } else {
                 $method = 'POST';
-                $url = route('computers.patches.store', [$computer->getKey()]);
+                $url = route('computers.patches.store', [$computer->id]);
 
                 $form->submit = 'Create';
             }
@@ -99,7 +99,7 @@ class ComputerPatchPresenter extends Presenter
         return $this->fluent([
             'id'         => 'computer-patches',
             'title'      => "{$computer->name} | Patches",
-            'url'        => route('computers.patches.index', [$computer->getKey()]),
+            'url'        => route('computers.patches.index', [$computer->id]),
             'menu'       => view('pages.computers.patches._nav', compact('computer')),
             'attributes' => [
                 'class' => 'navbar-default',
@@ -120,7 +120,7 @@ class ComputerPatchPresenter extends Presenter
         return $this->fluent([
             'id'         => 'computer-patches-show',
             'title'      => "{$patch->title}",
-            'url'        => route('computers.patches.show', [$computer->getKey(), $patch->getKey()]),
+            'url'        => route('computers.patches.show', [$computer->id, $patch->id]),
             'menu'       => view('pages.computers.patches._nav-show', compact('computer', 'patch')),
             'attributes' => [
                 'class' => 'navbar-default',

@@ -17,7 +17,7 @@
 
     <div class="card-heading image">
 
-        <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->getKey()]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 
@@ -63,7 +63,7 @@
 
             <a
                     class="btn btn-default btn-sm"
-                    href="{{ route('issues.edit', [$issue->getKey()]) }}">
+                    href="{{ route('issues.edit', [$issue->id]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
@@ -77,7 +77,7 @@
                     data-post="DELETE"
                     data-title="Delete Ticket?"
                     data-message="Are you sure you want to delete this ticket?"
-                    href="{{ route('issues.destroy', [$issue->getKey()]) }}">
+                    href="{{ route('issues.destroy', [$issue->id]) }}">
                 <i class="fa fa-times"></i>
                 Delete
             </a>

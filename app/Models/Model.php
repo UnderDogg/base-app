@@ -33,6 +33,6 @@ class Model extends BaseModel
      */
     public function getHashIdAttribute()
     {
-        return '#'.$this->getKey();
+        return '#'.$this->id;
     }
 }

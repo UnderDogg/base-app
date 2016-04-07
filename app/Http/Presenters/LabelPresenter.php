@@ -56,7 +56,7 @@ class LabelPresenter extends Presenter
             if (Gate::allows('labels.edit')) {
                 $table->column('edit', function (Column $column) {
                     $column->value = function (Label $label) {
-                        return link_to_route('labels.edit', 'Edit', [$label->getKey()], [
+                        return link_to_route('labels.edit', 'Edit', [$label->id], [
                             'class'  => 'btn btn-xs btn-warning',
                         ]);
                     };
@@ -68,7 +68,7 @@ class LabelPresenter extends Presenter
             if (Gate::allows('labels.destroy')) {
                 $table->column('delete', function (Column $column) {
                     $column->value = function (Label $label) {
-                        return link_to_route('labels.destroy', 'Delete', [$label->getKey()], [
+                        return link_to_route('labels.destroy', 'Delete', [$label->id], [
                             'data-post'    => 'DELETE',
                             'data-title'   => 'Delete Label?',
                             'data-message' => 'Are you sure you want to delete this label?',
@@ -91,7 +91,7 @@ class LabelPresenter extends Presenter
     {
         return $this->form->of('label', function (FormGrid $form) use ($label) {
             if ($label->exists) {
-                $form->setup($this, route('labels.update', [$label->getKey()]), $label, [
+                $form->setup($this, route('labels.update', [$label->id]), $label, [
                     'method' => 'PATCH',
                 ]);
 

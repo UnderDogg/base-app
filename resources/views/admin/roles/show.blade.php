@@ -12,7 +12,7 @@
 
             <div class="btn-group pull-right">
 
-                <a href="{{ route('admin.roles.edit', [$role->getKey()]) }}" class="btn btn-xs btn-warning">
+                <a href="{{ route('admin.roles.edit', [$role->id]) }}" class="btn btn-xs btn-warning">
                     <i class="fa fa-edit"></i>
                     Edit
                 </a>
@@ -24,7 +24,7 @@
                             data-post="DELETE"
                             data-title="Delete Role?"
                             data-message="Are you sure you want to delete this role?"
-                            href="{{ route('admin.roles.destroy', [$role->getKey()]) }}"
+                            href="{{ route('admin.roles.destroy', [$role->id]) }}"
                             class="btn btn-xs btn-danger"
                     >
                         <i class="fa fa-trash"></i>

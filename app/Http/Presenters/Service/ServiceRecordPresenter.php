@@ -47,12 +47,12 @@ class ServiceRecordPresenter extends Presenter
         return $this->form->of('services.records', function (FormGrid $form) use ($service, $record) {
             if ($record->exists) {
                 $method = 'PATCH';
-                $url = route('services.records.update', [$service->getKey(), $record->getKey()]);
+                $url = route('services.records.update', [$service->id, $record->id]);
 
                 $form->submit = 'Save';
             } else {
                 $method = 'POST';
-                $url = route('services.records.store', [$service->getKey(), $record->getKey()]);
+                $url = route('services.records.store', [$service->id, $record->id]);
 
                 $form->submit = 'Create';
             }
@@ -95,7 +95,7 @@ class ServiceRecordPresenter extends Presenter
         return $this->fluent([
             'id'         => 'services-records',
             'title'      => 'Service Records',
-            'url'        => route('services.records.index', [$service->getKey()]),
+            'url'        => route('services.records.index', [$service->id]),
             'menu'       => view('pages.services.records._nav', compact('service')),
             'attributes' => [
                 'class' => 'navbar-default',

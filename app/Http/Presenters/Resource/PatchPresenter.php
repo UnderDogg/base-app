@@ -32,7 +32,7 @@ class PatchPresenter extends Presenter
 
             $table->column('title', function (Column $column) {
                 $column->value = function (Patch $patch) {
-                    $link = link_to_route('resources.patches.show', $patch->title, [$patch->getKey()], [
+                    $link = link_to_route('resources.patches.show', $patch->title, [$patch->id], [
                         'class' => 'table-lead-title',
                     ]);
 
@@ -64,10 +64,14 @@ class PatchPresenter extends Presenter
         return $this->form->of('patches', function (FormGrid $form) use ($patch) {
             if ($patch->exists) {
                 $method = 'PATCH';
-                $url = route('resource.patches.update', [$patch->getKey()]);
+                $url = route('resources.patches.update', [$patch->id]);
+
+                $form->submit = 'Save';
             } else {
                 $method = 'POST';
                 $url = route('resources.patches.store');
+
+                $form->submit = 'Create';
             }
 
             $form->attributes(compact('method', 'url'));
@@ -90,7 +94,6 @@ class PatchPresenter extends Presenter
                     ->attributes([
                         'placeholder'  => 'What was done to the machine?',
                         'style'        => 'min-height:350px;',
-                        'data-provide' => 'markdown',
                     ]);
             });
         });

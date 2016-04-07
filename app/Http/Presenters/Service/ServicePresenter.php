@@ -29,7 +29,7 @@ class ServicePresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (Service $service) {
-                    return link_to_route('services.records.index', $service->name, [$service->getKey()]);
+                    return link_to_route('services.records.index', $service->name, [$service->id]);
                 };
             });
 
@@ -67,7 +67,7 @@ class ServicePresenter extends Presenter
                     $last = $service->last_record;
 
                     if ($last instanceof ServiceRecord) {
-                        return link_to_route('services.status', $service->name, [$service->getKey()]);
+                        return link_to_route('services.status', $service->name, [$service->id]);
                     }
 
                     return $service->name;
@@ -91,12 +91,12 @@ class ServicePresenter extends Presenter
         return $this->form->of('services', function (FormGrid $form) use ($service) {
             if ($service->exists) {
                 $method = 'PATCH';
-                $url = route('services.update', [$service->getKey()]);
+                $url = route('services.update', [$service->id]);
 
                 $form->submit = 'Save';
             } else {
                 $method = 'POST';
-                $url = route('services.store', [$service->getKey()]);
+                $url = route('services.store', [$service->id]);
 
                 $form->submit = 'Create';
             }

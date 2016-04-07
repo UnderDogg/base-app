@@ -30,7 +30,7 @@
 
     <div class="card-heading image">
 
-        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->getKey()]) }}" alt=""/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
 
         <div class="card-heading-header">
 
@@ -54,7 +54,7 @@
         @if(\App\Policies\IssueCommentPolicy::edit(auth()->user(), $issue, $comment))
         <a
                 class="btn btn-default btn-sm"
-                href="{{ route('issues.comments.edit', [$issue->getKey(), $comment->getKey()]) }}">
+                href="{{ route('issues.comments.edit', [$issue->id, $comment->id]) }}">
             <i class="fa fa-edit"></i>
             Edit
         </a>
@@ -66,7 +66,7 @@
                     data-post="DELETE"
                     data-title="Delete Comment?"
                     data-message="Are you sure you want to delete this comment?"
-                    href="{{ route('issues.comments.destroy', [$issue->getKey(), $comment->getKey()]) }}">
+                    href="{{ route('issues.comments.destroy', [$issue->id, $comment->id]) }}">
                 <i class="fa fa-times"></i>
                 Delete
             </a>

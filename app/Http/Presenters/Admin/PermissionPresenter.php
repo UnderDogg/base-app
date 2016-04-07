@@ -27,7 +27,7 @@ class PermissionPresenter extends Presenter
         return $this->form->of('permissions', function (FormGrid $form) use ($permission) {
             if ($permission->exists) {
                 $method = 'PATCH';
-                $url = route('admin.permissions.update', [$permission->getKey()]);
+                $url = route('admin.permissions.update', [$permission->id]);
 
                 $form->submit = 'Save';
             } else {
@@ -76,7 +76,7 @@ class PermissionPresenter extends Presenter
     {
         return $this->form->of('permissions.users', function (FormGrid $form) use ($permission) {
             $method = 'POST';
-            $url = route('admin.permissions.users.store', [$permission->getKey()]);
+            $url = route('admin.permissions.users.store', [$permission->id]);
 
             $form->attributes(compact('method', 'url'));
 
@@ -116,7 +116,7 @@ class PermissionPresenter extends Presenter
     {
         return $this->form->of('permissions.roles', function (FormGrid $form) use ($permission) {
             $method = 'POST';
-            $url = route('admin.permissions.roles.store', [$permission->getKey()]);
+            $url = route('admin.permissions.roles.store', [$permission->id]);
 
             $form->attributes(compact('method', 'url'));
 
@@ -161,7 +161,7 @@ class PermissionPresenter extends Presenter
 
             $table->column('label', function (Column $column) {
                 $column->value = function (Permission $permission) {
-                    return link_to_route('admin.permissions.show', $permission->label, [$permission->getKey()]);
+                    return link_to_route('admin.permissions.show', $permission->label, [$permission->id]);
                 };
             });
 
@@ -227,7 +227,7 @@ class PermissionPresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (User $user) {
-                    return link_to_route('admin.users.show', $user->name, [$user->getKey()]);
+                    return link_to_route('admin.users.show', $user->name, [$user->id]);
                 };
             });
 
@@ -247,7 +247,7 @@ class PermissionPresenter extends Presenter
 
             $table->column('remove', function (Column $column) use ($permission) {
                 $column->value = function (User $user) use ($permission) {
-                    return link_to_route('admin.permissions.users.destroy', 'Remove', [$permission->getKey(), $user->getKey()], [
+                    return link_to_route('admin.permissions.users.destroy', 'Remove', [$permission->id, $user->id], [
                         'class'        => 'btn btn-xs btn-danger',
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you sure?',
@@ -274,7 +274,7 @@ class PermissionPresenter extends Presenter
 
             $table->column('label', function (Column $column) {
                 $column->value = function (Role $role) {
-                    return link_to_route('admin.roles.show', $role->label, [$role->getKey()]);
+                    return link_to_route('admin.roles.show', $role->label, [$role->id]);
                 };
             });
 
@@ -300,7 +300,7 @@ class PermissionPresenter extends Presenter
 
             $table->column('remove', function (Column $column) use ($permission) {
                 $column->value = function (Role $role) use ($permission) {
-                    return link_to_route('admin.permissions.roles.destroy', 'Remove', [$permission->getKey(), $role->getKey()], [
+                    return link_to_route('admin.permissions.roles.destroy', 'Remove', [$permission->id, $role->id], [
                         'class'        => 'btn btn-xs btn-danger',
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you sure?',

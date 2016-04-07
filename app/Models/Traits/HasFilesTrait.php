@@ -61,7 +61,7 @@ trait HasFilesTrait
                 DIRECTORY_SEPARATOR,
                 $this->getTable(),
                 DIRECTORY_SEPARATOR,
-                $this->getKey(),
+                $this->id,
                 DIRECTORY_SEPARATOR,
                 $name
             );

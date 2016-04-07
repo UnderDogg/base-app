@@ -25,7 +25,7 @@ class PasswordPresenter extends Presenter
             $table->column('title', function ($column) {
                 $column->label = 'Title';
                 $column->value = function (Password $password) {
-                    return link_to_route('passwords.show', $password->title, [$password->getKey()]);
+                    return link_to_route('passwords.show', $password->title, [$password->id]);
                 };
             });
 
@@ -54,14 +54,14 @@ class PasswordPresenter extends Presenter
                 if ($viewing) {
                     $form->setup($this, null, $password);
                 } else {
-                    $form->setup($this, route('passwords.update', $password->getKey()), $password, [
+                    $form->setup($this, route('passwords.update', $password->id), $password, [
                         'method' => 'PATCH',
                     ]);
                 }
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('passwords.store', $password->getKey()), $password, [
+                $form->setup($this, route('passwords.store', $password->id), $password, [
                     'method' => 'POST',
                 ]);
 

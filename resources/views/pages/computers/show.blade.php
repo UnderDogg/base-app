@@ -17,9 +17,9 @@
 
     {!!
         Decorator::render('navbar', (new \Illuminate\Support\Fluent([
-            'id'         => "computers-{$computer->getKey()}",
+            'id'         => "computers-{$computer->id}",
             'title'      => $computer->name,
-            'url'        => route('computers.show', [$computer->getKey()]),
+            'url'        => route('computers.show', [$computer->id]),
             'menu'       => view('pages.computers._nav-show', compact('computer')),
             'attributes' => [
                 'class' => 'navbar-default',

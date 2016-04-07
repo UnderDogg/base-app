@@ -19,7 +19,7 @@ class ComputerAccessPresenter extends Presenter
     public function form(Computer $computer)
     {
         return $this->form->of('computers.access', function (FormGrid $form) use ($computer) {
-            $form->setup($this, route('computers.access.update', [$computer->getKey()]), $computer);
+            $form->setup($this, route('computers.access.update', [$computer->id]), $computer);
 
             $form->submit = 'Save';
 

@@ -41,7 +41,7 @@ class InquiryCategoryPresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (Category $category) {
-                    return link_to_route('inquiries.categories.index', $category->name, [$category->getKey()]);
+                    return link_to_route('inquiries.categories.index', $category->name, [$category->id]);
                 };
             });
 
@@ -55,7 +55,7 @@ class InquiryCategoryPresenter extends Presenter
                 $column->value = function (Category $category) {
                     $route = 'inquiries.categories.destroy';
 
-                    return link_to_route($route, 'Delete', [$category->getKey()], [
+                    return link_to_route($route, 'Delete', [$category->id], [
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Delete Category?',
                         'data-message' => 'Are you sure you want to delete this category? All child categories will be destroyed.',
@@ -79,7 +79,7 @@ class InquiryCategoryPresenter extends Presenter
         return $this->form->of('inquiries.categories', function (FormGrid $form) use ($category, $parent) {
             if ($category->exists) {
                 // If the category exists we need to setup alternate form parameters.
-                $url = route('inquiries.categories.update', [$category->getKey()]);
+                $url = route('inquiries.categories.update', [$category->id]);
                 $method = 'PATCH';
                 $form->submit = 'Update';
             } else {
@@ -88,7 +88,7 @@ class InquiryCategoryPresenter extends Presenter
                 // If a parent is given, we're creating a sub-category underneath
                 // it, otherwise we're creating a rood category.
                 if ($parent instanceof Category) {
-                    $params[] = $parent->getKey();
+                    $params[] = $parent->id;
                 }
 
                 $url = route('inquiries.categories.store', $params);
@@ -105,12 +105,12 @@ class InquiryCategoryPresenter extends Presenter
                     ->control('select', 'parent', function ($field) use ($category, $parent) {
                         $field->value = function () use ($category, $parent) {
                             if ($parent && $parent->exists) {
-                                return $parent->getKey();
+                                return $parent->id;
                             }
                         };
 
                         if ($category->exists) {
-                            $except = [$category->getKey()];
+                            $except = [$category->id];
                             $first = 'Select a new parent or leave current';
                         } else {
                             $except = [];

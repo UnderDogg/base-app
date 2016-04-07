@@ -94,7 +94,7 @@
                         data-title="Close Ticket?"
                         data-message="Are you sure you want to close this ticket?"
                         class="btn btn-danger"
-                        href="{{ route('issues.close', [$issue->getKey()]) }}"
+                        href="{{ route('issues.close', [$issue->id]) }}"
                 >
                     <i class="fa fa-times"></i>
                     Close
@@ -111,7 +111,7 @@
                         data-title="Re-Open Ticket?"
                         data-message="Are you sure you want to re-open this ticket?"
                         class="btn btn-success"
-                        href="{{ route('issues.open', [$issue->getKey()]) }}"
+                        href="{{ route('issues.open', [$issue->id]) }}"
                 >
                     <i class="fa fa-check"></i>
                     Re-Open Ticket

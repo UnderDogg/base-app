@@ -7,10 +7,10 @@
 @section('content')
 
     <div class="btn-group pull-right" role="group">
-        <a href="{{ route('passwords.edit', [$password->getKey()]) }}" class="btn btn-warning">
+        <a href="{{ route('passwords.edit', [$password->id]) }}" class="btn btn-warning">
             Edit
         </a>
-        <a href="{{ route('passwords.destroy', [$password->getKey()]) }}"
+        <a href="{{ route('passwords.destroy', [$password->id]) }}"
            class="btn btn-danger"
            data-post="DELETE"
            data-title="Delete Password?"

@@ -27,7 +27,7 @@ trait HasFavoritesTrait
         if (!$this->hasFavorite()) {
             $favorite = new Favorite();
 
-            $favorite->user_id = auth()->user()->getKey();
+            $favorite->user_id = auth()->user()->id;
 
             return $this->favorites()->save($favorite);
         }
@@ -60,7 +60,7 @@ trait HasFavoritesTrait
     public function hasFavorite()
     {
         $favorite = $this->favorites
-            ->where('user_id', auth()->user()->getKey())
+            ->where('user_id', auth()->user()->id)
             ->first();
 
         if ($favorite instanceof Favorite) {

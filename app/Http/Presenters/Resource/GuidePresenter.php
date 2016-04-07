@@ -36,7 +36,7 @@ class GuidePresenter extends Presenter
         // Limit the view to favorites only if specified.
         if ($favorites) {
             $guide->whereHas('favorites', function ($query) {
-                $query->where('user_id', auth()->user()->getKey());
+                $query->where('user_id', auth()->user()->id);
             });
         }
 

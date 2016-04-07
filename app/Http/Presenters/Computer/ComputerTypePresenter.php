@@ -41,7 +41,7 @@ class ComputerTypePresenter extends Presenter
                 $column->label = 'Edit';
 
                 $column->value = function (ComputerType $type) {
-                    return link_to_route('computer-types.edit', 'Edit', [$type->getKey()], [
+                    return link_to_route('computer-types.edit', 'Edit', [$type->id], [
                         'class' => 'btn btn-xs btn-warning',
                     ]);
                 };
@@ -51,7 +51,7 @@ class ComputerTypePresenter extends Presenter
                 $column->label = 'Delete';
 
                 $column->value = function (ComputerType $type) {
-                    return link_to_route('computer-types.destroy', 'Delete', [$type->getKey()], [
+                    return link_to_route('computer-types.destroy', 'Delete', [$type->id], [
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you sure?',
                         'data-message' => 'Are you sure you want to delete this computer type?',
@@ -73,7 +73,7 @@ class ComputerTypePresenter extends Presenter
     {
         return $this->form->of('computers.types', function (FormGrid $form) use ($type) {
             if ($type->exists) {
-                $url = route('computer-types.update', [$type->getKey()]);
+                $url = route('computer-types.update', [$type->id]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';

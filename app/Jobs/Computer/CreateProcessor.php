@@ -67,7 +67,7 @@ class CreateProcessor extends Job
     public function handle()
     {
         $processor = ComputerProcessor::firstOrNew([
-           'computer_id'    => $this->computer->getKey(),
+           'computer_id'    => $this->computer->id,
             'name'          => $this->name,
             'family'        => $this->family,
             'manufacturer'  => $this->manufacturer,

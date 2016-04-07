@@ -39,8 +39,8 @@ class Update extends Job
      */
     public function handle()
     {
-        $this->computer->os_id = OperatingSystem::findOrFail($this->request->input('os'))->getKey();
-        $this->computer->type_id = ComputerType::findOrFail($this->request->input('type'))->getKey();
+        $this->computer->os_id = OperatingSystem::findOrFail($this->request->input('os'))->id;
+        $this->computer->type_id = ComputerType::findOrFail($this->request->input('type'))->id;
         $this->computer->name = $this->request->input('name');
         $this->computer->model = $this->request->input('model');
         $this->computer->description = $this->request->input('description');

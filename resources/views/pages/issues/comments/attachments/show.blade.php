@@ -5,7 +5,7 @@
 @section('actions')
 
     <div class="btn-group" role="group">
-        <a class="btn btn-primary btn-lg" href="{{ route('issues.comments.attachments.download', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}">
+        <a class="btn btn-primary btn-lg" href="{{ route('issues.comments.attachments.download', [$issue->id, $comment->id, $file->uuid]) }}">
             <i class="fa fa-download"></i>
             Download
         </a>
@@ -25,7 +25,7 @@
 
                 <li>
 
-                    <a href="{{ route('issues.comments.attachments.edit', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}">
+                    <a href="{{ route('issues.comments.attachments.edit', [$issue->id, $comment->id, $file->uuid]) }}">
                         <i class="fa fa-edit"></i>
                         Edit
                     </a>
@@ -37,7 +37,7 @@
                             data-title="Delete Attachment?"
                             data-message="Are you sure you want to delete this attachment?"
                             data-post="DELETE"
-                            href="{{ route('issues.comments.attachments.destroy', [$issue->getKey(), $comment->getKey(), $file->uuid]) }}"
+                            href="{{ route('issues.comments.attachments.destroy', [$issue->id, $comment->id, $file->uuid]) }}"
                     >
                         <i class="fa fa-trash"></i>
                         Delete

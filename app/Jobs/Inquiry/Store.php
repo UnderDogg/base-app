@@ -52,7 +52,7 @@ class Store extends Job
         // Set the inquiry model data.
         $this->inquiry->user_id = auth()->id();
         $this->inquiry->uuid = uuid();
-        $this->inquiry->category_id = $this->category->getKey();
+        $this->inquiry->category_id = $this->category->id;
         $this->inquiry->title = $this->request->input('title');
         $this->inquiry->description = $this->request->input('description');
 
@@ -62,7 +62,7 @@ class Store extends Job
                 $query->whereName('managers');
             })->findOrFail($this->request->input('manager'));
 
-            $this->inquiry->manager_id = $manager->getKey();
+            $this->inquiry->manager_id = $manager->id;
 
             // We'll send the manager a notification.
             $notification = new Notification(

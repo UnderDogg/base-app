@@ -49,7 +49,7 @@ class InquiryPresenter extends Presenter
 
             $table->column('title', function (Column $column) {
                 $column->value = function (Inquiry $inquiry) {
-                    $link = link_to_route('inquiries.show', $inquiry->title, [$inquiry->getKey()]);
+                    $link = link_to_route('inquiries.show', $inquiry->title, [$inquiry->id]);
 
                     $tagLine = sprintf('<p class="h5 text-muted">%s</p>', $inquiry->tag_line);
 
@@ -137,7 +137,7 @@ class InquiryPresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (Category $category) {
-                    return link_to_route('inquiries.start', $category->name, [$category->getKey()]);
+                    return link_to_route('inquiries.start', $category->name, [$category->id]);
                 };
             });
 
@@ -145,7 +145,7 @@ class InquiryPresenter extends Presenter
                 $column->value = function (Category $category) {
                     $route = 'inquiries.create';
 
-                    return link_to_route($route, 'Select This Category', [$category->getKey()], [
+                    return link_to_route($route, 'Select This Category', [$category->id], [
                         'class' => 'btn btn-success btn-sm',
                     ]);
                 };
@@ -180,11 +180,11 @@ class InquiryPresenter extends Presenter
         return $this->form->of('inquiries', function (FormGrid $form) use ($inquiry, $category) {
             if ($inquiry->exists) {
                 $method = 'PATCH';
-                $url = route('inquiries.update', [$inquiry->getKey()]);
+                $url = route('inquiries.update', [$inquiry->id]);
                 $form->submit = 'Save';
             } else {
                 $method = 'POST';
-                $url = route('inquiries.store', [$category->getKey()]);
+                $url = route('inquiries.store', [$category->id]);
                 $form->submit = 'Create';
             }
 
@@ -270,7 +270,7 @@ class InquiryPresenter extends Presenter
         // Limit the view if the user isn't
         // allowed to view all issues.
         if (!InquiryPolicy::viewAll(auth()->user())) {
-            $inquiry->where('user_id', auth()->user()->getKey());
+            $inquiry->where('user_id', auth()->user()->id);
         }
 
         return $inquiry;

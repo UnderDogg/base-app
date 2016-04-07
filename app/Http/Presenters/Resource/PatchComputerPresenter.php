@@ -30,7 +30,7 @@ class PatchComputerPresenter extends Presenter
 
             $table->column('name', function (Column $column) {
                 $column->value = function (Computer $computer) {
-                    return link_to_route('computers.show', $computer->name, [$computer->getKey()]);
+                    return link_to_route('computers.show', $computer->name, [$computer->id]);
                 };
             });
 
@@ -42,7 +42,7 @@ class PatchComputerPresenter extends Presenter
 
             $table->column('remove', function (Column $column) use ($patch) {
                $column->value = function (Computer $computer) use ($patch) {
-                   $params = [$patch->getKey(), $computer->getKey()];
+                   $params = [$patch->id, $computer->id];
 
                     return link_to_route('resources.patches.computers.destroy', 'Remove', $params, [
                         'data-post'    => 'DELETE',
@@ -67,7 +67,7 @@ class PatchComputerPresenter extends Presenter
         return $this->form->of('patches.computers', function (FormGrid $form) use ($patch) {
             $form->attributes([
                 'method' => 'POST',
-                'url'    => route('resources.patches.computers.store', [$patch->getKey()]),
+                'url'    => route('resources.patches.computers.store', [$patch->id]),
             ]);
 
             $form->with($patch);

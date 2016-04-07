@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Resource;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Resource\PatchPresenter;
 use App\Http\Requests\Resource\PatchRequest;
+use App\Jobs\Resource\Patch\Update;
 use App\Jobs\Resource\Patch\Store;
 use App\Models\Patch;
 
@@ -72,7 +73,7 @@ class PatchController extends Controller
         if ($patch instanceof Patch) {
             flash()->success('Success!', 'Successfully created patch.');
 
-            return redirect()->route('resources.patches.show', [$patch->getKey()]);
+            return redirect()->route('resources.patches.show', [$patch->id]);
         } else {
             flash()->error('Error!', 'There was an issue creating a new patch. Please try again.');
 
@@ -124,7 +125,9 @@ class PatchController extends Controller
      */
     public function update(PatchRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $patch = $this->patch->findOrFail($id);
+
+        if ($this->dispatch(new Update($request, $patch))) {
             flash()->success('Success!', 'Successfully updated patch.');
 
             return redirect()->route('resources.patches.show', [$id]);
@@ -144,7 +147,9 @@ class PatchController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $patch = $this->patch->findOrFail($id);
+
+        if ($patch->delete()) {
             flash()->success('Success!', 'Successfully deleted patch.');
 
             return redirect()->route('resources.patches.index');

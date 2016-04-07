@@ -18,7 +18,7 @@ class InquiryCommentPolicy
      */
     public static function create(User $user, Inquiry $inquiry)
     {
-        return $user->can('inquiries.comments.create') || $inquiry->user_id === $user->getKey();
+        return $user->can('inquiries.comments.create') || $inquiry->user_id === $user->id;
     }
 
     /**
@@ -33,7 +33,7 @@ class InquiryCommentPolicy
     public static function edit(User $user, Inquiry $inquiry, Comment $comment)
     {
         return $user->can('inquiries.comments.edit')
-        || ($inquiry->user_id === $user->getKey() && $comment->user_id === $user->getKey());
+        || ($inquiry->user_id === $user->id && $comment->user_id === $user->id);
     }
 
     /**
@@ -48,6 +48,6 @@ class InquiryCommentPolicy
     public static function destroy(User $user, Inquiry $inquiry, Comment $comment)
     {
         return $user->can('inquiries.comments.destroy')
-        || ($inquiry->user_id === $user->getKey() && $comment->user_id === $user->getKey());
+        || ($inquiry->user_id === $user->id && $comment->user_id === $user->id);
     }
 }

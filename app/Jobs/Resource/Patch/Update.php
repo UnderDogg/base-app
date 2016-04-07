@@ -6,7 +6,7 @@ use App\Http\Requests\Resource\PatchRequest;
 use App\Jobs\Job;
 use App\Models\Patch;
 
-class Store extends Job
+class Update extends Job
 {
     /**
      * @var PatchRequest
@@ -33,18 +33,13 @@ class Store extends Job
     /**
      * Execute the job.
      *
-     * @return Patch|bool
+     * @return bool
      */
     public function handle()
     {
-        $this->patch->user_id = auth()->user()->id;
-        $this->patch->title = $this->request->input('title');
-        $this->patch->description = $this->request->input('description');
+        $this->patch->title = $this->request->input('title', $this->patch->title);
+        $this->patch->description = $this->request->input('description', $this->patch->description);
 
-        if ($this->patch->save()) {
-            return $this->patch;
-        }
-
-        return false;
+        return $this->patch->save();
     }
 }

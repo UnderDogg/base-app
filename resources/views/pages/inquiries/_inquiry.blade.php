@@ -11,7 +11,7 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$inquiry->user->getKey()]) }}" alt="{{ $inquiry->user->name }}'s Profile Avatar"/>
+        <img src="{{ route('profile.avatar.download', [$inquiry->user->id]) }}" alt="{{ $inquiry->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 
@@ -53,7 +53,7 @@
         @if(\App\Policies\InquiryPolicy::edit(auth()->user(), $inquiry))
             <a
                     class="btn btn-default btn-sm"
-                    href="{{ route('inquiries.edit', [$inquiry->getKey()]) }}">
+                    href="{{ route('inquiries.edit', [$inquiry->id]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
@@ -65,7 +65,7 @@
                     data-post="DELETE"
                     data-title="Delete Ticket?"
                     data-message="Are you sure you want to delete this request?"
-                    href="{{ route('inquiries.destroy', [$inquiry->getKey()]) }}">
+                    href="{{ route('inquiries.destroy', [$inquiry->id]) }}">
                 <i class="fa fa-times"></i>
                 Delete
             </a>

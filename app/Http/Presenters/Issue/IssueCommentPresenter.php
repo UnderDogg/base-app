@@ -27,13 +27,13 @@ class IssueCommentPresenter extends Presenter
             $hasResolution = $issue->findCommentResolution();
 
             if ($comment->exists) {
-                $hash = sprintf('#comment-%s', $comment->getKey());
-                $url = route('issues.comments.update', [$issue->getKey(), $comment->getKey(), $hash]);
+                $hash = sprintf('#comment-%s', $comment->id);
+                $url = route('issues.comments.update', [$issue->id, $comment->id, $hash]);
                 $method = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
-                $url = route('issues.comments.store', [$issue->getKey(), '#comment']);
+                $url = route('issues.comments.store', [$issue->id, '#comment']);
                 $method = 'POST';
 
                 $form->submit = 'Comment';

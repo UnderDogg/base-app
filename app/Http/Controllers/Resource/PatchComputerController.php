@@ -47,7 +47,7 @@ class PatchComputerController extends Controller
         if ($this->dispatch(new Store($request, $patch))) {
             flash()->success('Success!', 'Successfully added computers.');
 
-            return redirect()->route('resources.patches.show', [$patch->getKey()]);
+            return redirect()->route('resources.patches.show', [$patch->id]);
         } else {
             flash()->error('Error!', 'There was an issue attaching computers to this patch. Please try again.');
 
@@ -70,11 +70,11 @@ class PatchComputerController extends Controller
         if ($patch->computers()->detach($computerId) === 1) {
             flash()->success('Success!', 'Successfully removed computer..');
 
-            return redirect()->route('resources.patches.show', [$patch->getKey()]);
+            return redirect()->route('resources.patches.show', [$patch->id]);
         } else {
             flash()->error('Error!', 'There was an issue removing this computer from this patch. Please try again.');
 
-            return redirect()->route('resources.patches.show', [$patch->getKey()]);
+            return redirect()->route('resources.patches.show', [$patch->id]);
         }
     }
 }

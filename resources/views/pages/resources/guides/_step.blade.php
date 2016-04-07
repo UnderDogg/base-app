@@ -4,7 +4,7 @@
 
     <div class="step-heading panel-heading">
         @foreach($step->images as $image)
-            <img class="img-responsive" data-original="{{ route('resources.guides.steps.images.download', [$step->guide->slug, $step->getKey(), $image->uuid]) }}">
+            <img class="img-responsive" data-original="{{ route('resources.guides.steps.images.download', [$step->guide->slug, $step->id, $image->uuid]) }}">
         @endforeach
     </div>
 

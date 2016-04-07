@@ -151,7 +151,7 @@ class ForgotPasswordProcessor extends Processor
                 $actual = $this->encrypter->decrypt($question->pivot->answer);
 
                 // We'll retrieve the answer we've been given for the current question.
-                $given = $answers[$question->getKey()];
+                $given = $answers[$question->id];
 
                 // Make sure the given answer is identical to he actual answer.
                 if ($given === $actual) {

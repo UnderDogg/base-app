@@ -40,7 +40,7 @@ class Store extends Job
     {
         $attributes = [
             'content' => $this->request->input('content'),
-            'user_id' => auth()->user()->getKey(),
+            'user_id' => auth()->user()->id,
         ];
 
         $resolution = $this->request->has('resolution');
