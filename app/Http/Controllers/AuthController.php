@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Adldap\Laravel\Facades\Adldap;
 use Adldap\Models\User as AdldapUser;
 use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
