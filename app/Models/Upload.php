@@ -49,6 +49,27 @@ class Upload extends Model
     }
 
     /**
+     * Returns true / false if the uploaded file is an image.
+     *
+     * @return bool
+     */
+    public function getIsImageAttribute()
+    {
+        $type = getimagesize($this->complete_path);
+        
+        // Types of valid images.
+        $valid = [IMAGETYPE_GIF , IMAGETYPE_JPEG ,IMAGETYPE_PNG , IMAGETYPE_BMP];
+
+        if(in_array($type[2] , $valid)) {
+            // This file is a valid image.
+            return true;
+        }
+
+        // This file is not a valid image.
+        return false;
+    }
+
+    /**
      * Returns the HTML icon of the upload.
      *
      * @return string
