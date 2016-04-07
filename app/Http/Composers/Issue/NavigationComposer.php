@@ -14,6 +14,7 @@ class NavigationComposer
 
     /**
      * Constructor.
+     *
      * @param Issue $issue
      */
     public function __construct(Issue $issue)
