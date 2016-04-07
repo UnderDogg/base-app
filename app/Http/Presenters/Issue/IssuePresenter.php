@@ -75,34 +75,6 @@ class IssuePresenter extends Presenter
     }
 
     /**
-     * Returns a new table of all open issues.
-     *
-     * @param Issue $issue
-     *
-     * @return \Orchestra\Contracts\Html\Builder
-     */
-    public function tableOpen(Issue $issue)
-    {
-        $issue = $issue->where('closed', false);
-
-        return $this->table($issue);
-    }
-
-    /**
-     * Returns a new table of all closed issues.
-     *
-     * @param Issue $issue
-     *
-     * @return \Orchestra\Contracts\Html\Builder
-     */
-    public function tableClosed(Issue $issue)
-    {
-        $issue = $issue->where('closed', true);
-
-        return $this->table($issue);
-    }
-
-    /**
      * Displays the last created issue.
      *
      * @param Issue $model

@@ -121,6 +121,30 @@ class Issue extends Model
     }
 
     /**
+     * The open issues scope.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeOpen(Builder $query)
+    {
+        return $query->where(['closed' => false]);
+    }
+
+    /**
+     * The closed issues scope.
+     *
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeClosed(Builder $query)
+    {
+        return $query->where(['closed' => true]);
+    }
+
+    /**
      * Scopes the specified query by a labels name.
      *
      * @param Builder $query
