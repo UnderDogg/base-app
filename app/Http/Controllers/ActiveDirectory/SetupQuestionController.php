@@ -7,26 +7,15 @@ use App\Http\Presenters\ActiveDirectory\SetupQuestionPresenter;
 use App\Http\Requests\ActiveDirectory\SetupQuestionRequest;
 use App\Models\Question;
 use App\Models\User;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Encryption\Encrypter;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class SetupQuestionController extends Controller
 {
     /**
-     * @var Guard
-     */
-    protected $guard;
-
-    /**
      * @var Question
      */
     protected $question;
-
-    /**
-     * @var Encrypter
-     */
-    protected $encrypter;
 
     /**
      * @var SetupQuestionPresenter
@@ -36,39 +25,29 @@ class SetupQuestionController extends Controller
     /**
      * Constructor.
      *
-     * @param Guard                  $guard
      * @param Question               $question
-     * @param Encrypter              $encrypter
      * @param SetupQuestionPresenter $presenter
      */
-    public function __construct(Guard $guard, Question $question, Encrypter $encrypter, SetupQuestionPresenter $presenter)
+    public function __construct(Question $question, SetupQuestionPresenter $presenter)
     {
-        $this->guard = $guard;
         $this->question = $question;
-        $this->encrypter = $encrypter;
         $this->presenter = $presenter;
     }
 
     /**
      * Displays all of the users security questions.
      *
-     * @throws NotFoundHttpException
-     *
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $user = $this->guard->user();
+        $user = Auth::user();
 
-        if ($user instanceof User) {
-            $finished = (count($user->questions) >= 3 ? true : false);
+        $finished = (count($user->questions) >= 3 ? true : false);
 
-            $questions = $this->presenter->table($user);
+        $questions = $this->presenter->table($user);
 
-            return view('pages.active-directory.questions.setup.index', compact('questions', 'finished'));
-        }
-
-        throw new NotFoundHttpException();
+        return view('pages.active-directory.questions.setup.index', compact('questions', 'finished'));
     }
 
     /**
@@ -76,25 +55,19 @@ class SetupQuestionController extends Controller
      *
      * @param int|string $id
      *
-     * @throws NotFoundHttpException
-     *
      * @return \Illuminate\View\View
      */
     public function edit($id)
     {
-        $user = $this->guard->user();
+        $user = Auth::user();
 
-        if ($user instanceof User) {
-            $question = $user->questions()->findOrFail($id);
+        $question = $user->questions()->findOrFail($id);
 
-            $form = $this->presenter->form($user, $question);
+        $form = $this->presenter->form($user, $question);
 
-            $answer = $this->encrypter->decrypt($question->pivot->answer);
+        $answer = Crypt::decrypt($question->pivot->answer);
 
-            return view('pages.active-directory.questions.setup.edit', compact('form', 'answer'));
-        }
-
-        throw new NotFoundHttpException();
+        return view('pages.active-directory.questions.setup.edit', compact('form', 'answer'));
     }
 
     /**
@@ -107,16 +80,14 @@ class SetupQuestionController extends Controller
      */
     public function update(SetupQuestionRequest $request, $id)
     {
-        $user = $this->guard->user();
+        $user = Auth::user();
 
-        if ($user instanceof User) {
-            $user->questions()->detach([$id]);
+        $user->questions()->detach([$id]);
 
-            if ($request->persist($user, $this->encrypter)) {
-                flash()->success('Success!', 'Successfully updated security question.');
+        if ($request->persist($user)) {
+            flash()->success('Success!', 'Successfully updated security question.');
 
-                return redirect()->route('security-questions.index');
-            }
+            return redirect()->route('security-questions.index');
         }
 
         flash()->error('Error!', 'There was an issue updating this security question. Please try again.');
@@ -127,26 +98,19 @@ class SetupQuestionController extends Controller
     /**
      * Displays the form to setup security questions.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
      * @return \Illuminate\View\View
      */
     public function setup()
     {
-        $user = $this->guard->user();
+        $user = Auth::user();
 
-        if ($user instanceof User) {
-            $form = $this->presenter->form($user, $this->question);
+        $form = $this->presenter->form($user, $this->question);
 
-            // Add one to the question count to indicate
-            // the current step is in progress.
-            $step = count($user->questions) + 1;
+        // Add one to the question count to indicate
+        // the current step is in progress.
+        $step = count($user->questions) + 1;
 
-            return view('pages.active-directory.questions.setup.step', compact('form', 'step'));
-        }
-
-        throw new NotFoundHttpException();
+        return view('pages.active-directory.questions.setup.step', compact('form', 'step'));
     }
 
     /**
@@ -158,20 +122,16 @@ class SetupQuestionController extends Controller
      */
     public function save(SetupQuestionRequest $request)
     {
-        $user = $this->guard->user();
+        $user = Auth::user();
 
-        if ($user instanceof User) {
-            if ($request->persist($user, $this->encrypter)) {
-                flash()->success('Success!', 'Successfully saved security question.');
+        if ($request->persist($user)) {
+            flash()->success('Success!', 'Successfully saved security question.');
 
-                return redirect()->back();
-            } else {
-                flash()->error('Error!', 'There was an issue saving this security question. Please try again.');
-
-                return redirect()->back();
-            }
+            return redirect()->back();
         }
 
-        throw new NotFoundHttpException();
+        flash()->error('Error!', 'There was an issue saving this security question. Please try again.');
+
+        return redirect()->back();
     }
 }

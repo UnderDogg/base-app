@@ -5,7 +5,7 @@ namespace App\Http\Requests\ActiveDirectory;
 use App\Http\Requests\Request;
 use App\Models\Question;
 use App\Models\User;
-use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Facades\Crypt;
 
 class SetupQuestionRequest extends Request
 {
@@ -35,16 +35,15 @@ class SetupQuestionRequest extends Request
     /**
      * Save the changes.
      *
-     * @param User      $user
-     * @param Encrypter $encrypter
+     * @param User $user
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function persist(User $user, Encrypter $encrypter)
+    public function persist(User $user)
     {
         $question = Question::findOrFail($this->input('question'));
 
-        $answer = $encrypter->encrypt($this->input('answer'));
+        $answer = Crypt::encrypt($this->input('answer'));
 
         return $user->questions()->save($question, ['answer' => $answer]);
     }
