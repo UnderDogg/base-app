@@ -32,7 +32,6 @@ class IssueUserController extends Controller
         $this->user = $user;
     }
 
-
     /**
      * Updates the specified issue labels.
      *
