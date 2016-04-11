@@ -52,9 +52,9 @@ class SetupQuestionController extends Controller
     /**
      * Displays all of the users security questions.
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -76,9 +76,9 @@ class SetupQuestionController extends Controller
      *
      * @param int|string $id
      *
-     * @return \Illuminate\View\View
-     *
      * @throws NotFoundHttpException
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
