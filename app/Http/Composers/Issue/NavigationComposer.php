@@ -3,8 +3,8 @@
 namespace App\Http\Composers\Issue;
 
 use App\Models\Issue;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class NavigationComposer
 {

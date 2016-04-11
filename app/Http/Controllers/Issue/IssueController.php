@@ -43,7 +43,6 @@ class IssueController extends Controller
         $this->presenter = $presenter;
     }
 
-
     /**
      * Displays all issues.
      *
