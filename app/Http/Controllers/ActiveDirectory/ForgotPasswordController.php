@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
-use Adldap\Laravel\Facades\Adldap;
 use Adldap\Exceptions\ModelNotFoundException;
+use Adldap\Laravel\Facades\Adldap;
 use Adldap\Models\User as AdldapUser;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
