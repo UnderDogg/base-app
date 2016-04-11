@@ -42,7 +42,7 @@ class Update extends Job
         $this->category->options = [
             'manager' => $this->request->has('manager'),
         ];
-        
+
         if ($this->request->has('parent') && $this->category->parent_id != $this->request->input('parent')) {
             $this->category->parent_id = $this->request->input('parent');
         }

@@ -41,7 +41,6 @@ class InquiryCategoryController extends Controller
         $this->presenter = $presenter;
     }
 
-
     /**
      * Displays all inquiry categories.
      *
