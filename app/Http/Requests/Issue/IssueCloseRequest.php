@@ -18,8 +18,8 @@ class IssueCloseRequest extends Request
     }
 
     /**
-     * Allows all users to close 
-     * 
+     * Allows all users to close.
+     *
      * @return bool
      */
     public function authorize()
