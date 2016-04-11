@@ -92,6 +92,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->resource('patches.computers', 'PatchComputerController', [
                     'only' => ['store', 'destroy'],
                 ]);
+
+                // The patch attachments resource.
+                $router->resource('patches.attachments', 'PatchAttachmentController');
             });
         });
 

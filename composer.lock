@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a1229f8567df2f1f8eb602a2ac079fc3",
-    "content-hash": "71b5f61fbbae8eabf6cdb594f044068d",
+    "hash": "8aed51a6491673de1050a83a917bcc99",
+    "content-hash": "15924bea3eda4e3f3eb8c7a6dd9ded72",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -364,50 +364,6 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
-        },
-        {
-            "name": "ezyang/htmlpurifier",
-            "version": "v4.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6f389f0f25b90d0b495308efcfa073981177f0fd",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "HTMLPurifier": "library/"
-                },
-                "files": [
-                    "library/HTMLPurifier.composer.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Edward Z. Yang",
-                    "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com"
-                }
-            ],
-            "description": "Standards compliant HTML filter written in PHP",
-            "homepage": "http://htmlpurifier.org/",
-            "keywords": [
-                "html"
-            ],
-            "time": "2013-11-30 08:25:19"
         },
         {
             "name": "geerlingguy/ping",
@@ -3182,56 +3138,6 @@
                 "laravel"
             ],
             "time": "2015-06-17 14:09:02"
-        },
-        {
-            "name": "stevebauman/purify",
-            "version": "v1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stevebauman/purify.git",
-                "reference": "07b377e102acdca9a93423345794ad6d785725b5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stevebauman/purify/zipball/07b377e102acdca9a93423345794ad6d785725b5",
-                "reference": "07b377e102acdca9a93423345794ad6d785725b5",
-                "shasum": ""
-            },
-            "require": {
-                "ezyang/htmlpurifier": "4.6.*",
-                "illuminate/support": "5.*",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Stevebauman\\Purify\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Steve Bauman",
-                    "email": "steven_bauman@outlook.com"
-                }
-            ],
-            "description": "An HTML Purifier for Laravel 5",
-            "keywords": [
-                "Purifier",
-                "clean",
-                "cleaner",
-                "html",
-                "laravel",
-                "purification",
-                "purify"
-            ],
-            "time": "2015-11-02 14:37:02"
         },
         {
             "name": "stevebauman/revision",

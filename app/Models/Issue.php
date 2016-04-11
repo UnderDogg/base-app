@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasComments;
+use App\Models\Traits\HasCommentsTrait;
 use App\Models\Traits\HasFilesTrait;
-use App\Models\Traits\HasLabels;
+use App\Models\Traits\HasLabelsTrait;
 use App\Models\Traits\HasMarkdownTrait;
-use App\Models\Traits\HasUsers;
+use App\Models\Traits\HasUsersTrait;
 use App\Models\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,11 +14,11 @@ use Orchestra\Support\Facades\HTML;
 
 class Issue extends Model
 {
-    use HasComments,
-        HasUsers,
+    use HasCommentsTrait,
+        HasUsersTrait,
         HasUserTrait,
         HasFilesTrait,
-        HasLabels,
+        HasLabelsTrait,
         HasMarkdownTrait,
         SoftDeletes {
         comments as traitComments;

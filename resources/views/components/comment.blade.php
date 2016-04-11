@@ -13,7 +13,7 @@
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
 
         <div class="card-heading-header">
 

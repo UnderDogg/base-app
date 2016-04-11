@@ -106,7 +106,13 @@
 
                         <a href="#issues-menu" rel="issues-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-ticket"></i>
+
                             Tickets
+
+                            @if($issues > 0)
+                                <span class="badge">{{ $issues  }}</span>
+                            @endif
+
                             <i class="fa fa-caret-down"></i>
                         </a>
 

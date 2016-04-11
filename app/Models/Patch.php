@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 
 class Patch extends Model
 {
-    use HasUserTrait, HasMarkdownTrait;
+    use HasUserTrait, HasFilesTrait, HasMarkdownTrait;
 
     /**
      * The patch table.

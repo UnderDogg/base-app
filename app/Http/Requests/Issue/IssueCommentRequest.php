@@ -4,7 +4,7 @@ namespace App\Http\Requests\Issue;
 
 use App\Http\Requests\Request;
 
-class IssueCommentRequest extends Request
+abstract class IssueCommentRequest extends Request
 {
     /**
      * The allowed mimes.

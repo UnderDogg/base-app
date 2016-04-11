@@ -41,15 +41,13 @@
 
         <hr>
 
-    @endif
+        <div class="row" id="panels">
 
-    <div class="row" id="panels">
+            <div class="col-md-8 col-md-offset-2">
 
-        <div class="col-md-8 col-md-offset-2">
+                @if(auth()->check())
 
-            @if(auth()->check())
-
-                <!-- Last Ticket Panel -->
+                        <!-- Last Ticket Panel -->
                 <div class="panel panel-default">
 
                     <div class="panel-heading text-center">
@@ -71,44 +69,50 @@
 
                 </div>
 
-            @endif
+                @endif
 
-            <!-- Services Panel -->
-            <div class="panel panel-default">
+                        <!-- Services Panel -->
+                <div class="panel panel-default">
 
-                <div class="panel-heading text-center">
-                    <div class="panel-title">
-                        <i class="fa fa-server"></i>
-                        Service Status
+                    <div class="panel-heading text-center">
+                        <div class="panel-title">
+                            <i class="fa fa-server"></i>
+                            Service Status
+                        </div>
                     </div>
-                </div>
 
-                <div class="panel-body">
-                    {!! $services !!}
-                </div>
-
-            </div>
-
-            <!-- Guides Panel -->
-            <div class="panel panel-default">
-
-                <div class="panel-heading text-center">
-
-                    <div class="panel-title">
-                        <i class="fa fa-info-circle"></i>
-                        Most Recently Created Guides
+                    <div class="panel-body">
+                        {!! $services !!}
                     </div>
 
                 </div>
 
-                <div class="panel-body">
-                    {!! $guides !!}
+                <!-- Guides Panel -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading text-center">
+
+                        <div class="panel-title">
+                            <i class="fa fa-info-circle"></i>
+                            Most Recently Created Guides
+                        </div>
+
+                    </div>
+
+                    <div class="panel-body">
+                        {!! $guides !!}
+                    </div>
+
                 </div>
 
             </div>
 
         </div>
 
-    </div>
+    @else
+
+
+
+    @endif
 
 @endsection

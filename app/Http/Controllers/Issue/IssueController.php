@@ -3,25 +3,46 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Issue\IssuePresenter;
+use App\Http\Requests\Issue\IssueCloseRequest;
+use App\Http\Requests\Issue\IssueOpenRequest;
 use App\Http\Requests\Issue\IssueRequest;
-use App\Processors\Issue\IssueProcessor;
+use App\Models\Comment;
+use App\Models\Issue;
+use App\Models\Label;
+use App\Policies\IssuePolicy;
 
 class IssueController extends Controller
 {
     /**
-     * @var IssueProcessor
+     * @var Issue
      */
-    protected $processor;
+    protected $issue;
+
+    /**
+     * @var Label
+     */
+    protected $label;
+
+    /**
+     * @var IssuePresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param IssueProcessor $processor
+     * @param Issue          $issue
+     * @param Label          $label
+     * @param IssuePresenter $presenter
      */
-    public function __construct(IssueProcessor $processor)
+    public function __construct(Issue $issue, Label $label, IssuePresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->issue = $issue;
+        $this->label = $label;
+        $this->presenter = $presenter;
     }
+
 
     /**
      * Displays all issues.
@@ -30,7 +51,13 @@ class IssueController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $issues = $this->presenter->table($this->issue->open());
+
+        $labels = $this->label->all();
+
+        $navbar = $this->presenter->navbar($labels);
+
+        return view('pages.issues.index', compact('issues', 'navbar'));
     }
 
     /**
@@ -40,7 +67,13 @@ class IssueController extends Controller
      */
     public function closed()
     {
-        return $this->processor->closed();
+        $issues = $this->presenter->table($this->issue->closed());
+
+        $labels = $this->label->all();
+
+        $navbar = $this->presenter->navbar($labels);
+
+        return view('pages.issues.index', compact('issues', 'navbar'));
     }
 
     /**
@@ -50,7 +83,9 @@ class IssueController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $form = $this->presenter->form($this->issue);
+
+        return view('pages.issues.create', compact('form'));
     }
 
     /**
@@ -62,7 +97,7 @@ class IssueController extends Controller
      */
     public function store(IssueRequest $request)
     {
-        if ($this->processor->store($request)) {
+        if ($request->persist($this->issue)) {
             flash()->success('Success!', 'Successfully created ticket.');
 
             return redirect()->route('issues.index');
@@ -82,7 +117,25 @@ class IssueController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $with = ['comments', 'comments.files', 'labels', 'files'];
+
+        $issue = $this->issue->with($with)->findOrFail($id);
+
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            $resolution = $issue->comments->first(function ($key, Comment $comment) {
+                return $comment->resolution;
+            });
+
+            $formComment = $this->presenter->formComment($issue);
+
+            $formLabels = $this->presenter->formLabels($issue);
+
+            $formUsers = $this->presenter->formUsers($issue);
+
+            return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -94,7 +147,15 @@ class IssueController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $issue = $this->issue->findOrFail($id);
+
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $form = $this->presenter->form($issue);
+
+            return view('pages.issues.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -107,15 +168,21 @@ class IssueController extends Controller
      */
     public function update(IssueRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated ticket.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->route('issues.show', [$id]);
-        } else {
-            flash()->error('Error!', 'There was a problem updating this ticket. Please try again.');
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully updated ticket.');
 
-            return redirect()->route('issues.edit', [$id]);
+                return redirect()->route('issues.show', [$id]);
+            } else {
+                flash()->error('Error!', 'There was a problem updating this ticket. Please try again.');
+
+                return redirect()->route('issues.edit', [$id]);
+            }
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -127,54 +194,74 @@ class IssueController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted ticket.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->route('issues.index');
-        } else {
-            flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
+        if (IssuePolicy::destroy(auth()->user(), $issue)) {
+            if ($issue->delete()) {
+                flash()->success('Success!', 'Successfully deleted ticket.');
 
-            return redirect()->route('issues.show', [$id]);
+                return redirect()->route('issues.index');
+            } else {
+                flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
+
+                return redirect()->route('issues.show', [$id]);
+            }
         }
+
+        $this->unauthorized();
     }
 
     /**
      * Closes an issue.
      *
-     * @param int|string $id
+     * @param IssueCloseRequest $request
+     * @param int|string        $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function close($id)
+    public function close(IssueCloseRequest $request, $id)
     {
-        if ($this->processor->close($id)) {
-            flash()->success('Success!', 'Successfully closed ticket.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->back();
-        } else {
-            flash()->error('Error!', 'There was a problem closing this ticket. Please try again.');
+        if (IssuePolicy::close(auth()->user(), $issue)) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully closed ticket.');
 
-            return redirect()->back();
+                return redirect()->back();
+            } else {
+                flash()->error('Error!', 'There was a problem closing this ticket. Please try again.');
+
+                return redirect()->back();
+            }
         }
+
+        $this->unauthorized();
     }
 
     /**
      * Re-Opens an issue.
      *
-     * @param int|string $id
+     * @param IssueOpenRequest $request
+     * @param int|string       $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function open($id)
+    public function open(IssueOpenRequest $request, $id)
     {
-        if ($this->processor->open($id)) {
-            flash()->success('Success!', 'Successfully re-opened ticket.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->back();
-        } else {
-            flash()->error('Error!', 'There was a problem re-opening this ticket. Please try again.');
+        if (IssuePolicy::open(auth()->user())) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully re-opened ticket.');
 
-            return redirect()->back();
+                return redirect()->back();
+            } else {
+                flash()->error('Error!', 'There was a problem re-opening this ticket. Please try again.');
+
+                return redirect()->back();
+            }
         }
+
+        $this->unauthorized();
     }
 }

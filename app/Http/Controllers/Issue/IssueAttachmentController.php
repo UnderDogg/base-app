@@ -3,24 +3,33 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Issue\IssueAttachmentPresenter;
 use App\Http\Requests\AttachmentRequest;
-use App\Processors\Issue\IssueAttachmentProcessor;
+use App\Models\Issue;
+use App\Policies\IssuePolicy;
 
 class IssueAttachmentController extends Controller
 {
     /**
-     * @var IssueAttachmentProcessor
+     * @var Issue
      */
-    protected $processor;
+    protected $issue;
+
+    /**
+     * @var IssueAttachmentPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param IssueAttachmentProcessor $processor
+     * @param Issue                    $issue
+     * @param IssueAttachmentPresenter $presenter
      */
-    public function __construct(IssueAttachmentProcessor $processor)
+    public function __construct(Issue $issue, IssueAttachmentPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->issue = $issue;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -33,7 +42,15 @@ class IssueAttachmentController extends Controller
      */
     public function show($issueId, $fileUuid)
     {
-        return $this->processor->show($issueId, $fileUuid);
+        $issue = $this->issue->findOrFail($issueId);
+
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
+
+            return view('pages.issues.attachments.show', compact('issue', 'file'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -46,7 +63,17 @@ class IssueAttachmentController extends Controller
      */
     public function edit($issueId, $fileUuid)
     {
-        return $this->processor->edit($issueId, $fileUuid);
+        $issue = $this->issue->findOrFail($issueId);
+
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
+
+            $form = $this->presenter->form($issue, $file);
+
+            return view('pages.issues.attachments.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -60,15 +87,23 @@ class IssueAttachmentController extends Controller
      */
     public function update(AttachmentRequest $request, $issueId, $fileUuid)
     {
-        if ($this->processor->update($request, $issueId, $fileUuid)) {
-            flash()->success('Success!', 'Successfully updated attachment.');
+        $issue = $this->issue->findOrFail($issueId);
 
-            return redirect()->route('issues.attachments.show', [$issueId, $fileUuid]);
-        } else {
+        if (IssuePolicy::edit(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
+
+            if ($request->persist($file)) {
+                flash()->success('Success!', 'Successfully updated attachment.');
+
+                return redirect()->route('issues.attachments.show', [$issueId, $fileUuid]);
+            }
+
             flash()->error('Error!', 'There was an issue updating this attachment. Please try again.');
 
             return redirect()->route('issues.attachments.edit', [$issueId, $fileUuid]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -81,15 +116,23 @@ class IssueAttachmentController extends Controller
      */
     public function destroy($issueId, $fileUuid)
     {
-        if ($this->processor->destroy($issueId, $fileUuid)) {
-            flash()->success('Success!', 'Successfully deleted attachment.');
+        $issue = $this->issue->findOrFail($issueId);
 
-            return redirect()->route('issues.show', [$issueId]);
-        } else {
+        if (IssuePolicy::destroy(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
+
+            if ($file->delete()) {
+                flash()->success('Success!', 'Successfully deleted attachment.');
+
+                return redirect()->route('issues.show', [$issueId]);
+            }
+
             flash()->error('Error!', 'There was an issue deleting this attachment. Please try again.');
 
             return redirect()->route('issues.attachments.show', [$issueId, $fileUuid]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -102,6 +145,20 @@ class IssueAttachmentController extends Controller
      */
     public function download($issueId, $fileUuid)
     {
-        return $this->processor->download($issueId, $fileUuid);
+        $issue = $this->issue->findOrFail($issueId);
+
+        if (IssuePolicy::show(auth()->user(), $issue)) {
+            $file = $issue->findFile($fileUuid);
+
+            if ($path = $file->complete_path) {
+                return response()->download($path);
+            }
+
+            $file->delete();
+
+            abort(404);
+        }
+
+        $this->unauthorized();
     }
 }

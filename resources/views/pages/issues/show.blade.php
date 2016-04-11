@@ -15,20 +15,20 @@
 
 @section('content')
 
-    <!-- Issue -->
-    @include('pages.issues._issue', compact('resolution'))
+    <!-- Issue. -->
+    @include('pages.issues._issue')
 
-    <!-- Issue Tags -->
+    <!-- Issue Tags. -->
     @include('pages.issues._tags')
 
-    <!-- Comments -->
+    <!-- Comments. -->
     @foreach($issue->comments as $comment)
-        @include('pages.issues._comment', compact($issue, $comment))
+        @include('pages.issues._comment')
     @endforeach
 
     @if($issue->closed)
 
-        <!-- Closed -->
+        <!-- Closed. -->
         <div class="panel panel-danger">
 
             <div class="panel-heading text-center">
@@ -39,8 +39,7 @@
 
     @endif
 
-    <!-- Comment Form -->
-
+    <!-- Comment Form. -->
     <div class="panel panel-default">
 
         <div class="panel-heading">
@@ -82,7 +81,7 @@
 
     </div>
 
-    <!-- Close / Re-Open Ticket -->
+    <!-- Close / Re-Open Ticket. -->
     <div class="col-md-12 text-center">
 
         @if($issue->isOpen())

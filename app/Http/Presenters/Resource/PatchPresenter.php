@@ -74,7 +74,9 @@ class PatchPresenter extends Presenter
                 $form->submit = 'Create';
             }
 
-            $form->attributes(compact('method', 'url'));
+            $files = true;
+
+            $form->attributes(compact('method', 'url', 'files'));
 
             $form->with($patch);
 

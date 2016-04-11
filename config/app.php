@@ -177,7 +177,6 @@ return [
          * Additional App Service Providers
          */
         Stevebauman\Revision\RevisionServiceProvider::class,
-        Stevebauman\Purify\PurifyServiceProvider::class,
         Stevebauman\Authorization\AuthorizationServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -238,7 +237,6 @@ return [
          */
         'Adldap'    => Adldap\Laravel\Facades\Adldap::class,
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
-        'Purify'    => Stevebauman\Purify\Facades\Purify::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Lava'      => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 

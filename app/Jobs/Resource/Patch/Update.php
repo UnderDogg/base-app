@@ -40,6 +40,19 @@ class Update extends Job
         $this->patch->title = $this->request->input('title', $this->patch->title);
         $this->patch->description = $this->request->input('description', $this->patch->description);
 
-        return $this->patch->save();
+        if ($this->patch->save()) {
+            // Check if we have any files to upload and attach.
+            if (count($this->request->files) > 0) {
+                foreach ($this->request->file('files') as $file) {
+                    if (!is_null($file)) {
+                        $this->patch->uploadFile($file);
+                    }
+                }
+            }
+
+            return $this->patch;
+        }
+
+        return false;
     }
 }

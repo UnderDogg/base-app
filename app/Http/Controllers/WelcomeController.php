@@ -62,11 +62,11 @@ class WelcomeController extends Controller
     {
         if (auth()->check()) {
             $issues = $this->presenter->issues($this->issue);
+
+            $services = $this->presenter->services($this->service);
+
+            $guides = $this->presenter->guides($this->guide);
         }
-
-        $services = $this->presenter->services($this->service);
-
-        $guides = $this->presenter->guides($this->guide);
 
         return view('pages.welcome.index', compact('issues', 'services', 'guides'));
     }

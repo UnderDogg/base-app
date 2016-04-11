@@ -1,5 +1,6 @@
 <div class="card card-primary">
 
+    <!-- Issue Title. -->
     <div class="card-title col-md-12">
         
         <h4>
@@ -15,6 +16,7 @@
 
     </div>
 
+    <!-- Issue Heading. -->
     <div class="card-heading image">
 
         <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
@@ -29,6 +31,7 @@
 
     </div>
 
+    <!-- Issue Body. -->
     <div class="card-body">
         <p>
             {!! $issue->description_from_markdown !!}
@@ -54,9 +57,10 @@
         @endif
 
         <!-- Attachments -->
-        @include('pages.issues._files', compact('issue'))
+        @include('pages.issues._files')
     </div>
 
+    <!-- Issue Actions. -->
     <div class="card-actions pull-right">
 
         @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))

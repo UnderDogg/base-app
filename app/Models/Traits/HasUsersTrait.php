@@ -4,7 +4,7 @@ namespace App\Models\Traits;
 
 use App\Models\User;
 
-trait HasUsers
+trait HasUsersTrait
 {
     /**
      * The belongsToMany users relationship.

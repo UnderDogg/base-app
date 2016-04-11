@@ -3,24 +3,34 @@
 namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentRequest;
-use App\Processors\Issue\IssueCommentProcessor;
+use App\Http\Requests\Issue\IssueCommentUpdateRequest;
+use App\Models\Issue;
+use App\Policies\IssueCommentPolicy;
 
 class IssueCommentController extends Controller
 {
     /**
-     * @var IssueCommentProcessor
+     * @var Issue
      */
-    protected $processor;
+    protected $issue;
+
+    /**
+     * @var IssueCommentPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param IssueCommentProcessor $processor
+     * @param Issue                 $issue
+     * @param IssueCommentPresenter $presenter
      */
-    public function __construct(IssueCommentProcessor $processor)
+    public function __construct(Issue $issue, IssueCommentPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->issue = $issue;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -33,50 +43,74 @@ class IssueCommentController extends Controller
      */
     public function store(IssueCommentRequest $request, $id)
     {
-        if ($this->processor->store($request, $id)) {
-            flash()->success('Success!', 'Successfully added comment.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->back();
-        } else {
+        if (IssueCommentPolicy::create(auth()->user(), $issue)) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully added comment.');
+
+                return redirect()->back();
+            }
+
             flash()->error('Error!', 'There was a problem adding a comment. Please try again.');
 
             return redirect()->back();
         }
+
+        $this->unauthorized();
     }
 
     /**
      * Displays the form to edit the specified issue comment.
      *
      * @param int|string $id
-     * @param int|string $commentid
+     * @param int|string $commentId
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id, $commentid)
+    public function edit($id, $commentId)
     {
-        return $this->processor->edit($id, $commentid);
+        $issue = $this->issue->findOrFail($id);
+
+        $comment = $issue->comments()->with(['files'])->findOrFail($commentId);
+
+        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
+            $form = $this->presenter->form($issue, $comment);
+
+            return view('pages.issues.comments.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
      * Updates the specified issue comment.
      *
-     * @param IssueCommentRequest $request
-     * @param int|string          $id
-     * @param int|string          $commentId
+     * @param IssueCommentUpdateRequest $request
+     * @param int|string                $id
+     * @param int|string                $commentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(IssueCommentRequest $request, $id, $commentId)
+    public function update(IssueCommentUpdateRequest $request, $id, $commentId)
     {
-        if ($this->processor->update($request, $id, $commentId)) {
-            flash()->success('Success!', 'Successfully updated comment.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->route('issues.show', [$id]);
-        } else {
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
+            if ($request->persist($issue, $comment)) {
+                flash()->success('Success!', 'Successfully updated comment.');
+
+                return redirect()->route('issues.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was a problem updating this comment. Please try again.');
 
             return redirect()->route('issues.show', [$id]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -89,14 +123,24 @@ class IssueCommentController extends Controller
      */
     public function destroy($id, $commentId)
     {
-        if ($this->processor->destroy($id, $commentId)) {
-            flash()->success('Success!', 'Successfully deleted comment.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->back();
-        } else {
+        $comment = $issue->comments()->findOrFail($commentId);
+
+        if (IssueCommentPolicy::destroy(auth()->user(), $issue, $comment)) {
+            $issue->comments()->detach($comment);
+
+            if ($comment->delete()) {
+                flash()->success('Success!', 'Successfully deleted comment.');
+
+                return redirect()->back();
+            }
+
             flash()->error('Error!', 'There was a problem deleting this comment. Please try again.');
 
             return redirect()->back();
         }
+
+        $this->unauthorized();
     }
 }

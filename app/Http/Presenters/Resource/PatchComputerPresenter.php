@@ -47,7 +47,7 @@ class PatchComputerPresenter extends Presenter
                     return link_to_route('resources.patches.computers.destroy', 'Remove', $params, [
                         'data-post'    => 'DELETE',
                         'data-title'   => 'Are you Sure?',
-                        'data-message' => 'Are you sure you want to remove this computer?',
+                        'data-message' => 'Are you sure you want to remove this patch from this computer?',
                         'class'        => 'btn btn-xs btn-danger',
                     ]);
                };

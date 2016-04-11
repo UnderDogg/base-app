@@ -1,5 +1,6 @@
 <div class="card card-primary">
 
+    <!-- Patch Title. -->
     <div class="card-title col-md-12">
 
         <h4>
@@ -29,14 +30,18 @@
 
     </div>
 
+    <!-- Patch Body. -->
     <div class="card-body">
 
         <p>
             {!! $patch->description_from_markdown !!}
         </p>
 
+        @include('pages.resources.patches._files')
+
     </div>
 
+    <!-- Patch Actions. -->
     <div class="card-actions pull-right">
 
         <a

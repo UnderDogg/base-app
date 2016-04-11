@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Traits\HasComments;
+use App\Models\Traits\HasCommentsTrait;
 use App\Models\Traits\HasMarkdownTrait;
 use App\Models\Traits\HasUserTrait;
 
 class Inquiry extends Model
 {
-    use HasUserTrait, HasComments, HasMarkdownTrait;
+    use HasUserTrait, HasCommentsTrait, HasMarkdownTrait;
 
     /**
      * The requests table.

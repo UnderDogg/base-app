@@ -8,7 +8,7 @@
 
     <body id="app">
 
-        @include('layouts._navigation')
+        @include('layouts._nav')
 
         @include('layouts._flash')
 

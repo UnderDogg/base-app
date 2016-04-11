@@ -4,7 +4,7 @@ namespace App\Models\Traits;
 
 use App\Models\Label;
 
-trait HasLabels
+trait HasLabelsTrait
 {
     /**
      * The belongsToMany labels relationship.

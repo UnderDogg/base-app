@@ -3,6 +3,7 @@
 namespace App\Http\Composers\Issue;
 
 use App\Models\Issue;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
 class NavigationComposer
@@ -29,8 +30,18 @@ class NavigationComposer
      */
     public function compose(View $view)
     {
+        $open = $this->issue
+            ->open()
+            ->forUser(Auth::user())
+            ->count();
+
+        $closed = $this->issue
+            ->closed()
+            ->forUser(Auth::user())
+            ->count();
+
         $view
-            ->with('open', $this->issue->open()->count())
-            ->with('closed', $this->issue->closed()->count());
+            ->with('open', $open)
+            ->with('closed', $closed);
     }
 }
