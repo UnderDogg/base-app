@@ -1,17 +1,26 @@
 <div class="card card-primary">
 
-    <div class="card-heading col-md-12">
+    <!-- Request Title. -->
+    <div class="card-title col-md-12">
 
         <h4>
+
             <span class="text-muted">{{ $inquiry->hash_id }}</span>
+
             {{ $inquiry->title }}
+
+            <span class="pull-right text-muted">
+                <i class="fa fa-question-circle"></i>
+            </span>
+
         </h4>
+
 
     </div>
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$inquiry->user->id]) }}" alt="{{ $inquiry->user->name }}'s Profile Avatar"/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$inquiry->user->id]) }}" alt="{{ $inquiry->user->name }}'s Profile Avatar"/>
 
         <div class="card-heading-header">
 

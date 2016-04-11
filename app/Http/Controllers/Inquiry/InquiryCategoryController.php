@@ -3,27 +3,44 @@
 namespace App\Http\Controllers\Inquiry;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Category\CategoryMoveRequest;
+use App\Http\Presenters\Inquiry\InquiryCategoryPresenter;
 use App\Http\Requests\Category\CategoryRequest;
-use App\Processors\Inquiry\InquiryCategoryProcessor;
-use Baum\MoveNotPossibleException;
+use App\Jobs\Inquiry\Category\Store;
+use App\Jobs\Inquiry\Category\Update;
+use App\Models\Category;
+use App\Models\Inquiry;
 
 class InquiryCategoryController extends Controller
 {
     /**
-     * @var InquiryCategoryProcessor
+     * @var Category
      */
-    protected $processor;
+    protected $category;
+
+    /**
+     * @var Inquiry
+     */
+    protected $inquiry;
+
+    /**
+     * @var InquiryCategoryPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param InquiryCategoryProcessor $processor
+     * @param Category                 $category
+     * @param Inquiry                  $inquiry
+     * @param InquiryCategoryPresenter $presenter
      */
-    public function __construct(InquiryCategoryProcessor $processor)
+    public function __construct(Category $category, Inquiry $inquiry, InquiryCategoryPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->category = $category;
+        $this->inquiry = $inquiry;
+        $this->presenter = $presenter;
     }
+
 
     /**
      * Displays all inquiry categories.
@@ -34,7 +51,17 @@ class InquiryCategoryController extends Controller
      */
     public function index($id = null)
     {
-        return $this->processor->index($id);
+        if ($id) {
+            $category = $this->category->findOrFail($id);
+        } else {
+            $category = $this->category;
+        }
+
+        $categories = $this->presenter->table($category, $this->inquiry);
+
+        $navbar = $this->presenter->navbar($category);
+
+        return view('pages.categories.index', compact('category', 'categories', 'navbar'));
     }
 
     /**
@@ -46,7 +73,15 @@ class InquiryCategoryController extends Controller
      */
     public function create($id = null)
     {
-        return $this->processor->create($id);
+        if ($id) {
+            $category = $this->category->findOrFail($id);
+
+            $form = $this->presenter->form($this->category, $category);
+        } else {
+            $form = $this->presenter->form($this->category);
+        }
+
+        return view('pages.categories.create', compact('form', 'category'));
     }
 
     /**
@@ -59,19 +94,29 @@ class InquiryCategoryController extends Controller
      */
     public function store(CategoryRequest $request, $id = null)
     {
-        if ($this->processor->store($request, $id)) {
+        $category = $this->category->newInstance();
+
+        $job = new Store($request, $category);
+
+        if ($id) {
+            $parent = $this->category->findOrFail($id);
+
+            $job->setParent($parent);
+        }
+
+        if ($this->dispatch($job)) {
             flash()->success('Success!', 'Successfully created category.');
 
             if (is_null($id)) {
                 return redirect()->route('inquiries.categories.index');
-            } else {
-                return redirect()->route('inquiries.categories.show', [$id]);
             }
-        } else {
-            flash()->error('Error!', 'There was an issue creating a category. Please try again.');
 
-            return redirect()->route('inquiries.categories.index');
+            return redirect()->route('inquiries.categories.show', [$id]);
         }
+
+        flash()->error('Error!', 'There was an issue creating a category. Please try again.');
+
+        return redirect()->route('inquiries.categories.index');
     }
 
     /**
@@ -83,7 +128,13 @@ class InquiryCategoryController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $category = $this->category->findOrFail($id);
+
+        $parent = $category->parent()->first();
+
+        $form = $this->presenter->form($category, $parent);
+
+        return view('pages.categories.edit', compact('form'));
     }
 
     /**
@@ -96,38 +147,17 @@ class InquiryCategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $category = $this->category->findOrFail($id);
+
+        if ($this->dispatch(new Update($request, $category))) {
             flash()->success('Success!', 'Successfully updated category.');
 
             return redirect()->route('inquiries.categories.index', [$id]);
-        } else {
-            flash()->error('Error!', 'There was an issue updating this category. Please try again.');
-
-            return redirect()->route('inquiries.categories.edit', [$id]);
-        }
-    }
-
-    /**
-     * Moves a category from one parent to another.
-     *
-     * @param CategoryMoveRequest $request
-     * @param int|string          $id
-     *
-     * @return array
-     */
-    public function move(CategoryMoveRequest $request, $id)
-    {
-        try {
-            $this->processor->move($request, $id);
-
-            $moved = true;
-        } catch (MoveNotPossibleException $e) {
-            flash()->error('Error!', 'There was an issue moving this category. Please try again.');
-
-            $moved = false;
         }
 
-        return compact('moved');
+        flash()->error('Error!', 'There was an issue updating this category. Please try again.');
+
+        return redirect()->route('inquiries.categories.edit', [$id]);
     }
 
     /**
@@ -139,14 +169,18 @@ class InquiryCategoryController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $category = $this->category->findOrFail($id);
+
+        $category->destroyDescendants();
+
+        if ($category->delete()) {
             flash()->success('Success!', 'Successfully deleted category.');
 
             return redirect()->route('inquiries.categories.index');
-        } else {
-            flash()->error('Error!', 'There was an issue deleting this category. Please try again.');
-
-            return redirect()->route('inquiries.categories.index');
         }
+
+        flash()->error('Error!', 'There was an issue deleting this category. Please try again.');
+
+        return redirect()->route('inquiries.categories.index');
     }
 }

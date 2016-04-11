@@ -1,19 +1,20 @@
-<div class="card @if($comment->resolution) answer @endif">
+<div class="card">
 
-    @if($comment->resolution)
-        <div class="col-md-12 answer-heading">
+    <div class="card-title col-md-12">
 
-            <h4>
-                <i class="fa fa-check-square"></i>
-                Answer
-            </h4>
+        <h4>
+                <span class="pull-right text-muted">
+                    <i class="fa fa-comment"></i>
+                </span>
+        </h4>
 
-        </div>
-    @endif
+        <div class="clearfix"></div>
+
+    </div>
 
     <div class="card-heading image">
 
-        <img src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
+        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
 
         <div class="card-heading-header">
 

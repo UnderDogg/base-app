@@ -118,12 +118,6 @@ class InquiryCategoryPresenter extends Presenter
                         }
 
                         $field->options = Category::getSelectHierarchy('inquiries', $except, $first);
-
-                        if ($parent && $parent->exists) {
-                            $field->attributes([
-                                'disabled' => true,
-                            ]);
-                        }
                     });
 
                 $fieldset

@@ -291,12 +291,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'as'    => 'inquiries.categories.store',
             ]);
 
-            // The category move route.
-            $router->post('requests/categories/{categories}/move', [
-                'uses' => 'InquiryCategoryController@move',
-                'as'   => 'inquiries.categories.move',
-            ]);
-
             // The category resource.
             $router->resource('requests/categories', 'InquiryCategoryController', [
                 'except' => ['index', 'create', 'store'],

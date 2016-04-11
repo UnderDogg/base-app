@@ -6,6 +6,7 @@
         <h4>
 
             <span class="text-muted">{{ $issue->hash_id }}</span>
+
             {{ $issue->title }}
 
             <span class="pull-right text-muted">

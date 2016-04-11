@@ -56,10 +56,43 @@
 
     @endif
 
-    <!-- Comment Form -->
-    <div class="col-md-12">
+    <!-- Comment Form. -->
+    <div class="panel panel-default">
 
-        {!! $formComment !!}
+        <div class="panel-heading">
+
+            <div class="panel-title">
+                Leave a Reply
+
+                <div class="pull-right text-muted">
+
+                    <i class="fa fa-commenting"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel-body">
+
+            <div class="pull-right hidden-xs">
+                <a href="http://commonmark.org/help/">Use Markdown to enhance your replies.</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-md-12">
+
+            {!! $formComment !!}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-12">
 
         <hr>
 

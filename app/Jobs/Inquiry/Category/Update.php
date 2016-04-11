@@ -19,22 +19,15 @@ class Update extends Job
     protected $category;
 
     /**
-     * @var Category|null
-     */
-    protected $parent;
-
-    /**
      * Constructor.
      *
      * @param CategoryRequest $request
      * @param Category        $category
-     * @param Category|null   $parent
      */
-    public function __construct(CategoryRequest $request, Category $category, Category $parent = null)
+    public function __construct(CategoryRequest $request, Category $category)
     {
         $this->request = $request;
         $this->category = $category;
-        $this->parent = $parent;
     }
 
     /**
@@ -49,22 +42,11 @@ class Update extends Job
         $this->category->options = [
             'manager' => $this->request->has('manager'),
         ];
-
-        if (
-            $this->request->has('parent') &&
-            $this->category->parent_id != $this->request->input('parent')
-        ) {
+        
+        if ($this->request->has('parent') && $this->category->parent_id != $this->request->input('parent')) {
             $this->category->parent_id = $this->request->input('parent');
         }
 
-        if ($this->category->save()) {
-            if ($this->parent instanceof Category) {
-                $this->category->makeChildOf($this->parent);
-            }
-
-            return true;
-        }
-
-        return false;
+        return $this->category->save();
     }
 }

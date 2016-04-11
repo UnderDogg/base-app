@@ -30,9 +30,9 @@ class Category extends Node
     /**
      * Returns the complete nested set table in a nested list.
      *
-     * @param string $belongsTo
-     * @param array  $except
-     * @param string $first
+     * @param string       $belongsTo
+     * @param array        $except
+     * @param array|string $first
      *
      * @return array
      */
@@ -48,7 +48,11 @@ class Category extends Node
             return $query->whereNotIn('id', $except);
         }])->whereNotIn('id', $except)->get();
 
-        $options = [null => $first];
+        if (is_array($first)) {
+            $options[key($first)] = $first[key($first)];
+        } else {
+            $options = [null => $first];
+        }
 
         foreach ($roots as $root) {
             $options = $options + static::getRenderedNode($root);
@@ -89,7 +93,7 @@ class Category extends Node
      *
      * @return string
      */
-    public static function getRenderedNodeName(Node $node, $separator = '--')
+    public static function getRenderedNodeName(Node $node, $separator = '-')
     {
         if ($node->isRoot()) {
             $name = $node->name;
