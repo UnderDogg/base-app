@@ -5,8 +5,8 @@ namespace App\Http\Composers\Layout;
 use App\Models\Inquiry;
 use App\Models\Issue;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class NavigationComposer
 {

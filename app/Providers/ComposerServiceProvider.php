@@ -13,7 +13,7 @@ class ComposerServiceProvider extends ServiceProvider
      * @var array
      */
     protected $composers = [
-        'layouts._nav' => \App\Http\Composers\Layout\NavigationComposer::class,
+        'layouts._nav'      => \App\Http\Composers\Layout\NavigationComposer::class,
         'pages.issues._nav' => \App\Http\Composers\Issue\NavigationComposer::class,
     ];
 
