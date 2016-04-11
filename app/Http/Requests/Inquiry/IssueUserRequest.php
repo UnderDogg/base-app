@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Issue;
 
 use App\Http\Requests\Request;
+use App\Models\Issue;
 
 class IssueUserRequest extends Request
 {
@@ -13,7 +14,7 @@ class IssueUserRequest extends Request
      */
     public function rules()
     {
-        return [];
+        return ['users.*' => 'exists:users,id'];
     }
 
     /**
@@ -23,6 +24,20 @@ class IssueUserRequest extends Request
      */
     public function authorize()
     {
+        return true;
+    }
+
+    /**
+     * Save the changes.
+     *
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function persist(Issue $issue)
+    {
+        $issue->users()->sync($this->input('users', []));
+
         return true;
     }
 }

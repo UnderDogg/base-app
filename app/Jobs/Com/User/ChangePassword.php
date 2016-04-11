@@ -81,7 +81,8 @@ class ChangePassword extends Job
             'admin_password'     => null,
             'account_suffix'     => null,
         ];
-        $config = config('adldap.connection_settings', $default);
+
+        $config = config('adldap.connections.default.connection_settings', $default);
 
         $this->server = $config['domain_controllers'][0];
         $this->adminUsername = $config['admin_username'];

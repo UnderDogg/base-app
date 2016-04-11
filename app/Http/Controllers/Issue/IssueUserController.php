@@ -4,24 +4,34 @@ namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\IssueUserRequest;
-use App\Processors\Issue\IssueUserProcessor;
+use App\Models\Issue;
+use App\Models\User;
+use App\Policies\IssuePolicy;
 
 class IssueUserController extends Controller
 {
     /**
-     * @var IssueUserProcessor
+     * @var Issue
      */
-    protected $processor;
+    protected $issue;
+
+    /**
+     * @var User
+     */
+    protected $user;
 
     /**
      * Constructor.
      *
-     * @param IssueUserProcessor $processor
+     * @param Issue $issue
+     * @param User  $user
      */
-    public function __construct(IssueUserProcessor $processor)
+    public function __construct(Issue $issue, User $user)
     {
-        $this->processor = $processor;
+        $this->issue = $issue;
+        $this->user = $user;
     }
+
 
     /**
      * Updates the specified issue labels.
@@ -33,14 +43,20 @@ class IssueUserController extends Controller
      */
     public function store(IssueUserRequest $request, $id)
     {
-        if ($this->processor->store($request, $id)) {
-            flash()->success('Success!', 'Successfully updated users for this issue.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->route('issues.show', [$id]);
-        } else {
+        if (IssuePolicy::addUsers(auth()->user())) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully updated users for this issue.');
+
+                return redirect()->route('issues.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was an issue adding users to this issue. Please try again.');
 
             return redirect()->route('issues.show', [$id]);
         }
+
+        $this->unauthorized();
     }
 }

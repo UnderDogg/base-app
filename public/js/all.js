@@ -4223,7 +4223,7 @@ $(function ()
         $('.password-show').password();
 
         // Add img-responsive class to all images.
-        $('img').addClass('img-responsive');
+        $('.card-body img').addClass('img-responsive');
 
         // Markdown
         $("textarea[data-provide='markdown']").markdown();

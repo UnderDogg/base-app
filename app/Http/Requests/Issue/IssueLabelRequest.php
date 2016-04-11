@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Issue;
 
 use App\Http\Requests\Request;
+use App\Models\Issue;
 
 class IssueLabelRequest extends Request
 {
@@ -13,7 +14,7 @@ class IssueLabelRequest extends Request
      */
     public function rules()
     {
-        return [];
+        return ['labels.*' => 'exists:labels,id'];
     }
 
     /**
@@ -23,6 +24,20 @@ class IssueLabelRequest extends Request
      */
     public function authorize()
     {
+        return true;
+    }
+
+    /**
+     * Save the changes.
+     *
+     * @param Issue $issue
+     *
+     * @return bool
+     */
+    public function persist(Issue $issue)
+    {
+        $issue->labels()->sync($this->input('labels', []));
+
         return true;
     }
 }

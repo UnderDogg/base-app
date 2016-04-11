@@ -4,23 +4,32 @@ namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\IssueLabelRequest;
-use App\Processors\Issue\IssueLabelProcessor;
+use App\Models\Issue;
+use App\Models\Label;
+use App\Policies\IssuePolicy;
 
 class IssueLabelController extends Controller
 {
     /**
-     * @var IssueLabelProcessor
+     * @var Issue
      */
-    protected $processor;
+    protected $issue;
+
+    /**
+     * @var Label
+     */
+    protected $label;
 
     /**
      * Constructor.
      *
-     * @param IssueLabelProcessor $processor
+     * @param Issue $issue
+     * @param Label $label
      */
-    public function __construct(IssueLabelProcessor $processor)
+    public function __construct(Issue $issue, Label $label)
     {
-        $this->processor = $processor;
+        $this->issue = $issue;
+        $this->label = $label;
     }
 
     /**
@@ -33,14 +42,20 @@ class IssueLabelController extends Controller
      */
     public function store(IssueLabelRequest $request, $id)
     {
-        if ($this->processor->store($request, $id)) {
-            flash()->success('Success!', 'Successfully updated labels for this issue.');
+        $issue = $this->issue->findOrFail($id);
 
-            return redirect()->route('issues.show', [$id]);
-        } else {
+        if (IssuePolicy::addLabels(auth()->user())) {
+            if ($request->persist($issue)) {
+                flash()->success('Success!', 'Successfully updated labels for this issue.');
+
+                return redirect()->route('issues.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was an issue adding labels to this issue. Please try again.');
 
             return redirect()->route('issues.show', [$id]);
         }
+
+        $this->unauthorized();
     }
 }
