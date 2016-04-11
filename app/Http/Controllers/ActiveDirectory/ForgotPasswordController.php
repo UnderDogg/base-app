@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
-use Adldap\Models\User as AdldapUser;
 use Adldap\Contracts\AdldapInterface;
 use Adldap\Exceptions\ModelNotFoundException;
+use Adldap\Models\User as AdldapUser;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\ActiveDirectory\ForgotPasswordPresenter;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\DiscoverRequest;
