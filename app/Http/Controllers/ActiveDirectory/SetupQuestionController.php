@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Presenters\ActiveDirectory\SetupQuestionPresenter;
 use App\Http\Requests\ActiveDirectory\SetupQuestionRequest;
 use App\Models\Question;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 

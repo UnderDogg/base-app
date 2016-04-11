@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ActiveDirectory;
 
-use Adldap\Contracts\AdldapInterface;
+use Adldap\Laravel\Facades\Adldap;
 use Adldap\Exceptions\ModelNotFoundException;
 use Adldap\Models\User as AdldapUser;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ use App\Http\Requests\ActiveDirectory\ForgotPassword\PasswordRequest;
 use App\Http\Requests\ActiveDirectory\ForgotPassword\QuestionRequest;
 use App\Jobs\Com\User\ChangePassword;
 use App\Models\User;
-use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Facades\Crypt;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,16 +20,6 @@ class ForgotPasswordController extends Controller
      * @var User
      */
     protected $user;
-
-    /**
-     * @var AdldapInterface
-     */
-    protected $adldap;
-
-    /**
-     * @var Encrypter
-     */
-    protected $encrypter;
 
     /**
      * @var ForgotPasswordPresenter
@@ -40,15 +30,11 @@ class ForgotPasswordController extends Controller
      * Constructor.
      *
      * @param User                    $user
-     * @param AdldapInterface         $adldap
-     * @param Encrypter               $encrypter
      * @param ForgotPasswordPresenter $presenter
      */
-    public function __construct(User $user, AdldapInterface $adldap, Encrypter $encrypter, ForgotPasswordPresenter $presenter)
+    public function __construct(User $user, ForgotPasswordPresenter $presenter)
     {
         $this->user = $user;
-        $this->adldap = $adldap;
-        $this->encrypter = $encrypter;
         $this->presenter = $presenter;
     }
 
@@ -75,8 +61,7 @@ class ForgotPasswordController extends Controller
     public function find(DiscoverRequest $request)
     {
         try {
-            $profile = $this->adldap
-                ->getDefaultProvider()
+            $profile = Adldap::getDefaultProvider()
                 ->search()
                 ->users()
                 ->findOrFail($request->input('username'));
@@ -155,7 +140,7 @@ class ForgotPasswordController extends Controller
             // Go through each found question attached to the user.
             foreach ($questions as $question) {
                 // We'll retrieve the actual answer the user gave during setup and decrypt it.
-                $actual = $this->encrypter->decrypt($question->pivot->answer);
+                $actual = Crypt::decrypt($question->pivot->answer);
 
                 // We'll retrieve the answer we've been given for the current question.
                 $given = $answers[$question->id];
@@ -215,8 +200,7 @@ class ForgotPasswordController extends Controller
     {
         $user = $this->user->locateByResetToken($token);
 
-        $profile = $this->adldap
-            ->getDefaultProvider()
+        $profile = Adldap::getDefaultProvider()
             ->search()
             ->users()
             ->where(['mail' => $user->email])
