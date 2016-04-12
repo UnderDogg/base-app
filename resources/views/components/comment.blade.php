@@ -11,11 +11,17 @@
         <div class="col-md-12 card-title card-answer-heading">
 
             <h4>
+
                 Answer
 
-                <span class="pull-right text-muted">
-                    <i class="fa fa-check"></i>
-                </span>
+                <a href="#comment-{{ $comment->id }}">
+
+                    <span class="pull-right text-muted">
+                        <i class="fa fa-check"></i>
+                    </span>
+
+                </a>
+
             </h4>
 
         </div>
@@ -25,9 +31,15 @@
         <div class="col-md-12 card-title">
 
             <h4>
-                <span class="pull-right text-muted">
-                    <i class="fa fa-comment"></i>
-                </span>
+
+                <a href="#comment-{{ $comment->id }}">
+
+                    <span class="pull-right text-muted">
+                        <i class="fa fa-comment"></i>
+                    </span>
+
+                </a>
+
             </h4>
 
             <div class="clearfix"></div>
@@ -40,29 +52,21 @@
 
 @section('card.heading')
 
-    @section('comment.heading')
+    <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
 
-        <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
+    <div class="card-heading-header">
 
-        <div class="card-heading-header">
+        <h3>{{ $comment->user->name }}</h3>
 
-            <h3>{{ $comment->user->name }}</h3>
+        <span>{!! $comment->created_at_human !!}</span>
 
-            <span>{!! $comment->created_at_human !!}</span>
-
-        </div>
-
-    @show
+    </div>
 
 @overwrite
 
 @section('card.body')
 
-    @section('comment.body')
-
-        <p>{!! $comment->content_from_markdown !!}</p>
-
-    @show
+    @yield('comment.body')
 
 @overwrite
 

@@ -12,7 +12,7 @@
 
             <div class="panel-title">
 
-                Create a Request
+                Create {{ $category->name  }} Request
 
                 <div class="pull-right text-muted">
 

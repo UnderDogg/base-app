@@ -11,6 +11,7 @@ use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Policies\IssuePolicy;
+use Illuminate\Support\Facades\Auth;
 
 class IssueController extends Controller
 {
@@ -82,9 +83,12 @@ class IssueController extends Controller
      */
     public function create()
     {
+        // Is this the users first ticket?
+        $first = $this->issue->forUser(Auth::user())->count() === 0;
+
         $form = $this->presenter->form($this->issue);
 
-        return view('pages.issues.create', compact('form'));
+        return view('pages.issues.create', compact('form', 'first'));
     }
 
     /**
