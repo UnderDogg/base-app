@@ -17595,7 +17595,7 @@ tr td a {
 
 /* Card answer heading colors and layout. */
 
-.card-answer .card-answer-heading {
+.card-answer > .card-answer-heading {
   background-color: #e9f2dd;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -17625,7 +17625,7 @@ tr td a {
 
 /* Card ticket heading colors and layout */
 
-.card-primary .card-title {
+.card-primary > .card-title {
   background-color: #d2f0f2;
   padding-top: 10px;
   padding-bottom: 10px;

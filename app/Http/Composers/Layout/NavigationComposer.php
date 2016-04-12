@@ -5,6 +5,7 @@ namespace App\Http\Composers\Layout;
 use App\Models\Inquiry;
 use App\Models\Issue;
 use App\Models\User;
+use App\Policies\IssuePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,12 +42,16 @@ class NavigationComposer
     {
         $user = Auth::user();
 
+        // Check for the user instance due to the layout
+        // navigation being composed by guests as well.
         if ($user instanceof User) {
-            // Open issues navigation badge count.
-            $issues = $this->issue
-                ->open()
-                ->forUser(Auth::user())
-                ->count();
+            $query = $issues = $this->issue->open();
+
+            if (!IssuePolicy::viewAll($user)) {
+                $query->forUser($user);
+            }
+
+            $issues = $query->count();
 
             $view
                 ->with('issues', $issues);

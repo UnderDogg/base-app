@@ -29,7 +29,7 @@ class CommentPresenter extends Presenter
 
                     $field->attributes = [
                         'placeholder'   => 'Enter your comment.',
-                        'id'            => 'comment',
+                        'id'            => 'comment-field',
                         'class'         => 'comment-field',
                     ];
                 });

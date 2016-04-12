@@ -5,8 +5,11 @@
 @section('title.header')
 
     <a class="btn btn-primary" href="{{ route('issues.index') }}">
+
         <i class="fa fa-caret-left"></i>
+
         Back to Tickets
+
     </a>
 
     <hr>

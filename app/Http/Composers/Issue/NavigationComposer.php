@@ -3,6 +3,8 @@
 namespace App\Http\Composers\Issue;
 
 use App\Models\Issue;
+use App\Models\User;
+use App\Policies\IssuePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,15 +32,21 @@ class NavigationComposer
      */
     public function compose(View $view)
     {
-        $open = $this->issue
-            ->open()
-            ->forUser(Auth::user())
-            ->count();
+        $user = Auth::user();
 
-        $closed = $this->issue
-            ->closed()
-            ->forUser(Auth::user())
-            ->count();
+        $open = $this->issue->open();
+        $closed = $this->issue->closed();
+
+        if (!IssuePolicy::viewAll($user)) {
+            // If the user doesn't have permission to view all issues, we
+            // need to scope the query by the current user to only
+            // show the users issue count.
+            $open->forUser($user);
+            $closed->forUser($user);
+        }
+
+        $open = $open->count();
+        $closed = $closed->count();
 
         $view
             ->with('open', $open)

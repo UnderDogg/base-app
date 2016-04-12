@@ -71,6 +71,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $app->make(Kernel::class)->bootstrap();
 
         $app['config']->set('database.default', 'sqlite');
+
         $app['config']->set('database.connections.sqlite', [
             'driver'   => 'sqlite',
             'database' => ':memory:',

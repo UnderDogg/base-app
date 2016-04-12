@@ -1,39 +1,23 @@
-@extends('layouts.master')
+@extends('layouts.panel')
 
 @section('title', 'Edit Ticket')
 
 @section('title.header', ' ')
 
-@section('content')
+@section('panel.title')
 
-    <div class="panel panel-default">
+    Edit Your Ticket
 
-        <div class="panel panel-heading">
+    <div class="pull-right text-muted">
 
-            <div class="panel-title">
-
-                Edit Your Ticket
-
-                <div class="pull-right text-muted">
-
-                    <i class="fa fa-ticket"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="panel-body">
-
-            <div class="col-md-12">
-
-                {!! $form !!}
-
-            </div>
-
-        </div>
+        <i class="fa fa-ticket"></i>
 
     </div>
+
+@endsection
+
+@section('panel.body')
+
+    {!! $form !!}
 
 @endsection

@@ -1,8 +1,13 @@
-<div class="card card-primary">
+@extends('components.card')
 
-    <!-- Issue Title. -->
+@section('card.type') card-primary @overwrite
+
+@section('card.id'){{ "issue-$issue->id" }}@overwrite
+
+@section('card.title')
+
     <div class="card-title col-md-12">
-        
+
         <h4>
 
             <span class="text-muted">{{ $issue->hash_id }}</span>
@@ -17,84 +22,80 @@
 
     </div>
 
-    <!-- Issue Heading. -->
-    <div class="card-heading image">
+@overwrite
 
-        <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
+@section('card.heading')
 
-        <div class="card-heading-header">
+    <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
 
-            <h3>{{ $issue->user->name }}</h3>
+    <div class="card-heading-header">
 
-            <span>{!! $issue->created_at_human !!}</span>
+        <h3>{{ $issue->user->name }}</h3>
 
-        </div>
+        <span>{!! $issue->created_at_human !!}</span>
 
     </div>
 
-    <!-- Issue Body. -->
-    <div class="card-body">
-        <p>
-            {!! $issue->description_from_markdown !!}
-        </p>
+@overwrite
 
-        {{--
-         We'll make sure a resolution exists and that we have more than
-         one comment before display the resolution here.
-         --}}
-        @if(isset($resolution) && count($issue->comments) > 1)
+@section('card.body')
 
-            {{-- We'll also make sure that the first comment is not a resolution. --}}
-            @if(!$issue->comments->first()->resolution)
+    <p>
+        {!! $issue->description_from_markdown !!}
+    </p>
+
+    {{--
+     We'll make sure a resolution exists and that we have more than
+     one comment before display the resolution here.
+     --}}
+    @if(isset($resolution) && count($issue->comments) > 1)
+
+        {{-- We'll also make sure that the first comment is not a resolution. --}}
+        @if(!$issue->comments->first()->resolution)
 
             <hr>
 
-            <p>
-                @include('pages.issues._resolution', ['comment' => $resolution])
-            </p>
-
-            @endif
+            @include('pages.issues._resolution', ['comment' => $resolution])
 
         @endif
 
-        <!-- Attachments -->
-        @include('pages.issues._files')
-    </div>
+    @endif
 
-    <!-- Issue Actions. -->
-    <div class="card-actions pull-right">
+    <!-- Attachments -->
+    @include('pages.issues._files')
 
-        @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
+@overwrite
 
-            <a
-                    class="btn btn-default btn-sm"
-                    href="{{ route('issues.edit', [$issue->id]) }}">
-                <i class="fa fa-edit"></i>
-                Edit
-            </a>
+@section('card.actions')
 
-        @endif
+    @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
 
-        @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
+        <a
+                class="btn btn-default btn-sm"
+                href="{{ route('issues.edit', [$issue->id]) }}">
+            <i class="fa fa-edit"></i>
+            Edit
+        </a>
 
-            <a
-                    class="btn btn-default btn-sm"
-                    data-post="DELETE"
-                    data-title="Delete Ticket?"
-                    data-message="Are you sure you want to delete this ticket?"
-                    href="{{ route('issues.destroy', [$issue->id]) }}">
-                <i class="fa fa-times"></i>
-                Delete
-            </a>
+    @endif
 
-        @endif
+    @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
 
-        @include('pages.issues._form-labels')
+        <a
+                class="btn btn-default btn-sm"
+                data-post="DELETE"
+                data-title="Delete Ticket?"
+                data-message="Are you sure you want to delete this ticket?"
+                href="{{ route('issues.destroy', [$issue->id]) }}">
+            <i class="fa fa-times"></i>
+            Delete
+        </a>
 
-        @include('pages.issues._form-users')
+    @endif
 
-    </div>
+    @include('pages.issues._form-labels')
 
-    <div class="clearfix"></div>
+    @include('pages.issues._form-users')
 
-</div>
+@overwrite
+
