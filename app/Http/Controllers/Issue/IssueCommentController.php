@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Issue;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentCreateRequest;
-use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Http\Requests\Issue\IssueCommentUpdateRequest;
 use App\Models\Issue;
 use App\Policies\IssueCommentPolicy;
