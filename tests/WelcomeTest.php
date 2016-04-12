@@ -13,10 +13,7 @@ class WelcomeTest extends TestCase
      */
     public function test_home_works()
     {
-        $this->visit('/')
-            ->see('Welcome')
-            ->see('Guides')
-            ->dontSee('Last Ticket');
+        $this->visit('/')->assertResponseOk();
     }
 
     public function test_home_logged_in()
