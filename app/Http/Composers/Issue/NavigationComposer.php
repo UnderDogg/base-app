@@ -3,7 +3,6 @@
 namespace App\Http\Composers\Issue;
 
 use App\Models\Issue;
-use App\Models\User;
 use App\Policies\IssuePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
