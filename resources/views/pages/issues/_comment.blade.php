@@ -1,4 +1,4 @@
-<div class="card @if($comment->resolution) card-answer @endif">
+<div class="card @if($comment->resolution) card-answer @endif" id="{{ $comment->hash_id }}">
 
     @if($comment->resolution)
         <div class="col-md-12 card-title card-answer-heading">

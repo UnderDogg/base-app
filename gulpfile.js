@@ -26,6 +26,7 @@ elixir(function(mix) {
         'libs/jquery.pjax.js',
         'libs/jquery.lazyload.min.js',
         'libs/jquery-ui.min.js',
+        'libs/vue.min.js',
         'libs/bootstrap.min.js',
         'libs/jquery.isotope.min.js',
         'libs/dropzone.min.js',

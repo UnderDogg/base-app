@@ -73,4 +73,14 @@ class Comment extends Model
     {
         return $this->fromMarkdown($this->content);
     }
+
+    /**
+     * Returns the comments hash ID attribute.
+     *
+     * @return string
+     */
+    public function getHashIdAttribute()
+    {
+        return sprintf('#comment-%s', $this->id);
+    }
 }

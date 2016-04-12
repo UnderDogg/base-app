@@ -20,18 +20,22 @@
 
     <!-- Category -->
     <div class="panel panel-primary">
+
         <div class="panel-heading">
             {!! $inquiry->category_tag !!}
         </div>
+
     </div>
 
     <!-- Request -->
     @include('pages.inquiries._inquiry', compact('inquiry'))
 
     <!-- Comments -->
-    @foreach($inquiry->comments as $comment)
-        @include('pages.inquiries._comment', compact('inquiry', 'comment'))
-    @endforeach
+    <div id="comments">
+        @foreach($inquiry->comments as $comment)
+            @include('pages.inquiries._comment', compact('inquiry', 'comment'))
+        @endforeach
+    </div>
 
     <!-- Approved -->
     @if($inquiry->approved)
@@ -49,9 +53,11 @@
     @if($inquiry->closed && ! $inquiry->approved)
 
         <div class="panel panel-danger">
+
             <div class="panel-heading text-center">
                 Closed
             </div>
+
         </div>
 
     @endif
@@ -167,3 +173,4 @@
     <div class="col-md-4"></div>
 
 @endsection
+

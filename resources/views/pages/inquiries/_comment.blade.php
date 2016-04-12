@@ -1,11 +1,13 @@
-<div class="card">
+<div class="card" id="comment-{{ $comment->id }}">
 
     <div class="card-title col-md-12">
 
         <h4>
-                <span class="pull-right text-muted">
-                    <i class="fa fa-comment"></i>
-                </span>
+
+            <span class="pull-right text-muted">
+                <i class="fa fa-comment"></i>
+            </span>
+
         </h4>
 
         <div class="clearfix"></div>
@@ -27,15 +29,21 @@
     </div>
 
     <div class="card-body">
-        <p>
-            {!! $comment->content_from_markdown !!}
-        </p>
+
+        <div class="card-body-reply">
+
+            <p>
+                {!! $comment->content_from_markdown !!}
+            </p>
+
+        </div>
+
     </div>
 
     <div class="card-actions pull-right">
         @if(\App\Policies\InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment))
             <a
-                    class="btn btn-default btn-sm"
+                    class="btn btn-default btn-sm edit-comment-button"
                     href="{{ route('inquiries.comments.edit', [$inquiry->id, $comment->id]) }}">
                 <i class="fa fa-edit"></i>
                 Edit

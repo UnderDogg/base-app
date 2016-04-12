@@ -2,8 +2,38 @@
 
 @section('title', "Create a $category->name Request")
 
+@section('title.header', ' ')
+
 @section('content')
 
-    {!! $form !!}
+    <div class="panel panel-default">
+
+        <div class="panel panel-heading">
+
+            <div class="panel-title">
+
+                Create a Request
+
+                <div class="pull-right text-muted">
+
+                    <i class="fa fa-question-circle"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel-body">
+
+            <div class="col-md-12">
+
+                {!! $form !!}
+
+            </div>
+
+        </div>
+
+    </div>
 
 @endsection

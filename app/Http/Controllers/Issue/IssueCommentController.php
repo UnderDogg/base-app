@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Issue;
 
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Issue\IssueCommentPresenter;
+use App\Http\Requests\Issue\IssueCommentCreateRequest;
 use App\Http\Requests\Issue\IssueCommentRequest;
 use App\Http\Requests\Issue\IssueCommentUpdateRequest;
 use App\Models\Issue;
@@ -36,12 +37,12 @@ class IssueCommentController extends Controller
     /**
      * Creates a comment and attaches it to the specified issue.
      *
-     * @param IssueCommentRequest $request
-     * @param int|string          $id
+     * @param IssueCommentCreateRequest $request
+     * @param int|string                $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(IssueCommentRequest $request, $id)
+    public function store(IssueCommentCreateRequest $request, $id)
     {
         $issue = $this->issue->findOrFail($id);
 
