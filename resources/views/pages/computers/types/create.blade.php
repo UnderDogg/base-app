@@ -1,8 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.panel')
 
 @section('title', 'Create Computer Type')
 
-@section('content')
+@section('title.header', ' ')
+
+@section('panel.title')
+
+    <i class="fa fa-sitemap"></i>
+
+    Create a Computer Type
+
+@endsection
+
+@section('panel.body')
 
     {!! $form !!}
 

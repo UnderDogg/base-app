@@ -1,8 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.panel')
 
 @section('title', 'Edit Label')
 
-@section('content')
+@section('title.header', ' ')
+
+@section('panel.title')
+
+    <i class="fa fa-tag"></i>
+
+    Edit Label
+
+@endsection
+
+@section('panel.body')
 
     {!! $form !!}
 

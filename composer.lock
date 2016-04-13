@@ -61,16 +61,16 @@
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "v2.0.3",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-Laravel.git",
-                "reference": "17963bf5ae948e7117c06397ee5eeeef9b22544e"
+                "reference": "80b6f9c1ea4ef6f6d0f482a4863519c24597e1f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/17963bf5ae948e7117c06397ee5eeeef9b22544e",
-                "reference": "17963bf5ae948e7117c06397ee5eeeef9b22544e",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/80b6f9c1ea4ef6f6d0f482a4863519c24597e1f7",
+                "reference": "80b6f9c1ea4ef6f6d0f482a4863519c24597e1f7",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2016-04-07 21:08:37"
+            "time": "2016-04-13 13:36:42"
         },
         {
             "name": "baum/baum",

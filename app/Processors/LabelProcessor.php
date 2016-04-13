@@ -146,8 +146,6 @@ class LabelProcessor extends Processor
         if (LabelPolicy::destroy(auth()->user())) {
             $label = $this->label->findOrFail($id);
 
-            $this->authorize($label);
-
             return $label->delete();
         }
 

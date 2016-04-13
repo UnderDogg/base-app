@@ -13,7 +13,7 @@ class ComputerTypeRequest extends Request
      */
     public function rules()
     {
-        $type = $this->route('computer-types');
+        $type = $this->route('computer_types');
 
         return [
             'name' => "required|unique:computer_types,name,$type",
