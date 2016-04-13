@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Adldap\Laravel\Facades\Adldap;
 use App\Http\Presenters\WelcomePresenter;
 use App\Models\Guide;
 use App\Models\Issue;

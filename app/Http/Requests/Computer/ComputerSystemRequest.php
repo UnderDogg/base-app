@@ -14,7 +14,7 @@ class ComputerSystemRequest extends Request
     public function rules()
     {
         $os = $this->route('computer_systems');
-        
+
         return [
             'name'          => "required|unique:operating_systems,name,$os",
             'version'       => 'min:2',
