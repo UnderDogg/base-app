@@ -171,30 +171,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The Computer Device group.
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
-                // View Computer Hard Disks.
-                $router->get('disks', [
-                    'as'   => 'disks.index',
-                    'uses' => 'ComputerDiskController@index',
-                ]);
-
-                // Sync Computer Hard Disks.
-                $router->post('disks/synchronize', [
-                    'as'   => 'disks.sync',
-                    'uses' => 'ComputerDiskController@synchronize',
-                ]);
-
-                // Edit Computer Access.
-                $router->get('access', [
-                    'as'   => 'access.edit',
-                    'uses' => 'ComputerAccessController@edit',
-                ]);
-
-                // Update Computer Access.
-                $router->post('access', [
-                    'as'   => 'access.update',
-                    'uses' => 'ComputerAccessController@update',
-                ]);
-
                 // Computer Status Check.
                 $router->post('status/check', [
                     'as'   => 'status.check',

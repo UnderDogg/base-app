@@ -128,7 +128,7 @@ class ServicePresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'services',
-            'title'      => 'Services',
+            'title'      => '<i class="fa fa-server"></i> Services',
             'url'        => route('services.index'),
             'menu'       => view('pages.services._nav'),
             'attributes' => [

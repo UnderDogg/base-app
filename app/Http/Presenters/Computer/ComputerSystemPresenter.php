@@ -130,7 +130,7 @@ class ComputerSystemPresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'computer-systems',
-            'title'      => 'Operating Systems',
+            'title'      => '<i class="fa fa-windows"></i> Operating Systems',
             'url'        => route('computer-systems.index'),
             'menu'       => view('pages.computers.systems._nav'),
             'attributes' => [

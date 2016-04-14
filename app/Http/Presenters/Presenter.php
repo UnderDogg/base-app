@@ -4,11 +4,9 @@ namespace App\Http\Presenters;
 
 use Illuminate\Support\Fluent;
 use Orchestra\Contracts\Html\Form\Factory as FormFactory;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use Orchestra\Contracts\Html\Form\Presenter as PresenterContract;
 use Orchestra\Contracts\Html\Table\Factory as TableFactory;
 
-abstract class Presenter implements PresenterContract
+abstract class Presenter
 {
     /**
      * Implementation of form contract.
@@ -53,25 +51,5 @@ abstract class Presenter implements PresenterContract
     public function fluent(array $attributes = [])
     {
         return new Fluent($attributes);
-    }
-
-    /**
-     * Handles the form action URL.
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    public function handles($url)
-    {
-        return $url;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setupForm(FormGrid $form)
-    {
-        $form->layout('components.form');
     }
 }

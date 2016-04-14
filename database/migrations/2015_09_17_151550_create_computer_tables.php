@@ -49,70 +49,12 @@ class CreateComputerTables extends Migration
             $table->foreign('os_id')->references('id')->on('operating_systems');
         });
 
-        Schema::create('computer_access', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('computer_id')->unsigned()->nullable();
-            $table->boolean('active_directory')->default(false);
-            $table->boolean('wmi')->default(false);
-            $table->string('wmi_username')->nullable();
-            $table->string('wmi_password')->nullable();
-
-            $table->foreign('computer_id')->references('id')->on('computers');
-        });
-
         Schema::create('computer_users', function (Blueprint $table) {
             $table->integer('computer_id')->unsigned();
             $table->integer('user_id')->unsigned();
 
             $table->foreign('computer_id')->references('id')->on('computers');
             $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        Schema::create('computer_processors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('computer_id')->unsigned();
-            $table->string('name');
-            $table->string('family')->nullable();
-            $table->string('manufacturer')->nullable();
-            $table->string('speed')->nullable();
-
-            $table->foreign('computer_id')->references('id')->on('computers')
-                ->onDelete('cascade');
-        });
-
-        Schema::create('computer_processor_records', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('processor_id')->unsigned();
-            $table->integer('load');
-            $table->string('status')->nullable();
-
-            $table->foreign('processor_id')->references('id')->on('computer_processors')
-                ->onDelete('cascade');
-        });
-
-        Schema::create('computer_hard_disks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('computer_id')->unsigned();
-            $table->string('name');
-            $table->double('size');
-            $table->dateTime('installed')->nullable();
-            $table->string('description')->nullable();
-
-            $table->foreign('computer_id')->references('id')->on('computers')
-                ->onDelete('cascade');
-        });
-
-        Schema::create('computer_hard_disk_records', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('disk_id')->unsigned();
-            $table->double('free');
-            $table->string('status')->nullable();
-
-            $table->foreign('disk_id')->references('id')->on('computer_hard_disks')
-                ->onDelete('cascade');
         });
 
         Schema::create('computer_status_records', function (Blueprint $table) {
@@ -135,12 +77,7 @@ class CreateComputerTables extends Migration
     public function down()
     {
         Schema::dropIfExists('computer_status_records');
-        Schema::dropIfExists('computer_hard_disk_records');
-        Schema::dropIfExists('computer_hard_disks');
-        Schema::dropIfExists('computer_processor_records');
-        Schema::dropIfExists('computer_processors');
         Schema::dropIfExists('computer_users');
-        Schema::dropIfExists('computer_access');
         Schema::dropIfExists('computers');
         Schema::dropIfExists('computer_types');
         Schema::dropIfExists('operating_systems');

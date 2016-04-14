@@ -11,6 +11,7 @@
         <a href="{!! $navbar->url !!}" class="navbar-brand">
             {!! $navbar->get('title') !!}
         </a>
+
     </div>
 
     <div class="collapse navbar-collapse {!! $navbar->id !!}-responsive-collapse">

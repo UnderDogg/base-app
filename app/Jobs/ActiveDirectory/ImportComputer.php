@@ -4,7 +4,6 @@ namespace App\Jobs\ActiveDirectory;
 
 use Adldap\Models\Computer as AdComputer;
 use App\Jobs\Computer\Create as CreateComputer;
-use App\Jobs\Computer\CreateAccess;
 use App\Jobs\Computer\CreateOs;
 use App\Jobs\Computer\CreateStatus;
 use App\Jobs\Computer\CreateType;
@@ -74,12 +73,9 @@ class ImportComputer extends Job
         // If a Computer model is returned it must have been
         // successful, we'll create an access record for it
         if ($computer instanceof Computer) {
-            // Create access record
-            $this->dispatch(new CreateAccess($computer, $ad = true));
-
             // Create status record
             $this->dispatch(new CreateStatus($computer));
-
+            
             return $computer;
         }
 

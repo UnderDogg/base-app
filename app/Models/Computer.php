@@ -58,16 +58,6 @@ class Computer extends Model
     }
 
     /**
-     * The hasOne access relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function access()
-    {
-        return $this->hasOne(ComputerAccess::class);
-    }
-
-    /**
      * The hasMany statuses relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -75,16 +65,6 @@ class Computer extends Model
     public function statuses()
     {
         return $this->hasMany(ComputerStatus::class);
-    }
-
-    /**
-     * The hasMany disks relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function disks()
-    {
-        return $this->hasMany(ComputerHardDisk::class);
     }
 
     /**
@@ -120,71 +100,6 @@ class Computer extends Model
 
             return sprintf('%s %s', $os, $version);
         }
-    }
-
-    /**
-     * Returns all access checks.
-     *
-     * @return string
-     */
-    public function getAccessChecksAttribute()
-    {
-        $ad = $this->ad_access_check;
-        $wmi = $this->wmi_access_check;
-
-        return implode(' ', [$ad, $wmi]);
-    }
-
-    /**
-     * Returns a check mark or an x depending on
-     * if the computer is accessed by AD.
-     *
-     * @return string
-     */
-    public function getActiveDirectoryAccessCheckAttribute()
-    {
-        return $this->createCheck($this->active_directory_access, 'Active Directory');
-    }
-
-    /**
-     * Returns true / false if the current computer
-     * can be accessed by Active Directory.
-     *
-     * @return bool
-     */
-    public function getActiveDirectoryAccessAttribute()
-    {
-        if ($this->access instanceof ComputerAccess) {
-            return $this->access->active_directory;
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns a check mark or an x depending on
-     * if the computer is accessed by WMI.
-     *
-     * @return string
-     */
-    public function getWmiAccessCheckAttribute()
-    {
-        return $this->createCheck($this->wmi_access, 'WMI');
-    }
-
-    /**
-     * Returns true / false if the current
-     * computer can be accessed by WMI.
-     *
-     * @return bool|ComputerAccess
-     */
-    public function getWmiAccessAttribute()
-    {
-        if ($this->access instanceof ComputerAccess) {
-            return $this->access->wmi;
-        }
-
-        return false;
     }
 
     /**

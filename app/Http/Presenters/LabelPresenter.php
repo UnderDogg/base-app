@@ -134,7 +134,7 @@ class LabelPresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'labels',
-            'title'      => 'Labels',
+            'title'      => '<i class="fa fa-tags"></i> Labels',
             'url'        => route('labels.index'),
             'menu'       => view('pages.labels._nav'),
             'attributes' => [

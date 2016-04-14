@@ -80,7 +80,7 @@ class Create extends Job
     {
         // Verify that the computer doesn't exist already
         $exists = $model->where('dn', $this->dn)->first();
-
+        
         if (is_null($exists)) {
             $computer = $model->newInstance();
 
@@ -92,8 +92,6 @@ class Create extends Job
             $computer->model = $this->model;
 
             if ($computer->save()) {
-                $this->dispatch(new CreateAccess($computer));
-
                 return $computer;
             }
         }

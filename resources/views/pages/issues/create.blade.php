@@ -10,12 +10,14 @@
 
         <div class="alert alert-info text-center">
 
+            <p><b>Hey There!</b></p>
+
             <p>
-                <b>Hey There.</b> It looks like this is your first ticket.
+                 It looks like this is your first ticket.
             </p>
 
             <p>
-                We just wanted to let you know, that ticket you create are completely private, meaning only you and helpdesk administrators will be able to view it.
+                Just wanted to let you know, that tickets you create are completely private, <b>between you and helpdesk administrators.</b>
             </p>
 
         </div>

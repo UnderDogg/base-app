@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.panel')
 
 @section('title', "Editing {$computer->name}")
 

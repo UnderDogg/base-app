@@ -119,7 +119,9 @@ class AuthController extends Controller
         if ($adldapUser->inGroup('Help Desk')) {
             $admin = Role::whereName(Role::getAdministratorName())->first();
 
-            if ($admin instanceof Role) {
+            // If we have the administrator role and the user isn't
+            // already a member, then we'll assign them the role.
+            if ($admin instanceof Role && !$user->hasRole($admin)) {
                 $user->assignRole($admin);
             }
         }
@@ -144,10 +146,10 @@ class AuthController extends Controller
      */
     public function getLogout()
     {
-        // Log the user out
+        // Log the user out.
         Auth::logout();
 
-        // Flush their session
+        // Flush their session.
         Session::flush();
 
         flash()->success('Success!', "You've been logged out!");

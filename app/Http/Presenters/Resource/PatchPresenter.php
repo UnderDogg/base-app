@@ -118,7 +118,7 @@ class PatchPresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'resources-patches',
-            'title'      => 'Patches',
+            'title'      => '<i class="fa fa-medkit"></i> Patches',
             'url'        => route('resources.patches.index'),
             'menu'       => view('pages.resources.patches._nav'),
             'attributes' => [

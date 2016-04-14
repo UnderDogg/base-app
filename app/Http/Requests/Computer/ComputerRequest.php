@@ -13,8 +13,10 @@ class ComputerRequest extends Request
      */
     public function rules()
     {
+        $computer = $this->route('computers');
+
         return [
-            'name'  => 'required',
+            'name'  => "required|unique:computers,name,$computer",
             'os'    => 'required_without:active_directory',
             'type'  => 'required_without:active_directory',
         ];

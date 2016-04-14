@@ -7,20 +7,6 @@
         </a>
     </li>
 
-    <li class="{{ active()->route('computers.disks.*') }}">
-        <a title="Computer Hard Disks" href="{{ route('computers.disks.index', [$computer->id]) }}">
-            <i class="fa fa-hdd-o"></i>
-            Disks
-        </a>
-    </li>
-
-    <li class="{{ active()->route('computers.access.edit') }}">
-        <a title="Computer Settings" href="{{ route('computers.access.edit', [$computer->id]) }}">
-            <i class="fa fa-cogs"></i>
-            Access
-        </a>
-    </li>
-
     <li>
         <a href="{{ route('computers.edit', [$computer->id]) }}">
             <i class="fa fa-edit"></i>

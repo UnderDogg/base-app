@@ -125,7 +125,6 @@ class ComputerController extends Controller
                 'os',
                 'type',
                 'users',
-                'access',
             ];
 
             $computer = $this->computer->with($with)->findOrFail($id);

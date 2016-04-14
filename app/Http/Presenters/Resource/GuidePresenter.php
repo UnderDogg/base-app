@@ -182,7 +182,7 @@ class GuidePresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'guides',
-            'title'      => 'Guides',
+            'title'      => '<i class="fa fa-bookmark-o"></i> Guides',
             'url'        => route('resources.guides.index'),
             'menu'       => view('pages.resources.guides._nav'),
             'attributes' => [

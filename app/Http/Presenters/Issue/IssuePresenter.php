@@ -251,7 +251,7 @@ class IssuePresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'tickets',
-            'title'      => 'Tickets',
+            'title'      => '<i class="fa fa-ticket"></i> Tickets',
             'url'        => route('issues.index'),
             'menu'       => view('pages.issues._nav', compact('labels')),
             'attributes' => [

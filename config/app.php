@@ -183,7 +183,6 @@ return [
         Baum\Providers\BaumServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
-
     ],
 
     /*

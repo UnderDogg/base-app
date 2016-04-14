@@ -249,7 +249,7 @@ class InquiryPresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'requests',
-            'title'      => 'Requests',
+            'title'      => '<i class="fa fa-question-circle"></i> Requests',
             'url'        => route('inquiries.index'),
             'menu'       => view('pages.inquiries._nav'),
             'attributes' => [

@@ -107,7 +107,7 @@ class ComputerTypePresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'computer-types',
-            'title'      => 'Computer Types',
+            'title'      => '<i class="fa fa-sitemap"></i> Computer Types',
             'url'        => route('computer-types.index'),
             'menu'       => view('pages.computers.types._nav'),
             'attributes' => [

@@ -14,14 +14,6 @@ class ComputerObserver extends Observer
     public function deleting(Computer $computer)
     {
         if (!$computer->deleted_at) {
-            $computer->access()->delete();
-
-            $disks = $computer->disks()->get();
-
-            foreach ($disks as $disk) {
-                $disk->delete();
-            }
-
             $statuses = $computer->statuses()->get();
 
             foreach ($statuses as $status) {
