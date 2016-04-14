@@ -75,7 +75,7 @@ class ImportComputer extends Job
         if ($computer instanceof Computer) {
             // Create status record
             $this->dispatch(new CreateStatus($computer));
-            
+
             return $computer;
         }
 
