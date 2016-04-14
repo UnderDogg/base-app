@@ -80,7 +80,7 @@ class Create extends Job
     {
         // Verify that the computer doesn't exist already
         $exists = $model->where('dn', $this->dn)->first();
-        
+
         if (is_null($exists)) {
             $computer = $model->newInstance();
 
