@@ -19,9 +19,12 @@ class SetupPresenter extends Presenter
     public function form($folder)
     {
         return $this->form->of('passwords.setup', function (FormGrid $form) use ($folder) {
-            $form->setup($this, route('passwords.setup.finish'), $folder, [
-                'method' => 'POST',
+            $form->attributes([
+                'method'    => 'POST',
+                'url'       => route('passwords.setup.finish'),
             ]);
+
+            $form->with($folder);
 
             $form->layout('pages.passwords._form');
 

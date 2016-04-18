@@ -206,7 +206,12 @@ class IssuePresenter extends Presenter
         return $this->form->of('issue.labels', function (FormGrid $form) use ($issue) {
             $labels = Label::all()->pluck('display', 'id');
 
-            $form->setup($this, route('issues.labels.store', [$issue->id]), $issue);
+            $form->attributes([
+                'method'    => 'POST',
+                'url'       => route('issues.labels.store', [$issue->id]),
+            ]);
+
+            $form->with($issue);
 
             $form->layout('components.form-modal');
 
@@ -230,7 +235,12 @@ class IssuePresenter extends Presenter
         return $this->form->of('issue.users', function (FormGrid $form) use ($issue) {
             $users = User::all()->pluck('name', 'id');
 
-            $form->setup($this, route('issues.users.store', [$issue->id]), $issue);
+            $form->attributes([
+                'method'    => 'POST',
+                'url'       => route('issues.users.store', [$issue->id]),
+            ]);
+
+            $form->with($issue);
 
             $form->layout('components.form-modal');
 

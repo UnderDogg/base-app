@@ -20,11 +20,12 @@ class ProfilePresenter extends Presenter
     public function form(User $user, $viewing = false)
     {
         return $this->form->of('profile', function (FormGrid $form) use ($user, $viewing) {
-            if ($viewing) {
-                $form->setup($this, null, $user);
-            } else {
-                $form->setup($this, route('profile.update'), $user);
-            }
+            $form->attributes([
+                'method'    => 'POST',
+                'url'       => ($viewing ? null : route('profile.update')),
+            ]);
+
+            $form->with($user);
 
             $form->submit = 'Save';
 

@@ -51,22 +51,22 @@ class PasswordPresenter extends Presenter
     {
         return $this->form->of('passwords', function (FormGrid $form) use ($password, $viewing) {
             if ($password->exists) {
-                if ($viewing) {
-                    $form->setup($this, null, $password);
-                } else {
-                    $form->setup($this, route('passwords.update', $password->id), $password, [
-                        'method' => 'PATCH',
-                    ]);
-                }
+                $form->attributes([
+                    'method'    => 'patch',
+                    'url'       => ($viewing ? null : route('passwords.update', [$password->id])),
+                ]);
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('passwords.store', $password->id), $password, [
-                    'method' => 'POST',
+                $form->attributes([
+                    'method'    => 'post',
+                    'url'       => route('passwords.store'),
                 ]);
 
                 $form->submit = 'Create';
             }
+
+            $form->with($password);
 
             $form->fieldset(function (Fieldset $fieldset) use ($viewing) {
                 $fieldset->control('input:text', 'title')

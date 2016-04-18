@@ -109,18 +109,22 @@ class GuidePresenter extends Presenter
     {
         return $this->form->of('resources.guides', function (FormGrid $form) use ($guide) {
             if ($guide->exists) {
-                $route = route('resources.guides.update', [$guide->slug]);
-                $method = 'PATCH';
+                $form->attributes([
+                    'method'    => 'patch',
+                    'url'       => route('resources.guides.update', [$guide->slug]),
+                ]);
 
                 $form->submit = 'Save';
             } else {
-                $route = route('resources.guides.store');
-                $method = 'POST';
+                $form->attributes([
+                    'method'    => 'post',
+                    'url'       => route('resources.guides.store'),
+                ]);
 
                 $form->submit = 'Create';
             }
 
-            $form->setup($this, $route, $guide, compact('method'));
+            $form->with($guide);
 
             $form->fieldset(function (Fieldset $fieldset) use ($guide) {
                 $fieldset

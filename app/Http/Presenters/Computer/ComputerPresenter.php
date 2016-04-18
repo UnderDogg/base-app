@@ -83,18 +83,19 @@ class ComputerPresenter extends Presenter
             $types = ComputerType::all()->pluck('name', 'id');
 
             if ($computer->exists) {
-                $form->setup($this, route('computers.update', [$computer->id]), $computer, [
-                    'method' => 'PATCH',
-                ]);
+                $method = 'PATCH';
+                $url = route('computers.update', [$computer->id]);
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('computers.store'), $computer, [
-                    'method' => 'POST',
-                ]);
+                $method = 'POST';
+                $url = route('computers.store');
 
                 $form->submit = 'Create';
             }
+
+            $form->with($computer);
+            $form->attributes(compact('method', 'url'));
 
             $form->fieldset(function (Fieldset $fieldset) use ($computer, $operatingSystems, $types) {
                 // The computer name text field

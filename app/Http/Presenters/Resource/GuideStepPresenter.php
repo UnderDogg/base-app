@@ -24,23 +24,21 @@ class GuideStepPresenter extends Presenter
     public function form(Guide $guide, GuideStep $step)
     {
         return $this->form->of('resources.guides.steps', function (FormGrid $form) use ($guide, $step) {
-            $attributes = [
-                'files' => true,
-            ];
-
             if ($step->exists) {
-                $route = route('resources.guides.steps.update', [$guide->slug, $step->getPosition()]);
-                $attributes['method'] = 'PATCH';
+                $method = 'patch';
+                $url = route('resources.guides.steps.update', [$guide->slug, $step->getPosition()]);
 
                 $form->submit = 'Save';
             } else {
-                $route = route('resources.guides.steps.store', [$guide->slug]);
-                $attributes['method'] = 'POST';
+                $method = 'post';
+                $url = route('resources.guides.steps.store', [$guide->slug]);
 
                 $form->submit = 'Create';
             }
 
-            $form->setup($this, $route, $step, $attributes);
+            $files = true;
+
+            $form->attributes(compact('method', 'url', 'files'));
 
             $form->layout('pages.resources.guides.steps._form');
 

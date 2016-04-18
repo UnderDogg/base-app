@@ -91,18 +91,19 @@ class LabelPresenter extends Presenter
     {
         return $this->form->of('label', function (FormGrid $form) use ($label) {
             if ($label->exists) {
-                $form->setup($this, route('labels.update', [$label->id]), $label, [
-                    'method' => 'PATCH',
-                ]);
+                $method = 'PATCH';
+                $url = route('labels.update', [$label->id]);
 
                 $form->submit = 'Save';
             } else {
-                $form->setup($this, route('labels.store'), $label, [
-                    'method' => 'POST',
-                ]);
+                $method = 'POST';
+                $url = route('labels.store');
 
                 $form->submit = 'Create';
             }
+
+            $form->with($label);
+            $form->attributes(compact('method', 'url'));
 
             $options = $label::getColorsFormatted();
 
