@@ -2,10 +2,16 @@
 
 @section('title', 'All Passwords')
 
+@section('title.header', ' ')
+
 @section('content')
 
     {!! Decorator::render('navbar', $navbar) !!}
 
-    {!! $passwords !!}
+    <div class="panel panel-default">
+
+        {!! $passwords !!}
+
+    </div>
 
 @endsection
