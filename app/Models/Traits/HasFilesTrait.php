@@ -2,10 +2,10 @@
 
 namespace App\Models\Traits;
 
-use InvalidArgumentException;
 use App\Models\Upload;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Exception\NotReadableException;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait HasFilesTrait
@@ -48,9 +48,9 @@ trait HasFilesTrait
      * @param int          $width
      * @param int          $height
      *
-     * @return Upload|false
-     *
      * @throws InvalidArgumentException
+     *
+     * @return Upload|false
      */
     public function uploadFile(UploadedFile $file, $path = null, $resize = false, $width = 680, $height = 480)
     {
@@ -128,9 +128,9 @@ trait HasFilesTrait
      *
      * @param string $fileName
      *
-     * @return string
-     *
      * @throws InvalidArgumentException
+     *
+     * @return string
      */
     protected function getStoragePath($fileName)
     {

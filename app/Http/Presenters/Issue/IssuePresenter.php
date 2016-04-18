@@ -108,13 +108,13 @@ class IssuePresenter extends Presenter
     {
         return $this->form->of('issue', function (FormGrid $form) use ($issue) {
             $attributes = [
-                'files' =>  true,
+                'files' => true,
                 'id'    => 'form-issue',
             ];
 
             if ($issue->exists) {
-                $attributes['url']      = route('issues.update', [$issue->id]);
-                $attributes['method']   = 'PATCH';
+                $attributes['url'] = route('issues.update', [$issue->id]);
+                $attributes['method'] = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
