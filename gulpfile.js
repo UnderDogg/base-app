@@ -25,9 +25,8 @@ elixir(function(mix) {
         'libs/jquery.min.js',
         'libs/jquery.pjax.js',
         'libs/jquery.lazyload.min.js',
-        'libs/jquery-ui.min.js',
+        'libs/vue.min.js',
         'libs/bootstrap.min.js',
-        'libs/jquery.isotope.min.js',
         'libs/dropzone.min.js',
         'libs/moment.min.js',
         'libs/sweetalert.min.js',
@@ -41,10 +40,11 @@ elixir(function(mix) {
         'libs/bootstrap-show-password.min.js',
         'libs/show-password.min.js',
         'libs/speakingurl.min.js',
+        'libs/spin.min.js',
+        'libs/ladda.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
-        'libs/jquery-ui.min.css',
         'libs/dropzone.min.css',
         'libs/font-awesome.min.css',
         'libs/sweetalert.css',
@@ -55,6 +55,7 @@ elixir(function(mix) {
         'libs/select2-bootstrap.css',
         'libs/bootstrap-datetimepicker.min.css',
         'libs/bootplus.min.css',
+        'libs/ladda-themeless.min.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')

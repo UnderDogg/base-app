@@ -19,7 +19,7 @@ return [
                  * specify individual files as well.
                  */
                 'include' => [
-                    //
+                    storage_path('app/uploads'),
                 ],
 
                 /*

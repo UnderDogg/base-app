@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use InvalidArgumentException;
 use App\Models\Upload;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Exception\NotReadableException;
@@ -48,23 +49,16 @@ trait HasFilesTrait
      * @param int          $height
      *
      * @return Upload|false
+     *
+     * @throws InvalidArgumentException
      */
     public function uploadFile(UploadedFile $file, $path = null, $resize = false, $width = 680, $height = 480)
     {
         // Generate a unique file name.
-        $name = sprintf('%s.%s', uuid(), $file->getClientOriginalExtension());
+        $name = $this->getUniqueFileName($file);
 
         if (is_null($path)) {
-            // Generate the storage path.
-            $path = sprintf('%s%s%s%s%s%s%s',
-                'uploads',
-                DIRECTORY_SEPARATOR,
-                $this->getTable(),
-                DIRECTORY_SEPARATOR,
-                $this->id,
-                DIRECTORY_SEPARATOR,
-                $name
-            );
+            $path = $this->getStoragePath($name);
         }
 
         if ($resize === true) {
@@ -115,5 +109,43 @@ trait HasFilesTrait
         }
 
         return $count;
+    }
+
+    /**
+     * Generates a unique file name.
+     *
+     * @param UploadedFile $file
+     *
+     * @return mixed
+     */
+    protected function getUniqueFileName(UploadedFile $file)
+    {
+        return sprintf('%s.%s', uuid(), $file->getClientOriginalExtension());
+    }
+
+    /**
+     * Generates a storage path for the specified file name.
+     *
+     * @param string $fileName
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function getStoragePath($fileName)
+    {
+        if (empty($fileName)) {
+            throw new InvalidArgumentException('File name cannot be empty.');
+        }
+
+        return sprintf('%s%s%s%s%s%s%s',
+            'uploads',
+            DIRECTORY_SEPARATOR,
+            $this->getTable(),
+            DIRECTORY_SEPARATOR,
+            $this->id,
+            DIRECTORY_SEPARATOR,
+            $fileName
+        );
     }
 }

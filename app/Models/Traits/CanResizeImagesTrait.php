@@ -23,8 +23,8 @@ trait CanResizeImagesTrait
         $image = ImageManagerStatic::make($file->getRealPath());
 
         // Restrict image to 680 x 480.
-        $width = 680;
-        $height = 480;
+        if (is_null($width)) $width = 680;
+        if (is_null($height)) $height = 480;
 
         $image->resize($width, $height, function (Constraint $constraint) {
             // Prevent image up-sizing and keep aspect ratio.

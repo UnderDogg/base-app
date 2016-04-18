@@ -8,6 +8,12 @@ $(function ()
 
     // Re-initialize js on successful pjax requests.
     $(document).on('ready pjax:success', function() {
+        var submit = 'button[type=submit]';
+
+        $(submit).addClass('ladda-button').attr('data-style', 'expand-left');
+
+        Ladda.bind(submit);
+
         // Show Password Toggle
         $('.password-show').password();
 
@@ -63,7 +69,7 @@ $(function ()
                 field.val(getSlug(self.val()));
             }
         });
-        
+
         /**
          * Formats a select2 label.
          *

@@ -107,23 +107,25 @@ class IssuePresenter extends Presenter
     public function form($issue)
     {
         return $this->form->of('issue', function (FormGrid $form) use ($issue) {
+            $attributes = [
+                'files' =>  true,
+                'id'    => 'form-issue',
+            ];
+
             if ($issue->exists) {
-                $url = route('issues.update', [$issue->id]);
-                $method = 'PATCH';
+                $attributes['url']      = route('issues.update', [$issue->id]);
+                $attributes['method']   = 'PATCH';
 
                 $form->submit = 'Save';
             } else {
-                $url = route('issues.store');
-                $method = 'POST';
+                $attributes['url'] = route('issues.store');
+                $attributes['method'] = 'POST';
 
                 $form->submit = 'Create';
             }
 
-            $files = true;
-
             $form->with($issue);
-
-            $form->attributes(compact('url', 'method', 'files'));
+            $form->attributes($attributes);
 
             $form->fieldset(function (Fieldset $fieldset) use ($issue) {
                 $fieldset->control('input:text', 'title')

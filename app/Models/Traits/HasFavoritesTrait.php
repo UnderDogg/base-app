@@ -3,7 +3,6 @@
 namespace App\Models\Traits;
 
 use App\Models\Favorite;
-use Orchestra\Support\Facades\HTML;
 
 trait HasFavoritesTrait
 {
@@ -59,7 +58,7 @@ trait HasFavoritesTrait
      */
     public function hasFavorite()
     {
-        $favorite = $this->favorites
+        $favorite = $this->favorites()
             ->where('user_id', auth()->user()->id)
             ->first();
 
@@ -83,6 +82,6 @@ trait HasFavoritesTrait
             $class = 'fa fa-star-o';
         }
 
-        return HTML::raw("<i class='$class'></i>");
+        return "<i class='$class'></i>";
     }
 }
