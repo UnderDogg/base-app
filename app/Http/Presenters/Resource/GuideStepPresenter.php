@@ -40,6 +40,8 @@ class GuideStepPresenter extends Presenter
 
             $form->attributes(compact('method', 'url', 'files'));
 
+            $form->with($step);
+
             $form->layout('pages.resources.guides.steps._form');
 
             $form->fieldset(function (Fieldset $fieldset) use ($guide, $step) {
