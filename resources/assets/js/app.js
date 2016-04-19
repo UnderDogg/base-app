@@ -1,6 +1,8 @@
 $(function ()
 {
-    $(document).pjax('a', '#app');
+    $(document).pjax('a', '#app', {
+        timeout: 2000
+    });
 
     $(document).on('pjax:beforeSend', function () {
         // Initialize loader.
