@@ -7,7 +7,7 @@
     <div class="hidden-print">
         @include('pages.issues.comments._files', compact('comment'))
     </div>
-    
+
 @overwrite
 
 @section('comment.actions')

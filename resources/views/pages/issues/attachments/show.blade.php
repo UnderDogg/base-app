@@ -2,17 +2,31 @@
 
 @section('title', 'Viewing Attachment')
 
+@section('title.header')
+
+    <a class="btn btn-primary" href="{{ route('issues.show', [$issue->id]) }}">
+
+        <i class="fa fa-caret-left"></i>
+
+        Back to Issue
+
+    </a>
+
+    <hr>
+
+@endsection
+
 @section('actions')
 
     <div class="btn-group" role="group">
-        <a class="btn btn-primary btn-lg" href="{{ route('issues.attachments.download', [$issue->id, $file->uuid]) }}">
+        <a class="btn btn-primary" href="{{ route('issues.attachments.download', [$issue->id, $file->uuid]) }}">
             <i class="fa fa-download"></i>
             Download
         </a>
 
         <div class="btn-group" role="group">
 
-            <button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown"
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
 
                 <i class="fa fa-cog"></i>

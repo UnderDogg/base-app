@@ -4,12 +4,25 @@
 
     <div class="panel panel-default">
 
+        <div class="panel-heading">
+
+            <div class="panel-title">
+                Viewing Attachment
+
+                <span class="pull-right text-muted">
+                    <i class="fa fa-paperclip"></i>
+                </span>
+            </div>
+
+        </div>
+
         <div class="panel-body">
+
             <div class="text-center">
 
-                <h1>{{ $file->name }}</h1>
+                <h3>{{ $file->name }}</h3>
 
-                <div class="fa-6">
+                <div class="fa-4">
                     {!! $file->icon !!}
                 </div>
 
