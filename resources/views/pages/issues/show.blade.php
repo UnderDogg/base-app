@@ -4,7 +4,7 @@
 
 @section('title.header')
 
-    <a class="btn btn-primary" href="{{ route('issues.index') }}">
+    <a class="btn btn-primary hidden-print" href="{{ route('issues.index') }}">
 
         <i class="fa fa-caret-left"></i>
 
@@ -43,7 +43,7 @@
     @endif
 
     <!-- Comment Form. -->
-    <div class="panel panel-default">
+    <div class="panel panel-default hidden-print">
 
         <div class="panel-heading">
 
@@ -78,14 +78,14 @@
 
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-12 hidden-print">
 
         <hr>
 
     </div>
 
     <!-- Close / Re-Open Ticket. -->
-    <div class="col-md-12 text-center">
+    <div class="col-md-12 text-center hidden-print">
 
         @if($issue->isOpen())
 

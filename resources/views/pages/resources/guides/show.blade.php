@@ -2,7 +2,7 @@
 
 @section('title.header')
 
-    <a class="btn btn-primary" href="{{ route('resources.guides.index') }}">
+    <a class="btn btn-primary hidden-print" href="{{ route('resources.guides.index') }}">
         <i class="fa fa-caret-left"></i>
         Back to Guides
     </a>

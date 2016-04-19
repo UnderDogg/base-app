@@ -62,40 +62,46 @@
     @endif
 
     <!-- Attachments -->
-    @include('pages.issues._files')
+    <div class="hidden-print">
+        @include('pages.issues._files')
+    </div>
 
 @overwrite
 
 @section('card.actions')
 
-    @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
+    <div class="hidden-print">
 
-        <a
-                class="btn btn-default btn-sm"
-                href="{{ route('issues.edit', [$issue->id]) }}">
-            <i class="fa fa-edit"></i>
-            Edit
-        </a>
+        @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
 
-    @endif
+            <a
+                    class="btn btn-default btn-sm"
+                    href="{{ route('issues.edit', [$issue->id]) }}">
+                <i class="fa fa-edit"></i>
+                Edit
+            </a>
 
-    @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
+        @endif
 
-        <a
-                class="btn btn-default btn-sm"
-                data-post="DELETE"
-                data-title="Delete Ticket?"
-                data-message="Are you sure you want to delete this ticket?"
-                href="{{ route('issues.destroy', [$issue->id]) }}">
-            <i class="fa fa-times"></i>
-            Delete
-        </a>
+        @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
 
-    @endif
+            <a
+                    class="btn btn-default btn-sm"
+                    data-post="DELETE"
+                    data-title="Delete Ticket?"
+                    data-message="Are you sure you want to delete this ticket?"
+                    href="{{ route('issues.destroy', [$issue->id]) }}">
+                <i class="fa fa-times"></i>
+                Delete
+            </a>
 
-    @include('pages.issues._form-labels')
+        @endif
 
-    @include('pages.issues._form-users')
+        @include('pages.issues._form-labels')
+
+        @include('pages.issues._form-users')
+
+    </div>
 
 @overwrite
 
