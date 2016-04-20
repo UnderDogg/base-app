@@ -23,9 +23,7 @@
 @section('scripts')
 
     <script>
-        $(document).on('ready pjax:success', function() {
-            $('#password').val('{{ $password->password }}').attr('disabled', null);
-        });
+        $('#password').val('{{ $password->password }}').attr('disabled', false);
     </script>
 
 @endsection

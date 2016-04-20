@@ -40,10 +40,8 @@
 @section('scripts')
 
     <script>
-        $(document).on('ready pjax:success', function() {
-            $('button[type="submit"]').attr('disabled', 'disabled');
-            $('#password').val('{{ $password->password }}').attr('disabled', 'disabled');
-        });
+        $('button[type="submit"]').attr('disabled', 'disabled');
+        $('#password').val('{{ $password->password }}').attr('disabled', 'disabled');
     </script>
 
 @endsection
