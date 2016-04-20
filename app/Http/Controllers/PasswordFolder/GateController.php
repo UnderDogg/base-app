@@ -3,25 +3,27 @@
 namespace App\Http\Controllers\PasswordFolder;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\PasswordFolder\GatePresenter;
 use App\Http\Requests\PasswordFolder\LockRequest;
 use App\Http\Requests\PasswordFolder\UnlockRequest;
-use App\Processors\PasswordFolder\GateProcessor;
+use App\Models\PasswordFolder;
+use Illuminate\Support\Facades\Auth;
 
 class GateController extends Controller
 {
     /**
-     * @var GateProcessor
+     * @var GatePresenter
      */
-    protected $processor;
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param GateProcessor $processor
+     * @param GatePresenter $presenter
      */
-    public function __construct(GateProcessor $processor)
+    public function __construct(GatePresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -31,7 +33,9 @@ class GateController extends Controller
      */
     public function gate()
     {
-        return $this->processor->gate();
+        $form = $this->presenter->form();
+
+        return view('pages.passwords.gate', compact('form'));
     }
 
     /**
@@ -43,13 +47,17 @@ class GateController extends Controller
      */
     public function unlock(UnlockRequest $request)
     {
-        if ($this->processor->unlock($request)) {
+        $user = Auth::user();
+
+        $folder = $user->passwordFolder;
+
+        if ($folder instanceof PasswordFolder && $folder->unlock($request)) {
             flash()->success('Success!', 'Successfully entered password folder');
 
             return redirect()->route('passwords.index');
-        } else {
-            return redirect()->route('passwords.gate')->withErrors(['pin' => 'Incorrect PIN']);
         }
+
+        return redirect()->route('passwords.gate')->withErrors(['pin' => 'Incorrect PIN']);
     }
 
     /**
@@ -61,14 +69,16 @@ class GateController extends Controller
      */
     public function lock(LockRequest $request)
     {
-        if ($this->processor->lock($request)) {
+        $folder = Auth::user()->passwordFolder;
+
+        if ($folder instanceof PasswordFolder && $folder->lock($request)) {
             flash()->success('Success!', 'Successfully locked passwords.');
 
             return redirect()->route('welcome.index');
-        } else {
-            flash()->error('Error!', 'There was a problem locking passwords. Please try again.');
-
-            return redirect()->route('welcome.index');
         }
+
+        flash()->error('Error!', 'There was a problem locking passwords. Please try again.');
+
+        return redirect()->route('welcome.index');
     }
 }

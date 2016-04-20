@@ -3,24 +3,32 @@
 namespace App\Http\Controllers\PasswordFolder;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\PasswordFolder\SetupPresenter;
 use App\Http\Requests\PasswordFolder\SetupRequest;
-use App\Processors\PasswordFolder\SetupProcessor;
+use App\Models\PasswordFolder;
 
 class SetupController extends Controller
 {
     /**
-     * @var SetupProcessor
+     * @var PasswordFolder
      */
-    protected $processor;
+    protected $folder;
+
+    /**
+     * @var SetupPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param SetupProcessor $processor
+     * @param PasswordFolder $folder
+     * @param SetupPresenter $presenter
      */
-    public function __construct(SetupProcessor $processor)
+    public function __construct(PasswordFolder $folder, SetupPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->folder = $folder;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -30,7 +38,9 @@ class SetupController extends Controller
      */
     public function start()
     {
-        return $this->processor->start();
+        $form = $this->presenter->form($this->folder);
+
+        return view('pages.passwords.setup', compact('form'));
     }
 
     /**
@@ -42,15 +52,15 @@ class SetupController extends Controller
      */
     public function finish(SetupRequest $request)
     {
-        if ($this->processor->finish($request)) {
+        if ($request->persist($this->folder)) {
             flash()->success('Success!', 'Successfully setup passwords.');
 
             return redirect()->route('passwords.gate');
-        } else {
-            flash()->success('Error!', 'There was an error setting up passwords. Please try again.');
-
-            return redirect()->back();
         }
+
+        flash()->success('Error!', 'There was an error setting up passwords. Please try again.');
+
+        return redirect()->back();
     }
 
     /**

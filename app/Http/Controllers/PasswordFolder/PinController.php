@@ -3,24 +3,27 @@
 namespace App\Http\Controllers\PasswordFolder;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\PasswordFolder\PinPresenter;
 use App\Http\Requests\PasswordFolder\ChangePinRequest;
-use App\Processors\PasswordFolder\PinProcessor;
+use App\Models\PasswordFolder;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PinController extends Controller
 {
     /**
-     * @var PinProcessor
+     * @var PinPresenter
      */
-    protected $processor;
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param PinProcessor $processor
+     * @param PinPresenter $presenter
      */
-    public function __construct(PinProcessor $processor)
+    public function __construct(PinPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -31,7 +34,15 @@ class PinController extends Controller
      */
     public function change()
     {
-        return $this->processor->change();
+        $folder = Auth::user()->passwordFolder;
+
+        if ($folder instanceof PasswordFolder) {
+            $form = $this->presenter->form();
+
+            return view('pages.passwords.pin.change', compact('form'));
+        }
+
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -43,14 +54,16 @@ class PinController extends Controller
      */
     public function update(ChangePinRequest $request)
     {
-        if ($this->processor->update($request)) {
+        $folder = Auth::user()->passwordFolder;
+
+        if ($folder instanceof PasswordFolder && $folder->changePin($request)) {
             flash()->success('Success!', 'Successfully updated PIN.');
 
             return redirect()->route('passwords.index');
-        } else {
-            flash()->error('Error!', 'There was an issue changing your PIN. Your currect PIN may have been incorrect. Please try again.');
-
-            return redirect()->back();
         }
+
+        flash()->error('Error!', 'There was an issue changing your PIN. Your currect PIN may have been incorrect. Please try again.');
+
+        return redirect()->back();
     }
 }
