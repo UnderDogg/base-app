@@ -5,24 +5,25 @@ namespace App\Http\Controllers\Profile;
 use App\Exceptions\Profile\InvalidPasswordException;
 use App\Exceptions\Profile\UnableToChangePasswordException;
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Profile\PasswordPresenter;
 use App\Http\Requests\Profile\PasswordRequest;
-use App\Processors\Profile\PasswordProcessor;
+use Illuminate\Support\Facades\Auth;
 
 class PasswordController extends Controller
 {
     /**
-     * @var PasswordProcessor
+     * @var PasswordPresenter
      */
-    protected $processor;
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param PasswordProcessor $processor
+     * @param PasswordPresenter $presenter
      */
-    public function __construct(PasswordProcessor $processor)
+    public function __construct(PasswordPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -32,7 +33,9 @@ class PasswordController extends Controller
      */
     public function change()
     {
-        return $this->processor->change();
+        $form = $this->presenter->form();
+
+        return view('pages.profile.show.password.change', compact('form'));
     }
 
     /**
@@ -47,7 +50,7 @@ class PasswordController extends Controller
         $flash = flash()->setTimer(3000);
 
         try {
-            $this->processor->update($request);
+            $request->persist(Auth::user());
 
             $flash->success('Success!', 'Successfully changed password.');
 

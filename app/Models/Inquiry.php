@@ -8,7 +8,9 @@ use App\Models\Traits\HasUserTrait;
 
 class Inquiry extends Model
 {
-    use HasUserTrait, HasCommentsTrait, HasMarkdownTrait;
+    use HasUserTrait;
+    use HasCommentsTrait;
+    use HasMarkdownTrait;
 
     /**
      * The requests table.

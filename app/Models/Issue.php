@@ -14,13 +14,13 @@ use Orchestra\Support\Facades\HTML;
 
 class Issue extends Model
 {
-    use HasCommentsTrait,
-        HasUsersTrait,
-        HasUserTrait,
-        HasFilesTrait,
-        HasLabelsTrait,
-        HasMarkdownTrait,
-        SoftDeletes {
+    use SoftDeletes;
+    use HasUsersTrait;
+    use HasUserTrait;
+    use HasFilesTrait;
+    use HasLabelsTrait;
+    use HasMarkdownTrait;
+    use HasCommentsTrait {
         comments as traitComments;
     }
 

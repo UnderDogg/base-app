@@ -1990,16 +1990,16 @@
         },
         {
             "name": "orchestra/model",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/model.git",
-                "reference": "58a7591f00450430aef0de09bed8d2e139f446f6"
+                "reference": "4710b888d57310ebfb18227904d29935dd590925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/model/zipball/58a7591f00450430aef0de09bed8d2e139f446f6",
-                "reference": "58a7591f00450430aef0de09bed8d2e139f446f6",
+                "url": "https://api.github.com/repos/orchestral/model/zipball/4710b888d57310ebfb18227904d29935dd590925",
+                "reference": "4710b888d57310ebfb18227904d29935dd590925",
                 "shasum": ""
             },
             "require": {
@@ -2043,7 +2043,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2016-04-19 03:13:27"
+            "time": "2016-04-19 22:38:35"
         },
         {
             "name": "orchestra/notifier",

@@ -8,7 +8,9 @@ use App\Models\Traits\HasUserTrait;
 
 class Patch extends Model
 {
-    use HasUserTrait, HasFilesTrait, HasMarkdownTrait;
+    use HasUserTrait;
+    use HasFilesTrait;
+    use HasMarkdownTrait;
 
     /**
      * The patch table.

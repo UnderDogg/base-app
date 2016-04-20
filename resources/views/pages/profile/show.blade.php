@@ -1,8 +1,10 @@
 @extends('layouts.master')
 
+@section('title', 'Your Profile')
+
 @section('title.header')
 
-    <h3> @section('title') Your Profile @show </h3>
+    <h3 class="text-center"> Your Profile </h3>
 
     <hr>
 
@@ -11,7 +13,13 @@
 @section('content')
 
     <div class="col-md-3">
-        @include('pages.profile._show-nav')
+
+        <div class="panel panel-default">
+
+            @include('pages.profile._show-nav')
+
+        </div>
+
     </div>
 
     <div class="col-md-9">
@@ -21,7 +29,9 @@
             <div class="panel-heading">
 
                 <div class="panel-title">
+
                     @yield('show.panel.title')
+
                 </div>
 
             </div>

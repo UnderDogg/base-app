@@ -2,7 +2,13 @@
 
 namespace App\Http\Requests\Profile;
 
+use Adldap\Models\User as AdldapUser;
+use App\Exceptions\Profile\InvalidPasswordException;
+use App\Exceptions\Profile\UnableToChangePasswordException;
 use App\Http\Requests\Request;
+use App\Jobs\User\ChangePassword;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PasswordRequest extends Request
 {
@@ -28,5 +34,32 @@ class PasswordRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Persist the changes.
+     *
+     * @param User $user
+     *
+     * @return bool
+     *
+     * @throws InvalidPasswordException
+     * @throws UnableToChangePasswordException
+     */
+    public function persist(User $user)
+    {
+        $credentials['password'] = $this->input('current_password');
+        $credentials['email'] = $user->email;
+
+        if (!Auth::validate($credentials)) {
+            throw new InvalidPasswordException();
+        }
+
+        // Change the users password.
+        $user->password = $this->input('password');
+
+        if (!$user->save()) {
+            throw new UnableToChangePasswordException();
+        }
     }
 }

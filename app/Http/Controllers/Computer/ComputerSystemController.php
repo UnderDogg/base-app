@@ -3,24 +3,34 @@
 namespace App\Http\Controllers\Computer;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Computer\ComputerSystemPresenter;
 use App\Http\Requests\Computer\ComputerSystemRequest;
-use App\Processors\Computer\ComputerSystemProcessor;
+use App\Jobs\Computer\System\Store;
+use App\Jobs\Computer\System\Update;
+use App\Models\OperatingSystem;
 
 class ComputerSystemController extends Controller
 {
     /**
-     * @var ComputerSystemProcessor
+     * @var OperatingSystem
      */
-    protected $processor;
+    protected $system;
+
+    /**
+     * @var ComputerSystemPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param ComputerSystemProcessor $processor
+     * @param OperatingSystem         $system
+     * @param ComputerSystemPresenter $presenter
      */
-    public function __construct(ComputerSystemProcessor $processor)
+    public function __construct(OperatingSystem $system, ComputerSystemPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->system = $system;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -30,7 +40,11 @@ class ComputerSystemController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $systems = $this->presenter->table($this->system);
+
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.computers.systems.index', compact('systems', 'navbar'));
     }
 
     /**
@@ -40,7 +54,9 @@ class ComputerSystemController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $form = $this->presenter->form($this->system);
+
+        return view('pages.computers.systems.create', compact('form'));
     }
 
     /**
@@ -52,15 +68,15 @@ class ComputerSystemController extends Controller
      */
     public function store(ComputerSystemRequest $request)
     {
-        if ($this->processor->store($request)) {
+        if ($this->dispatch(new Store($request, $this->system))) {
             flash()->success('Success!', 'Successfully created operating system.');
 
             return redirect()->route('computer-systems.index');
-        } else {
-            flash()->error('Error!', 'There was an issue creating an operating system. Please try again.');
-
-            return redirect()->route('computer-systems.create');
         }
+
+        flash()->error('Error!', 'There was an issue creating an operating system. Please try again.');
+
+        return redirect()->route('computer-systems.create');
     }
 
     /**
@@ -72,7 +88,11 @@ class ComputerSystemController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $system = $this->system->findOrFail($id);
+
+        $form = $this->presenter->form($system);
+
+        return view('pages.computers.systems.create', compact('form'));
     }
 
     /**
@@ -85,15 +105,17 @@ class ComputerSystemController extends Controller
      */
     public function update(ComputerSystemRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $system = $this->system->findOrFail($id);
+
+        if ($this->dispatch(new Update($request, $system))) {
             flash()->success('Success!', 'Successfully updated operating system.');
 
             return redirect()->route('computer-systems.index');
-        } else {
-            flash()->error('Error!', 'There was an issue updating this operating system. Please try again.');
-
-            return redirect()->route('computer-systems.edit', [$id]);
         }
+
+        flash()->error('Error!', 'There was an issue updating this operating system. Please try again.');
+
+        return redirect()->route('computer-systems.edit', [$id]);
     }
 
     /**
@@ -105,14 +127,16 @@ class ComputerSystemController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $system = $this->system->findOrFail($id);
+
+        if ($system->delete()) {
             flash()->success('Success!', 'Successfully deleted operating system.');
 
             return redirect()->route('computer-systems.index');
-        } else {
-            flash()->error('Error!', 'There was an issue deleting this operating system. Please try again.');
-
-            return redirect()->route('computer-systems.index');
         }
+
+        flash()->error('Error!', 'There was an issue deleting this operating system. Please try again.');
+
+        return redirect()->route('computer-systems.index');
     }
 }

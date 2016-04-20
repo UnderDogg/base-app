@@ -7,7 +7,8 @@ use Lookitsatravis\Listify\Listify;
 
 class GuideStep extends Model
 {
-    use Listify, HasFilesTrait;
+    use Listify;
+    use HasFilesTrait;
 
     /**
      * The guide steps model.

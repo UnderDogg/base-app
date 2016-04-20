@@ -9,7 +9,9 @@ use Orchestra\Support\Facades\HTML;
 
 class Comment extends Model
 {
-    use HasUserTrait, HasFilesTrait, HasMarkdownTrait;
+    use HasUserTrait;
+    use HasFilesTrait;
+    use HasMarkdownTrait;
 
     /**
      * The comment table.

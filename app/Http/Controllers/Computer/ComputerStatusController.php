@@ -3,23 +3,24 @@
 namespace App\Http\Controllers\Computer;
 
 use App\Http\Controllers\Controller;
-use App\Processors\Computer\ComputerStatusProcessor;
+use App\Jobs\Computer\CreateStatus;
+use App\Models\Computer;
 
 class ComputerStatusController extends Controller
 {
     /**
-     * @var ComputerStatusProcessor
+     * @var Computer
      */
-    protected $processor;
+    protected $computer;
 
     /**
      * Constructor.
      *
-     * @param ComputerStatusProcessor $processor
+     * @param Computer $computer
      */
-    public function __construct(ComputerStatusProcessor $processor)
+    public function __construct(Computer $computer)
     {
-        $this->processor = $processor;
+        $this->computer = $computer;
     }
 
     /**
@@ -31,14 +32,16 @@ class ComputerStatusController extends Controller
      */
     public function check($id)
     {
-        if ($this->processor->check($id)) {
+        $computer = $this->computer->findOrFail($id);
+
+        if ($this->dispatch(new CreateStatus($computer))) {
             flash()->success('Success!', 'Successfully updated status.');
 
             return redirect()->back();
-        } else {
-            flash()->error('Error!', 'There was an issue updating this computers status. Please try again.');
-
-            return redirect()->back();
         }
+
+        flash()->error('Error!', 'There was an issue updating this computers status. Please try again.');
+
+        return redirect()->back();
     }
 }

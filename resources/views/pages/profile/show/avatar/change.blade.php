@@ -4,6 +4,10 @@
 
     Change Avatar
 
+    <span class="pull-right text-muted">
+        <i class="fa fa-user"></i>
+    </span>
+
 @endsection
 
 @section('show.panel.body')

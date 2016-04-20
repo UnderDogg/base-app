@@ -40,7 +40,7 @@ class AvatarPresenter extends Presenter
                             $url = route('profile.avatar.download');
 
                             // Generate the HTML image tag
-                            $photo = HTML::image($url, null, ['class' => 'img-responsive']);
+                            $photo = HTML::image($url, null, ['class' => 'img-responsive avatar']);
 
                             // Return the result as raw HTML.
                             return HTML::raw("<p><div class='col-xs-6 col-sm-4 col-md-2 text-center'>$photo</div></p>");

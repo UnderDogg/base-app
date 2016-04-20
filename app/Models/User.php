@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Adldap\Laravel\Traits\AdldapUserModelTrait;
+use App\Models\Traits\HasAvatar;
 use App\Models\Traits\HasFilesTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -13,7 +14,12 @@ use Stevebauman\Authorization\Traits\UserRolesTrait;
 
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
-    use Authorizable, Authenticatable, UserRolesTrait, AdldapUserModelTrait, HasFilesTrait;
+    use Authorizable;
+    use Authenticatable;
+    use UserRolesTrait;
+    use AdldapUserModelTrait;
+    use HasFilesTrait;
+    use HasAvatar;
 
     /**
      * The users hidden attributes.
@@ -38,6 +44,14 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     protected $tableQuestionsPivot = 'user_questions';
 
     /**
+     * {@inheritdoc}
+     */
+    public function avatars()
+    {
+        return $this->files();
+    }
+
+    /**
      * The hasOne password folder relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -57,58 +71,6 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
         return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')
             ->withPivot(['answer'])
             ->withTimestamps();
-    }
-
-    /**
-     * The morphMany images relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function images()
-    {
-        return $this->files();
-    }
-
-    /**
-     * Returns the users avatar upload if it exists.
-     *
-     * @return Upload|null
-     */
-    public function avatar()
-    {
-        return $this->images()->first();
-    }
-
-    /**
-     * Returns true / false if the current user has an avatar.
-     *
-     * @return bool
-     */
-    public function getHasAvatarAttribute()
-    {
-        return $this->avatar() instanceof Upload;
-    }
-
-    /**
-     * Adds an avatar by the specified file path.
-     *
-     * @param string $path
-     *
-     * @return Upload
-     */
-    public function addAvatar($path)
-    {
-        return $this->addFile('avatar', 'image/jpeg', 2000, $path);
-    }
-
-    /**
-     * The users avatar URL accessor.
-     *
-     * @return string
-     */
-    public function getAvatarUrlAttribute()
-    {
-        return route('profile.avatar.download', [$this->id]);
     }
 
     /**

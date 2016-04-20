@@ -4,6 +4,10 @@
 
     Edit Profile Details
 
+    <span class="pull-right text-muted">
+        <i class="fa fa-pencil"></i>
+    </span>
+
 @endsection
 
 @section('show.panel.body')

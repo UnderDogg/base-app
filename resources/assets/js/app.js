@@ -1,7 +1,11 @@
 $(function ()
 {
+    // Start progress bars for pjax start / end events.
+    $(document).on('pjax:start', function() { NProgress.start(); });
+    $(document).on('pjax:end',   function() { NProgress.done();  });
+
     $(document).pjax('a', '#app', {
-        timeout: 2000
+        timeout: 3000
     });
 
     $(document).on('pjax:beforeSend', function () {

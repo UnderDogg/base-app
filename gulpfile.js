@@ -42,6 +42,7 @@ elixir(function(mix) {
         'libs/speakingurl.min.js',
         'libs/spin.min.js',
         'libs/ladda.min.js',
+        'libs/nprogress.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',
@@ -56,6 +57,7 @@ elixir(function(mix) {
         'libs/bootstrap-datetimepicker.min.css',
         'libs/bootplus.min.css',
         'libs/ladda-themeless.min.css',
+        'libs/nprogress.css',
         'app.css'
     ])
         .copy('resources/assets/fonts/libs/font-awesome/', 'public/fonts')
