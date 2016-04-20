@@ -6,6 +6,8 @@ use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
+use Khill\Lavacharts\Configs\Legend;
+use Khill\Lavacharts\Configs\VerticalAxis;
 use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -186,7 +188,7 @@ class ComputerPresenter extends Presenter
      */
     public function graphOfStatus(Computer $computer)
     {
-        $statuses = $computer->statuses()->get();
+        $statuses = $computer->statuses()->thisMonth()->get();
 
         $dataTable = Lava::DataTable();
 
@@ -202,7 +204,10 @@ class ComputerPresenter extends Presenter
         }
 
         return Lava::LineChart('Status')->setOptions([
+            'title'     => "{$computer->name} Status This Month Over Time",
             'datatable' => $dataTable,
+            'legend'    => (new Legend())->position('bottom'),
+            'vAxis' => (new VerticalAxis())->title('Offline / Online'),
         ]);
     }
 }

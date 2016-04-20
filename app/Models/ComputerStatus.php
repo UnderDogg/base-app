@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+
 class ComputerStatus extends Model
 {
     /**
@@ -19,5 +22,19 @@ class ComputerStatus extends Model
     public function computer()
     {
         return $this->belongsTo(Computer::class, 'computer_id');
+    }
+
+    /**
+     * Scopes the specified query by the current month.
+     *
+     * @param Builder $query
+     *
+     * @return $this
+     */
+    public function scopeThisMonth(Builder $query)
+    {
+        $now = Carbon::now();
+
+        return $query->where('created_at', '>=', $now->subMonth());
     }
 }
