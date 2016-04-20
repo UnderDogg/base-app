@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests\Profile;
 
-use Adldap\Models\User as AdldapUser;
 use App\Exceptions\Profile\InvalidPasswordException;
 use App\Exceptions\Profile\UnableToChangePasswordException;
 use App\Http\Requests\Request;
-use App\Jobs\User\ChangePassword;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,10 +39,10 @@ class PasswordRequest extends Request
      *
      * @param User $user
      *
-     * @return bool
-     *
      * @throws InvalidPasswordException
      * @throws UnableToChangePasswordException
+     *
+     * @return bool
      */
     public function persist(User $user)
     {
