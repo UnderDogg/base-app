@@ -6,6 +6,7 @@ use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
+use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -173,6 +174,35 @@ class ComputerPresenter extends Presenter
             'attributes' => [
                 'class' => 'navbar-default',
             ],
+        ]);
+    }
+
+    /**
+     * Returns a calendar chart of the graph of the specified computer's statuses.
+     *
+     * @param Computer $computer
+     *
+     * @return mixed
+     */
+    public function graphOfStatus(Computer $computer)
+    {
+        $statuses = $computer->statuses()->get();
+
+        $dataTable = Lava::DataTable();
+
+        $dataTable
+            ->addDateColumn('Date')
+            ->addNumberColumn('Status');
+
+        foreach ($statuses as $status) {
+            $dataTable->addRow([
+                $status->created_at,
+                $status->online,
+            ]);
+        }
+
+        return Lava::LineChart('Status')->setOptions([
+            'datatable' => $dataTable,
         ]);
     }
 }
