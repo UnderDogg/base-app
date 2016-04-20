@@ -3,24 +3,35 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Service\ServiceRecordPresenter;
 use App\Http\Requests\Service\ServiceRecordRequest;
-use App\Processors\Service\ServiceRecordProcessor;
+use App\Jobs\Service\Record\Store;
+use App\Jobs\Service\Record\Update;
+use App\Models\Service;
+use App\Policies\ServiceRecordPolicy;
 
 class ServiceRecordController extends Controller
 {
     /**
-     * @var ServiceRecordProcessor
+     * @var Service
      */
-    protected $processor;
+    protected $service;
+
+    /**
+     * @var ServiceRecordPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param ServiceRecordProcessor $processor
+     * @param Service                $service
+     * @param ServiceRecordPresenter $presenter
      */
-    public function __construct(ServiceRecordProcessor $processor)
+    public function __construct(Service $service, ServiceRecordPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->service = $service;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -32,7 +43,17 @@ class ServiceRecordController extends Controller
      */
     public function index($serviceId)
     {
-        return $this->processor->index($serviceId);
+        if (ServiceRecordPolicy::index(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
+
+            $records = $this->presenter->table($service->records());
+
+            $navbar = $this->presenter->navbar($service);
+
+            return view('pages.services.records.index', compact('records', 'navbar', 'service'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -44,7 +65,17 @@ class ServiceRecordController extends Controller
      */
     public function create($serviceId)
     {
-        return $this->processor->create($serviceId);
+        if (ServiceRecordPolicy::create(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
+
+            $record = $service->records()->getRelated();
+
+            $form = $this->presenter->form($service, $record);
+
+            return view('pages.services.records.create', compact('form', 'service'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -57,15 +88,21 @@ class ServiceRecordController extends Controller
      */
     public function store(ServiceRecordRequest $request, $serviceId)
     {
-        if ($this->processor->store($request, $serviceId)) {
-            flash()->success('Success!', 'Successfully created service record.');
+        if (ServiceRecordPolicy::create(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-            return redirect()->route('services.records.index', [$serviceId]);
-        } else {
+            if ($this->dispatch(new Store($request, $service))) {
+                flash()->success('Success!', 'Successfully created service record.');
+
+                return redirect()->route('services.records.index', [$serviceId]);
+            }
+
             flash()->error('Error!', 'There was an issue creating a service record. Please try again.');
 
             return redirect()->route('services.records.create', [$serviceId]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -78,7 +115,15 @@ class ServiceRecordController extends Controller
      */
     public function show($serviceId, $recordId)
     {
-        return $this->processor->show($serviceId, $recordId);
+        if (ServiceRecordPolicy::show(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
+
+            $record = $service->records()->findOrFail($recordId);
+
+            return view('pages.services.records.show', compact('service', 'record'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -91,7 +136,17 @@ class ServiceRecordController extends Controller
      */
     public function edit($serviceId, $recordId)
     {
-        return $this->processor->edit($serviceId, $recordId);
+        if (ServiceRecordPolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
+
+            $record = $service->records()->findOrFail($recordId);
+
+            $form = $this->presenter->form($service, $record);
+
+            return view('pages.servicess.records.edit', compact('form', 'service', 'record'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -105,15 +160,23 @@ class ServiceRecordController extends Controller
      */
     public function update(ServiceRecordRequest $request, $serviceId, $recordId)
     {
-        if ($this->processor->update($request, $serviceId, $recordId)) {
-            flash()->success('Success!', 'Successfully updated service record.');
+        if (ServiceRecordPolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-            return redirect()->route('services.records.show', [$serviceId]);
-        } else {
+            $record = $service->records()->findOrFail($recordId);
+
+            if ($this->dispatch(new Update($request, $record))) {
+                flash()->success('Success!', 'Successfully updated service record.');
+
+                return redirect()->route('services.records.show', [$serviceId]);
+            }
+
             flash()->error('Error!', 'There was an issue updating this service record. Please try again.');
 
             return redirect()->route('services.records.edit', [$serviceId, $recordId]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -126,14 +189,24 @@ class ServiceRecordController extends Controller
      */
     public function destroy($serviceId, $recordId)
     {
-        if ($this->processor->destroy($serviceId, $serviceId)) {
-            flash()->success('Success!', 'Successfully deleted service record.');
+        if (ServiceRecordPolicy::destroy(auth()->user())) {
+            $service = $this->service->findOrFail($serviceId);
 
-            return redirect()->route('services.records.index', [$serviceId]);
-        } else {
+            $record = $service->records()->findOrFail($recordId);
+
+            $this->authorize($record);
+
+            if ($record->delete()) {
+                flash()->success('Success!', 'Successfully deleted service record.');
+
+                return redirect()->route('services.records.index', [$serviceId]);
+            }
+
             flash()->error('Error!', 'There was an issue deleting this service record. Please try again.');
 
             return redirect()->route('services.records.show', [$serviceId, $recordId]);
         }
+
+        $this->unauthorized();
     }
 }

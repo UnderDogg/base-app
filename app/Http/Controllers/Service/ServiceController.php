@@ -3,24 +3,36 @@
 namespace App\Http\Controllers\Service;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Service\ServicePresenter;
 use App\Http\Requests\Service\ServiceRequest;
-use App\Processors\Service\ServiceProcessor;
+use App\Jobs\Service\Store;
+use App\Jobs\Service\Update;
+use App\Models\Service;
+use App\Models\ServiceRecord;
+use App\Policies\ServicePolicy;
 
 class ServiceController extends Controller
 {
     /**
-     * @var ServiceProcessor
+     * @var Service
      */
-    protected $processor;
+    protected $service;
+
+    /**
+     * @var ServicePresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param ServiceProcessor $processor
+     * @param Service          $service
+     * @param ServicePresenter $presenter
      */
-    public function __construct(ServiceProcessor $processor)
+    public function __construct(Service $service, ServicePresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->service = $service;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -30,7 +42,15 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        if (ServicePolicy::index(auth()->user())) {
+            $services = $this->presenter->table($this->service);
+
+            $navbar = $this->presenter->navbar();
+
+            return view('pages.services.index', compact('services', 'navbar'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -40,7 +60,13 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        if (ServicePolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->service);
+
+            return view('pages.services.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -52,15 +78,19 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        if ($this->processor->store($request)) {
-            flash()->success('Success!', 'Successfully created service.');
+        if (ServicePolicy::create(auth()->user())) {
+            if ($this->dispatch(new Store($request, $this->service))) {
+                flash()->success('Success!', 'Successfully created service.');
 
-            return redirect()->route('services.index');
-        } else {
+                return redirect()->route('services.index');
+            }
+
             flash()->error('Error!', 'There was an issue creating a service. Please try again.');
 
             return redirect()->route('services.create');
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -72,7 +102,13 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        if (ServicePolicy::show(auth()->user())) {
+            $service = $this->service->findOrFail($id);
+
+            return view('pages.services.show', compact('service'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -84,7 +120,16 @@ class ServiceController extends Controller
      */
     public function status($id)
     {
-        return $this->processor->status($id);
+        $service = $this->service->with('records')->findOrFail($id);
+
+        $current = $service->last_record;
+
+        if ($current instanceof ServiceRecord) {
+            // Remove the last record out of the records collection.
+            $service->records->shift();
+        }
+
+        return view('pages.services.status', compact('service', 'current'));
     }
 
     /**
@@ -96,7 +141,15 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        if (ServicePolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($id);
+
+            $form = $this->presenter->form($service);
+
+            return view('pages.services.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -109,15 +162,21 @@ class ServiceController extends Controller
      */
     public function update(ServiceRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated service.');
+        if (ServicePolicy::edit(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-            return redirect()->route('services.show', [$id]);
-        } else {
+            if ($this->dispatch(new Update($request, $service))) {
+                flash()->success('Success!', 'Successfully updated service.');
+
+                return redirect()->route('services.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was an issue updating this service. Please try again.');
 
             return redirect()->route('services.edit', [$id]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -129,14 +188,20 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted service.');
+        if (ServicePolicy::destroy(auth()->user())) {
+            $service = $this->service->findOrFail($id);
 
-            return redirect()->route('services.index');
-        } else {
+            if ($service->delete()) {
+                flash()->success('Success!', 'Successfully deleted service.');
+
+                return redirect()->route('services.index');
+            }
+
             flash()->error('Error!', 'There was an issue deleting this service. Please try again.');
 
             return redirect()->route('services.show', [$id]);
         }
+
+        $this->unauthorized();
     }
 }

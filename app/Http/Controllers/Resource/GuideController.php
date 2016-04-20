@@ -3,34 +3,53 @@
 namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Resource\GuidePresenter;
 use App\Http\Requests\Resource\GuideRequest;
-use App\Processors\Resource\GuideProcessor;
+use App\Jobs\Resource\Guide\Favorite;
+use App\Jobs\Resource\Guide\Store;
+use App\Jobs\Resource\Guide\Update;
+use App\Models\Guide;
+use App\Policies\Resource\GuidePolicy;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class GuideController extends Controller
 {
     /**
-     * @var GuideProcessor
+     * @var Guide
      */
-    protected $processor;
+    protected $guide;
+
+    /**
+     * @var GuidePresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param GuideProcessor $processor
+     * @param Guide          $guide
+     * @param GuidePresenter $presenter
      */
-    public function __construct(GuideProcessor $processor)
+    public function __construct(Guide $guide, GuidePresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->guide = $guide;
+        $this->presenter = $presenter;
     }
 
     /**
      * Displays all guides.
      *
+     * @param bool $favorites
+     *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($favorites = false)
     {
-        return $this->processor->index();
+        $guides = $this->presenter->table($this->guide, $favorites);
+
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.resources.guides.index', compact('guides', 'navbar'));
     }
 
     /**
@@ -40,7 +59,7 @@ class GuideController extends Controller
      */
     public function favorites()
     {
-        return $this->processor->index($favorites = true);
+        return $this->index($favorites = true);
     }
 
     /**
@@ -50,7 +69,13 @@ class GuideController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        if (GuidePolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->guide);
+
+            return view('pages.resources.guides.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -62,15 +87,21 @@ class GuideController extends Controller
      */
     public function store(GuideRequest $request)
     {
-        if ($this->processor->store($request)) {
-            flash()->success('Success!', 'Successfully created guide!');
+        if (GuidePolicy::create(auth()->user())) {
+            $guide = $this->guide->newInstance();
 
-            return redirect()->route('resources.guides.index');
-        } else {
+            if ($this->dispatch(new Store($request, $guide))) {
+                flash()->success('Success!', 'Successfully created guide!');
+
+                return redirect()->route('resources.guides.index');
+            }
+
             flash()->error('Error!', 'There was an issue creating a guide. Please try again.');
 
             return redirect()->route('resources.guides.create');
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -82,7 +113,23 @@ class GuideController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $guide = $this->guide->locate($id, [
+            'steps' => function (HasMany $query) {
+                $query->orderBy('position');
+            },
+        ]);
+
+        // Limit the view if the user isn't allowed
+        // to view unpublished guides.
+        if (!GuidePolicy::viewUnpublished(auth()->user(), $guide)) {
+            $this->unauthorized();
+        }
+
+        $navbar = $this->presenter->navbarShow($guide);
+
+        $formStep = $this->presenter->formStep($guide);
+
+        return view('pages.resources.guides.show', compact('guide', 'navbar', 'formStep'));
     }
 
     /**
@@ -94,7 +141,15 @@ class GuideController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        if (GuidePolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
+
+            $form = $this->presenter->form($guide);
+
+            return view('pages.resources.guides.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -107,15 +162,21 @@ class GuideController extends Controller
      */
     public function update(GuideRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated guide!');
+        if (GuidePolicy::edit(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-            return redirect()->route('resources.guides.show', [$id]);
-        } else {
+            if ($this->dispatch(new Update($request, $guide))) {
+                flash()->success('Success!', 'Successfully updated guide!');
+
+                return redirect()->route('resources.guides.show', [$id]);
+            }
+
             flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
 
             return redirect()->route('resources.guides.edit', [$id]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -127,13 +188,15 @@ class GuideController extends Controller
      */
     public function favorite($id)
     {
-        if ($this->processor->favorite($id)) {
-            return redirect()->route('resources.guides.show', [$id]);
-        } else {
-            flash()->error('Error!', 'There was an issue with adding this guide to your favorites. Please try again.');
+        $guide = $this->guide->locate($id);
 
+        if ($this->dispatch(new Favorite($guide))) {
             return redirect()->route('resources.guides.show', [$id]);
         }
+
+        flash()->error('Error!', 'There was an issue with adding this guide to your favorites. Please try again.');
+
+        return redirect()->route('resources.guides.show', [$id]);
     }
 
     /**
@@ -145,14 +208,20 @@ class GuideController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted guide!');
+        if (GuidePolicy::destroy(auth()->user())) {
+            $guide = $this->guide->locate($id);
 
-            return redirect()->route('resources.guides.index');
-        } else {
+            if ($guide->delete()) {
+                flash()->success('Success!', 'Successfully deleted guide!');
+
+                return redirect()->route('resources.guides.index');
+            }
+
             flash()->error('Error!', 'There was an issue deleting this guide. Please try again.');
 
             return redirect()->route('resources.guides.show', [$id]);
         }
+
+        $this->unauthorized();
     }
 }

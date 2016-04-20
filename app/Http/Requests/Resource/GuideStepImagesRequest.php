@@ -14,7 +14,7 @@ class GuideStepImagesRequest extends Request
     public function rules()
     {
         return [
-            'images.*' => 'image',
+            'images.*' => 'required|image',
         ];
     }
 

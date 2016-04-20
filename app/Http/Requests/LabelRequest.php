@@ -30,4 +30,19 @@ class LabelRequest extends Request
     {
         return true;
     }
+
+    /**
+     * Persist the changes.
+     *
+     * @param Label $label
+     *
+     * @return bool
+     */
+    public function persist(Label $label)
+    {
+        $label->name = $this->input('name', $label->name);
+        $label->color = $this->input('color', $label->color);
+
+        return $label->save();
+    }
 }

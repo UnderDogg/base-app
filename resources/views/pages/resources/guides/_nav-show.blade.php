@@ -1,39 +1,47 @@
 <ul class="nav navbar-left navbar-nav">
 
     @if(\App\Policies\Resource\GuideStepPolicy::index(auth()->user()))
+
         <li class="{{ active()->route('resources.guides.steps.index') }}">
             <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}">
                 <i class="fa fa-list"></i>
                 All Steps
             </a>
         </li>
+
     @endif
 
     @if(\App\Policies\Resource\GuideStepPolicy::create(auth()->user()))
+
         <li>
             <a href="{{ route('resources.guides.images', [$guide->slug]) }}">
                 <i class="fa fa-plus-circle"></i>
                 Add Steps by Images
             </a>
         </li>
+
         <li>
             <a href="{{ route('resources.guides.steps.create', [$guide->slug]) }}">
                 <i class="fa fa-plus-circle"></i>
                 New Step
             </a>
         </li>
+
     @endif
 
     @if(\App\Policies\Resource\GuideStepPolicy::edit(auth()->user()))
+
         <li>
             <a href="{{ route('resources.guides.edit', [$guide->slug]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
         </li>
+
     @endif
 
     @if(\App\Policies\Resource\GuideStepPolicy::destroy(auth()->user()))
+
         <li>
             <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
                data-post="DELETE"
@@ -44,6 +52,7 @@
                 Delete
             </a>
         </li>
+
     @endif
 
     <li>

@@ -2,24 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Presenters\LabelPresenter;
 use App\Http\Requests\LabelRequest;
-use App\Processors\LabelProcessor;
+use App\Models\Label;
+use App\Policies\LabelPolicy;
 
 class LabelController extends Controller
 {
     /**
-     * @var LabelProcessor
+     * @var Label
      */
-    protected $processor;
+    protected $label;
+
+    /**
+     * @var LabelPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param LabelProcessor $processor
+     * @param Label          $label
+     * @param LabelPresenter $presenter
      */
-    public function __construct(LabelProcessor $processor)
+    public function __construct(Label $label, LabelPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->label = $label;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -29,7 +38,11 @@ class LabelController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $labels = $this->presenter->table($this->label);
+
+        $navbar = $this->presenter->navbar();
+
+        return view('pages.labels.index', compact('labels', 'navbar'));
     }
 
     /**
@@ -39,7 +52,13 @@ class LabelController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        if (LabelPolicy::create(auth()->user())) {
+            $form = $this->presenter->form($this->label);
+
+            return view('pages.labels.create', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -51,15 +70,19 @@ class LabelController extends Controller
      */
     public function store(LabelRequest $request)
     {
-        if ($this->processor->store($request)) {
-            flash()->success('Success!', 'Successfully created label.');
+        if (LabelPolicy::create(auth()->user())) {
+            if ($request->persist($this->label)) {
+                flash()->success('Success!', 'Successfully created label.');
 
-            return redirect()->route('labels.index');
-        } else {
+                return redirect()->route('labels.index');
+            }
+
             flash()->error('Error!', 'There was a problem creating a label. Please try again.');
 
             return redirect()->route('labels.create');
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -71,7 +94,15 @@ class LabelController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        if (LabelPolicy::edit(auth()->user())) {
+            $label = $this->label->findOrFail($id);
+
+            $form = $this->presenter->form($label);
+
+            return view('pages.labels.edit', compact('form'));
+        }
+
+        $this->unauthorized();
     }
 
     /**
@@ -84,15 +115,21 @@ class LabelController extends Controller
      */
     public function update(LabelRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
-            flash()->success('Success!', 'Successfully updated label.');
+        if (LabelPolicy::edit(auth()->user())) {
+            $label = $this->label->findOrFail($id);
 
-            return redirect()->route('labels.index');
-        } else {
+            if ($request->persist($label)) {
+                flash()->success('Success!', 'Successfully updated label.');
+
+                return redirect()->route('labels.index');
+            }
+
             flash()->error('Error!', 'There was a problem updating this label. Please try again.');
 
             return redirect()->route('labels.edit', [$id]);
         }
+
+        $this->unauthorized();
     }
 
     /**
@@ -104,14 +141,20 @@ class LabelController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
-            flash()->success('Success!', 'Successfully deleted label.');
+        if (LabelPolicy::destroy(auth()->user())) {
+            $label = $this->label->findOrFail($id);
 
-            return redirect()->route('labels.index');
-        } else {
+            if ($label->delete()) {
+                flash()->success('Success!', 'Successfully deleted label.');
+
+                return redirect()->route('labels.index');
+            }
+
             flash()->error('Error!', 'There was a problem deleting this label. Please try again.');
 
             return redirect()->route('labels.edit', [$id]);
         }
+
+        $this->unauthorized();
     }
 }

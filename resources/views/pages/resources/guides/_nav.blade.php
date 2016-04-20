@@ -7,6 +7,7 @@
     </li>
 
     @if(auth()->check())
+
         <li class="{{ active()->route('resources.guides.favorites') }}">
             <a href="{{ route('resources.guides.favorites') }}">
                 <i class="fa fa-star"></i>
@@ -15,12 +16,15 @@
         </li>
 
         @if(\App\Policies\Resource\GuidePolicy::create(auth()->user()))
+
             <li>
                 <a href="{{ route('resources.guides.create') }}">
                     <i class="fa fa-plus"></i> New Guide
                 </a>
             </li>
+
         @endif
+
     @endif
 
 </ul>
