@@ -207,7 +207,7 @@ class ComputerPresenter extends Presenter
             'title'     => "{$computer->name} Status This Month Over Time",
             'datatable' => $dataTable,
             'legend'    => (new Legend())->position('bottom'),
-            'vAxis' => (new VerticalAxis())->title('Offline / Online'),
+            'vAxis'     => (new VerticalAxis())->title('Offline / Online'),
         ]);
     }
 }
