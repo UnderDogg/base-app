@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Baum\Node;
+use Kalnoy\Nestedset\NodeTrait;
 
-class Category extends Node
+class Category extends Model
 {
+    use NodeTrait;
+
     /**
      * The categories table.
      *
@@ -14,18 +16,35 @@ class Category extends Node
     protected $table = 'categories';
 
     /**
-     * The scoped nested set attributes.
-     *
-     * @var array
-     */
-    protected $scoped = ['belongs_to'];
-
-    /**
      * The casted category attributes.
      *
      * @var array
      */
     protected $casts = ['options' => 'array'];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLftName()
+    {
+        return 'lft';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRgtName()
+    {
+        return 'rgt';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getScopeAttributes()
+    {
+        return ['belongs_to'];
+    }
 
     /**
      * Returns the complete nested set table in a nested list.
@@ -38,7 +57,7 @@ class Category extends Node
      */
     public static function getSelectHierarchy($belongsTo = null, array $except = [], $first = 'None')
     {
-        $query = static::roots();
+        $query = static::whereIsRoot();
 
         if (!is_null($belongsTo)) {
             $query->whereBelongsTo($belongsTo);
@@ -64,20 +83,20 @@ class Category extends Node
     /**
      * Renders the specified category and it's children in single dimension array.
      *
-     * @param Node $node
+     * @param Category $category
      *
      * @return array
      */
-    public static function getRenderedNode(Node $node)
+    public static function getRenderedNode(Category $category)
     {
         $options = [];
 
-        $name = static::getRenderedNodeName($node);
+        $name = static::getRenderedNodeName($category);
 
-        $options[$node->id] = $name;
+        $options[$category->id] = $name;
 
-        if ($node->children()->count() > 0) {
-            foreach ($node->children as $child) {
+        if ($category->children()->count() > 0) {
+            foreach ($category->children as $child) {
                 $options = $options + static::getRenderedNode($child);
             }
         }
@@ -88,19 +107,19 @@ class Category extends Node
     /**
      * Returns the specified rendered node name combined with its depth.
      *
-     * @param Node   $node
-     * @param string $separator
+     * @param Category $category
+     * @param string   $separator
      *
      * @return string
      */
-    public static function getRenderedNodeName(Node $node, $separator = '-')
+    public static function getRenderedNodeName(Category $category, $separator = '-')
     {
-        if ($node->isRoot()) {
-            $name = $node->name;
+        if ($category->isRoot()) {
+            $name = $category->name;
         } else {
-            $depth = str_repeat($separator, $node->depth);
+            $depth = str_repeat($separator, $category->depth);
 
-            $name = sprintf('%s %s', $depth, $node->name);
+            $name = sprintf('%s %s', $depth, $category->name);
         }
 
         return $name;

@@ -182,7 +182,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
-        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
     ],
 
     /*

@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8aed51a6491673de1050a83a917bcc99",
-    "content-hash": "15924bea3eda4e3f3eb8c7a6dd9ded72",
+    "hash": "77723fba32874ccdbbbf37ee5b329a06",
+    "content-hash": "a227ab5abc9ebc825d1077302b492e6b",
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v6.0.5",
+            "version": "v6.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "89309dafcae332665f195f71fd38cf71716747ac"
+                "reference": "9182ecb7740f8167611c91357907087b7ded231d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/89309dafcae332665f195f71fd38cf71716747ac",
-                "reference": "89309dafcae332665f195f71fd38cf71716747ac",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/9182ecb7740f8167611c91357907087b7ded231d",
+                "reference": "9182ecb7740f8167611c91357907087b7ded231d",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2016-04-18 17:20:50"
+            "time": "2016-04-20 19:16:43"
         },
         {
             "name": "adldap2/adldap2-laravel",
@@ -725,35 +725,37 @@
             "time": "2015-12-05 17:17:57"
         },
         {
-            "name": "khill/lavacharts",
-            "version": "2.5.10",
+            "name": "kalnoy/nestedset",
+            "version": "v4.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/kevinkhill/lavacharts.git",
-                "reference": "b8e57d8d404a5ac398683a0d34bdfcdc46b2feeb"
+                "url": "https://github.com/lazychaser/laravel-nestedset.git",
+                "reference": "520cf95ade020c322710c77887b98a309b489985"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kevinkhill/lavacharts/zipball/b8e57d8d404a5ac398683a0d34bdfcdc46b2feeb",
-                "reference": "b8e57d8d404a5ac398683a0d34bdfcdc46b2feeb",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/520cf95ade020c322710c77887b98a309b489985",
+                "reference": "520cf95ade020c322710c77887b98a309b489985",
                 "shasum": ""
             },
             "require": {
-                "nesbot/carbon": "~1.14",
-                "php": ">=5.3.0"
+                "illuminate/database": "5.2.*",
+                "illuminate/events": "5.2.*",
+                "illuminate/support": "5.2.*",
+                "php": ">=5.5.9"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9",
-                "mybuilder/phpunit-accelerator": "~1.1",
-                "phpunit/phpunit": "~4.5",
-                "sami/sami": "~2.0",
-                "satooshi/php-coveralls": "~0.6",
-                "squizlabs/php_codesniffer": "~2.0"
+                "phpunit/phpunit": ">=4.8"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v4.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
-                    "Khill\\Lavacharts\\": "src/"
+                    "Kalnoy\\Nestedset\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -762,19 +764,19 @@
             ],
             "authors": [
                 {
-                    "name": "Kevin Hill",
-                    "email": "kevinkhill@gmail.com",
-                    "role": "Developer"
+                    "name": "Alexander Kalnoy",
+                    "email": "lazychaser@gmail.com"
                 }
             ],
-            "description": "PHP wrapper library for the Google Chart API",
-            "homepage": "http://lavacharts.com",
+            "description": "Nested Set Model for Laravel 4-5",
             "keywords": [
-                "charts",
-                "google",
-                "graphs"
+                "database",
+                "hierarchy",
+                "laravel",
+                "nested sets",
+                "nsm"
             ],
-            "time": "2016-01-22 13:40:54"
+            "time": "2016-04-15 05:29:44"
         },
         {
             "name": "laravel/framework",

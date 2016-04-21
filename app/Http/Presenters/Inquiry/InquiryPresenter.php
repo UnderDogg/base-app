@@ -126,7 +126,7 @@ class InquiryPresenter extends Presenter
         } else {
             // Otherwise we're displaying root nodes.
             $category = $category
-                ->roots()
+                ->whereIsRoot()
                 ->whereBelongsTo($inquiry->getTable());
         }
 

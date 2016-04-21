@@ -38,4 +38,14 @@ class ComputerStatus extends Model
 
         return $query->where('created_at', '>=', $now->subHours($hours));
     }
+
+    /**
+     * Returns the human readable online attribute.
+     *
+     * @return string
+     */
+    public function getOnlineHumanAttribute()
+    {
+        return ($this->online ? 'Online' : 'Offline');
+    }
 }

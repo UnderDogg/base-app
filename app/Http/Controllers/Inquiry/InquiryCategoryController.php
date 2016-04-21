@@ -170,8 +170,6 @@ class InquiryCategoryController extends Controller
     {
         $category = $this->category->findOrFail($id);
 
-        $category->destroyDescendants();
-
         if ($category->delete()) {
             flash()->success('Success!', 'Successfully deleted category.');
 

@@ -516,7 +516,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
     });
 
     // Authentication Routes.
-    $router->group(['prefix' => 'auth', 'as' => 'auth.'], function (Router $router) {
+    $router->group(['namespace' => 'Auth', 'prefix' => 'auth', 'as' => 'auth.'], function (Router $router) {
         // Guest Auth Routes.
         $router->group(['middleware' => ['guest']], function (Router $router) {
             // Displays login page.
@@ -571,12 +571,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             });
         });
 
-        // Only Auth Routes.
-        $router->group(['middleware' => ['auth']], function (Router $router) {
-            $router->get('logout', [
-                'as'   => 'logout',
-                'uses' => 'AuthController@getLogout',
-            ]);
-        });
+        $router->get('logout', [
+            'as'   => 'logout',
+            'uses' => 'AuthController@getLogout',
+        ]);
     });
 });

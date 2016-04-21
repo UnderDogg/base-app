@@ -57,7 +57,7 @@ class Store extends Job
 
         if ($this->category->save()) {
             if ($this->parent instanceof Category) {
-                $this->category->makeChildOf($this->parent);
+                $this->category->parent()->associate($this->parent);
             }
 
             return true;
