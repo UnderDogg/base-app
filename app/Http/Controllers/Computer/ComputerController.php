@@ -129,8 +129,6 @@ class ComputerController extends Controller
 
             $computer = $this->computer->with($with)->findOrFail($id);
 
-            $statuses = $this->presenter->graphOfStatus($computer);
-
             return view('pages.computers.show.details', compact('computer', 'statuses'));
         }
 

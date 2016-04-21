@@ -31,10 +31,10 @@ class ComputerStatus extends Model
      *
      * @return $this
      */
-    public function scopeThisMonth(Builder $query)
+    public function scopeThisWeek(Builder $query)
     {
         $now = Carbon::now();
 
-        return $query->where('created_at', '>=', $now->subMonth());
+        return $query->where('created_at', '>=', $now->subWeek());
     }
 }
