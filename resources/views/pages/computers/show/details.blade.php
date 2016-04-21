@@ -73,7 +73,7 @@ Details
 @section('scripts')
 
     <script>
-        $.get('{{ route('computers.status.weekly', [$computer->id]) }}', function (response) {
+        $.get('{{ route('computers.status.today', [$computer->id]) }}', function (response) {
             var data = {
                 labels: Object.keys(response),
 

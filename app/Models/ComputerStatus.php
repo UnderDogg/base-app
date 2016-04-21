@@ -25,16 +25,16 @@ class ComputerStatus extends Model
     }
 
     /**
-     * Scopes the specified query by the current month.
+     * Scopes the specified query by the current day.
      *
      * @param Builder $query
      *
      * @return $this
      */
-    public function scopeThisWeek(Builder $query)
+    public function scopeToday(Builder $query)
     {
         $now = Carbon::now();
 
-        return $query->where('created_at', '>=', $now->subWeek());
+        return $query->where('created_at', '>=', $now->subDay());
     }
 }
