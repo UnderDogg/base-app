@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Computer;
 use App\Http\Controllers\Controller;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
+use App\Policies\ComputerPolicy;
 
 class ComputerStatusController extends Controller
 {
@@ -24,6 +25,27 @@ class ComputerStatusController extends Controller
     }
 
     /**
+     * Returns the computers status graph information.
+     *
+     * @param int|string $id
+     *
+     * @return mixed
+     */
+    public function monthly($id)
+    {
+        if (ComputerPolicy::show(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
+
+            return $computer
+                ->statuses()
+                ->thisMonth()
+                ->pluck('online', 'created_at');
+        }
+
+        $this->unauthorized();
+    }
+
+    /**
      * Checks the specified computers online status.
      *
      * @param int|string $id
@@ -32,16 +54,20 @@ class ComputerStatusController extends Controller
      */
     public function check($id)
     {
-        $computer = $this->computer->findOrFail($id);
+        if (ComputerPolicy::show(auth()->user())) {
+            $computer = $this->computer->findOrFail($id);
 
-        if ($this->dispatch(new CreateStatus($computer))) {
-            flash()->success('Success!', 'Successfully updated status.');
+            if ($this->dispatch(new CreateStatus($computer))) {
+                flash()->success('Success!', 'Successfully updated status.');
+
+                return redirect()->back();
+            }
+
+            flash()->error('Error!', 'There was an issue updating this computers status. Please try again.');
 
             return redirect()->back();
         }
 
-        flash()->error('Error!', 'There was an issue updating this computers status. Please try again.');
-
-        return redirect()->back();
+        $this->unauthorized();
     }
 }

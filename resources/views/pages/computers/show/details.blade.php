@@ -66,8 +66,38 @@ Details
         {!! $computer->online_status !!}
     </p>
 
-    <div id="status-chart"></div>
+    <canvas id="status-chart" style="width:100%;height:100%"></canvas>
 
-    {!! Lava::render('LineChart', 'Status', 'status-chart') !!}
+@endsection
+
+@section('scripts')
+
+    <script>
+        $.get('{{ route('computers.status.monthly', [$computer->id]) }}', function (response) {
+            var data = {
+                labels: Object.keys(response),
+
+                datasets: [
+                    {
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: Object.keys(response).map(function (key) {
+                            return response[key];
+                        })
+                    }
+                ]
+            };
+
+            var context = document.querySelector('#status-chart').getContext('2d');
+
+            new Chart(context).Line(data, {
+                scaleShowLabels : false
+            });
+        });
+    </script>
 
 @endsection

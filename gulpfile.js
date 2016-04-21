@@ -43,6 +43,7 @@ elixir(function(mix) {
         'libs/spin.min.js',
         'libs/ladda.min.js',
         'libs/nprogress.js',
+        'libs/chart.min.js',
         'app.js'
     ]).styles([
         'libs/bootstrap.min.css',

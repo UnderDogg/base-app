@@ -35,15 +35,18 @@ class Authenticate
     public function handle($request, Closure $next)
     {
         // Handle guest redirects.
-        if ($this->auth->guest()) {
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->guest(route('auth.login.index'));
-            }
+        if ($this->auth->guest() === false) {
+            // User is authenticated. Return request.
+            return $next($request);
         }
 
-        // User is authenticated. Return request.
-        return $next($request);
+        if ($request->ajax()) {
+            // We've received an unauthenticated ajax response,
+            // we'll let them know it's unauthorized.
+            return response('Unauthorized.', 401);
+        }
+
+        // The user is a guest, we'll redirect them to the login page.
+        return redirect()->guest(route('auth.login.index'));
     }
 }
