@@ -31,14 +31,14 @@ class ComputerStatusController extends Controller
      *
      * @return mixed
      */
-    public function today($id)
+    public function hourly($id)
     {
         if (ComputerPolicy::show(auth()->user())) {
             $computer = $this->computer->findOrFail($id);
 
             return $computer
                 ->statuses()
-                ->today()
+                ->hourly()
                 ->pluck('online', 'created_at');
         }
 

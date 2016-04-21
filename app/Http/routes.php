@@ -172,8 +172,8 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The Computer Device group.
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
                 $router->get('statuses', [
-                    'as'    => 'status.today',
-                    'uses'  => 'ComputerStatusController@today',
+                    'as'    => 'status.hourly',
+                    'uses'  => 'ComputerStatusController@hourly',
                 ]);
 
                 // Computer Status Check.
