@@ -38,7 +38,7 @@ class ComputerStatusController extends Controller
 
             return $computer
                 ->statuses()
-                ->hourly()
+                ->hourly($hours = 3)
                 ->pluck('online', 'created_at');
         }
 

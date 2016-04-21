@@ -28,13 +28,14 @@ class ComputerStatus extends Model
      * Scopes the specified query by the current hour.
      *
      * @param Builder $query
+     * @param int     $hours
      *
      * @return $this
      */
-    public function scopeHourly(Builder $query)
+    public function scopeHourly(Builder $query, $hours = 1)
     {
         $now = Carbon::now();
 
-        return $query->where('created_at', '>=', $now->subHour());
+        return $query->where('created_at', '>=', $now->subHours($hours));
     }
 }
