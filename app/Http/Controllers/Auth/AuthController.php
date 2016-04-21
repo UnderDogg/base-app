@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Adldap\Models\User as AdldapUser;
+use App\Http\Controllers\Controller;
 use App\Http\Presenters\LoginPresenter;
 use App\Models\Role;
 use App\Models\User;
@@ -10,7 +11,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {

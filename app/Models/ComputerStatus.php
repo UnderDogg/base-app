@@ -46,6 +46,6 @@ class ComputerStatus extends Model
      */
     public function getOnlineHumanAttribute()
     {
-        return ($this->online ? 'Online' : 'Offline');
+        return $this->online ? 'Online' : 'Offline';
     }
 }
