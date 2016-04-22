@@ -34,12 +34,11 @@ class IssueCommentTest extends TestCase
 
         $issue = factory(Issue::class)->create();
 
-        $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [
-            'content' => 'Testing Comment',
-        ]);
-
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSessionHas('flash_message.level', 'success');
+        $this->visit(route('issues.show', [$issue->getKey()]))
+            ->type('This is a comment', 'content')
+            ->press('Comment')
+            ->seePageIs(route('issues.show', [$issue->getKey()]))
+            ->see('This is a comment');
     }
 
     public function test_issue_comment_edit()
