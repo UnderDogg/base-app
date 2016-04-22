@@ -2,9 +2,9 @@
 
 namespace App\Models\Traits;
 
-use Stevebauman\Revision\Traits\HasRevisionsTrait as BaseRevisionsTrait;
 use App\Models\Revision;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Revision\Traits\HasRevisionsTrait as BaseRevisionsTrait;
 
 trait HasRevisionsTrait
 {
