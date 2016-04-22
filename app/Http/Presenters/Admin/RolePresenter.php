@@ -78,7 +78,7 @@ class RolePresenter extends Presenter
 
             $form->with($role);
 
-            $form->layout('admin.components.form-modal');
+            $form->layout('components.form-modal');
 
             $form->submit = 'Save';
 
@@ -94,7 +94,7 @@ class RolePresenter extends Presenter
                         })->get()->pluck('name', 'id');
                     })
                     ->attributes([
-                        'class'    => 'select-users',
+                        'class'    => 'select-multiple',
                         'multiple' => true,
                     ]);
             });
@@ -118,7 +118,7 @@ class RolePresenter extends Presenter
 
             $form->with($role);
 
-            $form->layout('admin.components.form-modal');
+            $form->layout('components.form-modal');
 
             $form->submit = 'Save';
 
@@ -134,7 +134,7 @@ class RolePresenter extends Presenter
                         })->get()->pluck('label', 'id');
                     })
                     ->attributes([
-                        'class'    => 'select-users',
+                        'class'    => 'select-multiple',
                         'multiple' => true,
                     ]);
             });

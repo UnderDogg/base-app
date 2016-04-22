@@ -82,7 +82,7 @@ class PermissionPresenter extends Presenter
 
             $form->with($permission);
 
-            $form->layout('admin.components.form-modal');
+            $form->layout('components.form-modal');
 
             $form->submit = 'Save';
 
@@ -98,7 +98,7 @@ class PermissionPresenter extends Presenter
                         })->get()->pluck('name', 'id');
                     })
                     ->attributes([
-                        'class'    => 'select-users',
+                        'class'    => 'select-multiple',
                         'multiple' => true,
                     ]);
             });
@@ -122,7 +122,7 @@ class PermissionPresenter extends Presenter
 
             $form->with($permission);
 
-            $form->layout('admin.components.form-modal');
+            $form->layout('components.form-modal');
 
             $form->submit = 'Save';
 
@@ -138,7 +138,7 @@ class PermissionPresenter extends Presenter
                         })->get()->pluck('label', 'id');
                     })
                     ->attributes([
-                        'class'    => 'select-users',
+                        'class'    => 'select-multiple',
                         'multiple' => true,
                     ]);
             });

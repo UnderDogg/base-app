@@ -19,6 +19,10 @@
 
 @section('content')
 
-    {!! $permissions !!}
+    <div class="panel panel-default">
+
+        {!! $permissions !!}
+
+    </div>
 
 @endsection

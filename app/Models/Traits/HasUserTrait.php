@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 trait HasUserTrait
 {
     /**
-     * The hasOne user relationship.
+     * The belongs to user relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

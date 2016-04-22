@@ -8,7 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "orchestra/foundation": "3.2.*",
-        "stevebauman/revision": "1.1.*",
+        "stevebauman/revision": "1.2.*",
         "stevebauman/wmi": "1.1.*",
         "stevebauman/winperm": "1.0.*",
         "stevebauman/inventory" : "1.7.*",

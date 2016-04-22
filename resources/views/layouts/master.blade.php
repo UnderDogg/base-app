@@ -8,9 +8,19 @@
 
     <body id="app">
 
-        @include('layouts._nav')
+        @section('nav')
 
-        @include('layouts._flash')
+            <!-- Navigation -->
+            @include('layouts._nav')
+
+        @show
+
+        @section('flash')
+
+            <!-- Flash Notifications -->
+            @include('layouts._flash')
+
+        @show
 
         @section('container')
 

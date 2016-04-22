@@ -19,6 +19,10 @@
 
 @section('content')
 
-    {!! $users !!}
+    <div class="panel panel-default">
+
+        {!! $users !!}
+
+    </div>
 
 @endsection

@@ -120,7 +120,14 @@ class IssueController extends Controller
      */
     public function show($id)
     {
-        $with = ['comments', 'comments.files', 'labels', 'files'];
+        $with = [
+            'comments',
+            'comments.revisions',
+            'comments.files',
+            'labels',
+            'revisions',
+            'files',
+        ];
 
         $issue = $this->issue->with($with)->findOrFail($id);
 

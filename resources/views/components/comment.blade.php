@@ -58,7 +58,16 @@
 
         <h3>{{ $comment->user->name }}</h3>
 
-        <span>{!! $comment->created_at_human !!}</span>
+        <span>
+            Commented {{ $comment->created_at_human }}
+
+            @if ($comment->revisions()->count() > 0)
+
+               - Edited {{ $comment->revisions->last()->created_at_human }}
+
+            @endif
+
+        </span>
 
     </div>
 

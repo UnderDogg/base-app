@@ -4754,7 +4754,7 @@ $(function ()
         $(".switch").bootstrapToggle();
 
         // Issue Users select.
-        $(".select-users").select2({
+        $(".select-multiple").select2({
             placeholder: formatPlaceholder
         });
 

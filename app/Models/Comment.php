@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasMarkdownTrait;
+use App\Models\Traits\HasRevisionsTrait;
 use App\Models\Traits\HasUserTrait;
 use Orchestra\Support\Facades\HTML;
 
@@ -12,6 +13,7 @@ class Comment extends Model
     use HasUserTrait;
     use HasFilesTrait;
     use HasMarkdownTrait;
+    use HasRevisionsTrait;
 
     /**
      * The comment table.
@@ -19,6 +21,13 @@ class Comment extends Model
      * @var string
      */
     protected $table = 'comments';
+
+    /**
+     * The columns to track revisions on.
+     *
+     * @var array
+     */
+    protected $revisionColumns = ['content'];
 
     /**
      * The fillable comment attributes.

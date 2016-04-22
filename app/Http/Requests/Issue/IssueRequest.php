@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Issue;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Request;
 use App\Models\Issue;
 
@@ -83,13 +84,13 @@ class IssueRequest extends Request
     public function persist(Issue $issue)
     {
         if (!$issue->exists) {
-            $issue->user_id = auth()->id();
+            $issue->user_id = Auth::id();
         }
 
         $issue->title = $this->input('title', $issue->title);
         $issue->description = $this->input('description', $issue->description);
         $issue->occurred_at = $this->input('occurred_at', $issue->occurred_at);
-
+        
         if ($issue->save()) {
             // Check if we have any files to upload and attach.
             if (count($this->files) > 0) {

@@ -328,7 +328,7 @@ class IssuePresenter extends Presenter
                 return $users;
             })
             ->attributes([
-                'class'             => 'select-users form-control',
+                'class'             => 'select-multiple form-control',
                 'data-placeholder'  => 'Select Users',
                 'multiple'          => true,
             ]);

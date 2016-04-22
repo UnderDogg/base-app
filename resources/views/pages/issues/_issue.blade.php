@@ -32,7 +32,19 @@
 
         <h3>{{ $issue->user->name }}</h3>
 
-        <span>{!! $issue->created_at_human !!}</span>
+        <span>
+
+            Created
+
+            {{ $issue->created_at_human }}
+
+            @if($issue->revisions->count() > 0)
+
+                - Edited {{ $issue->revisions->first()->created_at_human }}
+
+            @endif
+
+        </span>
 
     </div>
 

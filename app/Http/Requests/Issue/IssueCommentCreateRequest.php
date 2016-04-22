@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Issue;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Issue;
 
@@ -18,7 +19,7 @@ class IssueCommentCreateRequest extends IssueCommentRequest
     {
         $attributes = [
             'content' => $this->input('content'),
-            'user_id' => auth()->user()->id,
+            'user_id' => Auth::id(),
         ];
 
         $resolution = $this->has('resolution');

@@ -85,7 +85,7 @@ class PatchComputerPresenter extends Presenter
                 $fieldset->control('input:select', 'computers[]')
                     ->label('Computers')
                     ->attributes([
-                        'class'            => 'select-users',
+                        'class'            => 'select-multiple',
                         'multiple'         => true,
                         'data-placeholder' => 'Select Computers',
                     ])->options(function (Patch $patch) {

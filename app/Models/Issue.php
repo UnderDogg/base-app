@@ -6,6 +6,7 @@ use App\Models\Traits\HasCommentsTrait;
 use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasLabelsTrait;
 use App\Models\Traits\HasMarkdownTrait;
+use App\Models\Traits\HasRevisionsTrait;
 use App\Models\Traits\HasUsersTrait;
 use App\Models\Traits\HasUserTrait;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,6 +21,7 @@ class Issue extends Model
     use HasFilesTrait;
     use HasLabelsTrait;
     use HasMarkdownTrait;
+    use HasRevisionsTrait;
     use HasCommentsTrait {
         comments as traitComments;
     }
@@ -30,6 +32,16 @@ class Issue extends Model
      * @var string
      */
     protected $table = 'issues';
+
+    /**
+     * The columns to track revisions on.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'title',
+        'description',
+    ];
 
     /**
      * The fillable issue attributes.
