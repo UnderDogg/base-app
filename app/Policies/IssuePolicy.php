@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Issue;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class IssuePolicy
 {

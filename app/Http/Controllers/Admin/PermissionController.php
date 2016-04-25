@@ -170,7 +170,7 @@ class PermissionController extends Controller
 
             return redirect()->route('admin.permissions.index');
         }
-        
+
         flash()->error('Error!', 'There was an error deleting this permission. Please try again.');
 
         return redirect()->route('admin.permissions.create');

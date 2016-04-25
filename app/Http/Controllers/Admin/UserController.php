@@ -9,7 +9,6 @@ use App\Http\Requests\Admin\UserRequest;
 use App\Jobs\Admin\User\Store;
 use App\Jobs\Admin\User\Update;
 use App\Models\User;
-use App\Processors\Admin\UserProcessor;
 
 class UserController extends Controller
 {
