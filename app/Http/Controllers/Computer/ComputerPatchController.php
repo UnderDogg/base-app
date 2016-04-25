@@ -37,7 +37,7 @@ class ComputerPatchController extends Controller
         $navbar = $this->presenter->navbar($computer);
 
         $patches = $this->presenter->table($computer);
-        
+
         return view('pages.computers.patches.index', compact('computer', 'navbar', 'patches'));
     }
 }
