@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3432494e613bf79e5f1c8df742d91e14",
-    "content-hash": "78009f03045547053ad09f56cfbec45d",
+    "hash": "826509a93c95652e10c3eb5bc29ce30a",
+    "content-hash": "8f6a5a23eeba774067734269c90cf123",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -2223,16 +2223,16 @@
         },
         {
             "name": "orchestra/support",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/support.git",
-                "reference": "6ba96aa9a925519d24d6735fb04c796ca16a8536"
+                "reference": "3fd1cc5afc9e3a6ae54613e37ea775f34f978612"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/support/zipball/6ba96aa9a925519d24d6735fb04c796ca16a8536",
-                "reference": "6ba96aa9a925519d24d6735fb04c796ca16a8536",
+                "url": "https://api.github.com/repos/orchestral/support/zipball/3fd1cc5afc9e3a6ae54613e37ea775f34f978612",
+                "reference": "3fd1cc5afc9e3a6ae54613e37ea775f34f978612",
                 "shasum": ""
             },
             "require": {
@@ -2292,7 +2292,7 @@
                 "utilities",
                 "validator"
             ],
-            "time": "2016-03-17 10:25:12"
+            "time": "2016-04-23 13:06:53"
         },
         {
             "name": "orchestra/translation",
