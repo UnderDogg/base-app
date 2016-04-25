@@ -31,7 +31,7 @@ class IssueCommentTest extends TestCase
         $user = $this->createAdmin();
 
         $this->actingAs($user);
-        
+
         $issue = factory(Issue::class)->create();
 
         $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [

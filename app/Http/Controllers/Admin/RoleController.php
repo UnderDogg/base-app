@@ -133,7 +133,6 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, $id)
     {
-
         $this->authorize('admin.roles.edit');
 
         $role = $this->role->findOrFail($id);

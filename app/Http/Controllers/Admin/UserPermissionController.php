@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserPermissionRequest;
 use App\Models\Permission;
 use App\Models\User;
-use App\Processors\Admin\UserPermissionProcessor;
 
 class UserPermissionController extends Controller
 {
