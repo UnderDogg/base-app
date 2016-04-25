@@ -74,7 +74,7 @@ class Computer extends Model
      */
     public function patches()
     {
-        return $this->hasMany(Patch::class);
+        return $this->belongsToMany(Patch::class, 'patch_computers')->withPivot(['patched_at']);
     }
 
     /**

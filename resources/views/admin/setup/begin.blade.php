@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('admin.layouts.app')
 
 @section('title', 'Setup Administration')
 

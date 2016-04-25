@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Issue;
 
+use App\Events\Issue\Created;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Requests\Issue\IssueCloseRequest;
 use App\Http\Requests\Issue\IssueOpenRequest;
 use App\Http\Requests\Issue\IssueRequest;
-use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Policies\IssuePolicy;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 
 class IssueController extends Controller
 {
@@ -101,6 +102,8 @@ class IssueController extends Controller
     public function store(IssueRequest $request)
     {
         if ($request->persist($this->issue)) {
+            Event::fire(new Created($this->issue));
+
             flash()->success('Success!', 'Successfully created ticket.');
 
             return redirect()->route('issues.index');
@@ -132,7 +135,7 @@ class IssueController extends Controller
         $issue = $this->issue->with($with)->findOrFail($id);
 
         if (IssuePolicy::show(Auth::user(), $issue)) {
-            $resolution = $issue->comments->first(function ($key, Comment $comment) {
+            $resolution = $issue->comments->first(function ($key, $comment) {
                 return $comment->resolution;
             });
 

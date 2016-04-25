@@ -1,21 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.panel')
 
 @section('title', 'Edit Patch')
 
-@section('content')
+@section('title.header',  ' ')
 
-    <div class="panel panel-default">
+@section('panel.title')
 
-        <div class="panel-body">
+    <i class="fa fa-medkit"></i>
+    Edit Patch
 
-            <div class="col-md-12">
+@endsection
 
-                {!! $form !!}
+@section('panel.body')
 
-            </div>
-
-        </div>
-
-    </div>
+    {!! $form !!}
 
 @endsection

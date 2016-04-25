@@ -20,13 +20,6 @@ class Patch extends Model
     protected $table = 'patches';
 
     /**
-     * The computers patch pivot table.
-     *
-     * @var string
-     */
-    protected $tableComputersPivot = 'patch_computers';
-
-    /**
      * The fillable computer patch attributes.
      *
      * @var array
@@ -43,7 +36,7 @@ class Patch extends Model
      */
     public function computers()
     {
-        return $this->belongsToMany(Computer::class, $this->tableComputersPivot)->withPivot(['patched_at']);
+        return $this->belongsToMany(Computer::class, 'patch_computers')->withPivot(['patched_at']);
     }
 
     /**

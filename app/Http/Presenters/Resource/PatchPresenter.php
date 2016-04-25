@@ -14,11 +14,11 @@ class PatchPresenter extends Presenter
     /**
      * Returns a new table of all patches.
      *
-     * @param Patch $patch
+     * @param mixed $patch
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(Patch $patch)
+    public function table($patch)
     {
         $patch = $patch->with(['computers']);
 

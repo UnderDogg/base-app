@@ -169,6 +169,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The computers resource.
             $router->resource('computers', 'ComputerController');
 
+            // The computer patch resource.
+            $router->resource('computers.patches', 'ComputerPatchController', [
+                'only' => ['index', 'store', 'destroy'],
+            ]);
+
             // The Computer Device group.
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
                 $router->get('statuses', [

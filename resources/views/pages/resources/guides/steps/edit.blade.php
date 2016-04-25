@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @section('extra.top')
     <a class="btn btn-primary" href="{{ route('resources.guides.show', [$guide->slug]) }}">

@@ -6,9 +6,6 @@ use App\Http\Presenters\Presenter;
 use App\Models\Computer;
 use App\Models\ComputerType;
 use App\Models\OperatingSystem;
-use Khill\Lavacharts\Configs\Legend;
-use Khill\Lavacharts\Configs\VerticalAxis;
-use Khill\Lavacharts\Laravel\LavachartsFacade as Lava;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -172,6 +169,26 @@ class ComputerPresenter extends Presenter
             'title'      => '<i class="fa fa-desktop"></i> Computers',
             'url'        => route('computers.index'),
             'menu'       => view('pages.computers._nav'),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
+
+    /**
+     * Returns the navbar for the specified computer.
+     *
+     * @param Computer $computer
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarShow(Computer $computer)
+    {
+        return $this->fluent([
+            'id'         => "computers-{$computer->id}",
+            'title'      => $computer->name,
+            'url'        => route('computers.show', [$computer->id]),
+            'menu'       => view('pages.computers._nav-show', compact('computer')),
             'attributes' => [
                 'class' => 'navbar-default',
             ],

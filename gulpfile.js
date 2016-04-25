@@ -65,4 +65,6 @@ elixir(function(mix) {
         .copy('resources/assets/fonts/libs/bootstrap/', 'public/fonts')
         .copy('resources/assets/img/libs/', 'public/css')
         .copy('resources/assets/js/libs/html5.js', 'public/js');
+
+    mix.version(['public/css/all.css', 'public/js/all.js']);
 });

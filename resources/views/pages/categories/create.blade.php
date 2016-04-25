@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @if (isset($category))
     @section('title', 'Create a Sub-Category')

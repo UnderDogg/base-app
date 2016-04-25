@@ -1,4 +1,4 @@
-@extends('emails.layouts.master')
+@extends('emails.layouts.app')
 
 @section('title', 'New Request')
 

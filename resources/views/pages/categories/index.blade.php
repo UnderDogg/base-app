@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
 @if($category->exists)
     @section('title', "All Categories under $category->name")

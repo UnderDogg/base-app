@@ -7,6 +7,13 @@
         </a>
     </li>
 
+    <li class="{{ active()->route('computers.patches.*') }}">
+        <a href="{{ route('computers.patches.index', [$computer->id]) }}">
+            <i class="fa fa-medkit"></i>
+            Patches
+        </a>
+    </li>
+
     <li>
         <a href="{{ route('computers.edit', [$computer->id]) }}">
             <i class="fa fa-edit"></i>
