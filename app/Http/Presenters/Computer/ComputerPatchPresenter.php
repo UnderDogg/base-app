@@ -5,10 +5,7 @@ namespace App\Http\Presenters\Computer;
 use App\Http\Presenters\Presenter;
 use App\Http\Presenters\Resource\PatchPresenter;
 use App\Models\Computer;
-use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use Orchestra\Contracts\Html\Table\Column;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class ComputerPatchPresenter extends Presenter
 {
@@ -25,8 +22,6 @@ class ComputerPatchPresenter extends Presenter
     }
 
     /**
-     *
-     *
      * @param Computer $computer
      *
      * @return \Orchestra\Contracts\Html\Builder

@@ -25,7 +25,8 @@ class EmailAdministratorsAboutNewTicket
     /**
      * Handle the event.
      *
-     * @param  Created  $event
+     * @param Created $event
+     *
      * @return void
      */
     public function handle(Created $event)
