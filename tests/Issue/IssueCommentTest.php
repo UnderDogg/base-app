@@ -31,14 +31,15 @@ class IssueCommentTest extends TestCase
         $user = $this->createAdmin();
 
         $this->actingAs($user);
-
+        
         $issue = factory(Issue::class)->create();
 
-        $this->visit(route('issues.show', [$issue->getKey()]))
-            ->type('This is a comment', 'content')
-            ->press('Comment')
-            ->seePageIs(route('issues.show', [$issue->getKey()]))
-            ->see('This is a comment');
+        $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [
+            'content' => 'Testing Comment',
+        ]);
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertSessionHas('flash_message.level', 'success');
     }
 
     public function test_issue_comment_edit()

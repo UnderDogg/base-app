@@ -33,10 +33,9 @@ class IssuePresenter extends Presenter
         $issue = $this->applyPolicy($issue);
 
         $label = request('label');
-        $resolution = request('resolution');
 
         // Filter issues with the specified request label.
-        $issue->with($with)->label($label)->hasResolution($resolution)->latest();
+        $issue->with($with)->label($label)->latest();
 
         return $this->table->of('issues', function (TableGrid $table) use ($issue, $closure) {
             if ($closure instanceof Closure) {

@@ -69,7 +69,7 @@ class GuideStepTest extends GuideTest
             ->type('Description', 'description')
             ->attach(base_path('tests/assets/blank.exe'), 'image')
             ->press('Create')
-            ->see('The image must be an image.');
+            ->see('must be an image');
     }
 
     public function test_delete_guide_step()

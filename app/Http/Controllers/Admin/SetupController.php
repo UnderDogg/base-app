@@ -3,24 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Admin\SetupPresenter;
 use App\Http\Requests\Admin\SetupRequest;
+use App\Jobs\Admin\Setup\Finish;
+use App\Models\User;
 use App\Processors\Admin\SetupProcessor;
 
 class SetupController extends Controller
 {
     /**
-     * @var SetupProcessor
+     * @var User
      */
-    protected $processor;
+    protected $user;
+
+    /**
+     * @var SetupPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param SetupProcessor $processor
+     * @param User           $user
+     * @param SetupPresenter $presenter
      */
-    public function __construct(SetupProcessor $processor)
+    public function __construct(User $user, SetupPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->user = $user;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -30,7 +40,7 @@ class SetupController extends Controller
      */
     public function welcome()
     {
-        return $this->processor->welcome();
+        return view('admin.setup.welcome');
     }
 
     /**
@@ -40,7 +50,9 @@ class SetupController extends Controller
      */
     public function begin()
     {
-        return $this->processor->begin();
+        $form = $this->presenter->form();
+
+        return view('admin.setup.begin', compact('form'));
     }
 
     /**
@@ -52,12 +64,14 @@ class SetupController extends Controller
      */
     public function finish(SetupRequest $request)
     {
-        if ($this->processor->finish($request)) {
-            return view('admin.setup.complete');
-        } else {
-            flash()->error('Error!', 'There was an issue completing setup. Please try again.');
+        $user = $this->user->newInstance();
 
-            return redirect()->route('admin.setup.begin');
+        if ($this->dispatch(new Finish($request, $user))) {
+            return view('admin.setup.complete');
         }
+
+        flash()->error('Error!', 'There was an issue completing setup. Please try again.');
+
+        return redirect()->route('admin.setup.begin');
     }
 }

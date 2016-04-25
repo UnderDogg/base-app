@@ -72,37 +72,6 @@
 
     </li>
 
-    <li class="dropdown {{ active()->input('resolution') }}">
-
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-check"></i>
-            Has Answer
-            <i class="fa fa-caret-down"></i>
-        </a>
-
-        <ul class="dropdown-menu dropdown-menu-labels">
-            <li class="{{ active()->input('resolution', 'yes') }}">
-                <a href="{{ route(request()->route()->getName(), array_merge(request()->all(), ['resolution' => 'yes'])) }}">
-                    Yes
-                </a>
-            </li>
-        </ul>
-
-    </li>
-
-    @if(count(request()->all()) > 2)
-
-        <li class="dropdown">
-
-            <a href="{{ route(request()->route()->getName()) }}">
-                <i class="fa fa-times"></i>
-                Clear Filters
-            </a>
-
-        </li>
-
-    @endif
-
     <li>
         <a href="{{ route('issues.create') }}">
             <i class="fa fa-plus-square"></i> New Ticket

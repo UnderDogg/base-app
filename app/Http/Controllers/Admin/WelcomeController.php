@@ -3,23 +3,39 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Processors\Admin\WelcomeProcessor;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
 
 class WelcomeController extends Controller
 {
     /**
-     * @var WelcomeProcessor
+     * @var User
      */
-    protected $processor;
+    protected $user;
+
+    /**
+     * @var Role
+     */
+    protected $role;
+
+    /**
+     * @var Permission
+     */
+    protected $permission;
 
     /**
      * Constructor.
      *
-     * @param WelcomeProcessor $processor
+     * @param User       $user
+     * @param Role       $role
+     * @param Permission $permission
      */
-    public function __construct(WelcomeProcessor $processor)
+    public function __construct(User $user, Role $role, Permission $permission)
     {
-        $this->processor = $processor;
+        $this->user = $user;
+        $this->role = $role;
+        $this->permission = $permission;
     }
 
     /**
@@ -29,6 +45,14 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.welcome.index');
+
+        $users = $this->user->count();
+
+        $roles = $this->role->count();
+
+        $permissions = $this->permission->count();
+
+        return view('admin.welcome.index', compact('users', 'roles', 'permissions'));
     }
 }

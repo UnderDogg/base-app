@@ -131,7 +131,7 @@ class IssueController extends Controller
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
-        if (IssuePolicy::show(auth()->user(), $issue)) {
+        if (IssuePolicy::show(Auth::user(), $issue)) {
             $resolution = $issue->comments->first(function ($key, Comment $comment) {
                 return $comment->resolution;
             });
@@ -159,7 +159,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::edit(auth()->user(), $issue)) {
+        if (IssuePolicy::edit(Auth::user(), $issue)) {
             $form = $this->presenter->form($issue);
 
             return view('pages.issues.edit', compact('form'));
@@ -180,7 +180,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::edit(auth()->user(), $issue)) {
+        if (IssuePolicy::edit(Auth::user(), $issue)) {
             if ($request->persist($issue)) {
                 flash()->success('Success!', 'Successfully updated ticket.');
 
@@ -206,7 +206,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::destroy(auth()->user(), $issue)) {
+        if (IssuePolicy::destroy(Auth::user(), $issue)) {
             if ($issue->delete()) {
                 flash()->success('Success!', 'Successfully deleted ticket.');
 
@@ -233,7 +233,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::close(auth()->user(), $issue)) {
+        if (IssuePolicy::close(Auth::user(), $issue)) {
             if ($request->persist($issue)) {
                 flash()->success('Success!', 'Successfully closed ticket.');
 
@@ -260,7 +260,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::open(auth()->user())) {
+        if (IssuePolicy::open(Auth::user())) {
             if ($request->persist($issue)) {
                 flash()->success('Success!', 'Successfully re-opened ticket.');
 

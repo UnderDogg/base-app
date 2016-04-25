@@ -3,24 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\Admin\PermissionPresenter;
 use App\Http\Requests\Admin\PermissionRequest;
-use App\Processors\Admin\PermissionProcessor;
+use App\Jobs\Admin\Permission\Store;
+use App\Jobs\Admin\Permission\Update;
+use App\Models\Permission;
 
 class PermissionController extends Controller
 {
     /**
-     * @var PermissionProcessor
+     * @var Permission
      */
-    protected $processor;
+    protected $permission;
+
+    /**
+     * @var PermissionPresenter
+     */
+    protected $presenter;
 
     /**
      * Constructor.
      *
-     * @param PermissionProcessor $processor
+     * @param Permission          $permission
+     * @param PermissionPresenter $presenter
      */
-    public function __construct(PermissionProcessor $processor)
+    public function __construct(Permission $permission, PermissionPresenter $presenter)
     {
-        $this->processor = $processor;
+        $this->permission = $permission;
+        $this->presenter = $presenter;
     }
 
     /**
@@ -30,7 +40,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return $this->processor->index();
+        $this->authorize('admin.permissions.index');
+
+        $permissions = $this->presenter->table($this->permission);
+
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -40,7 +54,11 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return $this->processor->create();
+        $this->authorize('admin.permissions.create');
+
+        $form = $this->presenter->form($this->permission);
+
+        return view('admin.permissions.create', compact('form'));
     }
 
     /**
@@ -52,15 +70,19 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        if ($this->processor->store($request)) {
+        $this->authorize('admin.permissions.create');
+
+        $permission = $this->permission->newInstance();
+
+        if ($this->dispatch(new Store($request, $permission))) {
             flash()->success('Success!', 'Successfully created permission.');
 
             return redirect()->route('admin.permissions.index');
-        } else {
-            flash()->error('Error!', 'There was an error creating a permission. Please try again.');
-
-            return redirect()->route('admin.permissions.create');
         }
+
+        flash()->error('Error!', 'There was an error creating a permission. Please try again.');
+
+        return redirect()->route('admin.permissions.create');
     }
 
     /**
@@ -72,7 +94,19 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        return $this->processor->show($id);
+        $this->authorize('admin.permissions.show');
+
+        $permission = $this->permission->findOrFail($id);
+
+        $users = $this->presenter->tableUsers($permission);
+
+        $formUsers = $this->presenter->formUsers($permission);
+
+        $roles = $this->presenter->tableRoles($permission);
+
+        $formRoles = $this->presenter->formRoles($permission);
+
+        return view('admin.permissions.show', compact('permission', 'users', 'formUsers', 'roles', 'formRoles'));
     }
 
     /**
@@ -84,7 +118,13 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        return $this->processor->edit($id);
+        $this->authorize('admin.permissions.edit');
+
+        $permission = $this->permission->findOrFail($id);
+
+        $form = $this->presenter->form($permission);
+
+        return view('admin.permissions.edit', compact('form'));
     }
 
     /**
@@ -97,15 +137,19 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, $id)
     {
-        if ($this->processor->update($request, $id)) {
+        $this->authorize('admin.permissions.edit');
+
+        $permission = $this->permission->findOrFail($id);
+
+        if ($this->dispatch(new Update($request, $permission))) {
             flash()->success('Success!', 'Successfully updated permission.');
 
             return redirect()->route('admin.permissions.show', [$id]);
-        } else {
-            flash()->error('Error!', 'There was an error updating this permission. Please try again.');
-
-            return redirect()->route('admin.permissions.edit', [$id]);
         }
+
+        flash()->error('Error!', 'There was an error updating this permission. Please try again.');
+
+        return redirect()->route('admin.permissions.edit', [$id]);
     }
 
     /**
@@ -117,14 +161,18 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->processor->destroy($id)) {
+        $this->authorize('admin.permissions.destroy');
+
+        $permission = $this->permission->findOrFail($id);
+
+        if ($permission->delete()) {
             flash()->success('Success!', 'Successfully deleted permission.');
 
             return redirect()->route('admin.permissions.index');
-        } else {
-            flash()->error('Error!', 'There was an error deleting this permission. Please try again.');
-
-            return redirect()->route('admin.permissions.create');
         }
+        
+        flash()->error('Error!', 'There was an error deleting this permission. Please try again.');
+
+        return redirect()->route('admin.permissions.create');
     }
 }

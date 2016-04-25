@@ -10,7 +10,7 @@
 
     <div class="pull-right text-muted">
 
-        <i class="fa fa-user-md"></i>
+        <i class="fa fa-user"></i>
 
     </div>
 

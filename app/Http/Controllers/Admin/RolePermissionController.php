@@ -4,23 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RolePermissionRequest;
-use App\Processors\Admin\RolePermissionProcessor;
+use App\Models\Permission;
+use App\Models\Role;
 
 class RolePermissionController extends Controller
 {
     /**
-     * @var RolePermissionProcessor
+     * @var Role
      */
-    protected $processor;
+    protected $role;
+
+    /**
+     * @var Permission
+     */
+    protected $permission;
 
     /**
      * Constructor.
      *
-     * @param RolePermissionProcessor $processor
+     * @param Role       $role
+     * @param Permission $permission
      */
-    public function __construct(RolePermissionProcessor $processor)
+    public function __construct(Role $role, Permission $permission)
     {
-        $this->processor = $processor;
+        $this->role = $role;
+        $this->permission = $permission;
     }
 
     /**
@@ -33,15 +41,25 @@ class RolePermissionController extends Controller
      */
     public function store(RolePermissionRequest $request, $roleId)
     {
-        if ($this->processor->store($request, $roleId)) {
+        $this->authorize('admin.roles.permissions.store');
+
+        $role = $this->role->findOrFail($roleId);
+
+        $permissions = $request->input('permissions', []);
+
+        if (count($permissions) > 0) {
+            $permissions = $this->permission->findMany($permissions);
+
+            $role->permissions()->saveMany($permissions);
+
             flash()->success('Success!', 'Successfully added permissions.');
 
             return redirect()->route('admin.roles.show', [$roleId]);
-        } else {
-            flash()->error('Error!', "You didn't select any permissions.");
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         }
+
+        flash()->error('Error!', "You didn't select any permissions.");
+
+        return redirect()->route('admin.roles.show', [$roleId]);
     }
 
     /**
@@ -54,14 +72,20 @@ class RolePermissionController extends Controller
      */
     public function destroy($roleId, $permissionId)
     {
-        if ($this->processor->destroy($roleId, $permissionId)) {
+        $this->authorize('admin.roles.permissions.destroy');
+
+        $role = $this->role->findOrFail($roleId);
+
+        $permission = $role->permissions()->findOrFail($permissionId);
+
+        if ($role->permissions()->detach($permission)) {
             flash()->success('Success!', 'Successfully removed permission.');
 
             return redirect()->route('admin.roles.show', [$roleId]);
-        } else {
-            flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
-
-            return redirect()->route('admin.roles.show', [$roleId]);
         }
+
+        flash()->error('Error!', 'There was an issue removing this permission. Please try again.');
+
+        return redirect()->route('admin.roles.show', [$roleId]);
     }
 }

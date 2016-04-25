@@ -4,23 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PermissionUserRequest;
-use App\Processors\Admin\PermissionUserProcessor;
+use App\Models\Permission;
+use App\Models\User;
 
 class PermissionUserController extends Controller
 {
     /**
-     * @var PermissionUserProcessor
+     * @var Permission
      */
-    protected $processor;
+    protected $permission;
+
+    /**
+     * @var User
+     */
+    protected $user;
 
     /**
      * Constructor.
      *
-     * @param PermissionUserProcessor $processor
+     * @param Permission $permission
+     * @param User       $user
      */
-    public function __construct(PermissionUserProcessor $processor)
+    public function __construct(Permission $permission, User $user)
     {
-        $this->processor = $processor;
+        $this->permission = $permission;
+        $this->user = $user;
     }
 
     /**
@@ -33,15 +41,25 @@ class PermissionUserController extends Controller
      */
     public function store(PermissionUserRequest $request, $permissionId)
     {
-        if ($this->processor->store($request, $permissionId)) {
+        $this->authorize('admin.users.permissions.store');
+
+        $permission = $this->permission->findOrFail($permissionId);
+
+        $users = $request->input('users', []);
+
+        if (count($users) > 0) {
+            $users = $this->user->findMany($users);
+
+            $permission->users()->saveMany($users);
+
             flash()->success('Success!', 'Successfully added users.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
-        } else {
-            flash()->error('Error!', "You didn't select any users!");
-
-            return redirect()->route('admin.permissions.show', [$permissionId]);
         }
+
+        flash()->error('Error!', "You didn't select any users!");
+
+        return redirect()->route('admin.permissions.show', [$permissionId]);
     }
 
     /**
@@ -54,14 +72,20 @@ class PermissionUserController extends Controller
      */
     public function destroy($permissionId, $userId)
     {
-        if ($this->processor->destroy($permissionId, $userId)) {
+        $this->authorize('admin.users.permissions.destroy');
+
+        $permission = $this->permission->findOrFail($permissionId);
+
+        $user = $permission->users()->findOrFail($userId);
+
+        if ($permission->users()->detach($user)) {
             flash()->success('Success!', 'Successfully removed user.');
 
             return redirect()->route('admin.permissions.show', [$permissionId]);
-        } else {
-            flash()->error('Error!', 'There was an issue removing this user. Please try again.');
-
-            return redirect()->route('admin.permissions.show', [$permissionId]);
         }
+
+        flash()->error('Error!', 'There was an issue removing this user. Please try again.');
+
+        return redirect()->route('admin.permissions.show', [$permissionId]);
     }
 }
