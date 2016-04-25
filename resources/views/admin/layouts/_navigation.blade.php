@@ -12,7 +12,7 @@
             </button>
 
             <a href="{{ route('admin.welcome.index') }}" class="navbar-brand">
-                Administration
+                {{ env('APP_NAME') }} | Administration
             </a>
 
         </div>

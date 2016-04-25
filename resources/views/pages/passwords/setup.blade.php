@@ -19,7 +19,7 @@
             <b>Hey There.</b>
 
             <p>
-                You have to setup a pin before you can start storing passwords.
+                You have to create a pin before you can start storing passwords.
             </p>
 
             <p>

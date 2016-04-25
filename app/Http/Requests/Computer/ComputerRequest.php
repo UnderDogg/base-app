@@ -17,6 +17,7 @@ class ComputerRequest extends Request
 
         return [
             'name'  => "required|unique:computers,name,$computer",
+            'ip'    => 'ip',
             'os'    => 'required_without:active_directory',
             'type'  => 'required_without:active_directory',
         ];

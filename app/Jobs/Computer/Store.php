@@ -42,6 +42,7 @@ class Store extends Job
         $this->computer->os_id = OperatingSystem::findOrFail($this->request->input('os'))->id;
         $this->computer->type_id = ComputerType::findOrFail($this->request->input('type'))->id;
         $this->computer->name = $this->request->input('name');
+        $this->computer->ip = $this->request->input('ip');
         $this->computer->model = $this->request->input('model');
         $this->computer->description = $this->request->input('description');
 

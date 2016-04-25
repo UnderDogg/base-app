@@ -101,12 +101,14 @@ class ComputerPresenter extends Presenter
             $form->attributes(compact('method', 'url'));
 
             $form->fieldset(function (Fieldset $fieldset) use ($computer, $operatingSystems, $types) {
-                // The computer name text field
                 $fieldset->control('input:text', 'name')
                     ->label('Name')
                     ->attributes(['placeholder' => 'Name']);
 
-                // The computer OS select field
+                $fieldset->control('input:text', 'ip')
+                    ->label('IP Address')
+                    ->attributes(['placeholder' => '10.0.0.XXX']);
+
                 $fieldset->control('select', 'os')
                     ->label('Operating System')
                     ->options($operatingSystems)
@@ -120,7 +122,6 @@ class ComputerPresenter extends Presenter
                         'placeholder' => 'Select An Operating System',
                     ]);
 
-                // The computer type select field
                 $fieldset->control('select', 'type')
                     ->label('Type')
                     ->options($types)
@@ -134,12 +135,10 @@ class ComputerPresenter extends Presenter
                         'placeholder' => 'Select a Type',
                     ]);
 
-                // The computer model text field
                 $fieldset->control('input:text', 'model')
                     ->label('Model')
                     ->attributes(['placeholder' => 'Model']);
 
-                // The computer description text field
                 $fieldset->control('input:textarea', 'description')
                     ->label('Description')
                     ->attributes([

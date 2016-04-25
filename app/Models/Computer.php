@@ -132,7 +132,9 @@ class Computer extends Model
      */
     public function ping()
     {
-        return (new Ping($this->name, 5))->ping();
+        $host = (!empty($this->ip) ? $this->ip : $this->name);
+
+        return (new Ping($host, 5))->ping();
     }
 
     /**
