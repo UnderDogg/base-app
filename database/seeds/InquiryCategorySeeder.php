@@ -16,6 +16,7 @@ class InquiryCategorySeeder extends Seeder
 
         $categories = [
             'Password Reset',
+            'Folder / File Access',
             'Other',
         ];
 

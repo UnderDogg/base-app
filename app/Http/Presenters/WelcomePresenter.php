@@ -5,9 +5,6 @@ namespace App\Http\Presenters;
 use App\Http\Presenters\Issue\IssuePresenter;
 use App\Http\Presenters\Resource\GuidePresenter;
 use App\Http\Presenters\Service\ServicePresenter;
-use App\Models\Guide;
-use App\Models\Issue;
-use App\Models\Service;
 use Illuminate\Support\Collection;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
@@ -40,25 +37,25 @@ class WelcomePresenter extends Presenter
     /**
      * Displays the last issue created for the welcome page.
      *
-     * @param Issue $issue
+     * @param mixed $issue
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function issues(Issue $issue)
+    public function issues($issue)
     {
         $presenter = new IssuePresenter($this->form, $this->table);
-
+        
         return $presenter->tableLast($issue);
     }
 
     /**
      * Displays all of the services last status.
      *
-     * @param Service $service
+     * @param mixed $service
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function services(Service $service)
+    public function services($service)
     {
         $presenter = new ServicePresenter($this->form, $this->table);
 
@@ -68,11 +65,11 @@ class WelcomePresenter extends Presenter
     /**
      * Displays the last 5 created guides.
      *
-     * @param Guide $guide
+     * @param mixed $guide
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function guides(Guide $guide)
+    public function guides($guide)
     {
         $presenter = new GuidePresenter($this->form, $this->table);
 

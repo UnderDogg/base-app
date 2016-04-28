@@ -5,7 +5,6 @@ namespace App\Http\Composers\Layout;
 use App\Models\Inquiry;
 use App\Models\Issue;
 use App\Models\User;
-use App\Policies\IssuePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,8 +46,8 @@ class NavigationComposer
         if ($user instanceof User) {
             $query = $issues = $this->issue->open();
 
-            if (!IssuePolicy::viewAll($user)) {
-                $query->forUser($user);
+            if (! policy($this->issue)->viewAll($user)) {
+                $query = $query->forUser($user);
             }
 
             $issues = $query->count();

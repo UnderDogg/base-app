@@ -6,7 +6,10 @@ use App\Http\Presenters\WelcomePresenter;
 use App\Models\Guide;
 use App\Models\Issue;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class WelcomeController extends Controller
 {
@@ -60,8 +63,16 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        if (auth()->check()) {
-            $issues = $this->presenter->issues($this->issue);
+        $user = Auth::user();
+
+        if ($user instanceof User) {
+            $issue = $this->issue;
+
+            if (! policy($this->issue)->viewAll($user)) {
+                $issue = $issue->forUser($user);
+            }
+
+            $issues = $this->presenter->issues($issue);
 
             $services = $this->presenter->services($this->service);
 

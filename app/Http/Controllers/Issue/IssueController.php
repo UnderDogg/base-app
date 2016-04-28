@@ -52,7 +52,15 @@ class IssueController extends Controller
      */
     public function index()
     {
-        $issues = $this->presenter->table($this->issue->open());
+        $user = Auth::user();
+
+        $model = $this->issue->open();
+
+        if (! policy($this->issue)->viewAll($user)) {
+            $model = $model->forUser($user);
+        }
+
+        $issues = $this->presenter->table($model);
 
         $labels = $this->label->all();
 
@@ -68,7 +76,15 @@ class IssueController extends Controller
      */
     public function closed()
     {
-        $issues = $this->presenter->table($this->issue->closed());
+        $user = Auth::user();
+
+        $model = $this->issue->closed();
+
+        if (! policy($this->issue)->viewAll($user)) {
+            $model = $model->forUser($user);
+        }
+
+        $issues = $this->presenter->table($model);
 
         $labels = $this->label->all();
 
@@ -133,7 +149,7 @@ class IssueController extends Controller
         ];
 
         $issue = $this->issue->with($with)->findOrFail($id);
-
+        
         if (IssuePolicy::show(Auth::user(), $issue)) {
             $resolution = $issue->comments->first(function ($key, $comment) {
                 return $comment->resolution;

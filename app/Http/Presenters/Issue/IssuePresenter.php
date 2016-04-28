@@ -30,8 +30,6 @@ class IssuePresenter extends Presenter
      */
     public function table($issue, array $with = ['users', 'labels'], Closure $closure = null)
     {
-        $issue = $this->applyPolicy($issue);
-
         $label = request('label');
 
         // Filter issues with the specified request label.
@@ -76,17 +74,15 @@ class IssuePresenter extends Presenter
     /**
      * Displays the last created issue.
      *
-     * @param Issue $model
+     * @param mixed $model
      * @param array $with
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function tableLast(Issue $model, array $with = ['users', 'labels'])
+    public function tableLast($model, array $with = ['users', 'labels'])
     {
-        return $this->table($model, $with, function (TableGrid $table, Issue $issue) {
+        return $this->table($model, $with, function (TableGrid $table, $issue) {
             $issue = $issue->latest();
-
-            $issue = $this->applyPolicy($issue);
 
             $table->with($issue)->paginate(1);
 
@@ -371,23 +367,5 @@ class IssuePresenter extends Presenter
         };
 
         return $column;
-    }
-
-    /**
-     * Applies the issue policy to the issue query.
-     *
-     * @param Issue|Builder $issue
-     *
-     * @return Builder
-     */
-    protected function applyPolicy($issue)
-    {
-        // Limit the view if the user isn't
-        // allowed to view all issues.
-        if (!IssuePolicy::viewAll(auth()->user())) {
-            $issue->where('user_id', auth()->user()->id);
-        }
-
-        return $issue;
     }
 }

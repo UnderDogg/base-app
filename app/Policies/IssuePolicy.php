@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Issue;
 use App\Models\User;
 
-class IssuePolicy
+class IssuePolicy extends Policy
 {
     /**
      * Returns true / false if the specified

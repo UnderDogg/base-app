@@ -8,6 +8,15 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 class AuthServiceProvider extends ServiceProvider
 {
     /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        \App\Models\Issue::class => \App\Policies\IssuePolicy::class,
+    ];
+
+    /**
      * Register any application authentication / authorization services.
      *
      * @param Gate $gate
