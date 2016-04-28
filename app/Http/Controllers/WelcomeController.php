@@ -9,7 +9,6 @@ use App\Models\Service;
 use App\Models\User;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class WelcomeController extends Controller
 {
@@ -68,7 +67,7 @@ class WelcomeController extends Controller
         if ($user instanceof User) {
             $issue = $this->issue;
 
-            if (! policy($this->issue)->viewAll($user)) {
+            if (!policy($this->issue)->viewAll($user)) {
                 $issue = $issue->forUser($user);
             }
 

@@ -56,7 +56,7 @@ class IssueController extends Controller
 
         $model = $this->issue->open();
 
-        if (! policy($this->issue)->viewAll($user)) {
+        if (!policy($this->issue)->viewAll($user)) {
             $model = $model->forUser($user);
         }
 
@@ -80,7 +80,7 @@ class IssueController extends Controller
 
         $model = $this->issue->closed();
 
-        if (! policy($this->issue)->viewAll($user)) {
+        if (!policy($this->issue)->viewAll($user)) {
             $model = $model->forUser($user);
         }
 
@@ -149,7 +149,7 @@ class IssueController extends Controller
         ];
 
         $issue = $this->issue->with($with)->findOrFail($id);
-        
+
         if (IssuePolicy::show(Auth::user(), $issue)) {
             $resolution = $issue->comments->first(function ($key, $comment) {
                 return $comment->resolution;
