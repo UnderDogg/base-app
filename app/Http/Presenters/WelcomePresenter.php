@@ -44,7 +44,7 @@ class WelcomePresenter extends Presenter
     public function issues($issue)
     {
         $presenter = new IssuePresenter($this->form, $this->table);
-        
+
         return $presenter->tableLast($issue);
     }
 

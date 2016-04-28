@@ -46,7 +46,7 @@ class NavigationComposer
         if ($user instanceof User) {
             $query = $issues = $this->issue->open();
 
-            if (! policy($this->issue)->viewAll($user)) {
+            if (!policy($this->issue)->viewAll($user)) {
                 $query = $query->forUser($user);
             }
 
