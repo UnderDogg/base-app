@@ -31,8 +31,6 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
         'email',
         'password',
         'remember_token',
-        'forgot_token',
-        'reset_token',
         'from_ad',
     ];
 
@@ -62,15 +60,17 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     }
 
     /**
-     * The belongsToMany security questions relationship.
+     * Scopes the specified query limited to administrators.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @param mixed $query
+     *
+     * @return mixed
      */
-    public function questions()
+    public function scopeWhereIsAdministrator($query)
     {
-        return $this->belongsToMany(Question::class, $this->tableQuestionsPivot, 'user_id')
-            ->withPivot(['answer'])
-            ->withTimestamps();
+        return $query->whereHas('roles', function ($query) {
+            $query->where(['name' => Role::getAdministratorName()]);
+        });
     }
 
     /**
@@ -120,112 +120,5 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     public function getLabelLargeAttribute()
     {
         return HTML::create('span', $this->label, ['class' => 'label-large']);
-    }
-
-    /**
-     * Scopes the specified query limited to administrators.
-     *
-     * @param mixed $query
-     *
-     * @return mixed
-     */
-    public function scopeWhereIsAdministrator($query)
-    {
-        return $query->whereHas('roles', function ($query) {
-            $query->where(['name' => Role::getAdministratorName()]);
-        });
-    }
-
-    /**
-     * Locates a user by the specified attribute and value.
-     *
-     * @param int|string $attribute
-     * @param mixed      $value
-     *
-     * @return null|User
-     */
-    public function locateBy($attribute, $value)
-    {
-        return $this->newQuery()->where([$attribute => $value])->first();
-    }
-
-    /**
-     * Locates a user by the specified forgot token.
-     *
-     * @param string $token
-     *
-     * @return null|User
-     */
-    public function locateByForgotToken($token)
-    {
-        return $this->locateBy('forgot_token', $token);
-    }
-
-    /**
-     * Locates a user by the specified reset token.
-     *
-     * @param string $token
-     *
-     * @return User|null
-     */
-    public function locateByResetToken($token)
-    {
-        return $this->locateBy('reset_token', $token);
-    }
-
-    /**
-     * Generates a forgot token on the current user.
-     *
-     * @return bool
-     */
-    public function generateForgotToken()
-    {
-        $this->forgot_token = uuid();
-
-        if ($this->save()) {
-            return $this->forgot_token;
-        }
-
-        return false;
-    }
-
-    /**
-     * Generates a reset token on the current user.
-     *
-     * @return bool
-     */
-    public function generateResetToken()
-    {
-        $this->reset_token = uuid();
-
-        if ($this->save()) {
-            return $this->reset_token;
-        }
-
-        return false;
-    }
-
-    /**
-     * Clears the forgot token on the current user.
-     *
-     * @return bool
-     */
-    public function clearForgotToken()
-    {
-        $this->forgot_token = null;
-
-        return $this->save();
-    }
-
-    /**
-     * Clears the reset token on the current user.
-     *
-     * @return bool
-     */
-    public function clearResetToken()
-    {
-        $this->reset_token = null;
-
-        return $this->save();
     }
 }

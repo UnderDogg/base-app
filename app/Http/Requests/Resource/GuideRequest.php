@@ -43,6 +43,6 @@ class GuideRequest extends Request
      */
     public function authorize()
     {
-        return GuidePolicy::create(auth()->user());
+        return true;
     }
 }

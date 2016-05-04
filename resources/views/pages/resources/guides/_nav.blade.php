@@ -15,7 +15,7 @@
             </a>
         </li>
 
-        @if(\App\Policies\Resource\GuidePolicy::create(auth()->user()))
+        @can('create', \App\Models\Guide::class)
 
             <li>
                 <a href="{{ route('resources.guides.create') }}">

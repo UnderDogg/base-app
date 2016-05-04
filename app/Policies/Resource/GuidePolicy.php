@@ -4,8 +4,9 @@ namespace App\Policies\Resource;
 
 use App\Models\Guide;
 use App\Models\User;
+use App\Policies\Policy;
 
-class GuidePolicy
+class GuidePolicy extends Policy
 {
     /**
      * Allows only users with specific permission
@@ -16,7 +17,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function viewUnpublished(User $user, Guide $guide = null)
+    public function viewUnpublished(User $user, Guide $guide = null)
     {
         if ($guide instanceof Guide && $guide->published) {
             return true;
@@ -32,7 +33,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function create(User $user)
+    public function create(User $user)
     {
         return $user->can('guides.create');
     }
@@ -44,9 +45,9 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function store(User $user)
+    public function store(User $user)
     {
-        return self::create($user);
+        return $this->create($user);
     }
 
     /**
@@ -56,7 +57,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function edit(User $user)
+    public function edit(User $user)
     {
         return $user->can('guides.edit');
     }
@@ -68,9 +69,9 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function update(User $user)
+    public function update(User $user)
     {
-        return static::edit($user);
+        return $this->edit($user);
     }
 
     /**
@@ -80,7 +81,7 @@ class GuidePolicy
      *
      * @return bool
      */
-    public static function destroy(User $user)
+    public function destroy(User $user)
     {
         return $user->can('guides.destroy');
     }

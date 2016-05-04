@@ -11,6 +11,7 @@ use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
 use App\Policies\Resource\GuidePolicy;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class GuideController extends Controller
 {
@@ -69,13 +70,11 @@ class GuideController extends Controller
      */
     public function create()
     {
-        if (GuidePolicy::create(auth()->user())) {
-            $form = $this->presenter->form($this->guide);
+        $this->authorize($this->guide);
 
-            return view('pages.resources.guides.create', compact('form'));
-        }
+        $form = $this->presenter->form($this->guide);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.create', compact('form'));
     }
 
     /**
@@ -87,21 +86,19 @@ class GuideController extends Controller
      */
     public function store(GuideRequest $request)
     {
-        if (GuidePolicy::create(auth()->user())) {
-            $guide = $this->guide->newInstance();
+        $this->authorize($this->guide);
 
-            if ($this->dispatch(new Store($request, $guide))) {
-                flash()->success('Success!', 'Successfully created guide!');
+        $guide = $this->guide->newInstance();
 
-                return redirect()->route('resources.guides.index');
-            }
+        if ($this->dispatch(new Store($request, $guide))) {
+            flash()->success('Success!', 'Successfully created guide!');
 
-            flash()->error('Error!', 'There was an issue creating a guide. Please try again.');
-
-            return redirect()->route('resources.guides.create');
+            return redirect()->route('resources.guides.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue creating a guide. Please try again.');
+
+        return redirect()->route('resources.guides.create');
     }
 
     /**
@@ -121,7 +118,7 @@ class GuideController extends Controller
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!GuidePolicy::viewUnpublished(auth()->user(), $guide)) {
+        if (!policy($guide)->viewUnpublished(Auth::user(), $guide)) {
             $this->unauthorized();
         }
 
@@ -141,15 +138,13 @@ class GuideController extends Controller
      */
     public function edit($id)
     {
-        if (GuidePolicy::edit(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $guide = $this->guide->locate($id);
 
-            $form = $this->presenter->form($guide);
+        $this->authorize($guide);
 
-            return view('pages.resources.guides.edit', compact('form'));
-        }
+        $form = $this->presenter->form($guide);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.edit', compact('form'));
     }
 
     /**
@@ -162,21 +157,19 @@ class GuideController extends Controller
      */
     public function update(GuideRequest $request, $id)
     {
-        if (GuidePolicy::edit(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $guide = $this->guide->locate($id);
 
-            if ($this->dispatch(new Update($request, $guide))) {
-                flash()->success('Success!', 'Successfully updated guide!');
+        $this->authorize($guide);
 
-                return redirect()->route('resources.guides.show', [$id]);
-            }
+        if ($this->dispatch(new Update($request, $guide))) {
+            flash()->success('Success!', 'Successfully updated guide!');
 
-            flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
-
-            return redirect()->route('resources.guides.edit', [$id]);
+            return redirect()->route('resources.guides.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this guide. Please try again.');
+
+        return redirect()->route('resources.guides.edit', [$id]);
     }
 
     /**
@@ -208,20 +201,18 @@ class GuideController extends Controller
      */
     public function destroy($id)
     {
-        if (GuidePolicy::destroy(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $guide = $this->guide->locate($id);
 
-            if ($guide->delete()) {
-                flash()->success('Success!', 'Successfully deleted guide!');
+        $this->authorize($guide);
 
-                return redirect()->route('resources.guides.index');
-            }
+        if ($guide->delete()) {
+            flash()->success('Success!', 'Successfully deleted guide!');
 
-            flash()->error('Error!', 'There was an issue deleting this guide. Please try again.');
-
-            return redirect()->route('resources.guides.show', [$id]);
+            return redirect()->route('resources.guides.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this guide. Please try again.');
+
+        return redirect()->route('resources.guides.show', [$id]);
     }
 }
