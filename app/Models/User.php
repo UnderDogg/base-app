@@ -9,8 +9,8 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Orchestra\Support\Facades\HTML;
 use Larapacks\Authorization\Traits\UserRolesTrait;
+use Orchestra\Support\Facades\HTML;
 
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
