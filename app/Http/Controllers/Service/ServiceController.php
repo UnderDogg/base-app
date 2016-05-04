@@ -9,7 +9,6 @@ use App\Jobs\Service\Store;
 use App\Jobs\Service\Update;
 use App\Models\Service;
 use App\Models\ServiceRecord;
-use App\Policies\ServicePolicy;
 
 class ServiceController extends Controller
 {
@@ -42,15 +41,13 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        if (ServicePolicy::index(auth()->user())) {
-            $services = $this->presenter->table($this->service);
+        $this->authorize($this->service);
 
-            $navbar = $this->presenter->navbar();
+        $services = $this->presenter->table($this->service);
 
-            return view('pages.services.index', compact('services', 'navbar'));
-        }
+        $navbar = $this->presenter->navbar();
 
-        $this->unauthorized();
+        return view('pages.services.index', compact('services', 'navbar'));
     }
 
     /**
@@ -60,13 +57,11 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        if (ServicePolicy::create(auth()->user())) {
-            $form = $this->presenter->form($this->service);
+        $this->authorize($this->service);
 
-            return view('pages.services.create', compact('form'));
-        }
+        $form = $this->presenter->form($this->service);
 
-        $this->unauthorized();
+        return view('pages.services.create', compact('form'));
     }
 
     /**
@@ -78,19 +73,17 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        if (ServicePolicy::create(auth()->user())) {
-            if ($this->dispatch(new Store($request, $this->service))) {
-                flash()->success('Success!', 'Successfully created service.');
+       $this->authorize($this->service);
 
-                return redirect()->route('services.index');
-            }
+        if ($this->dispatch(new Store($request, $this->service))) {
+            flash()->success('Success!', 'Successfully created service.');
 
-            flash()->error('Error!', 'There was an issue creating a service. Please try again.');
-
-            return redirect()->route('services.create');
+            return redirect()->route('services.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue creating a service. Please try again.');
+
+        return redirect()->route('services.create');
     }
 
     /**
@@ -102,13 +95,11 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        if (ServicePolicy::show(auth()->user())) {
-            $service = $this->service->findOrFail($id);
+        $service = $this->service->findOrFail($id);
 
-            return view('pages.services.show', compact('service'));
-        }
+        $this->authorize($service);
 
-        $this->unauthorized();
+        return view('pages.services.show', compact('service'));
     }
 
     /**
@@ -141,15 +132,13 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        if (ServicePolicy::edit(auth()->user())) {
-            $service = $this->service->findOrFail($id);
+        $service = $this->service->findOrFail($id);
 
-            $form = $this->presenter->form($service);
+        $this->authorize($service);
 
-            return view('pages.services.edit', compact('form'));
-        }
+        $form = $this->presenter->form($service);
 
-        $this->unauthorized();
+        return view('pages.services.edit', compact('form'));
     }
 
     /**
@@ -162,21 +151,19 @@ class ServiceController extends Controller
      */
     public function update(ServiceRequest $request, $id)
     {
-        if (ServicePolicy::edit(auth()->user())) {
-            $service = $this->service->findOrFail($id);
+        $service = $this->service->findOrFail($id);
 
-            if ($this->dispatch(new Update($request, $service))) {
-                flash()->success('Success!', 'Successfully updated service.');
+        $this->authorize($service);
 
-                return redirect()->route('services.show', [$id]);
-            }
+        if ($this->dispatch(new Update($request, $service))) {
+            flash()->success('Success!', 'Successfully updated service.');
 
-            flash()->error('Error!', 'There was an issue updating this service. Please try again.');
-
-            return redirect()->route('services.edit', [$id]);
+            return redirect()->route('services.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this service. Please try again.');
+
+        return redirect()->route('services.edit', [$id]);
     }
 
     /**
@@ -188,20 +175,18 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        if (ServicePolicy::destroy(auth()->user())) {
-            $service = $this->service->findOrFail($id);
+        $service = $this->service->findOrFail($id);
 
-            if ($service->delete()) {
-                flash()->success('Success!', 'Successfully deleted service.');
+        $this->authorize($service);
 
-                return redirect()->route('services.index');
-            }
+        if ($service->delete()) {
+            flash()->success('Success!', 'Successfully deleted service.');
 
-            flash()->error('Error!', 'There was an issue deleting this service. Please try again.');
-
-            return redirect()->route('services.show', [$id]);
+            return redirect()->route('services.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this service. Please try again.');
+
+        return redirect()->route('services.show', [$id]);
     }
 }

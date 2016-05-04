@@ -144,7 +144,7 @@
 
                     </li>
 
-                    @if(\App\Policies\ServicePolicy::index(auth()->user()))
+                    @can('index', \App\Models\Service::class)
 
                         <li class="{{ active()->route('services.*') }}">
 
@@ -155,7 +155,7 @@
 
                         </li>
 
-                    @endif
+                    @endcan
 
                     @if(\App\Policies\ComputerPolicy::index(auth()->user()))
 

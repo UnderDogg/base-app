@@ -13,7 +13,7 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function index(User $user)
+    public function index(User $user)
     {
         return $user->can('services.index');
     }
@@ -25,7 +25,7 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function create(User $user)
+    public function create(User $user)
     {
         return $user->can('services.create');
     }
@@ -37,9 +37,9 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function store(User $user)
+    public function store(User $user)
     {
-        return self::create($user);
+        return $this->create($user);
     }
 
     /**
@@ -49,7 +49,7 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function show(User $user)
+    public function show(User $user)
     {
         return $user->can('services.show');
     }
@@ -61,7 +61,7 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function edit(User $user)
+    public function edit(User $user)
     {
         return $user->can('services.edit');
     }
@@ -73,9 +73,9 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function update(User $user)
+    public function update(User $user)
     {
-        return self::edit($user);
+        return $this->edit($user);
     }
 
     /**
@@ -85,7 +85,7 @@ class ServicePolicy
      *
      * @return bool
      */
-    public static function destroy(User $user)
+    public function destroy(User $user)
     {
         return $user->can('services.destroy');
     }
