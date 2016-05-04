@@ -5,7 +5,6 @@ namespace App\Http\Presenters\Resource;
 use App\Http\Presenters\Presenter;
 use App\Models\Guide;
 use App\Models\GuideStep;
-use App\Policies\Resource\GuidePolicy;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +29,7 @@ class GuidePresenter extends Presenter
 
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
-        if (!policy(Guide::class)->viewUnpublished(Auth::user())){
+        if (!policy(Guide::class)->viewUnpublished(Auth::user())) {
             $guide->where('published', true);
         }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Resource;
 
 use App\Http\Requests\Request;
-use App\Policies\Resource\GuidePolicy;
 
 class GuideRequest extends Request
 {
