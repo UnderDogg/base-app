@@ -482,42 +482,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The services record controller.
             $router->resource('services.records', 'ServiceRecordController');
         });
-
-        $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'security-questions', 'as' => 'security-questions.'], function (Router $router) {
-            // Displays all the users security questions.
-            $router->get('/', [
-                'as'         => 'index',
-                'uses'       => 'SetupQuestionController@index',
-                'middleware' => 'security-questions.setup.finish',
-            ]);
-
-            // Cover security question routes with setup middleware.
-            $router->group(['middleware' => 'security-questions.setup'], function (Router $router) {
-                // Displays the security question setup pages per step.
-                $router->get('setup', [
-                    'as'   => 'setup.step',
-                    'uses' => 'SetupQuestionController@setup',
-                ]);
-
-                // Saves the current security question.
-                $router->post('setup/save', [
-                    'as'   => 'setup.save',
-                    'uses' => 'SetupQuestionController@save',
-                ]);
-            });
-
-            // Displays the form to edit a security question.
-            $router->get('{question}', [
-                'as'   => 'edit',
-                'uses' => 'SetupQuestionController@edit',
-            ]);
-
-            // Updates the specified security question.
-            $router->post('{question}', [
-                'as'   => 'update',
-                'uses' => 'SetupQuestionController@update',
-            ]);
-        });
     });
 
     // Authentication Routes.
@@ -535,45 +499,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'as'   => 'login.perform',
                 'uses' => 'AuthController@postLogin',
             ]);
-
-            // The forgot password group.
-            $router->group(['namespace' => 'ActiveDirectory', 'prefix' => 'forgot-password', 'as' => 'forgot-password.'], function (Router $router) {
-                // Displays forgot password page.
-                $router->get('/', [
-                    'as'   => 'discover',
-                    'uses' => 'ForgotPasswordController@discover',
-                ]);
-
-                // Processes finding the submitted user.
-                $router->post('/', [
-                    'as'   => 'find',
-                    'uses' => 'ForgotPasswordController@find',
-                ]);
-
-                // Displays the users questions to reset the account password.
-                $router->get('{token}', [
-                    'as'   => 'questions',
-                    'uses' => 'ForgotPasswordController@questions',
-                ]);
-
-                // Processes the users answers for their security questions.
-                $router->post('{token}/answer', [
-                    'as'   => 'answer',
-                    'uses' => 'ForgotPasswordController@answer',
-                ]);
-
-                // Displays the form to reset the users password.
-                $router->get('{token}/reset', [
-                    'as'   => 'reset',
-                    'uses' => 'ForgotPasswordController@reset',
-                ]);
-
-                // Processes changing the users password.
-                $router->post('{token}/reset', [
-                    'as'   => 'change',
-                    'uses' => 'ForgotPasswordController@change',
-                ]);
-            });
         });
 
         $router->get('logout', [
