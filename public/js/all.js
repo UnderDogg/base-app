@@ -4712,7 +4712,7 @@ $(function ()
     $(document).on('pjax:end',   function() { NProgress.done();  });
 
     $(document).pjax('a', '#app', {
-        timeout: 3000
+        timeout: 10000
     });
 
     $(document).on('pjax:beforeSend', function () {
