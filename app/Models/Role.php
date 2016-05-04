@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Stevebauman\Authorization\Traits\RolePermissionsTrait;
+use Larapacks\Authorization\Traits\RolePermissionsTrait;
 
 class Role extends Model
 {

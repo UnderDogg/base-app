@@ -176,8 +176,8 @@ return [
         /*
          * Additional App Service Providers
          */
+        Larapacks\Authorization\AuthorizationServiceProvider::class,
         Stevebauman\Revision\RevisionServiceProvider::class,
-        Stevebauman\Authorization\AuthorizationServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
