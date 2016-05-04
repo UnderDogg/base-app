@@ -73,7 +73,7 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-       $this->authorize($this->service);
+        $this->authorize($this->service);
 
         if ($this->dispatch(new Store($request, $this->service))) {
             flash()->success('Success!', 'Successfully created service.');
