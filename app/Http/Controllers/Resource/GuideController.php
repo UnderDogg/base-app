@@ -9,7 +9,6 @@ use App\Jobs\Resource\Guide\Favorite;
 use App\Jobs\Resource\Guide\Store;
 use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
-use App\Policies\Resource\GuidePolicy;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
