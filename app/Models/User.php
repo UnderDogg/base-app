@@ -123,6 +123,20 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     }
 
     /**
+     * Scopes the specified query limited to administrators.
+     *
+     * @param mixed $query
+     *
+     * @return mixed
+     */
+    public function scopeWhereIsAdministrator($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where(['name' => Role::getAdministratorName()]);
+        });
+    }
+
+    /**
      * Locates a user by the specified attribute and value.
      *
      * @param int|string $attribute

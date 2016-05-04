@@ -3,7 +3,6 @@
 namespace App\Listeners\Issue;
 
 use App\Events\Issue\Created;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Mail\Mailer;
 
@@ -40,16 +39,17 @@ class EmailAdministratorsAboutNewTicket
      */
     public function handle(Created $event)
     {
-        $users = $this->user->whereHas('roles', function ($query) {
-             $query->where(['name' => Role::getAdministratorName()]);
-        })->get();
+        $users = $this->user->whereIsAdministrator()->get();
 
         foreach ($users as $user) {
-            $this->mailer->send('emails.issues.new', compact('event'), function ($m) use ($event, $user) {
-                $m->to($user->email);
+            // Only notify users who don't own the ticket.
+            if ($event->issue->user->id != $user->id) {
+                $this->mailer->send('emails.issues.new', compact('event'), function ($m) use ($event, $user) {
+                    $m->to($user->email);
 
-                $m->subject("New Ticket: {$event->issue->title}");
-            });
+                    $m->subject("New Ticket: {$event->issue->title}");
+                });
+            }
         }
     }
 }
