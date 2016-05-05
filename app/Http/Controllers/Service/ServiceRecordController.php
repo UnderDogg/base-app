@@ -8,7 +8,6 @@ use App\Http\Requests\Service\ServiceRecordRequest;
 use App\Jobs\Service\Record\Store;
 use App\Jobs\Service\Record\Update;
 use App\Models\Service;
-use App\Policies\ServiceRecordPolicy;
 
 class ServiceRecordController extends Controller
 {
