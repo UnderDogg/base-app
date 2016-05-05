@@ -476,7 +476,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             ]);
         });
 
-
         // The services group.
         $router->group(['namespace' => 'Service', 'middleware' => 'permission:manage.services'], function (Router $router) {
             // The services resource.

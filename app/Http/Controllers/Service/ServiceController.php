@@ -164,7 +164,7 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $service = $this->service->findOrFail($id);
-        
+
         if ($service->delete()) {
             flash()->success('Success!', 'Successfully deleted service.');
 
