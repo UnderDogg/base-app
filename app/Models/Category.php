@@ -56,7 +56,7 @@ class Category extends Model
      */
     public static function getSelectHierarchy($belongsTo = null)
     {
-        $roots = (new static)
+        $roots = (new static())
             ->whereBelongsTo($belongsTo)
             ->whereIsRoot()
             ->with(['children'])
@@ -64,7 +64,9 @@ class Category extends Model
 
         $options = [null => 'None'];
 
-        foreach ($roots as $root) $options += static::getRenderedNode($root);
+        foreach ($roots as $root) {
+            $options += static::getRenderedNode($root);
+        }
 
         return $options;
     }
@@ -85,7 +87,9 @@ class Category extends Model
 
         $options[$category->id] = $name;
 
-        foreach ($category->children as $child) $options += static::getRenderedNode($child, ++$depth);
+        foreach ($category->children as $child) {
+            $options += static::getRenderedNode($child, ++$depth);
+        }
 
         return $options;
     }
@@ -101,7 +105,9 @@ class Category extends Model
      */
     public static function getRenderedNodeName(Category $category, $depth, $separator = '-')
     {
-        if ($category->isRoot()) return $category->name;
+        if ($category->isRoot()) {
+            return $category->name;
+        }
 
         $depth = str_repeat($separator, $depth);
 
@@ -115,8 +121,7 @@ class Category extends Model
      */
     public function getManagerAttribute()
     {
-        return (Arr::has($this->options, 'manager') ?
-            Arr::get($this->options, 'manager') == true : false
-        );
+        return Arr::has($this->options, 'manager') ?
+            Arr::get($this->options, 'manager') == true : false;
     }
 }
