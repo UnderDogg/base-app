@@ -12,7 +12,7 @@ class IssuePolicy extends Policy
      */
     public function before(User $user)
     {
-        return ($user->can('manage.issues') ?: parent::before($user));
+        return $user->can('manage.issues') ?: parent::before($user);
     }
 
     /**
