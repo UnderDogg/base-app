@@ -87,7 +87,9 @@ class InquiryCategoryPresenter extends Presenter
 
                 // If a parent is given, we're creating a sub-category underneath
                 // it, otherwise we're creating a root category.
-                if ($parent instanceof Category) $params[] = $parent->id;
+                if ($parent instanceof Category) {
+                    $params[] = $parent->id;
+                }
 
                 $url = route('inquiries.categories.store', $params);
                 $method = 'POST';
@@ -102,7 +104,7 @@ class InquiryCategoryPresenter extends Presenter
                 $fieldset
                     ->control('select', 'parent', function ($field) use ($category, $parent) {
                         $field->value = function () use ($category, $parent) {
-                            return ($parent && $parent->exists ? $parent->id : null);
+                            return $parent && $parent->exists ? $parent->id : null;
                         };
 
                         $field->options = $category::getSelectHierarchy('inquiries');
@@ -120,7 +122,9 @@ class InquiryCategoryPresenter extends Presenter
 
                         $attributes = ['class' => 'switch-mark'];
 
-                        if ($category->manager) $attributes['checked'] = true;
+                        if ($category->manager) {
+                            $attributes['checked'] = true;
+                        }
 
                         $field->value = true;
 

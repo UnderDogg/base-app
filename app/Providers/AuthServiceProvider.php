@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\GuideStep;
-use App\Policies\Resource\GuideStepPolicy;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
