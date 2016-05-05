@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\IssueLabelRequest;
 use App\Models\Issue;
 use App\Models\Label;
-use App\Policies\IssuePolicy;
 
 class IssueLabelController extends Controller
 {
@@ -44,18 +43,14 @@ class IssueLabelController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::addLabels(auth()->user())) {
-            if ($request->persist($issue)) {
-                flash()->success('Success!', 'Successfully updated labels for this issue.');
-
-                return redirect()->route('issues.show', [$id]);
-            }
-
-            flash()->error('Error!', 'There was an issue adding labels to this issue. Please try again.');
+        if ($request->persist($issue)) {
+            flash()->success('Success!', 'Successfully updated labels for this issue.');
 
             return redirect()->route('issues.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue adding labels to this issue. Please try again.');
+
+        return redirect()->route('issues.show', [$id]);
     }
 }

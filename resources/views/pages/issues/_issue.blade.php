@@ -84,7 +84,7 @@
 
     <div class="hidden-print">
 
-        @if(\App\Policies\IssuePolicy::edit(auth()->user(), $issue))
+        @if(policy($issue)->edit(auth()->user(), $issue))
 
             <a
                     class="btn btn-default btn-sm"
@@ -95,7 +95,7 @@
 
         @endif
 
-        @if(\App\Policies\IssuePolicy::destroy(auth()->user(), $issue))
+            @if(policy($issue)->destroy(auth()->user(), $issue))
 
             <a
                     class="btn btn-default btn-sm"

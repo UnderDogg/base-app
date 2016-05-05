@@ -7,7 +7,6 @@ use App\Models\Comment;
 use App\Models\Issue;
 use App\Models\Label;
 use App\Models\User;
-use App\Policies\IssuePolicy;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -137,17 +136,11 @@ class IssuePresenter extends Presenter
                         return $issue->occurred_at_for_input;
                     });
 
-                // If the user can add labels we'll allow them to
-                // add them during the creation of the ticket.
-                if (IssuePolicy::addLabels(auth()->user())) {
+                if (auth()->user()->can('manage.issues')) {
                     $labels = Label::all()->pluck('display', 'id');
 
                     $this->labelField($fieldset, $labels);
-                }
 
-                // If the user can add users we'll allow them to
-                // add them during the creation of the ticket.
-                if (IssuePolicy::addUsers(auth()->user())) {
                     $labels = User::all()->pluck('name', 'id');
 
                     $this->userField($fieldset, $labels);

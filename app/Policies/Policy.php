@@ -8,8 +8,7 @@ use App\Models\User;
 abstract class Policy
 {
     /**
-     * Bypasses all policy methods if the
-     * current user is an administrator.
+     * Bypasses all policy methods if the current user is an administrator.
      *
      * @param User $user
      *
@@ -17,6 +16,6 @@ abstract class Policy
      */
     public function before(User $user)
     {
-        //return $user->hasRole(Role::getAdministratorName());
+        return $user->hasRole(Role::getAdministratorName());
     }
 }

@@ -8,16 +8,22 @@ use App\Models\User;
 class IssuePolicy extends Policy
 {
     /**
+     * {@inheritdoc}
+     */
+    public function before(User $user)
+    {
+        return ($user->can('manage.issues') ?: parent::before($user));
+    }
+
+    /**
      * Returns true / false if the specified
      * user can view everyone's issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public static function viewAll(User $user)
+    public function viewAll()
     {
-        return $user->can('issues.index.all');
+        return false;
     }
 
     /**
@@ -29,9 +35,9 @@ class IssuePolicy extends Policy
      *
      * @return bool
      */
-    public static function show(User $user, Issue $issue)
+    public function show(User $user, Issue $issue)
     {
-        return $user->can('issues.show') || (int) $user->id === (int) $issue->user_id;
+        return $user->id == $issue->user_id;
     }
 
     /**
@@ -43,9 +49,9 @@ class IssuePolicy extends Policy
      *
      * @return bool
      */
-    public static function edit(User $user, Issue $issue)
+    public function edit(User $user, Issue $issue)
     {
-        return $user->can('issues.edit') || (int) $user->id === (int) $issue->user_id;
+        return $user->id == $issue->user_id;
     }
 
     /**
@@ -57,9 +63,9 @@ class IssuePolicy extends Policy
      *
      * @return bool
      */
-    public static function update(User $user, Issue $issue)
+    public function update(User $user, Issue $issue)
     {
-        return self::edit($user, $issue);
+        return $this->edit($user, $issue);
     }
 
     /**
@@ -68,13 +74,11 @@ class IssuePolicy extends Policy
      *
      * Only administrators can re-open issues.
      *
-     * @param User $user
-     *
      * @return bool
      */
-    public static function open(User $user)
+    public function open()
     {
-        return $user->can('issues.open');
+        return false;
     }
 
     /**
@@ -88,9 +92,9 @@ class IssuePolicy extends Policy
      *
      * @return bool
      */
-    public static function close(User $user, Issue $issue)
+    public function close(User $user, Issue $issue)
     {
-        return $user->can('issues.close') || (int) $user->id === (int) $issue->user_id;
+        return $user->id == $issue->user_id;
     }
 
     /**
@@ -102,34 +106,8 @@ class IssuePolicy extends Policy
      *
      * @return bool
      */
-    public static function destroy(User $user, Issue $issue)
+    public function destroy(User $user, Issue $issue)
     {
-        return $user->can('issues.destroy') || (int) $user->id === (int) $issue->user_id;
-    }
-
-    /**
-     * Returns true / false if the specified user
-     * can add labels to issues.
-     *
-     * @param User $user
-     *
-     * @return bool
-     */
-    public static function addLabels(User $user)
-    {
-        return $user->can('issues.labels.store');
-    }
-
-    /**
-     * Returns true / false if the specified user
-     * can add users to issues.
-     *
-     * @param User $user
-     *
-     * @return bool
-     */
-    public static function addUsers(User $user)
-    {
-        return $user->can('issues.users.store');
+        return $user->id == $issue->user_id;
     }
 }

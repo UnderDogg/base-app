@@ -89,7 +89,7 @@
 
         @if($issue->isOpen())
 
-            @if(\App\Policies\IssuePolicy::close(auth()->user(), $issue))
+            @if(policy($issue)->close(auth()->user(), $issue))
 
                 <a
                         data-post="POST"
@@ -106,7 +106,7 @@
 
         @else
 
-            @if(\App\Policies\IssuePolicy::open(auth()->user(), $issue))
+            @if(policy($issue)->open())
 
                 <a
                         data-post="POST"

@@ -1,4 +1,4 @@
-@if(\App\Policies\IssuePolicy::addUsers(auth()->user(), $issue))
+@can('manage.issues')
 
     <a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#users-modal">
         <i class="fa fa-users"></i>
@@ -26,4 +26,4 @@
 
     </div>
 
-@endif
+@endcan

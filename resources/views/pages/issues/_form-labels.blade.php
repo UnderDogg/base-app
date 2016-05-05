@@ -1,4 +1,4 @@
-@if(\App\Policies\IssuePolicy::addLabels(auth()->user(), $issue))
+@can('manage.issues')
 
     <a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#label-modal">
         <i class="fa fa-tag"></i>
@@ -26,4 +26,4 @@
 
     </div>
 
-@endif
+@endcan

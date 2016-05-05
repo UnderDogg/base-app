@@ -3,7 +3,6 @@
 namespace App\Http\Composers\Issue;
 
 use App\Models\Issue;
-use App\Policies\IssuePolicy;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +35,7 @@ class NavigationComposer
         $open = $this->issue->open();
         $closed = $this->issue->closed();
 
-        if (!IssuePolicy::viewAll($user)) {
+        if ($user->can('manage.issues')) {
             // If the user doesn't have permission to view all issues, we
             // need to scope the query by the current user to only
             // show the users issue count.

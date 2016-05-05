@@ -10,7 +10,6 @@ use App\Http\Requests\Issue\IssueOpenRequest;
 use App\Http\Requests\Issue\IssueRequest;
 use App\Models\Issue;
 use App\Models\Label;
-use App\Policies\IssuePolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 
@@ -150,21 +149,19 @@ class IssueController extends Controller
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
-        if (IssuePolicy::show(Auth::user(), $issue)) {
-            $resolution = $issue->comments->first(function ($key, $comment) {
-                return $comment->resolution;
-            });
+        $this->authorize($issue);
 
-            $formComment = $this->presenter->formComment($issue);
+        $resolution = $issue->comments->first(function ($key, $comment) {
+            return $comment->resolution;
+        });
 
-            $formLabels = $this->presenter->formLabels($issue);
+        $formComment = $this->presenter->formComment($issue);
 
-            $formUsers = $this->presenter->formUsers($issue);
+        $formLabels = $this->presenter->formLabels($issue);
 
-            return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
-        }
+        $formUsers = $this->presenter->formUsers($issue);
 
-        $this->unauthorized();
+        return view('pages.issues.show', compact('issue', 'resolution', 'formComment', 'formLabels', 'formUsers'));
     }
 
     /**
@@ -178,13 +175,11 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::edit(Auth::user(), $issue)) {
-            $form = $this->presenter->form($issue);
+        $this->authorize($issue);
 
-            return view('pages.issues.edit', compact('form'));
-        }
+        $form = $this->presenter->form($issue);
 
-        $this->unauthorized();
+        return view('pages.issues.edit', compact('form'));
     }
 
     /**
@@ -199,19 +194,17 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::edit(Auth::user(), $issue)) {
-            if ($request->persist($issue)) {
-                flash()->success('Success!', 'Successfully updated ticket.');
+        $this->authorize($issue);
 
-                return redirect()->route('issues.show', [$id]);
-            } else {
-                flash()->error('Error!', 'There was a problem updating this ticket. Please try again.');
+        if ($request->persist($issue)) {
+            flash()->success('Success!', 'Successfully updated ticket.');
 
-                return redirect()->route('issues.edit', [$id]);
-            }
+            return redirect()->route('issues.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was a problem updating this ticket. Please try again.');
+
+        return redirect()->route('issues.edit', [$id]);
     }
 
     /**
@@ -225,19 +218,18 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::destroy(Auth::user(), $issue)) {
-            if ($issue->delete()) {
-                flash()->success('Success!', 'Successfully deleted ticket.');
+        $this->authorize($issue);
 
-                return redirect()->route('issues.index');
-            } else {
-                flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
+        if ($issue->delete()) {
+            flash()->success('Success!', 'Successfully deleted ticket.');
 
-                return redirect()->route('issues.show', [$id]);
-            }
+            return redirect()->route('issues.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
+
+        return redirect()->route('issues.show', [$id]);
+
     }
 
     /**
@@ -252,19 +244,17 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::close(Auth::user(), $issue)) {
-            if ($request->persist($issue)) {
-                flash()->success('Success!', 'Successfully closed ticket.');
+        $this->authorize($issue);
 
-                return redirect()->back();
-            } else {
-                flash()->error('Error!', 'There was a problem closing this ticket. Please try again.');
+        if ($request->persist($issue)) {
+            flash()->success('Success!', 'Successfully closed ticket.');
 
-                return redirect()->back();
-            }
+            return redirect()->back();
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was a problem closing this ticket. Please try again.');
+
+        return redirect()->back();
     }
 
     /**
@@ -279,18 +269,16 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::open(Auth::user())) {
-            if ($request->persist($issue)) {
-                flash()->success('Success!', 'Successfully re-opened ticket.');
+        $this->authorize($issue);
 
-                return redirect()->back();
-            } else {
-                flash()->error('Error!', 'There was a problem re-opening this ticket. Please try again.');
+        if ($request->persist($issue)) {
+            flash()->success('Success!', 'Successfully re-opened ticket.');
 
-                return redirect()->back();
-            }
+            return redirect()->back();
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was a problem re-opening this ticket. Please try again.');
+
+        return redirect()->back();
     }
 }

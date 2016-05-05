@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\IssueUserRequest;
 use App\Models\Issue;
 use App\Models\User;
-use App\Policies\IssuePolicy;
 
 class IssueUserController extends Controller
 {
@@ -44,18 +43,16 @@ class IssueUserController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        if (IssuePolicy::addUsers(auth()->user())) {
-            if ($request->persist($issue)) {
-                flash()->success('Success!', 'Successfully updated users for this issue.');
-
-                return redirect()->route('issues.show', [$id]);
-            }
-
-            flash()->error('Error!', 'There was an issue adding users to this issue. Please try again.');
+        $this->authorize($issue);
+        
+        if ($request->persist($issue)) {
+            flash()->success('Success!', 'Successfully updated users for this issue.');
 
             return redirect()->route('issues.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue adding users to this issue. Please try again.');
+
+        return redirect()->route('issues.show', [$id]);
     }
 }

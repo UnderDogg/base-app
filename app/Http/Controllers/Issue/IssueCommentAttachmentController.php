@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Presenters\Issue\IssueCommentAttachmentPresenter;
 use App\Http\Requests\AttachmentRequest;
 use App\Models\Issue;
-use App\Policies\IssueCommentPolicy;
-use App\Policies\IssuePolicy;
 
 class IssueCommentAttachmentController extends Controller
 {
@@ -46,15 +44,13 @@ class IssueCommentAttachmentController extends Controller
     {
         $issue = $this->issue->findOrFail($issueId);
 
+        $this->authorize($issue);
+
         $comment = $issue->comments()->findOrFail($commentId);
 
-        if (IssuePolicy::show(auth()->user(), $issue)) {
-            $file = $comment->findFile($fileUuid);
+        $file = $comment->findFile($fileUuid);
 
-            return view('pages.issues.comments.attachments.show', compact('issue', 'comment', 'file'));
-        }
-
-        $this->unauthorized();
+        return view('pages.issues.comments.attachments.show', compact('issue', 'comment', 'file'));
     }
 
     /**
@@ -70,17 +66,15 @@ class IssueCommentAttachmentController extends Controller
     {
         $issue = $this->issue->findOrFail($issueId);
 
+        $this->authorize($issue);
+
         $comment = $issue->comments()->findOrFail($commentId);
 
-        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
-            $file = $comment->findFile($fileUuid);
+        $file = $comment->findFile($fileUuid);
 
-            $form = $this->presenter->form($issue, $comment, $file);
+        $form = $this->presenter->form($issue, $comment, $file);
 
-            return view('pages.issues.comments.attachments.edit', compact('form'));
-        }
-
-        $this->unauthorized();
+        return view('pages.issues.comments.attachments.edit', compact('form'));
     }
 
     /**
@@ -97,23 +91,21 @@ class IssueCommentAttachmentController extends Controller
     {
         $issue = $this->issue->findOrFail($issueId);
 
+        $this->authorize($issue);
+
         $comment = $issue->comments()->findOrFail($commentId);
 
-        if (IssueCommentPolicy::edit(auth()->user(), $issue, $comment)) {
-            $file = $comment->findFile($fileUuid);
+        $file = $comment->findFile($fileUuid);
 
-            if ($request->persist($file)) {
-                flash()->success('Success!', 'Successfully comment updated attachment.');
+        if ($request->persist($file)) {
+            flash()->success('Success!', 'Successfully comment updated attachment.');
 
-                return redirect()->route('issues.comments.attachments.show', [$issueId, $commentId, $fileUuid]);
-            }
-
-            flash()->error('Error!', 'There was an issue updating this comment attachment. Please try again.');
-
-            return redirect()->route('issues.comments.attachments.edit', [$issueId, $commentId, $fileUuid]);
+            return redirect()->route('issues.comments.attachments.show', [$issueId, $commentId, $fileUuid]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this comment attachment. Please try again.');
+
+        return redirect()->route('issues.comments.attachments.edit', [$issueId, $commentId, $fileUuid]);
     }
 
     /**
@@ -129,23 +121,21 @@ class IssueCommentAttachmentController extends Controller
     {
         $issue = $this->issue->findOrFail($issueId);
 
+        $this->authorize($issue);
+
         $comment = $issue->comments()->findOrFail($commentId);
 
-        if (IssueCommentPolicy::destroy(auth()->user(), $issue, $comment)) {
-            $file = $comment->findFile($fileUuid);
+        $file = $comment->findFile($fileUuid);
 
-            if ($file->delete()) {
-                flash()->success('Success!', 'Successfully deleted attachment.');
+        if ($file->delete()) {
+            flash()->success('Success!', 'Successfully deleted attachment.');
 
-                return redirect()->route('issues.show', [$issueId]);
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this comment attachment. Please try again.');
-
-            return redirect()->route('issues.comments.attachments.show', [$issueId, $commentId, $fileUuid]);
+            return redirect()->route('issues.show', [$issueId]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this comment attachment. Please try again.');
+
+        return redirect()->route('issues.comments.attachments.show', [$issueId, $commentId, $fileUuid]);
     }
 
     /**
@@ -161,23 +151,21 @@ class IssueCommentAttachmentController extends Controller
     {
         $issue = $this->issue->findOrFail($issueId);
 
+        $this->authorize($issue);
+
         $comment = $issue->comments()->findOrFail($commentId);
 
-        if (IssuePolicy::show(auth()->user(), $issue)) {
-            $file = $comment->findFile($fileUuid);
+        $file = $comment->findFile($fileUuid);
 
-            if ($path = $file->complete_path) {
-                return response()->download($path);
-            }
-
-            // The path doesn't exist, which means the file does
-            // not exist. We'll delete the file to prevent
-            // users from accessing it again.
-            $file->delete();
-
-            abort(404);
+        if ($path = $file->complete_path) {
+            return response()->download($path);
         }
 
-        $this->unauthorized();
+        // The path doesn't exist, which means the file does
+        // not exist. We'll delete the file to prevent
+        // users from accessing it again.
+        $file->delete();
+
+        abort(404);
     }
 }
