@@ -16,6 +16,11 @@ class CategoryPermissionSeeder extends Seeder
         ]);
 
         Permission::firstOrCreate([
+            'name'  => 'categories.create',
+            'label' => 'Create Categories',
+        ]);
+
+        Permission::firstOrCreate([
             'name'  => 'categories.edit',
             'label' => 'Edit Categories',
         ]);

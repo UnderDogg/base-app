@@ -83,7 +83,7 @@
 
                             </li>
 
-                            @if(\App\Policies\CategoryPolicy::index(auth()->user()))
+                            @can('categories.index')
 
                                 <li class="divider"></li>
 
@@ -96,7 +96,7 @@
 
                                 </li>
 
-                            @endif
+                            @endcan
 
                         </ul>
 

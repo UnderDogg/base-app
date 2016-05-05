@@ -35,13 +35,6 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     ];
 
     /**
-     * The user questions pivot table.
-     *
-     * @var string
-     */
-    protected $tableQuestionsPivot = 'user_questions';
-
-    /**
      * {@inheritdoc}
      */
     public function avatars()
@@ -80,20 +73,13 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
      */
     public function getInitialsAttribute()
     {
-        $name = explode(' ', $this->name);
+        $expr = '/(?<=\s|^)[a-z]/i';
 
-        if (count($name) > 1) {
-            list($first, $last) = $name;
-        } else {
-            list($first) = $name;
+        preg_match_all($expr, $this->name, $matches);
 
-            $last = null;
-        }
+        $result = implode('', $matches[0]);
 
-        $firstInitial = substr(strtoupper($first), 0, 1);
-        $lastInitial = substr(strtoupper($last), 0, 1);
-
-        return strtoupper($firstInitial.$lastInitial);
+        return strtoupper($result);
     }
 
     /**

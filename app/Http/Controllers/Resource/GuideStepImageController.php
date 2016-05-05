@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
 use App\Models\Guide;
-use App\Policies\Resource\GuideStepImagePolicy;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -60,24 +59,22 @@ class GuideStepImageController extends Controller
      */
     public function destroy($id, $stepId, $fileUuid)
     {
-        if (GuideStepImagePolicy::destroy(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.images.destroy');
 
-            $step = $guide->findStep($stepId);
+        $guide = $this->guide->locate($id);
 
-            $file = $step->findFile($fileUuid);
+        $step = $guide->findStep($stepId);
 
-            if ($file->delete()) {
-                flash()->success('Success!', 'Successfully deleted image.');
+        $file = $step->findFile($fileUuid);
 
-                return redirect()->back();
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this image. Please try again.');
+        if ($file->delete()) {
+            flash()->success('Success!', 'Successfully deleted image.');
 
             return redirect()->back();
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this image. Please try again.');
+
+        return redirect()->back();
     }
 }

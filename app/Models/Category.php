@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
 use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model
@@ -49,33 +50,21 @@ class Category extends Model
     /**
      * Returns the complete nested set table in a nested list.
      *
-     * @param string       $belongsTo
-     * @param array        $except
-     * @param array|string $first
+     * @param string $belongsTo
      *
      * @return array
      */
-    public static function getSelectHierarchy($belongsTo = null, array $except = [], $first = 'None')
+    public static function getSelectHierarchy($belongsTo = null)
     {
-        $query = static::whereIsRoot();
+        $roots = (new static)
+            ->whereBelongsTo($belongsTo)
+            ->whereIsRoot()
+            ->with(['children'])
+            ->get();
 
-        if (!is_null($belongsTo)) {
-            $query->whereBelongsTo($belongsTo);
-        }
+        $options = [null => 'None'];
 
-        $roots = $query->with(['children' => function ($query) use ($except) {
-            return $query->whereNotIn('id', $except);
-        }])->whereNotIn('id', $except)->get();
-
-        if (is_array($first)) {
-            $options[key($first)] = $first[key($first)];
-        } else {
-            $options = [null => $first];
-        }
-
-        foreach ($roots as $root) {
-            $options = $options + static::getRenderedNode($root);
-        }
+        foreach ($roots as $root) $options += static::getRenderedNode($root);
 
         return $options;
     }
@@ -84,22 +73,19 @@ class Category extends Model
      * Renders the specified category and it's children in single dimension array.
      *
      * @param Category $category
+     * @param int      $depth
      *
      * @return array
      */
-    public static function getRenderedNode(Category $category)
+    public static function getRenderedNode(Category $category, $depth = 0)
     {
         $options = [];
 
-        $name = static::getRenderedNodeName($category);
+        $name = static::getRenderedNodeName($category, $depth);
 
         $options[$category->id] = $name;
 
-        if ($category->children()->count() > 0) {
-            foreach ($category->children as $child) {
-                $options = $options + static::getRenderedNode($child);
-            }
-        }
+        foreach ($category->children as $child) $options += static::getRenderedNode($child, ++$depth);
 
         return $options;
     }
@@ -108,21 +94,18 @@ class Category extends Model
      * Returns the specified rendered node name combined with its depth.
      *
      * @param Category $category
+     * @param int      $depth
      * @param string   $separator
      *
      * @return string
      */
-    public static function getRenderedNodeName(Category $category, $separator = '-')
+    public static function getRenderedNodeName(Category $category, $depth, $separator = '-')
     {
-        if ($category->isRoot()) {
-            $name = $category->name;
-        } else {
-            $depth = str_repeat($separator, $category->depth);
+        if ($category->isRoot()) return $category->name;
 
-            $name = sprintf('%s %s', $depth, $category->name);
-        }
+        $depth = str_repeat($separator, $depth);
 
-        return $name;
+        return "$depth $category->name";
     }
 
     /**
@@ -132,10 +115,8 @@ class Category extends Model
      */
     public function getManagerAttribute()
     {
-        if (is_array($this->options) && array_key_exists('manager', $this->options)) {
-            return $this->options['manager'] === true;
-        }
-
-        return false;
+        return (Arr::has($this->options, 'manager') ?
+            Arr::get($this->options, 'manager') == true : false
+        );
     }
 }

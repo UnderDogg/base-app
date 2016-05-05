@@ -86,10 +86,8 @@ class InquiryCategoryPresenter extends Presenter
                 $params = [];
 
                 // If a parent is given, we're creating a sub-category underneath
-                // it, otherwise we're creating a rood category.
-                if ($parent instanceof Category) {
-                    $params[] = $parent->id;
-                }
+                // it, otherwise we're creating a root category.
+                if ($parent instanceof Category) $params[] = $parent->id;
 
                 $url = route('inquiries.categories.store', $params);
                 $method = 'POST';
@@ -104,20 +102,10 @@ class InquiryCategoryPresenter extends Presenter
                 $fieldset
                     ->control('select', 'parent', function ($field) use ($category, $parent) {
                         $field->value = function () use ($category, $parent) {
-                            if ($parent && $parent->exists) {
-                                return $parent->id;
-                            }
+                            return ($parent && $parent->exists ? $parent->id : null);
                         };
 
-                        if ($category->exists) {
-                            $except = [$category->id];
-                            $first = 'Select a new parent or leave current';
-                        } else {
-                            $except = [];
-                            $first = 'None';
-                        }
-
-                        $field->options = Category::getSelectHierarchy('inquiries', $except, $first);
+                        $field->options = $category::getSelectHierarchy('inquiries');
                     });
 
                 $fieldset
@@ -130,13 +118,9 @@ class InquiryCategoryPresenter extends Presenter
                     ->control('input:checkbox', 'manager', function (Field $field) use ($category) {
                         $field->label = 'Manager Required?';
 
-                        $attributes = [
-                            'class' => 'switch-mark',
-                        ];
+                        $attributes = ['class' => 'switch-mark'];
 
-                        if ($category->manager) {
-                            $attributes['checked'] = true;
-                        }
+                        if ($category->manager) $attributes['checked'] = true;
 
                         $field->value = true;
 

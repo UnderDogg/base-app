@@ -1,6 +1,6 @@
 <ul class="nav navbar-left navbar-nav">
 
-    @if(\App\Policies\Resource\GuideStepPolicy::index(auth()->user()))
+    @can('guides.steps.index')
 
         <li class="{{ active()->route('resources.guides.steps.index') }}">
             <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}">
@@ -9,9 +9,9 @@
             </a>
         </li>
 
-    @endif
+    @endcan
 
-    @if(\App\Policies\Resource\GuideStepPolicy::create(auth()->user()))
+    @can('guides.steps.create')
 
         <li>
             <a href="{{ route('resources.guides.images', [$guide->slug]) }}">
@@ -27,9 +27,9 @@
             </a>
         </li>
 
-    @endif
+    @endcan
 
-    @if(\App\Policies\Resource\GuideStepPolicy::edit(auth()->user()))
+    @can('guides.steps.edit')
 
         <li>
             <a href="{{ route('resources.guides.edit', [$guide->slug]) }}">
@@ -38,9 +38,9 @@
             </a>
         </li>
 
-    @endif
+    @endcan
 
-    @if(\App\Policies\Resource\GuideStepPolicy::destroy(auth()->user()))
+    @can('guides.steps.destroy')
 
         <li>
             <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
@@ -53,7 +53,7 @@
             </a>
         </li>
 
-    @endif
+    @endcan
 
     <li>
         <a href="{{ route('resources.guides.favorite', [$guide->slug]) }}">

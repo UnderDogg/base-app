@@ -12,7 +12,6 @@ use App\Jobs\Resource\Guide\Step\Store;
 use App\Jobs\Resource\Guide\Step\Update;
 use App\Jobs\Resource\Guide\Step\Upload;
 use App\Models\Guide;
-use App\Policies\Resource\GuideStepPolicy;
 
 class GuideStepController extends Controller
 {
@@ -47,17 +46,15 @@ class GuideStepController extends Controller
      */
     public function index($id)
     {
-        if (GuideStepPolicy::index(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.index');
 
-            $steps = $this->presenter->table($guide);
+        $guide = $this->guide->locate($id);
 
-            $navbar = $this->presenter->navbar($guide);
+        $steps = $this->presenter->table($guide);
 
-            return view('pages.resources.guides.steps.index', compact('steps', 'navbar', 'guide'));
-        }
+        $navbar = $this->presenter->navbar($guide);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.steps.index', compact('steps', 'navbar', 'guide'));
     }
 
     /**
@@ -69,19 +66,17 @@ class GuideStepController extends Controller
      */
     public function create($id)
     {
-        if (GuideStepPolicy::create(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.create');
 
-            $steps = $guide->steps->count() + 1;
+        $guide = $this->guide->locate($id);
 
-            $step = $this->guide->steps()->getRelated();
+        $steps = $guide->steps->count() + 1;
 
-            $form = $this->presenter->form($guide, $step);
+        $step = $this->guide->steps()->getRelated();
 
-            return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
-        }
+        $form = $this->presenter->form($guide, $step);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.steps.create', compact('form', 'guide', 'steps'));
     }
 
     /**
@@ -94,25 +89,23 @@ class GuideStepController extends Controller
      */
     public function store(GuideStepRequest $request, $id)
     {
-        if (GuideStepPolicy::create(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.create');
 
-            if ($this->dispatch(new Store($request, $guide))) {
-                flash()->success('Success!', 'Successfully added step.');
+        $guide = $this->guide->locate($id);
 
-                if ($request->input('action') === 'multiple') {
-                    return redirect()->route('resources.guides.steps.create', [$id]);
-                }
+        if ($this->dispatch(new Store($request, $guide))) {
+            flash()->success('Success!', 'Successfully added step.');
 
-                return redirect()->route('resources.guides.show', [$id]);
+            if ($request->input('action') === 'multiple') {
+                return redirect()->route('resources.guides.steps.create', [$id]);
             }
 
-            flash()->error('Error!', 'There was an issue adding a step to this guide. Please try again.');
-
-            return redirect()->route('resources.guides.create', [$id]);
+            return redirect()->route('resources.guides.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue adding a step to this guide. Please try again.');
+
+        return redirect()->route('resources.guides.create', [$id]);
     }
 
     /**
@@ -125,17 +118,15 @@ class GuideStepController extends Controller
      */
     public function edit($id, $stepPosition)
     {
-        if (GuideStepPolicy::edit(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.edit');
 
-            $step = $guide->findStepByPosition($stepPosition);
+        $guide = $this->guide->locate($id);
 
-            $form = $this->presenter->form($guide, $step);
+        $step = $guide->findStepByPosition($stepPosition);
 
-            return view('pages.resources.guides.steps.edit', compact('form', 'guide'));
-        }
+        $form = $this->presenter->form($guide, $step);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.steps.edit', compact('form', 'guide'));
     }
 
     /**
@@ -149,27 +140,25 @@ class GuideStepController extends Controller
      */
     public function update(GuideStepRequest $request, $id, $stepPosition)
     {
-        if (GuideStepPolicy::edit(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.edit');
 
-            $step = $guide->findStepByPosition($stepPosition);
+        $guide = $this->guide->locate($id);
 
-            if ($this->dispatch(new Update($request, $guide, $step))) {
-                flash()->success('Success!', 'Successfully updated step.');
+        $step = $guide->findStepByPosition($stepPosition);
 
-                if ($request->input('action') === 'multiple') {
-                    return redirect()->route('resources.guides.steps.create', [$id]);
-                }
+        if ($this->dispatch(new Update($request, $guide, $step))) {
+            flash()->success('Success!', 'Successfully updated step.');
 
-                return redirect()->route('resources.guides.steps.index', [$id]);
+            if ($request->input('action') === 'multiple') {
+                return redirect()->route('resources.guides.steps.create', [$id]);
             }
 
-            flash()->error('Error!', 'There was an issue updating this step. Please try again.');
-
-            return redirect()->route('resources.guides.steps.edit', [$id, $stepPosition]);
+            return redirect()->route('resources.guides.steps.index', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this step. Please try again.');
+
+        return redirect()->route('resources.guides.steps.edit', [$id, $stepPosition]);
     }
 
     /**
@@ -182,23 +171,21 @@ class GuideStepController extends Controller
      */
     public function destroy($id, $stepPosition)
     {
-        if (GuideStepPolicy::destroy(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.destroy');
 
-            $step = $guide->findStepByPosition($stepPosition);
+        $guide = $this->guide->locate($id);
 
-            if ($step->delete()) {
-                flash()->success('Success!', 'Successfully deleted step.');
+        $step = $guide->findStepByPosition($stepPosition);
 
-                return redirect()->route('resources.guides.steps.index', [$id]);
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this step. Please try again.');
+        if ($step->delete()) {
+            flash()->success('Success!', 'Successfully deleted step.');
 
             return redirect()->route('resources.guides.steps.index', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this step. Please try again.');
+
+        return redirect()->route('resources.guides.steps.index', [$id]);
     }
 
     /**
@@ -212,15 +199,13 @@ class GuideStepController extends Controller
      */
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
-        if (GuideStepPolicy::move(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.move');
 
-            $step = $guide->findStep($stepId);
+        $guide = $this->guide->locate($id);
 
-            return $this->dispatch(new Move($request, $step));
-        }
+        $step = $guide->findStep($stepId);
 
-        $this->unauthorized();
+        return $this->dispatch(new Move($request, $step));
     }
 
     /**
@@ -232,15 +217,13 @@ class GuideStepController extends Controller
      */
     public function images($id)
     {
-        if (GuideStepPolicy::images(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.images.create');
 
-            $form = $this->presenter->formImages($guide);
+        $guide = $this->guide->locate($id);
 
-            return view('pages.resources.guides.steps.upload', compact('form', 'guide'));
-        }
+        $form = $this->presenter->formImages($guide);
 
-        $this->unauthorized();
+        return view('pages.resources.guides.steps.upload', compact('form', 'guide'));
     }
 
     /**
@@ -253,24 +236,22 @@ class GuideStepController extends Controller
      */
     public function upload(GuideStepImagesRequest $request, $id)
     {
-        if (GuideStepPolicy::images(auth()->user())) {
-            $guide = $this->guide->locate($id);
+        $this->authorize('guides.steps.images.create');
 
-            $step = $guide->steps()->getRelated();
+        $guide = $this->guide->locate($id);
 
-            $uploaded = $this->dispatch(new Upload($request, $guide, $step));
+        $step = $guide->steps()->getRelated();
 
-            if ($uploaded > 0) {
-                flash()->success('Success!', "Successfully uploaded: $uploaded images.");
+        $uploaded = $this->dispatch(new Upload($request, $guide, $step));
 
-                return redirect()->route('resources.guides.show', [$id]);
-            }
+        if ($uploaded > 0) {
+            flash()->success('Success!', "Successfully uploaded: $uploaded images.");
 
-            flash()->error('Error!', 'There was an issue uploading images. Please try again.');
-
-            return redirect()->route('resources.guides.images', [$id]);
+            return redirect()->route('resources.guides.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue uploading images. Please try again.');
+
+        return redirect()->route('resources.guides.images', [$id]);
     }
 }

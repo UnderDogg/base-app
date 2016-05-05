@@ -50,6 +50,8 @@ class InquiryCategoryController extends Controller
      */
     public function index($id = null)
     {
+        $this->authorize('categories.index');
+
         if ($id) {
             $category = $this->category->findOrFail($id);
         } else {
@@ -72,6 +74,8 @@ class InquiryCategoryController extends Controller
      */
     public function create($id = null)
     {
+        $this->authorize('categories.create');
+
         if ($id) {
             $category = $this->category->findOrFail($id);
 
@@ -93,6 +97,8 @@ class InquiryCategoryController extends Controller
      */
     public function store(CategoryRequest $request, $id = null)
     {
+        $this->authorize('categories.create');
+
         $category = $this->category->newInstance();
 
         $job = new Store($request, $category);
@@ -127,6 +133,8 @@ class InquiryCategoryController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('categories.edit');
+
         $category = $this->category->findOrFail($id);
 
         $parent = $category->parent()->first();
@@ -146,17 +154,25 @@ class InquiryCategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
+        $this->authorize('categories.edit');
+
         $category = $this->category->findOrFail($id);
 
-        if ($this->dispatch(new Update($request, $category))) {
-            flash()->success('Success!', 'Successfully updated category.');
+        try {
+            if ($this->dispatch(new Update($request, $category))) {
+                flash()->success('Success!', 'Successfully updated category.');
 
-            return redirect()->route('inquiries.categories.index', [$id]);
+                return redirect()->route('inquiries.categories.index', [$id]);
+            }
+
+            flash()->error('Error!', 'There was an issue updating this category. Please try again.');
+
+            return redirect()->route('inquiries.categories.edit', [$id]);
+        } catch (\LogicException $e) {
+            flash()->setTimer(null)->error('Error!', "A category can't be a descendant of itself.");
+
+            return redirect()->route('inquiries.categories.edit', [$id]);
         }
-
-        flash()->error('Error!', 'There was an issue updating this category. Please try again.');
-
-        return redirect()->route('inquiries.categories.edit', [$id]);
     }
 
     /**
@@ -168,6 +184,8 @@ class InquiryCategoryController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('categories.destroy');
+
         $category = $this->category->findOrFail($id);
 
         if ($category->delete()) {

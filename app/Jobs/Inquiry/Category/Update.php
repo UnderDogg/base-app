@@ -38,13 +38,14 @@ class Update extends Job
     public function handle()
     {
         $this->category->name = $this->request->input('name');
-
+        
         $this->category->options = [
             'manager' => $this->request->has('manager'),
         ];
 
-        if ($this->request->has('parent') && $this->category->parent_id != $this->request->input('parent')) {
-            $this->category->parent_id = $this->request->input('parent');
+        // Make sure that the selected category isn't itself.
+        if ($this->category->id != $this->request->parent) {
+            $this->category->parent_id = $this->request->parent;
         }
 
         return $this->category->save();
