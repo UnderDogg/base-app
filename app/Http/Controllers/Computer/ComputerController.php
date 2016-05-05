@@ -51,15 +51,11 @@ class ComputerController extends Controller
      */
     public function index()
     {
-        if (ComputerPolicy::index(auth()->user())) {
-            $computers = $this->presenter->table($this->computer);
+        $computers = $this->presenter->table($this->computer);
 
-            $navbar = $this->presenter->navbar();
+        $navbar = $this->presenter->navbar();
 
-            return view('pages.computers.index', compact('computers', 'navbar'));
-        }
-
-        $this->unauthorized();
+        return view('pages.computers.index', compact('computers', 'navbar'));
     }
 
     /**
@@ -69,13 +65,9 @@ class ComputerController extends Controller
      */
     public function create()
     {
-        if (ComputerPolicy::create(auth()->user())) {
-            $form = $this->presenter->form($this->computer);
+        $form = $this->presenter->form($this->computer);
 
-            return view('pages.computers.create', compact('form'));
-        }
-
-        $this->unauthorized();
+        return view('pages.computers.create', compact('form'));
     }
 
     /**
@@ -87,28 +79,24 @@ class ComputerController extends Controller
      */
     public function store(ComputerRequest $request)
     {
-        if (ComputerPolicy::create(auth()->user())) {
-            // If the user is looking to import the computer from active
-            // directory, then we'll try to find the computer by
-            // the given name and dispatch the import job.
-            if ($request->input('active_directory')) {
-                $computer = $this->storeFromActiveDirectory($request);
-            } else {
-                $computer = $this->storeFromRequest($request);
-            }
-
-            if ($computer instanceof Computer) {
-                flash()->success('Success!', 'Successfully created computer.');
-
-                return redirect()->route('computers.index');
-            } else {
-                flash()->error('Error!', 'There was an issue creating a computer. Please try again.');
-
-                return redirect()->route('computers.create');
-            }
+        // If the user is looking to import the computer from active
+        // directory, then we'll try to find the computer by
+        // the given name and dispatch the import job.
+        if ($request->input('active_directory')) {
+            $computer = $this->storeFromActiveDirectory($request);
+        } else {
+            $computer = $this->storeFromRequest($request);
         }
 
-        $this->unauthorized();
+        if ($computer instanceof Computer) {
+            flash()->success('Success!', 'Successfully created computer.');
+
+            return redirect()->route('computers.index');
+        }
+
+        flash()->error('Error!', 'There was an issue creating a computer. Please try again.');
+
+        return redirect()->route('computers.create');
     }
 
     /**
@@ -120,19 +108,9 @@ class ComputerController extends Controller
      */
     public function show($id)
     {
-        if (ComputerPolicy::show(auth()->user())) {
-            $with = [
-                'os',
-                'type',
-                'users',
-            ];
+        $computer = $this->computer->with(['os', 'type', 'users'])->findOrFail($id);
 
-            $computer = $this->computer->with($with)->findOrFail($id);
-
-            return view('pages.computers.show.details', compact('computer', 'statuses'));
-        }
-
-        $this->unauthorized();
+        return view('pages.computers.show.details', compact('computer', 'statuses'));
     }
 
     /**
@@ -144,15 +122,11 @@ class ComputerController extends Controller
      */
     public function edit($id)
     {
-        if (ComputerPolicy::edit(auth()->user())) {
-            $computer = $this->computer->findOrFail($id);
+        $computer = $this->computer->findOrFail($id);
 
-            $form = $this->presenter->form($computer);
+        $form = $this->presenter->form($computer);
 
-            return view('pages.computers.edit', compact('form', 'computer'));
-        }
-
-        $this->unauthorized();
+        return view('pages.computers.edit', compact('form', 'computer'));
     }
 
     /**
@@ -165,21 +139,17 @@ class ComputerController extends Controller
      */
     public function update(ComputerRequest $request, $id)
     {
-        if (ComputerPolicy::edit(auth()->user())) {
-            $computer = $this->computer->findOrFail($id);
+        $computer = $this->computer->findOrFail($id);
 
-            if ($this->dispatch(new Update($request, $computer))) {
-                flash()->success('Success!', 'Successfully updated computer.');
+        if ($this->dispatch(new Update($request, $computer))) {
+            flash()->success('Success!', 'Successfully updated computer.');
 
-                return redirect()->route('computers.show', [$id]);
-            }
-
-            flash()->error('Error!', 'There was an issue updating this computer. Please try again.');
-
-            return redirect()->route('computers.edit', [$id]);
+            return redirect()->route('computers.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this computer. Please try again.');
+
+        return redirect()->route('computers.edit', [$id]);
     }
 
     /**
@@ -191,21 +161,17 @@ class ComputerController extends Controller
      */
     public function destroy($id)
     {
-        if (ComputerPolicy::destroy(auth()->user())) {
-            $computer = $this->computer->findOrFail($id);
+        $computer = $this->computer->findOrFail($id);
 
-            if ($computer->delete()) {
-                flash()->success('Success!', 'Successfully deleted computer.');
+        if ($computer->delete()) {
+            flash()->success('Success!', 'Successfully deleted computer.');
 
-                return redirect()->route('computers.index');
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this computer. Please try again.');
-
-            return redirect()->route('computers.show', [$id]);
+            return redirect()->route('computers.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this computer. Please try again.');
+
+        return redirect()->route('computers.show', [$id]);
     }
 
     /**

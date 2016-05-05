@@ -83,7 +83,7 @@
 
                             </li>
 
-                            @can('categories.index')
+                            @can('manage.categories')
 
                                 <li class="divider"></li>
 
@@ -127,7 +127,7 @@
 
                             </li>
 
-                            @if(\App\Policies\LabelPolicy::index(auth()->user()))
+                            @can('manage.labels')
 
                                 <li class="divider"></li>
 
@@ -138,13 +138,13 @@
                                     </a>
                                 </li>
 
-                            @endif
+                            @endcan
 
                         </ul>
 
                     </li>
 
-                    @can('index', \App\Models\Service::class)
+                    @can('manage.services')
 
                         <li class="{{ active()->route('services.*') }}">
 
@@ -157,7 +157,7 @@
 
                     @endcan
 
-                    @if(\App\Policies\ComputerPolicy::index(auth()->user()))
+                    @can('manage.computers')
 
                         <li class="dropdown {{ active()->route('computers.*') }}" id="computers-menu">
 
@@ -202,7 +202,7 @@
 
                         </li>
 
-                    @endif
+                    @endcan
 
                 @endif
 
@@ -241,13 +241,13 @@
 
                             <li class="divider"></li>
 
-                            @if(\App\Policies\AdminAccessPolicy::index(auth()->user()))
+                            @can('admin.welcome.index')
                                 <li>
                                     <a href="{{ route('admin.welcome.index') }}">
                                         <i class="fa fa-user-md"></i> Administration
                                     </a>
                                 </li>
-                            @endif
+                            @endcan
 
                             <li>
                                 <a href="{{ route('auth.logout') }}">

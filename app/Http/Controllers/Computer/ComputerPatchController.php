@@ -30,6 +30,13 @@ class ComputerPatchController extends Controller
         $this->presenter = $presenter;
     }
 
+    /**
+     * Displays the specified computers patches.
+     *
+     * @param int|string $computerId
+     *
+     * @return mixed
+     */
     public function index($computerId)
     {
         $computer = $this->computer->findOrFail($computerId);

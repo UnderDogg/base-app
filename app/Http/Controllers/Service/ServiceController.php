@@ -41,8 +41,6 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $this->authorize($this->service);
-
         $services = $this->presenter->table($this->service);
 
         $navbar = $this->presenter->navbar();
@@ -57,8 +55,6 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $this->authorize($this->service);
-
         $form = $this->presenter->form($this->service);
 
         return view('pages.services.create', compact('form'));
@@ -73,8 +69,6 @@ class ServiceController extends Controller
      */
     public function store(ServiceRequest $request)
     {
-        $this->authorize($this->service);
-
         if ($this->dispatch(new Store($request, $this->service))) {
             flash()->success('Success!', 'Successfully created service.');
 
@@ -96,8 +90,6 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = $this->service->findOrFail($id);
-
-        $this->authorize($service);
 
         return view('pages.services.show', compact('service'));
     }
@@ -134,8 +126,6 @@ class ServiceController extends Controller
     {
         $service = $this->service->findOrFail($id);
 
-        $this->authorize($service);
-
         $form = $this->presenter->form($service);
 
         return view('pages.services.edit', compact('form'));
@@ -152,8 +142,6 @@ class ServiceController extends Controller
     public function update(ServiceRequest $request, $id)
     {
         $service = $this->service->findOrFail($id);
-
-        $this->authorize($service);
 
         if ($this->dispatch(new Update($request, $service))) {
             flash()->success('Success!', 'Successfully updated service.');
@@ -176,9 +164,7 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $service = $this->service->findOrFail($id);
-
-        $this->authorize($service);
-
+        
         if ($service->delete()) {
             flash()->success('Success!', 'Successfully deleted service.');
 

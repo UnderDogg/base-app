@@ -30,13 +30,13 @@ class GuidePresenter extends Presenter
         // Limit the view if the user isn't allowed
         // to view unpublished guides.
         if (!policy(Guide::class)->viewUnpublished(Auth::user())) {
-            $guide->where('published', true);
+            $guide->where(['published' => true]);
         }
 
         // Limit the view to favorites only if specified.
         if ($favorites) {
             $guide->whereHas('favorites', function ($query) {
-                $query->where('user_id', auth()->user()->id);
+                $query->where(['user_id' => auth()->user()->id]);
             });
         }
 

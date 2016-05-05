@@ -52,11 +52,7 @@ class InquiryCategoryController extends Controller
     {
         $this->authorize('categories.index');
 
-        if ($id) {
-            $category = $this->category->findOrFail($id);
-        } else {
-            $category = $this->category;
-        }
+        ($id ? $category = $this->category->findOrFail($id) : $category = $this->category);
 
         $categories = $this->presenter->table($category, $this->inquiry);
 
@@ -76,13 +72,9 @@ class InquiryCategoryController extends Controller
     {
         $this->authorize('categories.create');
 
-        if ($id) {
-            $category = $this->category->findOrFail($id);
+        ($id ? $parent = $this->category->findOrFail($id) : $parent = null);
 
-            $form = $this->presenter->form($this->category, $category);
-        } else {
-            $form = $this->presenter->form($this->category);
-        }
+        $form = $this->presenter->form($this->category, $parent);
 
         return view('pages.categories.create', compact('form', 'category'));
     }

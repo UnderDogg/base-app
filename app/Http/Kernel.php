@@ -42,16 +42,16 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'                            => Middleware\Authenticate::class,
-        'auth.basic'                      => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest'                           => Middleware\RedirectIfAuthenticated::class,
-        'throttle'                        => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'passwords.locked'                => Middleware\PasswordFolderLocked::class,
-        'passwords.setup'                 => Middleware\PasswordFolderSetup::class,
-        'passwords.gate'                  => Middleware\PasswordGate::class,
-        'security-questions.setup'        => Middleware\ActiveDirectory\Questions\AlreadySetupMiddleware::class,
-        'security-questions.setup.finish' => Middleware\ActiveDirectory\Questions\MustSetupMiddleware::class,
-        'admin.setup'                     => \App\Http\Middleware\SetupMiddleware::class,
-        'admin.auth'                      => \App\Http\Middleware\AdminAuthMiddleware::class,
+        'auth'              => Middleware\Authenticate::class,
+        'auth.basic'        => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'guest'             => Middleware\RedirectIfAuthenticated::class,
+        'throttle'          => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'passwords.locked'  => Middleware\PasswordFolderLocked::class,
+        'passwords.setup'   => Middleware\PasswordFolderSetup::class,
+        'passwords.gate'    => Middleware\PasswordGate::class,
+        'admin.setup'       => \App\Http\Middleware\SetupMiddleware::class,
+        'admin.auth'        => \App\Http\Middleware\AdminAuthMiddleware::class,
+        'permission'        => \Larapacks\Authorization\Middleware\PermissionMiddleware::class,
+        'role'              => \Larapacks\Authorization\Middleware\RoleMiddleware::class,
     ];
 }

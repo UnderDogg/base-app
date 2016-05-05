@@ -21,9 +21,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
-        // The resources route group. Unprotected by auth, but by policies.
+
         $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function (Router $router) {
-            // The resources group.
+
             $router->group(['as' => 'resources.'], function (Router $router) {
                 // The guides group.
                 $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
@@ -155,7 +155,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         });
 
         // The device Computer group
-        $router->group(['namespace' => 'Computer'], function (Router $router) {
+        $router->group(['namespace' => 'Computer', 'middleware' => 'permission:manage.computers'], function (Router $router) {
             // The computer types resource.
             $router->resource('computer-types', 'ComputerTypeController', [
                 'except' => ['show'],
@@ -470,12 +470,15 @@ $router->group(['middleware' => ['web']], function (Router $router) {
         });
 
         // The labels resource.
-        $router->resource('labels', 'LabelController', [
-            'except' => ['show'],
-        ]);
+        $router->group(['middleware' => 'permission:manage.labels'], function (Router $router) {
+            $router->resource('labels', 'LabelController', [
+                'except' => ['show'],
+            ]);
+        });
+
 
         // The services group.
-        $router->group(['namespace' => 'Service'], function (Router $router) {
+        $router->group(['namespace' => 'Service', 'middleware' => 'permission:manage.services'], function (Router $router) {
             // The services resource.
             $router->resource('services', 'ServiceController');
 
