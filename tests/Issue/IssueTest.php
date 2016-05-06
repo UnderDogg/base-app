@@ -127,4 +127,62 @@ class IssueTest extends TestCase
             ->see($closed->title)
             ->dontSee($open->title);
     }
+
+    public function test_adding_labels_to_issue()
+    {
+        $issue = factory(Issue::class)->create();
+
+        $this->actingAs($this->createAdmin());
+
+        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1,2]]);
+
+        $this->assertEquals(2, $issue->labels->count());
+    }
+
+    public function test_adding_users_to_issue()
+    {
+        // Create two users.
+        $userOne = $this->createUser();
+        $userTwo = $this->createUser();
+
+        $issue = factory(Issue::class)->create();
+
+        $this->actingAs($this->createAdmin());
+
+        $this->post(route('issues.users.store', [$issue->id]), ['users' => [
+            $userOne->id,
+            $userTwo->id,
+        ]]);
+
+        $this->assertEquals(2, $issue->users->count());
+    }
+
+    public function test_users_cannot_add_labels_to_issues()
+    {
+        $user = $this->createUser();
+
+        $issue = factory(Issue::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1,2]]);
+
+        $this->assertEquals(0, $issue->labels->count());
+    }
+
+    public function test_users_cannot_add_users_to_issues()
+    {
+        // Create two users.
+        $userOne = $this->createUser();
+        $userTwo = $this->createUser();
+
+
+        $issue = factory(Issue::class)->create([
+            'user_id' => $userOne->id,
+        ]);
+
+        $this->post(route('issues.users.store', [$issue->id]), ['users' => [$userTwo->id]]);
+
+        $this->assertEquals(0, $issue->users->count());
+    }
 }

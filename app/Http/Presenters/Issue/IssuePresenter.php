@@ -343,12 +343,10 @@ class IssuePresenter extends Presenter
             $users = [];
 
             foreach ($issue->labels as $label) {
-                /* @var \App\Models\Label $label */
                 $labels[] = $label->display;
             }
 
             foreach ($issue->users as $user) {
-                /* @var \App\Models\User $user */
                 $users[] = $user->label;
             }
 

@@ -482,21 +482,25 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ],
             ]);
 
-            // The issue labels resource.
-            $router->resource('tickets.labels', 'IssueLabelController', [
-                'only'  => ['store'],
-                'names' => [
-                    'store' => 'issues.labels.store',
-                ],
-            ]);
+            $router->group(['middleware' => 'permission:manage.issues'], function (Router $router) {
 
-            // The issue users resource.
-            $router->resource('tickets.users', 'IssueUserController', [
-                'only'  => ['store'],
-                'names' => [
-                    'store' => 'issues.users.store',
-                ],
-            ]);
+                // The issue labels resource.
+                $router->resource('tickets.labels', 'IssueLabelController', [
+                    'only'  => ['store'],
+                    'names' => [
+                        'store' => 'issues.labels.store',
+                    ],
+                ]);
+
+                // The issue users resource.
+                $router->resource('tickets.users', 'IssueUserController', [
+                    'only'  => ['store'],
+                    'names' => [
+                        'store' => 'issues.users.store',
+                    ],
+                ]);
+
+            });
 
         });
 

@@ -104,16 +104,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Returns the failed login message.
-     *
-     * @return string
-     */
-    public function getFailedLoginMessage()
-    {
-        return 'The email or password was incorrect.';
-    }
-
-    /**
      * Returns the login path.
      *
      * @return string

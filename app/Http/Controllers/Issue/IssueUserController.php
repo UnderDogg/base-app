@@ -43,8 +43,6 @@ class IssueUserController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
-
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully updated users for this issue.');
 
