@@ -69,12 +69,12 @@ class PasswordFolderTest extends TestCase
         $folder = PasswordFolder::where('user_id', $user->id)->first();
 
         $password = factory(Password::class)->create([
-            'folder_id' => $folder->getKey(),
+            'folder_id' => $folder->id,
         ]);
 
         $this->actingAs($password->folder->user);
 
-        $this->visit(route('passwords.show', [$password->getKey()]))
+        $this->visit(route('passwords.show', [$password->id]))
             ->see($password->title)
             ->see('Edit')
             ->see('Delete');
@@ -89,12 +89,12 @@ class PasswordFolderTest extends TestCase
         $folder = PasswordFolder::where('user_id', $user->id)->firstOrFail();
 
         $password = factory(Password::class)->create([
-            'folder_id' => $folder->getKey(),
+            'folder_id' => $folder->id,
         ]);
 
         $this->actingAs($password->folder->user);
 
-        $this->visit(route('passwords.edit', [$password->getKey()]))
+        $this->visit(route('passwords.edit', [$password->id]))
             ->see($password->title)
             ->type(str_random(), 'password')
             ->press('Save')
@@ -111,7 +111,7 @@ class PasswordFolderTest extends TestCase
         $folder = PasswordFolder::where('user_id', $user->id)->first();
 
         $password = factory(Password::class)->create([
-            'folder_id' => $folder->getKey(),
+            'folder_id' => $folder->id,
         ]);
 
         $this->actingAs($password->folder->user);
@@ -120,7 +120,7 @@ class PasswordFolderTest extends TestCase
             '_token' => \Session::token(),
         ];
 
-        $this->delete(route('passwords.destroy', [$password->getKey()]), $token);
+        $this->delete(route('passwords.destroy', [$password->id]), $token);
 
         $this->assertRedirectedToRoute('passwords.index');
     }

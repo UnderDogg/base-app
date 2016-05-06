@@ -15,10 +15,10 @@ class IssueCommentTest extends TestCase
         $this->actingAs($user);
 
         $issue = factory(Issue::class)->create([
-            'user_id' => $user->getKey(),
+            'user_id' => $user->id,
         ]);
 
-        $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [
+        $response = $this->call('POST', route('issues.comments.store', [$issue->id]), [
             'content' => 'Testing Comment',
         ]);
 
@@ -34,7 +34,7 @@ class IssueCommentTest extends TestCase
 
         $issue = factory(Issue::class)->create();
 
-        $this->post(route('issues.comments.store', [$issue->getKey()]), [
+        $this->post(route('issues.comments.store', [$issue->id]), [
             'content' => 'Testing Comment',
         ]);
 
@@ -51,16 +51,16 @@ class IssueCommentTest extends TestCase
         $this->actingAs($user);
 
         $comment = factory(Comment::class)->create([
-            'user_id' => $user->getKey(),
+            'user_id' => $user->id,
         ]);
 
         $issue = factory(Issue::class)->create([
-            'user_id' => $user->getKey(),
+            'user_id' => $user->id,
         ]);
 
         $issue->comments()->save($comment);
 
-        $this->patch(route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
+        $this->patch(route('issues.comments.update', [$issue->id, $comment->id]), [
             'content' => 'Edited content',
         ]);
 
@@ -79,16 +79,16 @@ class IssueCommentTest extends TestCase
         $user = $this->createUser();
 
         $comment = factory(Comment::class)->create([
-            'user_id' => $user->getKey(),
+            'user_id' => $user->id,
         ]);
 
         $issue = factory(Issue::class)->create([
-            'user_id' => $user->getKey(),
+            'user_id' => $user->id,
         ]);
 
         $issue->comments()->save($comment);
 
-        $this->patch(route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
+        $this->patch(route('issues.comments.update', [$issue->id, $comment->id]), [
             'content' => 'Edited content',
         ]);
 

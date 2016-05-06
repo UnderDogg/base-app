@@ -21,7 +21,7 @@ class GuideStepTest extends GuideTest
             ->press('Create')
             ->see('Success!');
 
-        $this->seeInDatabase('guide_steps', ['guide_id' => $guide->getKey()]);
+        $this->seeInDatabase('guide_steps', ['guide_id' => $guide->id]);
     }
 
     public function test_guide_step_create_and_add_another()
@@ -82,7 +82,7 @@ class GuideStepTest extends GuideTest
 
         $guide = $step->guide;
 
-        $this->delete(route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
+        $this->delete(route('resources.guides.steps.destroy', [$guide->slug, $step->id]));
 
         $this->dontSeeInDatabase('guide_steps', [
             'id' => 1,
@@ -99,7 +99,7 @@ class GuideStepTest extends GuideTest
 
         $image = $step->images()->first();
 
-        $this->delete(route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]));
+        $this->delete(route('resources.guides.steps.images.destroy', [$guide->slug, $step->id, $image->uuid]));
 
         $this->dontSeeInDatabase('uploads', [
             'id' => 1,

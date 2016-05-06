@@ -81,9 +81,9 @@ class IssueTest extends TestCase
             ->dontSee('Labels')
             ->dontSee('Users');
 
-        $issue = factory(Issue::class)->create(['user_id' => $user->getKey()]);
+        $issue = factory(Issue::class)->create(['user_id' => $user->id]);
 
-        $this->visit(route('issues.show', [$issue->getKey()]))
+        $this->visit(route('issues.show', [$issue->id]))
             ->dontSee('Labels')
             ->dontSee('Users');
     }
@@ -98,25 +98,31 @@ class IssueTest extends TestCase
             ->see('Labels')
             ->see('Users');
 
-        $issue = factory(Issue::class)->create(['user_id' => $user->getKey()]);
+        $issue = factory(Issue::class)->create(['user_id' => $user->id]);
 
-        $this->visit(route('issues.show', [$issue->getKey()]))
+        $this->visit(route('issues.show', [$issue->id]))
             ->see('Labels')
             ->see('Users');
     }
 
-    public function test_index_only_shows_open_issues()
+    public function test_index_closed_only_shows_only_closed_issues()
     {
         $user = $this->createUser();
 
         $this->actingAs($user);
 
-        $issue = factory(Issue::class)->create([
-            'user_id' => $user->getKey(),
-            'closed'  => true,
+        $closed = factory(Issue::class)->create([
+            'user_id' => $user->id,
+            'closed' => true,
+        ]);
+
+        $open = factory(Issue::class)->create([
+            'user_id' => $user->id,
+            'closed' => false,
         ]);
 
         $this->visit(route('issues.closed'))
-            ->see($issue->title);
+            ->see($closed->title)
+            ->dontSee($open->title);
     }
 }

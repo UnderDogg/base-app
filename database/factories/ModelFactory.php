@@ -56,7 +56,7 @@ $factory[Permission::class] = function (Generator $faker) {
 $factory[Issue::class] = function (Generator $faker) {
     return [
         'user_id'       => factory(User::class)->create()->getKey(),
-        'title'         => $faker->title,
+        'title'         => $faker->sentence(),
         'description'   => $faker->sentence(),
     ];
 };
