@@ -51,6 +51,8 @@
 
                             </li>
 
+                            @can('manage.patches')
+
                             <li class="{{ active()->route('resources.patches.*') }}">
 
                                 <a href="{{ route('resources.patches.index') }}">
@@ -59,6 +61,8 @@
                                 </a>
 
                             </li>
+
+                            @endcan
 
                         </ul>
 

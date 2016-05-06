@@ -35,7 +35,7 @@ class NavigationComposer
         $open = $this->issue->open();
         $closed = $this->issue->closed();
 
-        if ($user->can('manage.issues')) {
+        if ($user->cannot('manage.issues')) {
             // If the user doesn't have permission to view all issues, we
             // need to scope the query by the current user to only
             // show the users issue count.

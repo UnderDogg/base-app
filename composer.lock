@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c54b0f671b7a182bdb10a420887b8583",
-    "content-hash": "26a11f4ee0d5b9214e5dd1db8221c3d9",
+    "hash": "82f0b3f7bb17d6f9824d0f753c4a2dd5",
+    "content-hash": "5ce74958f7caa87a7e73d795d5973d3e",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -780,16 +780,16 @@
         },
         {
             "name": "larapacks/authorization",
-            "version": "v1.0.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larapacks/authorization.git",
-                "reference": "3a36e6dc26a0b9580b9b07d076f16fc24de62f28"
+                "reference": "939750842cb45217b6e63cc6bc531e864eb0e4c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larapacks/authorization/zipball/3a36e6dc26a0b9580b9b07d076f16fc24de62f28",
-                "reference": "3a36e6dc26a0b9580b9b07d076f16fc24de62f28",
+                "url": "https://api.github.com/repos/larapacks/authorization/zipball/939750842cb45217b6e63cc6bc531e864eb0e4c6",
+                "reference": "939750842cb45217b6e63cc6bc531e864eb0e4c6",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "permissions",
                 "roles"
             ],
-            "time": "2016-05-04 18:51:18"
+            "time": "2016-05-06 15:58:09"
         },
         {
             "name": "laravel/framework",
