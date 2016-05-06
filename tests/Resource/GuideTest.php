@@ -4,7 +4,6 @@ namespace App\Tests\Resource;
 
 use App\Models\Guide;
 use App\Tests\TestCase;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class GuideTest extends TestCase
 {

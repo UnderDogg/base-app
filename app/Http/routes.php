@@ -87,11 +87,10 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             // The guides resource.
             $router->resource('guides', 'GuideController');
 
-            // The resource auth covered routes.
-            $router->group(['middleware' => ['auth']], function (Router $router) {
+            // The guide steps resource.
+            $router->resource('guides.steps', 'GuideStepController');
 
-                // The guide steps resource.
-                $router->resource('guides.steps', 'GuideStepController');
+            $router->group(['middleware' => 'permission:manage.patches'], function (Router $router) {
 
                 // The patches resource.
                 $router->resource('patches', 'PatchController');
@@ -105,6 +104,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 $router->resource('patches.attachments', 'PatchAttachmentController');
 
             });
+
         });
 
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {

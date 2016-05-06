@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "larapacks/authorization": "1.0.*",
+        "larapacks/authorization": "1.1.*",
         "orchestra/foundation": "3.2.*",
         "stevebauman/revision": "1.2.*",
         "stevebauman/wmi": "1.1.*",
