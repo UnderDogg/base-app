@@ -37,8 +37,9 @@ class IssueTest extends TestCase
         $this->actingAs($user);
 
         $issue = factory(Issue::class)->make();
+
         $this->visit(route('issues.index'))
-            ->see($issue->getKey());
+            ->see($issue->id);
     }
 
     public function test_issue_create()
@@ -47,14 +48,16 @@ class IssueTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->call('POST', route('issues.store'), [
+        $this->post(route('issues.store'), [
             'title'       => 'Issue Title',
             'occurred_at' => '03/03/2016 12:00 AM',
             'description' => 'Issue Description',
         ]);
 
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->seeInDatabase('issues', [
+            'id'    => 1,
+            'title' => 'Issue Title',
+        ]);
     }
 
     public function test_issue_create_validation_errors()
@@ -63,10 +66,9 @@ class IssueTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->call('POST', route('issues.store'));
+        $this->post(route('issues.store'));
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSessionHasErrors(['title', 'description']);
+        $this->assertSessionHasErrors();
     }
 
     public function test_regular_users_cannot_see_labels_and_users_field()

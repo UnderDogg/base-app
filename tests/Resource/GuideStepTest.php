@@ -82,10 +82,11 @@ class GuideStepTest extends GuideTest
 
         $guide = $step->guide;
 
-        $response = $this->call('DELETE', route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
+        $this->delete(route('resources.guides.steps.destroy', [$guide->slug, $step->getKey()]));
 
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->dontSeeInDatabase('guide_steps', [
+            'id' => 1,
+        ]);
     }
 
     public function test_delete_guide_step_image()
@@ -98,8 +99,10 @@ class GuideStepTest extends GuideTest
 
         $image = $step->images()->first();
 
-        $response = $this->call('DELETE', route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]));
+        $this->delete(route('resources.guides.steps.images.destroy', [$guide->slug, $step->getKey(), $image->uuid]));
 
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->dontSeeInDatabase('uploads', [
+            'id' => 1,
+        ]);
     }
 }
