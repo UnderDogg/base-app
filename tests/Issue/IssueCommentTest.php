@@ -39,7 +39,7 @@ class IssueCommentTest extends TestCase
         ]);
 
         $this->seeInDatabase('comments', [
-            'id' => 1,
+            'id'      => 1,
             'content' => 'Testing Comment',
         ]);
     }
@@ -65,7 +65,7 @@ class IssueCommentTest extends TestCase
         ]);
 
         $this->seeInDatabase('comments', [
-            'id' => 1,
+            'id'      => 1,
             'content' => 'Edited content',
         ]);
     }
@@ -93,7 +93,7 @@ class IssueCommentTest extends TestCase
         ]);
 
         $this->seeInDatabase('comments', [
-            'id' => 1,
+            'id'      => 1,
             'content' => 'Edited content',
         ]);
     }

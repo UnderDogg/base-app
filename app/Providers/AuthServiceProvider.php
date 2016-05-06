@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         parent::registerPolicies($gate);
 
         $gate->before(function ($user) {
-            return ($user->hasRole(Role::getAdministratorName()) ?: null);
+            return $user->hasRole(Role::getAdministratorName()) ?: null;
         });
 
         $this->defineCommentAbilities($gate);

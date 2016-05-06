@@ -269,7 +269,7 @@ class InquiryPresenter extends Presenter
     {
         // Limit the view if the user isn't
         // allowed to view all issues.
-        if(Auth::user()->cannot('manage.inquiries')) {
+        if (Auth::user()->cannot('manage.inquiries')) {
             $inquiry->where('user_id', auth()->user()->id);
         }
 

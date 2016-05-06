@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Computer;
 use App\Http\Controllers\Controller;
 use App\Jobs\Computer\CreateStatus;
 use App\Models\Computer;
-use App\Policies\ComputerPolicy;
 
 class ComputerStatusController extends Controller
 {

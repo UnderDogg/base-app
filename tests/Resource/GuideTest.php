@@ -47,7 +47,7 @@ class GuideTest extends TestCase
 
         $this->seeInDatabase('guides', [
             'id'    => 1,
-            'title' => 'Title'
+            'title' => 'Title',
         ]);
     }
 
@@ -67,7 +67,7 @@ class GuideTest extends TestCase
 
         $this->seeInDatabase('guides', [
             'id'    => 1,
-            'title' => 'New Title'
+            'title' => 'New Title',
         ]);
     }
 
