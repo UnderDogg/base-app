@@ -37,7 +37,7 @@ class IssueUserRequest extends Request
     public function persist(Issue $issue)
     {
         $issue->users()->sync($this->input('users', []));
-        
+
         return true;
     }
 }

@@ -134,7 +134,7 @@ class IssueTest extends TestCase
 
         $this->actingAs($this->createAdmin());
 
-        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1,2]]);
+        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1, 2]]);
 
         $this->assertEquals(2, $issue->labels->count());
     }
@@ -165,7 +165,7 @@ class IssueTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1,2]]);
+        $this->post(route('issues.labels.store', [$issue->id]), ['labels' => [1, 2]]);
 
         $this->assertEquals(0, $issue->labels->count());
     }
@@ -175,7 +175,6 @@ class IssueTest extends TestCase
         // Create two users.
         $userOne = $this->createUser();
         $userTwo = $this->createUser();
-
 
         $issue = factory(Issue::class)->create([
             'user_id' => $userOne->id,
