@@ -45,7 +45,7 @@ class IssueCommentController extends Controller
         $issue = $this->issue->findOrFail($id);
 
         $this->authorize('issues.show', [$issue]);
-        
+
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully added comment.');
 

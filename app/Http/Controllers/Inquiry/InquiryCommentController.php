@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Presenters\Inquiry\InquiryCommentPresenter;
 use App\Http\Requests\Inquiry\InquiryCommentRequest;
 use App\Models\Inquiry;
-use App\Policies\InquiryCommentPolicy;
 
 class InquiryCommentController extends Controller
 {
@@ -128,7 +127,7 @@ class InquiryCommentController extends Controller
         $comment = $inquiry->comments()->findOrFail($commentId);
 
         $this->authorize('comments.destroy', [$comment]);
-        
+
         $inquiry->comments()->detach($comment);
 
         if ($comment->delete()) {

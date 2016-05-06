@@ -13,7 +13,6 @@ use App\Jobs\Inquiry\Store;
 use App\Jobs\Inquiry\Update;
 use App\Models\Category;
 use App\Models\Inquiry;
-use App\Policies\InquiryPolicy;
 
 class InquiryController extends Controller
 {
@@ -332,7 +331,7 @@ class InquiryController extends Controller
         $inquiry = $this->inquiry->findOrFail($id);
 
         $this->authorize('inquiries.destroy', [$inquiry]);
-        
+
         if ($inquiry->delete()) {
             flash()->success('Success!', 'Successfully deleted request.');
 
