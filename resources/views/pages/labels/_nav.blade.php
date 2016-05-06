@@ -6,9 +6,9 @@
         </a>
     </li>
 
-    @if(\App\Policies\LabelPolicy::create(auth()->user()))
+    @can('manage.labels')
         <li><a href="{{ route('labels.create') }}"><i class="fa fa-plus"></i> New Label</a></li>
-    @endif
+    @endcan
 
 </ul>
 

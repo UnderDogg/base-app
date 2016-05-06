@@ -1,6 +1,6 @@
 <ul class="nav navbar-left navbar-nav">
 
-    @can('guides.steps.index')
+    @can('manage.guides')
 
         <li class="{{ active()->route('resources.guides.steps.index') }}">
             <a href="{{ route('resources.guides.steps.index', [$guide->slug]) }}">
@@ -8,10 +8,6 @@
                 All Steps
             </a>
         </li>
-
-    @endcan
-
-    @can('guides.steps.create')
 
         <li>
             <a href="{{ route('resources.guides.images', [$guide->slug]) }}">
@@ -27,20 +23,12 @@
             </a>
         </li>
 
-    @endcan
-
-    @can('guides.steps.edit')
-
         <li>
             <a href="{{ route('resources.guides.edit', [$guide->slug]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
         </li>
-
-    @endcan
-
-    @can('guides.steps.destroy')
 
         <li>
             <a href="{{ route('resources.guides.destroy', [$guide->slug]) }}"
@@ -61,4 +49,5 @@
             Favorite
         </a>
     </li>
+
 </ul>

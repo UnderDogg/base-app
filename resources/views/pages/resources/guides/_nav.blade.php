@@ -15,7 +15,7 @@
             </a>
         </li>
 
-        @can('create', \App\Models\Guide::class)
+        @can('manage.guides')
 
             <li>
                 <a href="{{ route('resources.guides.create') }}">
@@ -23,7 +23,7 @@
                 </a>
             </li>
 
-        @endif
+        @endcan
 
     @endif
 

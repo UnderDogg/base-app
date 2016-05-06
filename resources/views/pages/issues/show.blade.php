@@ -89,7 +89,7 @@
 
         @if($issue->isOpen())
 
-            @if(policy($issue)->close(auth()->user(), $issue))
+            @can('issues.close', [$issue])
 
                 <a
                         data-post="POST"
@@ -102,11 +102,11 @@
                     Close
                 </a>
 
-            @endif
+            @endcan
 
         @else
 
-            @if(policy($issue)->open())
+            @can('issues.open', [$issue])
 
                 <a
                         data-post="POST"
@@ -119,7 +119,7 @@
                     Re-Open Ticket
                 </a>
 
-            @endif
+            @endcan
 
         @endif
 

@@ -113,7 +113,7 @@
 
             @if(!$inquiry->approved)
 
-                @if(\App\Policies\InquiryPolicy::approve(auth()->user()))
+                @can('inquiries.approve', [$inquiry])
 
                     <a
                             data-post="POST"
@@ -126,13 +126,13 @@
                         Approve
                     </a>
 
-                @endif
+                @endcan
 
             @endif
 
             @if($inquiry->isOpen())
 
-                @if(\App\Policies\InquiryPolicy::close(auth()->user(), $inquiry))
+                @can('inquiries.close', [$inquiry])
 
                     <a
                             data-post="POST"
@@ -145,11 +145,11 @@
                         Close
                     </a>
                     
-                @endif
+                @endcan
 
             @else
 
-                @if(\App\Policies\InquiryPolicy::open(auth()->user()))
+                @can('inquiries.open', [$inquiry])
 
                     <a
                             data-post="POST"
@@ -162,7 +162,7 @@
                         Re-Open
                     </a>
 
-                @endif
+                @endcan
 
             @endif
 

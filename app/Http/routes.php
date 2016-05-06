@@ -41,40 +41,47 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             'uses'       => 'GuideController@favorite',
                         ]);
 
-                        // The guide step images route.
-                        $router->get('images', [
-                            'as'   => 'images',
-                            'uses' => 'GuideStepController@images',
-                        ]);
+                        $router->group(['middleware' => 'permission:manage.guides'], function (Router $router) {
 
-                        // The guide step images upload route.
-                        $router->post('images/upload', [
-                            'as'   => 'images.upload',
-                            'uses' => 'GuideStepController@upload',
-                        ]);
-
-                        // The guide steps group.
-                        $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function (Router $router) {
-                            // The guide step image download route.
-                            $router->get('images/{images}', [
-                                'as'   => 'images.download',
-                                'uses' => 'GuideStepImageController@download',
+                            // The guide step images route.
+                            $router->get('images', [
+                                'as'   => 'images',
+                                'uses' => 'GuideStepController@images',
                             ]);
 
-                            // The guide step delete route.
-                            $router->delete('images/{images}', [
-                                'as'         => 'images.destroy',
-                                'uses'       => 'GuideStepImageController@destroy',
+                            // The guide step images upload route.
+                            $router->post('images/upload', [
+                                'as'   => 'images.upload',
+                                'uses' => 'GuideStepController@upload',
                             ]);
 
-                            // The guide step move route.
-                            $router->post('move', [
-                                'as'         => 'move.position',
-                                'uses'       => 'GuideStepController@move',
-                            ]);
+                            // The guide steps group.
+                            $router->group(['prefix' => 'steps/{steps}', 'as' => 'steps.'], function (Router $router) {
+                                // The guide step image download route.
+                                $router->get('images/{images}', [
+                                    'as'   => 'images.download',
+                                    'uses' => 'GuideStepImageController@download',
+                                ]);
+
+                                // The guide step delete route.
+                                $router->delete('images/{images}', [
+                                    'as'         => 'images.destroy',
+                                    'uses'       => 'GuideStepImageController@destroy',
+                                ]);
+
+                                // The guide step move route.
+                                $router->post('move', [
+                                    'as'         => 'move.position',
+                                    'uses'       => 'GuideStepController@move',
+                                ]);
+                            });
+
                         });
+
                     });
+
                 });
+
             });
 
             // The guides resource.
@@ -82,6 +89,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The resource auth covered routes.
             $router->group(['middleware' => ['auth']], function (Router $router) {
+
                 // The guide steps resource.
                 $router->resource('guides.steps', 'GuideStepController');
 
@@ -95,10 +103,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                 // The patch attachments resource.
                 $router->resource('patches.attachments', 'PatchAttachmentController');
+
             });
         });
 
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
+
             // The user profile details route.
             $router->get('/', [
                 'as'   => 'show',
@@ -140,6 +150,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The profile password route group.
             $router->group(['prefix' => 'password'], function (Router $router) {
+
                 // The user profile password route.
                 $router->get('/', [
                     'as'   => 'password',
@@ -151,11 +162,14 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'as'   => 'password.change',
                     'uses' => 'PasswordController@update',
                 ]);
+
             });
+
         });
 
         // The device Computer group
         $router->group(['namespace' => 'Computer', 'middleware' => 'permission:manage.computers'], function (Router $router) {
+
             // The computer types resource.
             $router->resource('computer-types', 'ComputerTypeController', [
                 'except' => ['show'],
@@ -176,6 +190,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The Computer Device group.
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
+
                 $router->get('statuses', [
                     'as'    => 'status.hourly',
                     'uses'  => 'ComputerStatusController@hourly',
@@ -186,14 +201,19 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'as'   => 'status.check',
                     'uses' => 'ComputerStatusController@check',
                 ]);
+
             });
+
         });
 
         // The PasswordFolder namespace group.
         $router->group(['namespace' => 'PasswordFolder'], function (Router $router) {
+
             // The Passwords group
             $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function (Router $router) {
+
                 $router->group(['middleware' => ['passwords.gate']], function (Router $router) {
+
                     // Password Gate
                     $router->get('gate', [
                         'as'   => 'gate',
@@ -211,10 +231,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         'as'   => 'gate.lock',
                         'uses' => 'GateController@lock',
                     ]);
+
                 });
 
                 // Password Setup Routes
                 $router->group(['prefix' => 'setup'], function (Router $router) {
+
                     // Passwords Already Setup - Invalid Page
                     $router->get('invalid', [
                         'as'   => 'setup.invalid',
@@ -234,12 +256,16 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             'as'   => 'setup.finish',
                             'uses' => 'SetupController@finish',
                         ]);
+
                     });
+
                 });
+
             });
 
             // The password locked middleware route group.
             $router->group(['middleware' => ['passwords.locked']], function (Router $router) {
+
                 // Change Password Folder Pin.
                 $router->get('passwords/change-pin', [
                     'as'   => 'passwords.pin.change',
@@ -254,11 +280,13 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                 // User Password Resource.
                 $router->resource('passwords', 'PasswordController');
+
             });
         });
 
         // The inquiry router group.
         $router->group(['namespace' => 'Inquiry'], function (Router $router) {
+
             // The child category creation route.
             $router->get('requests/categories/create/{categories?}', [
                 'uses'  => 'InquiryCategoryController@create',
@@ -370,10 +398,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'destroy'   => 'inquiries.comments.destroy',
                 ],
             ]);
+
         });
 
         // The issue router group.
         $router->group(['namespace' => 'Issue'], function (Router $router) {
+
             // Display all closed Tickets.
             $router->get('tickets/closed', [
                 'as'   => 'issues.closed',
@@ -467,6 +497,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'store' => 'issues.users.store',
                 ],
             ]);
+
         });
 
         // The labels resource.
@@ -478,16 +509,20 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
         // The services group.
         $router->group(['namespace' => 'Service', 'middleware' => 'permission:manage.services'], function (Router $router) {
+
             // The services resource.
             $router->resource('services', 'ServiceController');
 
             // The services record controller.
             $router->resource('services.records', 'ServiceRecordController');
+
         });
+
     });
 
     // Authentication Routes.
     $router->group(['namespace' => 'Auth', 'prefix' => 'auth', 'as' => 'auth.'], function (Router $router) {
+
         // Guest Auth Routes.
         $router->group(['middleware' => ['guest']], function (Router $router) {
             // Displays login page.
@@ -501,11 +536,14 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'as'   => 'login.perform',
                 'uses' => 'AuthController@postLogin',
             ]);
+
         });
 
         $router->get('logout', [
             'as'   => 'logout',
             'uses' => 'AuthController@getLogout',
         ]);
+
     });
+
 });

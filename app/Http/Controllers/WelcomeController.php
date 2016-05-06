@@ -67,7 +67,7 @@ class WelcomeController extends Controller
         if ($user instanceof User) {
             $issue = $this->issue;
 
-            if (!policy($this->issue)->viewAll($user)) {
+            if ($user->cannot('manage.issues')) {
                 $issue = $issue->forUser($user);
             }
 

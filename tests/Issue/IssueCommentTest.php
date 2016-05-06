@@ -34,12 +34,14 @@ class IssueCommentTest extends TestCase
 
         $issue = factory(Issue::class)->create();
 
-        $response = $this->call('POST', route('issues.comments.store', [$issue->getKey()]), [
+        $this->post(route('issues.comments.store', [$issue->getKey()]), [
             'content' => 'Testing Comment',
         ]);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSessionHas('flash_message.level', 'success');
+        $this->seeInDatabase('comments', [
+            'id' => 1,
+            'content' => 'Testing Comment',
+        ]);
     }
 
     public function test_issue_comment_edit()
@@ -58,13 +60,14 @@ class IssueCommentTest extends TestCase
 
         $issue->comments()->save($comment);
 
-        $response = $this->call('PATCH', route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
+        $this->patch(route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
             'content' => 'Edited content',
         ]);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->seeInDatabase('comments', ['content' => 'Edited content']);
+        $this->seeInDatabase('comments', [
+            'id' => 1,
+            'content' => 'Edited content',
+        ]);
     }
 
     public function test_admins_can_edit_all_comments()
@@ -85,12 +88,13 @@ class IssueCommentTest extends TestCase
 
         $issue->comments()->save($comment);
 
-        $response = $this->call('PATCH', route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
+        $this->patch(route('issues.comments.update', [$issue->getKey(), $comment->getKey()]), [
             'content' => 'Edited content',
         ]);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->seeInDatabase('comments', ['content' => 'Edited content']);
+        $this->seeInDatabase('comments', [
+            'id' => 1,
+            'content' => 'Edited content',
+        ]);
     }
 }

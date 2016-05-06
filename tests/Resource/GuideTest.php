@@ -4,6 +4,7 @@ namespace App\Tests\Resource;
 
 use App\Models\Guide;
 use App\Tests\TestCase;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class GuideTest extends TestCase
 {
@@ -20,15 +21,17 @@ class GuideTest extends TestCase
 
     public function test_regular_user_does_not_has_access()
     {
-        $user = factory(\App\Models\User::class)->create();
+        $user = $this->createUser();
 
         $this->actingAs($user);
 
-        $create = $this->call('GET', route('resources.guides.create'));
-        $this->assertEquals(403, $create->getStatusCode());
+        $this->get(route('resources.guides.create'))
+            ->see('403');
 
-        $store = $this->call('POST', route('resources.guides.store'));
-        $this->assertEquals(403, $store->getStatusCode());
+        $this->post(route('resources.guides.store'), [
+            'title' => 'Guide Title',
+            'slug'  => 'guide-slug',
+        ])->see('403');
     }
 
     public function test_guide_store()

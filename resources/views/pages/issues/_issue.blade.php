@@ -84,7 +84,7 @@
 
     <div class="hidden-print">
 
-        @if(policy($issue)->edit(auth()->user(), $issue))
+        @can('issues.edit', [$issue])
 
             <a
                     class="btn btn-default btn-sm"
@@ -93,9 +93,9 @@
                 Edit
             </a>
 
-        @endif
+        @endcan
 
-            @if(policy($issue)->destroy(auth()->user(), $issue))
+        @can('issues.destroy', [$issue])
 
             <a
                     class="btn btn-default btn-sm"
@@ -107,7 +107,7 @@
                 Delete
             </a>
 
-        @endif
+        @endcan
 
         @include('pages.issues._form-labels')
 

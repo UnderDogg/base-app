@@ -46,8 +46,6 @@ class GuideStepController extends Controller
      */
     public function index($id)
     {
-        $this->authorize('guides.steps.index');
-
         $guide = $this->guide->locate($id);
 
         $steps = $this->presenter->table($guide);
@@ -66,8 +64,6 @@ class GuideStepController extends Controller
      */
     public function create($id)
     {
-        $this->authorize('guides.steps.create');
-
         $guide = $this->guide->locate($id);
 
         $steps = $guide->steps->count() + 1;
@@ -89,8 +85,6 @@ class GuideStepController extends Controller
      */
     public function store(GuideStepRequest $request, $id)
     {
-        $this->authorize('guides.steps.create');
-
         $guide = $this->guide->locate($id);
 
         if ($this->dispatch(new Store($request, $guide))) {
@@ -118,8 +112,6 @@ class GuideStepController extends Controller
      */
     public function edit($id, $stepPosition)
     {
-        $this->authorize('guides.steps.edit');
-
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStepByPosition($stepPosition);
@@ -140,8 +132,6 @@ class GuideStepController extends Controller
      */
     public function update(GuideStepRequest $request, $id, $stepPosition)
     {
-        $this->authorize('guides.steps.edit');
-
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStepByPosition($stepPosition);
@@ -171,8 +161,6 @@ class GuideStepController extends Controller
      */
     public function destroy($id, $stepPosition)
     {
-        $this->authorize('guides.steps.destroy');
-
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStepByPosition($stepPosition);
@@ -199,8 +187,6 @@ class GuideStepController extends Controller
      */
     public function move(GuideStepMoveRequest $request, $id, $stepId)
     {
-        $this->authorize('guides.steps.move');
-
         $guide = $this->guide->locate($id);
 
         $step = $guide->findStep($stepId);
@@ -217,8 +203,6 @@ class GuideStepController extends Controller
      */
     public function images($id)
     {
-        $this->authorize('guides.steps.images.create');
-
         $guide = $this->guide->locate($id);
 
         $form = $this->presenter->formImages($guide);
@@ -236,8 +220,6 @@ class GuideStepController extends Controller
      */
     public function upload(GuideStepImagesRequest $request, $id)
     {
-        $this->authorize('guides.steps.images.create');
-
         $guide = $this->guide->locate($id);
 
         $step = $guide->steps()->getRelated();

@@ -44,24 +44,22 @@ class InquiryCommentController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($inquiryId);
 
-        if (InquiryCommentPolicy::create(auth()->user(), $inquiry)) {
-            $attributes = [
-                'content' => $request->input('content'),
-                'user_id' => auth()->user()->getAuthIdentifier(),
-            ];
+        $this->authorize('inquiries.show', [$inquiry]);
 
-            if ($inquiry->comments()->create($attributes)) {
-                flash()->success('Success!', 'Successfully created comment.');
+        $attributes = [
+            'content' => $request->input('content'),
+            'user_id' => auth()->user()->getAuthIdentifier(),
+        ];
 
-                return redirect()->route('inquiries.show', [$inquiryId]);
-            }
-
-            flash()->error('Error!', 'There was an issue creating a comment. Please try again.');
+        if ($inquiry->comments()->create($attributes)) {
+            flash()->success('Success!', 'Successfully created comment.');
 
             return redirect()->route('inquiries.show', [$inquiryId]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue creating a comment. Please try again.');
+
+        return redirect()->route('inquiries.show', [$inquiryId]);
     }
 
     /**
@@ -78,13 +76,11 @@ class InquiryCommentController extends Controller
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        if (InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment)) {
-            $form = $this->presenter->form($inquiry, $comment);
+        $this->authorize('comments.edit', [$comment]);
 
-            return view('pages.inquiries.comments.edit', compact('form'));
-        }
+        $form = $this->presenter->form($inquiry, $comment);
 
-        $this->unauthorized();
+        return view('pages.inquiries.comments.edit', compact('form'));
     }
 
     /**
@@ -102,21 +98,19 @@ class InquiryCommentController extends Controller
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        if (InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment)) {
-            $comment->content = $request->input('content', $comment->content);
+        $this->authorize('comments.edit', [$comment]);
 
-            if ($comment->save()) {
-                flash()->success('Success!', 'Successfully updated comment.');
+        $comment->content = $request->input('content', $comment->content);
 
-                return redirect()->route('inquiries.show', [$inquiryId]);
-            }
+        if ($comment->save()) {
+            flash()->success('Success!', 'Successfully updated comment.');
 
-            flash()->error('Error!', 'There was an issue updating this comment. Please try again.');
-
-            return redirect()->route('inquiries.comments.edit', [$inquiryId, $commentId]);
+            return redirect()->route('inquiries.show', [$inquiryId]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this comment. Please try again.');
+
+        return redirect()->route('inquiries.comments.edit', [$inquiryId, $commentId]);
     }
 
     /**
@@ -133,20 +127,18 @@ class InquiryCommentController extends Controller
 
         $comment = $inquiry->comments()->findOrFail($commentId);
 
-        if (InquiryCommentPolicy::destroy(auth()->user(), $inquiry, $comment)) {
-            $inquiry->comments()->detach($comment);
+        $this->authorize('comments.destroy', [$comment]);
+        
+        $inquiry->comments()->detach($comment);
 
-            if ($comment->delete()) {
-                flash()->success('Success!', 'Successfully deleted comment.');
-
-                return redirect()->route('inquiries.show', [$inquiryId]);
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this comment. Please try again.');
+        if ($comment->delete()) {
+            flash()->success('Success!', 'Successfully deleted comment.');
 
             return redirect()->route('inquiries.show', [$inquiryId]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this comment. Please try again.');
+
+        return redirect()->route('inquiries.show', [$inquiryId]);
     }
 }

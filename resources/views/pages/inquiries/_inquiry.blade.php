@@ -59,16 +59,16 @@
 
     <div class="card-actions pull-right">
 
-        @if(\App\Policies\InquiryPolicy::edit(auth()->user(), $inquiry))
+        @can('inquiries.edit', [$inquiry])
             <a
                     class="btn btn-default btn-sm"
                     href="{{ route('inquiries.edit', [$inquiry->id]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
-        @endif
+        @endcan
 
-        @if(\App\Policies\InquiryPolicy::destroy(auth()->user(), $inquiry))
+        @can('inquiries.destroy', [$inquiry])
             <a
                     class="btn btn-default btn-sm"
                     data-post="DELETE"
@@ -78,7 +78,7 @@
                 <i class="fa fa-times"></i>
                 Delete
             </a>
-        @endif
+        @endcan
 
     </div>
 

@@ -45,8 +45,8 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
-
+        $this->authorize('issues.show', [$issue]);
+        
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully added comment.');
 
@@ -70,9 +70,9 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
-
         $comment = $issue->comments()->with(['files'])->findOrFail($commentId);
+
+        $this->authorize('comments.edit', [$comment]);
 
         $form = $this->presenter->form($issue, $comment);
 
@@ -92,9 +92,9 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
-
         $comment = $issue->comments()->findOrFail($commentId);
+
+        $this->authorize('comments.edit', [$comment]);
 
         if ($request->persist($issue, $comment)) {
             flash()->success('Success!', 'Successfully updated comment.');
@@ -119,9 +119,9 @@ class IssueCommentController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
-
         $comment = $issue->comments()->findOrFail($commentId);
+
+        $this->authorize('comments.destroy', [$comment]);
 
         $issue->comments()->detach($comment);
 

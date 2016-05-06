@@ -8,16 +8,16 @@
 
 @section('comment.actions')
 
-    @if(\App\Policies\InquiryCommentPolicy::edit(auth()->user(), $inquiry, $comment))
+    @can('comments.edit', [$comment])
         <a
                 class="btn btn-default btn-sm"
                 href="{{ route('inquiries.comments.edit', [$inquiry->id, $comment->id]) }}">
             <i class="fa fa-edit"></i>
             Edit
         </a>
-    @endif
+    @endcan
 
-    @if(\App\Policies\InquiryCommentPolicy::destroy(auth()->user(), $inquiry, $comment))
+    @can('comments.destroy', [$comment])
         <a
                 class="btn btn-default btn-sm"
                 data-post="DELETE"
@@ -27,6 +27,6 @@
             <i class="fa fa-times"></i>
             Delete
         </a>
-    @endif
+    @endcan
 
 @overwrite

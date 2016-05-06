@@ -55,7 +55,7 @@ class IssueController extends Controller
 
         $model = $this->issue->open();
 
-        if (!policy($this->issue)->viewAll($user)) {
+        if ($user->cannot('manage.issues')) {
             $model = $model->forUser($user);
         }
 
@@ -79,7 +79,7 @@ class IssueController extends Controller
 
         $model = $this->issue->closed();
 
-        if (!policy($this->issue)->viewAll($user)) {
+        if ($user->cannot('manage.issues')) {
             $model = $model->forUser($user);
         }
 
@@ -149,7 +149,7 @@ class IssueController extends Controller
 
         $issue = $this->issue->with($with)->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.show', [$issue]);
 
         $resolution = $issue->comments->first(function ($key, $comment) {
             return $comment->resolution;
@@ -175,7 +175,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.edit', [$issue]);
 
         $form = $this->presenter->form($issue);
 
@@ -194,7 +194,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.edit', [$issue]);
 
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully updated ticket.');
@@ -218,7 +218,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.destroy', [$issue]);
 
         if ($issue->delete()) {
             flash()->success('Success!', 'Successfully deleted ticket.');
@@ -244,7 +244,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.close', [$issue]);
 
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully closed ticket.');
@@ -269,7 +269,7 @@ class IssueController extends Controller
     {
         $issue = $this->issue->findOrFail($id);
 
-        $this->authorize($issue);
+        $this->authorize('issues.open', [$issue]);
 
         if ($request->persist($issue)) {
             flash()->success('Success!', 'Successfully re-opened ticket.');

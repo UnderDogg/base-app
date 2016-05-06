@@ -14,16 +14,16 @@
 
     <div class="hidden-print">
 
-        @if(\App\Policies\IssueCommentPolicy::edit(auth()->user(), $issue, $comment))
+        @can('comments.edit', [$comment])
             <a
                     class="btn btn-default btn-sm"
                     href="{{ route('issues.comments.edit', [$issue->id, $comment->id]) }}">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
-        @endif
+        @endcan
 
-        @if(\App\Policies\IssueCommentPolicy::destroy(auth()->user(), $issue, $comment))
+        @can('comments.destroy', [$comment])
             <a
                     class="btn btn-default btn-sm"
                     data-post="DELETE"
@@ -33,7 +33,7 @@
                 <i class="fa fa-times"></i>
                 Delete
             </a>
-        @endif
+        @endcan
 
     </div>
 

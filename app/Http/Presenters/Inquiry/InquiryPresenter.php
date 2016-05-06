@@ -7,8 +7,8 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Inquiry;
 use App\Models\User;
-use App\Policies\InquiryPolicy;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -269,7 +269,7 @@ class InquiryPresenter extends Presenter
     {
         // Limit the view if the user isn't
         // allowed to view all issues.
-        if (!InquiryPolicy::viewAll(auth()->user())) {
+        if(Auth::user()->cannot('manage.inquiries')) {
             $inquiry->where('user_id', auth()->user()->id);
         }
 

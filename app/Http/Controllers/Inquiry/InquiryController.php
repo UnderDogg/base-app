@@ -164,13 +164,11 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->with(['category'])->findOrFail($id);
 
-        if (InquiryPolicy::show(auth()->user(), $inquiry)) {
-            $formComment = $this->presenter->formComment($inquiry);
+        $this->authorize('inquiries.show', [$inquiry]);
 
-            return view('pages.inquiries.show', compact('inquiry', 'formComment'));
-        }
+        $formComment = $this->presenter->formComment($inquiry);
 
-        $this->unauthorized();
+        return view('pages.inquiries.show', compact('inquiry', 'formComment'));
     }
 
     /**
@@ -184,13 +182,11 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::edit(auth()->user(), $inquiry)) {
-            $form = $this->presenter->form($inquiry, $inquiry->category);
+        $this->authorize('inquiries.edit', [$inquiry]);
 
-            return view('pages.inquiries.edit', compact('form'));
-        }
+        $form = $this->presenter->form($inquiry, $inquiry->category);
 
-        $this->unauthorized();
+        return view('pages.inquiries.edit', compact('form'));
     }
 
     /**
@@ -205,19 +201,17 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::edit(auth()->user(), $inquiry)) {
-            if ($this->dispatch(new Update($request, $inquiry))) {
-                flash()->success('Success!', 'Successfully updated request.');
+        $this->authorize('inquiries.edit', [$inquiry]);
 
-                return redirect()->route('inquiries.show', [$id]);
-            }
+        if ($this->dispatch(new Update($request, $inquiry))) {
+            flash()->success('Success!', 'Successfully updated request.');
 
-            flash()->error('Error!', 'There was an issue updating this request. Please try again.');
-
-            return redirect()->route('inquiries.edit', [$id]);
+            return redirect()->route('inquiries.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue updating this request. Please try again.');
+
+        return redirect()->route('inquiries.edit', [$id]);
     }
 
     /**
@@ -231,19 +225,17 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::close(auth()->user(), $inquiry)) {
-            if ($this->dispatch(new Close($inquiry))) {
-                flash()->success('Success!', 'Successfully closed request.');
+        $this->authorize('inquiries.close', [$inquiry]);
 
-                return redirect()->route('inquiries.show', [$id]);
-            }
-
-            flash()->error('Error!', 'There was an issue closing this request. Please try again.');
+        if ($this->dispatch(new Close($inquiry))) {
+            flash()->success('Success!', 'Successfully closed request.');
 
             return redirect()->route('inquiries.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue closing this request. Please try again.');
+
+        return redirect()->route('inquiries.show', [$id]);
     }
 
     /**
@@ -257,19 +249,17 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::open(auth()->user())) {
-            if ($this->dispatch(new Open($inquiry))) {
-                flash()->success('Success!', 'Successfully re-opened request.');
+        $this->authorize('inquiries.open', [$inquiry]);
 
-                return redirect()->route('inquiries.show', [$id]);
-            }
-
-            flash()->success('Success!', 'There was an issue re-opening this request. Please try again.');
+        if ($this->dispatch(new Open($inquiry))) {
+            flash()->success('Success!', 'Successfully re-opened request.');
 
             return redirect()->route('inquiries.show', [$id]);
         }
 
-        $this->unauthorized();
+        flash()->success('Success!', 'There was an issue re-opening this request. Please try again.');
+
+        return redirect()->route('inquiries.show', [$id]);
     }
 
     /**
@@ -283,25 +273,23 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::approve(auth()->user())) {
-            try {
-                if ($this->dispatch(new Approve($inquiry))) {
-                    flash()->success('Success!', 'Successfully approved request.');
+        $this->authorize('inquiries.approve', [$inquiry]);
 
-                    return redirect()->route('inquiries.show', [$id]);
-                }
-
-                flash()->success('Success!', 'There was an issue approving this request. Please try again.');
-
-                return redirect()->route('inquiries.show', [$id]);
-            } catch (AlreadyApprovedException $e) {
-                flash()->error('Error!', $e->getMessage());
+        try {
+            if ($this->dispatch(new Approve($inquiry))) {
+                flash()->success('Success!', 'Successfully approved request.');
 
                 return redirect()->route('inquiries.show', [$id]);
             }
-        }
 
-        $this->unauthorized();
+            flash()->success('Success!', 'There was an issue approving this request. Please try again.');
+
+            return redirect()->route('inquiries.show', [$id]);
+        } catch (AlreadyApprovedException $e) {
+            flash()->error('Error!', $e->getMessage());
+
+            return redirect()->route('inquiries.show', [$id]);
+        }
     }
 
     /**
@@ -343,18 +331,16 @@ class InquiryController extends Controller
     {
         $inquiry = $this->inquiry->findOrFail($id);
 
-        if (InquiryPolicy::destroy(auth()->user(), $inquiry)) {
-            if ($inquiry->delete()) {
-                flash()->success('Success!', 'Successfully deleted request.');
+        $this->authorize('inquiries.destroy', [$inquiry]);
+        
+        if ($inquiry->delete()) {
+            flash()->success('Success!', 'Successfully deleted request.');
 
-                return redirect()->route('inquiries.index');
-            }
-
-            flash()->error('Error!', 'There was an issue deleting this request. Please try again.');
-
-            return redirect()->route('inquiries.show', [$id]);
+            return redirect()->route('inquiries.index');
         }
 
-        $this->unauthorized();
+        flash()->error('Error!', 'There was an issue deleting this request. Please try again.');
+
+        return redirect()->route('inquiries.show', [$id]);
     }
 }

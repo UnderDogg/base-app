@@ -69,7 +69,7 @@ class GuideController extends Controller
      */
     public function create()
     {
-        $this->authorize($this->guide);
+        $this->authorize('manage.guides');
 
         $form = $this->presenter->form($this->guide);
 
@@ -85,7 +85,7 @@ class GuideController extends Controller
      */
     public function store(GuideRequest $request)
     {
-        $this->authorize($this->guide);
+        $this->authorize('manage.guides');
 
         $guide = $this->guide->newInstance();
 
@@ -115,11 +115,7 @@ class GuideController extends Controller
             },
         ]);
 
-        // Limit the view if the user isn't allowed
-        // to view unpublished guides.
-        if (!policy($guide)->viewUnpublished(Auth::user(), $guide)) {
-            $this->unauthorized();
-        }
+        $this->authorize('guides.show', [$guide]);
 
         $navbar = $this->presenter->navbarShow($guide);
 
@@ -139,7 +135,7 @@ class GuideController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+        $this->authorize('guides.edit', [$guide]);
 
         $form = $this->presenter->form($guide);
 
@@ -158,7 +154,7 @@ class GuideController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+        $this->authorize('guides.edit', [$guide]);
 
         if ($this->dispatch(new Update($request, $guide))) {
             flash()->success('Success!', 'Successfully updated guide!');
@@ -202,7 +198,7 @@ class GuideController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        $this->authorize($guide);
+        $this->authorize('guides.destroy', [$guide]);
 
         if ($guide->delete()) {
             flash()->success('Success!', 'Successfully deleted guide!');

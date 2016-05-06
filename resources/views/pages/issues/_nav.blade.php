@@ -49,7 +49,7 @@
 
             @else
 
-                @if(\App\Policies\LabelPolicy::create(auth()->user()))
+                @can('manage.labels')
 
                     <li>
                         <a href="{{ route('labels.create') }}">
@@ -57,7 +57,7 @@
                         </a>
                     </li>
 
-                @else
+                @elsecan
 
                     <li>
                         <a>
@@ -65,7 +65,7 @@
                         </a>
                     </li>
 
-                @endif
+                @endcan
 
             @endif
         </ul>
