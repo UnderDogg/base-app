@@ -229,7 +229,6 @@ class IssueController extends Controller
         flash()->error('Error!', 'There was a problem deleting this ticket. Please try again.');
 
         return redirect()->route('issues.show', [$id]);
-
     }
 
     /**

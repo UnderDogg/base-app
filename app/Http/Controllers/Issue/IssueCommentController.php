@@ -7,7 +7,6 @@ use App\Http\Presenters\Issue\IssueCommentPresenter;
 use App\Http\Requests\Issue\IssueCommentCreateRequest;
 use App\Http\Requests\Issue\IssueCommentUpdateRequest;
 use App\Models\Issue;
-use App\Policies\IssueCommentPolicy;
 
 class IssueCommentController extends Controller
 {
