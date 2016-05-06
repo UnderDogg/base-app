@@ -113,12 +113,12 @@ class IssueTest extends TestCase
 
         $closed = factory(Issue::class)->create([
             'user_id' => $user->id,
-            'closed' => true,
+            'closed'  => true,
         ]);
 
         $open = factory(Issue::class)->create([
             'user_id' => $user->id,
-            'closed' => false,
+            'closed'  => false,
         ]);
 
         $this->visit(route('issues.closed'))
