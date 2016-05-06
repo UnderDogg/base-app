@@ -1,10 +1,9 @@
 <?php
 
 use App\Models\Permission;
-use App\Models\Role;
 use Illuminate\Database\Seeder;
 
-class PermissionSeeder extends Seeder
+class StaticPermissionSeeder extends Seeder
 {
     /**
      * The application permissions.
@@ -30,11 +29,5 @@ class PermissionSeeder extends Seeder
         foreach ($this->permissions as $name => $label) {
             Permission::firstOrCreate(compact('name', 'label'));
         }
-
-        $role = Role::whereName(Role::getAdministratorName())->firstOrFail();
-
-        Permission::all()->map(function ($permission) use ($role) {
-            $role->grant($permission);
-        });
     }
 }

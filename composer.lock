@@ -780,16 +780,16 @@
         },
         {
             "name": "larapacks/authorization",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larapacks/authorization.git",
-                "reference": "939750842cb45217b6e63cc6bc531e864eb0e4c6"
+                "reference": "73765e6188d7b270262c72651d2104f7a5c59216"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larapacks/authorization/zipball/939750842cb45217b6e63cc6bc531e864eb0e4c6",
-                "reference": "939750842cb45217b6e63cc6bc531e864eb0e4c6",
+                "url": "https://api.github.com/repos/larapacks/authorization/zipball/73765e6188d7b270262c72651d2104f7a5c59216",
+                "reference": "73765e6188d7b270262c72651d2104f7a5c59216",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "permissions",
                 "roles"
             ],
-            "time": "2016-05-06 15:58:09"
+            "time": "2016-05-06 19:28:53"
         },
         {
             "name": "laravel/framework",

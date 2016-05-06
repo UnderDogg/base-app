@@ -10,6 +10,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
@@ -136,7 +137,7 @@ class IssuePresenter extends Presenter
                         return $issue->occurred_at_for_input;
                     });
 
-                if (auth()->user()->can('manage.issues')) {
+                if (Auth::user()->can('manage.issues')) {
                     $labels = Label::all()->pluck('display', 'id');
 
                     $this->labelField($fieldset, $labels);
