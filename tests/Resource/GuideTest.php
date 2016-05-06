@@ -4,7 +4,6 @@ namespace App\Tests\Resource;
 
 use App\Models\Guide;
 use App\Tests\TestCase;
-use Illuminate\Auth\Access\AuthorizationException;
 
 class GuideTest extends TestCase
 {
@@ -48,7 +47,7 @@ class GuideTest extends TestCase
 
         $this->seeInDatabase('guides', [
             'id'    => 1,
-            'title' => 'Title'
+            'title' => 'Title',
         ]);
     }
 
@@ -68,7 +67,7 @@ class GuideTest extends TestCase
 
         $this->seeInDatabase('guides', [
             'id'    => 1,
-            'title' => 'New Title'
+            'title' => 'New Title',
         ]);
     }
 

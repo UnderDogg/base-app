@@ -10,7 +10,6 @@ use App\Jobs\Resource\Guide\Store;
 use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\Auth;
 
 class GuideController extends Controller
 {
