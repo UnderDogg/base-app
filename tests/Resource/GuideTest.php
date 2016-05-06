@@ -40,14 +40,16 @@ class GuideTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->call('POST', route('resources.guides.store'), [
+        $this->post(route('resources.guides.store'), [
             'title'       => 'Title',
             'slug'        => 'guide-slug',
             'description' => 'Description',
         ]);
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->seeInDatabase('guides', ['title' => 'Title']);
+        $this->seeInDatabase('guides', [
+            'id'    => 1,
+            'title' => 'Title'
+        ]);
     }
 
     public function test_guide_update()
@@ -58,15 +60,16 @@ class GuideTest extends TestCase
 
         $guide = factory(Guide::class)->create();
 
-        $response = $this->call('PUT', route('resources.guides.update', $guide->slug), [
+        $this->patch(route('resources.guides.update', $guide->slug), [
             'title'       => 'New Title',
             'slug'        => 'new-slug',
             'description' => 'Description',
         ]);
 
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->seeInDatabase('guides', ['title' => 'New Title']);
+        $this->seeInDatabase('guides', [
+            'id'    => 1,
+            'title' => 'New Title'
+        ]);
     }
 
     public function test_guide_unique_title_validation()
@@ -75,14 +78,13 @@ class GuideTest extends TestCase
 
         $guide = Guide::first();
 
-        $response = $this->call('POST', route('resources.guides.store'), [
+        $this->post(route('resources.guides.store'), [
             'title'       => $guide->title,
             'slug'        => 'guide-slug',
             'description' => 'Description',
         ]);
 
         $this->assertSessionHasErrors(['title']);
-        $this->assertEquals(302, $response->getStatusCode());
     }
 
     public function test_guide_unique_slug_validation()
@@ -107,9 +109,8 @@ class GuideTest extends TestCase
 
         $guide = Guide::first();
 
-        $response = $this->call('DELETE', route('resources.guides.destroy', [$guide->slug]));
+        $this->delete(route('resources.guides.destroy', [$guide->slug]));
 
-        $this->assertSessionHas('flash_message.level', 'success');
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->dontSeeInDatabase('guides', ['id' => 1]);
     }
 }
