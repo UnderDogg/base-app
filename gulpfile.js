@@ -48,7 +48,6 @@ elixir(function(mix) {
     ]).styles([
         'libs/bootstrap.min.css',
         'libs/dropzone.min.css',
-        'libs/font-awesome.min.css',
         'libs/sweetalert.css',
         'libs/bootstrap-editable.css',
         'libs/bootstrap-markdown.min.css',
