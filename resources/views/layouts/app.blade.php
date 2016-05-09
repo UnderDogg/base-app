@@ -20,6 +20,9 @@
         <!-- Scripts -->
         <script type="text/javascript" src="{{ url(elixir('js/all.js')) }}"></script>
 
+        <!-- Font Awesome -->
+        <script src="https://use.fontawesome.com/f3bc3575da.js"></script>
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

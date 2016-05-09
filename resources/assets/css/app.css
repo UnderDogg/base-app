@@ -215,14 +215,3 @@ tr td a {
 .btn-attachment {
     margin: 2px;
 }
-
-/* Font Awesome Correct Directory. */
-@font-face {
-    font-family:'FontAwesome';
-    src:url('/build/fonts/bufontawesome-webfont.eot?v=4.4.0');
-    src:url('/build/fonts/fontawesome-webfont.eot?#iefix&v=4.4.0')
-        format('embedded-opentype'),url('/build/fonts/fontawesome-webfont.woff2?v=4.4.0')
-        format('woff2'),url('/build/fonts/fontawesome-webfont.woff?v=4.4.0')
-        format('woff'),url('/build/fonts/fontawesome-webfont.ttf?v=4.4.0')
-        format('truetype'), url('/build/fonts/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular')
-}
