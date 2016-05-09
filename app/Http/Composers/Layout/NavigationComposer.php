@@ -52,8 +52,7 @@ class NavigationComposer
 
             $issues = $query->count();
 
-            $view
-                ->with('issues', $issues);
+            $view->with(compact('issues'));
         }
     }
 }

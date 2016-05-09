@@ -1,7 +1,5 @@
 <?php
 
-use Rhumsaa\Uuid\Uuid;
-
 /**
  * Generates a unique UUID string.
  *
@@ -9,5 +7,5 @@ use Rhumsaa\Uuid\Uuid;
  */
 function uuid()
 {
-    return Uuid::uuid4()->toString();
+    return \Faker\Provider\Uuid::uuid();
 }
