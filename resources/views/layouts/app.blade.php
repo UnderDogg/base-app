@@ -15,10 +15,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+        <link rel="stylesheet" href="{{ url(elixir('css/all.css')) }}">
 
         <!-- Scripts -->
-        <script type="text/javascript" src="{{ elixir('js/all.js') }}"></script>
+        <script type="text/javascript" src="{{ url(elixir('js/all.js')) }}"></script>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
