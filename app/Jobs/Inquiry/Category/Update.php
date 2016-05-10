@@ -43,10 +43,7 @@ class Update extends Job
             'manager' => $this->request->has('manager'),
         ];
 
-        // Make sure that the selected category isn't itself.
-        if ($this->category->id != $this->request->parent) {
-            $this->category->parent_id = $this->request->parent;
-        }
+        $this->category->parent_id = $this->request->parent;
 
         return $this->category->save();
     }

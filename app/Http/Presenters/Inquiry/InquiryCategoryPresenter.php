@@ -137,15 +137,17 @@ class InquiryCategoryPresenter extends Presenter
     /**
      * Returns a new navbar for the inquiry category index.
      *
-     * @param Category|null $category
+     * @param Category $category
      *
      * @return \Illuminate\Support\Fluent
      */
-    public function navbar(Category $category = null)
+    public function navbar(Category $category)
     {
+        $name = ($category->exists ? "| $category->name" : null);
+
         return $this->fluent([
             'id'         => 'requests-categories',
-            'title'      => 'Request Categories',
+            'title'      => "Request Categories $name",
             'url'        => route('inquiries.categories.index'),
             'menu'       => view('pages.inquiries.categories._nav', compact('category')),
             'attributes' => [

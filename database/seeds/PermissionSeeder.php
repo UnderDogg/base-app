@@ -3,7 +3,7 @@
 use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
-class StaticPermissionSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * The application permissions.

@@ -97,4 +97,24 @@ class IssueCommentTest extends TestCase
             'content' => 'Edited content',
         ]);
     }
+
+    public function test_comments_support_markdown()
+    {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $comment = factory(Comment::class)->create([
+            'user_id' => $user->id,
+            'content' => '**Supports Markdown**',
+        ]);
+
+        $issue = factory(Issue::class)->create([
+            'user_id' => $user->id,
+        ]);
+
+        $issue->comments()->save($comment);
+
+        $this->visit(route('issues.show', [$issue->id]))->see('<strong>Supports Markdown</strong>');
+    }
 }

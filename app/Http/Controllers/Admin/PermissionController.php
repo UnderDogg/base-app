@@ -46,7 +46,7 @@ class PermissionController extends Controller
 
         return view('admin.permissions.index', compact('permissions'));
     }
-
+    
     /**
      * Displays the form for creating a new permission.
      *

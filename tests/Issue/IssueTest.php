@@ -184,4 +184,18 @@ class IssueTest extends TestCase
 
         $this->assertEquals(0, $issue->users->count());
     }
+
+    public function test_issues_support_markdown()
+    {
+        $user = $this->createUser();
+
+        $this->actingAs($user);
+
+        $issue = factory(Issue::class)->create([
+            'user_id'       => $user->id,
+            'description'   => '**Supports Markdown**',
+        ]);
+
+        $this->visit(route('issues.show', [$issue->id]))->see('<strong>Supports Markdown</strong>');
+    }
 }
