@@ -13,7 +13,7 @@ class ServiceRecord extends Model
     const STATUS_UNKNOWN = 4;
 
     use HasMarkdownTrait;
-    
+
     /**
      * The fillable service record attributes.
      *

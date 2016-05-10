@@ -81,7 +81,7 @@ class Inquiry extends Model
     {
         $name = $this->category_name;
 
-        return (empty($name) ? null : "<i class='fa fa-tag'></i> $name");
+        return empty($name) ? null : "<i class='fa fa-tag'></i> $name";
     }
 
     /**
@@ -91,7 +91,7 @@ class Inquiry extends Model
      */
     public function getCategoryNameAttribute()
     {
-        return ($this->category instanceof Category ? $this->category->name : null);
+        return $this->category instanceof Category ? $this->category->name : null;
     }
 
     /**
