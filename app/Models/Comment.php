@@ -36,7 +36,7 @@ class Comment extends Model
      */
     public function getResolutionAttribute()
     {
-        return ($this->pivot ? $this->pivot->resolution : false);
+        return $this->pivot ? $this->pivot->resolution : false;
     }
 
     /**
@@ -53,7 +53,7 @@ class Comment extends Model
         $created = ($this->resolution ? "created resolution $daysAgo" : "commented $daysAgo");
 
         $line = HTML::create('span', $created, ['class' => 'hidden-xs']);
-        
+
         return sprintf('<strong>%s</strong> %s', $user, $line);
     }
 
