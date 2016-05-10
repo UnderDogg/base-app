@@ -47,45 +47,29 @@
 
                 @if(auth()->check())
 
-                        <!-- Last Ticket Panel -->
-                <div class="panel panel-default">
+                    <!-- Last Ticket Panel -->
+                    <div class="panel panel-default">
 
-                    <div class="panel-heading text-center">
+                        <div class="panel-heading text-center">
 
-                        <div class="panel-title">
-                            <i class="fa fa-ticket"></i>
-                            Your Last Ticket
+                            <div class="panel-title">
+                                <i class="fa fa-ticket"></i>
+                                Your Last Ticket
+                            </div>
+
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="col-md-12">
+                                {!! $issues !!}
+                            </div>
+
                         </div>
 
                     </div>
-
-                    <div class="panel-body">
-
-                        <div class="col-md-12">
-                            {!! $issues !!}
-                        </div>
-
-                    </div>
-
-                </div>
 
                 @endif
-
-                        <!-- Services Panel -->
-                <div class="panel panel-default">
-
-                    <div class="panel-heading text-center">
-                        <div class="panel-title">
-                            <i class="fa fa-server"></i>
-                            Service Status
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        {!! $services !!}
-                    </div>
-
-                </div>
 
                 <!-- Guides Panel -->
                 <div class="panel panel-default">
@@ -108,10 +92,6 @@
             </div>
 
         </div>
-
-    @else
-
-
 
     @endif
 
