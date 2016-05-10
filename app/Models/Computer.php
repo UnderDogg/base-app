@@ -80,7 +80,7 @@ class Computer extends Model
      */
     public function getOperatingSystemAttribute()
     {
-        return ($this->os ? "{$this->os->name} {$this->os->version}" : null);
+        return $this->os ? "{$this->os->name} {$this->os->version}" : null;
     }
 
     /**

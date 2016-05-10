@@ -7,7 +7,7 @@ use Larapacks\Authorization\Traits\RolePermissionsTrait;
 class Role extends Model
 {
     use RolePermissionsTrait;
-    
+
     /**
      * The fillable role attributes.
      *
