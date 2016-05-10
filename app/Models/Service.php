@@ -5,13 +5,6 @@ namespace App\Models;
 class Service extends Model
 {
     /**
-     * The services table.
-     *
-     * @var string
-     */
-    protected $table = 'services';
-
-    /**
      * The fillable service attributes.
      *
      * @var array

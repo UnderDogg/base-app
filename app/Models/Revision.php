@@ -7,13 +7,5 @@ use Stevebauman\Revision\Traits\RevisionTrait;
 
 class Revision extends Model
 {
-    use HasUserTrait;
-    use RevisionTrait;
-
-    /**
-     * The revisions table.
-     *
-     * @var string
-     */
-    protected $table = 'revisions';
+    use HasUserTrait, RevisionTrait;
 }

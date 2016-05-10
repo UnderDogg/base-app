@@ -9,13 +9,6 @@ class Permission extends Model
     use PermissionRolesTrait;
 
     /**
-     * The permissions table.
-     *
-     * @var string
-     */
-    protected $table = 'permissions';
-
-    /**
      * The fillable permission attributes.
      *
      * @var array

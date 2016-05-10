@@ -8,16 +8,7 @@ use App\Models\Traits\HasUserTrait;
 
 class Patch extends Model
 {
-    use HasUserTrait;
-    use HasFilesTrait;
-    use HasMarkdownTrait;
-
-    /**
-     * The patch table.
-     *
-     * @var string
-     */
-    protected $table = 'patches';
+    use HasUserTrait, HasFilesTrait, HasMarkdownTrait;
 
     /**
      * The fillable computer patch attributes.

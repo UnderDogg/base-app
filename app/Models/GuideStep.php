@@ -7,15 +7,7 @@ use Lookitsatravis\Listify\Listify;
 
 class GuideStep extends Model
 {
-    use Listify;
-    use HasFilesTrait;
-
-    /**
-     * The guide steps model.
-     *
-     * @var string
-     */
-    protected $table = 'guide_steps';
+    use HasFilesTrait, Listify;
 
     /**
      * The sortable group field.

@@ -15,23 +15,16 @@ use Orchestra\Support\Facades\HTML;
 
 class Issue extends Model
 {
-    use SoftDeletes;
-    use HasUsersTrait;
-    use HasUserTrait;
-    use HasFilesTrait;
-    use HasLabelsTrait;
-    use HasMarkdownTrait;
-    use HasRevisionsTrait;
-    use HasCommentsTrait {
+    use SoftDeletes,
+        HasUsersTrait,
+        HasUserTrait,
+        HasFilesTrait,
+        HasLabelsTrait,
+        HasMarkdownTrait,
+        HasRevisionsTrait,
+        HasCommentsTrait {
         comments as traitComments;
     }
-
-    /**
-     * The issues table.
-     *
-     * @var string
-     */
-    protected $table = 'issues';
 
     /**
      * The columns to track revisions on.

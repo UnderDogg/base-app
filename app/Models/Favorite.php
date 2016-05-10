@@ -5,13 +5,6 @@ namespace App\Models;
 class Favorite extends Model
 {
     /**
-     * The favorites table.
-     *
-     * @var string
-     */
-    protected $table = 'favorites';
-
-    /**
      * The fillable favorite attributes.
      *
      * @var array

@@ -8,16 +8,7 @@ use App\Models\Traits\HasUserTrait;
 
 class Inquiry extends Model
 {
-    use HasUserTrait;
-    use HasCommentsTrait;
-    use HasMarkdownTrait;
-
-    /**
-     * The requests table.
-     *
-     * @var string
-     */
-    protected $table = 'inquiries';
+    use HasUserTrait, HasCommentsTrait, HasMarkdownTrait;
 
     /**
      * {@inheritdoc}
@@ -90,9 +81,7 @@ class Inquiry extends Model
     {
         $name = $this->category_name;
 
-        if (!empty($name)) {
-            return "<i class='fa fa-tag'></i> $name";
-        }
+        return (empty($name) ? null : "<i class='fa fa-tag'></i> $name");
     }
 
     /**
@@ -102,11 +91,7 @@ class Inquiry extends Model
      */
     public function getCategoryNameAttribute()
     {
-        $category = $this->category;
-
-        if ($category instanceof Category) {
-            return $category->name;
-        }
+        return ($this->category instanceof Category ? $this->category->name : null);
     }
 
     /**

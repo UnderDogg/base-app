@@ -12,13 +12,6 @@ class Guide extends Model
     use HasFavoritesTrait;
 
     /**
-     * The guides table.
-     *
-     * @var string
-     */
-    protected $table = 'guides';
-
-    /**
      * The fillable guide attributes.
      *
      * @var array

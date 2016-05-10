@@ -13,13 +13,6 @@ class PasswordFolder extends Model
     use HasUserTrait;
 
     /**
-     * The password folder table.
-     *
-     * @var string
-     */
-    protected $table = 'password_folders';
-
-    /**
      * The hidden password folder attributes.
      *
      * @var array

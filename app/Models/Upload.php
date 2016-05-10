@@ -5,13 +5,6 @@ namespace App\Models;
 class Upload extends Model
 {
     /**
-     * The uploads table.
-     *
-     * @var string
-     */
-    protected $table = 'uploads';
-
-    /**
      * The fillable upload attributes.
      *
      * @var array

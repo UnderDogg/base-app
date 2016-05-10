@@ -9,13 +9,6 @@ class Password extends Model
     use CanEncryptTrait;
 
     /**
-     * The passwords table.
-     *
-     * @var string
-     */
-    protected $table = 'passwords';
-
-    /**
      * The hidden password attributes.
      *
      * @var array

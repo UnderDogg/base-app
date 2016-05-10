@@ -11,20 +11,6 @@ class Computer extends Model
     use HasUserTrait;
 
     /**
-     * The computers table.
-     *
-     * @var string
-     */
-    protected $table = 'computers';
-
-    /**
-     * The computer users pivot table.
-     *
-     * @var string
-     */
-    protected $tablePivotUsers = 'computer_users';
-
-    /**
      * The fillable computer attributes.
      *
      * @var array
@@ -84,7 +70,7 @@ class Computer extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, $this->tablePivotUsers);
+        return $this->belongsToMany(User::class, 'computer_users');
     }
 
     /**
@@ -94,12 +80,7 @@ class Computer extends Model
      */
     public function getOperatingSystemAttribute()
     {
-        if ($this->os instanceof OperatingSystem) {
-            $os = $this->os->name;
-            $version = $this->os->version;
-
-            return sprintf('%s %s', $os, $version);
-        }
+        return ($this->os ? "{$this->os->name} {$this->os->version}" : null);
     }
 
     /**

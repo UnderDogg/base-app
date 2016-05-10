@@ -7,27 +7,13 @@ use Orchestra\Support\Facades\HTML;
 class Label extends Model
 {
     /**
-     * The labels table.
-     *
-     * @var string
-     */
-    protected $table = 'labels';
-
-    /**
-     * The issue labels pivot table.
-     *
-     * @var string
-     */
-    protected $tablePivotLabels = 'issue_labels';
-
-    /**
      * The belongsToMany labels relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function issues()
     {
-        return $this->belongsToMany(Issue::class, $this->tablePivotLabels);
+        return $this->belongsToMany(Issue::class, 'issue_labels');
     }
 
     /**

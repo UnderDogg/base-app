@@ -10,17 +10,7 @@ use Orchestra\Support\Facades\HTML;
 
 class Comment extends Model
 {
-    use HasUserTrait;
-    use HasFilesTrait;
-    use HasMarkdownTrait;
-    use HasRevisionsTrait;
-
-    /**
-     * The comment table.
-     *
-     * @var string
-     */
-    protected $table = 'comments';
+    use HasUserTrait, HasFilesTrait, HasMarkdownTrait, HasRevisionsTrait;
 
     /**
      * The columns to track revisions on.
@@ -46,11 +36,7 @@ class Comment extends Model
      */
     public function getResolutionAttribute()
     {
-        if ($this->pivot) {
-            return $this->pivot->resolution;
-        }
-
-        return false;
+        return ($this->pivot ? $this->pivot->resolution : false);
     }
 
     /**
@@ -64,14 +50,10 @@ class Comment extends Model
 
         $daysAgo = $this->created_at_human;
 
-        if ($this->resolution) {
-            $created = "created resolution $daysAgo";
-        } else {
-            $created = "commented $daysAgo";
-        }
+        $created = ($this->resolution ? "created resolution $daysAgo" : "commented $daysAgo");
 
         $line = HTML::create('span', $created, ['class' => 'hidden-xs']);
-
+        
         return sprintf('<strong>%s</strong> %s', $user, $line);
     }
 

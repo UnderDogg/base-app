@@ -21,7 +21,7 @@ class ComputerStatus extends Model
      */
     public function computer()
     {
-        return $this->belongsTo(Computer::class, 'computer_id');
+        return $this->belongsTo(Computer::class);
     }
 
     /**
@@ -34,9 +34,7 @@ class ComputerStatus extends Model
      */
     public function scopeHourly(Builder $query, $hours = 1)
     {
-        $now = Carbon::now();
-
-        return $query->where('created_at', '>=', $now->subHours($hours));
+        return $query->where('created_at', '>=',  Carbon::now()->subHours($hours));
     }
 
     /**
@@ -46,6 +44,6 @@ class ComputerStatus extends Model
      */
     public function getOnlineHumanAttribute()
     {
-        return $this->online ? 'Online' : 'Offline';
+        return ($this->online ? 'Online' : 'Offline');
     }
 }

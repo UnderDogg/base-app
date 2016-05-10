@@ -13,14 +13,7 @@ class ServiceRecord extends Model
     const STATUS_UNKNOWN = 4;
 
     use HasMarkdownTrait;
-
-    /**
-     * The service records table.
-     *
-     * @var string
-     */
-    protected $table = 'service_records';
-
+    
     /**
      * The fillable service record attributes.
      *
