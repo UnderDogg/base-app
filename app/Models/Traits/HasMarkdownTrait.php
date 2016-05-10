@@ -15,11 +15,7 @@ trait HasMarkdownTrait
      */
     public function fromMarkdown($markdown)
     {
-        $markdown = Markdown::convertToHtml($markdown);
-
-        $markdown = $this->highlightMentions($markdown);
-
-        return $markdown;
+        return Markdown::convertToHtml($markdown);
     }
 
     /**
