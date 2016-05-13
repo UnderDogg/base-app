@@ -130,19 +130,9 @@ class GuidePresenter extends Presenter
                 $fieldset
                     ->control('input:text', 'title')
                     ->attributes([
-                        'class'           => 'slug',
-                        'placeholder'     => 'Enter the guide title',
-                        'data-slug-field' => '#slug',
+                        'placeholder' => 'Enter the guide title',
                     ])->value(function (Guide $guide) {
                         return $guide->exists ? $guide->title : 'How To:';
-                    });
-
-                $fieldset
-                    ->control('input:text', 'slug')
-                    ->attributes([
-                        'placeholder' => 'Enter the guide slug',
-                    ])->value(function (Guide $guide) {
-                        return $guide->exists ? $guide->slug : 'how-to';
                     });
 
                 $fieldset

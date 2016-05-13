@@ -26,7 +26,7 @@
 
 @section('card.heading')
 
-    <img class="avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
+    <img class="hidden-xs avatar" src="{{ route('profile.avatar.download', [$issue->user->id]) }}" alt="{{ $issue->user->name }}'s Profile Avatar"/>
 
     <div class="card-heading-header">
 

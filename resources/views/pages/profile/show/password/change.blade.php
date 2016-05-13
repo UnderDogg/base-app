@@ -14,30 +14,22 @@
 
     @if(auth()->user()->from_ad)
 
-        <div class="panel panel-warning">
+        <div class="alert alert-warning text-center">
 
-            <div class="panel-heading">
-
-                Changing Your Password
-
-            </div>
-
-            <div class="panel-body">
-
-                <p>
-                    Your account is from Active Directory.
-                    <br><br>
-                    Changing your password can take up to one to two hours to complete.
-                </p>
-
-            </div>
+            <p>
+                Your account is from Active Directory.
+                <br>
+                Use your computer to change your password.
+            </p>
 
         </div>
 
-    @endif
+    @else
 
-    <div class="col-md-12">
-        {!! $form !!}
-    </div>
+        <div class="col-md-12">
+            {!! $form !!}
+        </div>
+
+    @endif
 
 @endsection

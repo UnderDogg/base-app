@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v6.0.9",
+            "version": "v6.0.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "bdd886a66b186b9fc4e872c3adb56fed35641092"
+                "reference": "65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/bdd886a66b186b9fc4e872c3adb56fed35641092",
-                "reference": "bdd886a66b186b9fc4e872c3adb56fed35641092",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1",
+                "reference": "65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1",
                 "shasum": ""
             },
             "require": {
@@ -57,20 +57,20 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2016-04-28 16:10:12"
+            "time": "2016-05-12 13:50:14"
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "v2.0.7",
+            "version": "v2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-Laravel.git",
-                "reference": "2e77b70f74db758bef5c6bac2f7b757278716eba"
+                "reference": "849f343b71478cd05f7b586fe8faf9cdee2e54f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/2e77b70f74db758bef5c6bac2f7b757278716eba",
-                "reference": "2e77b70f74db758bef5c6bac2f7b757278716eba",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/849f343b71478cd05f7b586fe8faf9cdee2e54f4",
+                "reference": "849f343b71478cd05f7b586fe8faf9cdee2e54f4",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2016-05-10 15:38:00"
+            "time": "2016-05-13 14:41:35"
         },
         {
             "name": "baum/baum",
@@ -5067,20 +5067,23 @@
         },
         {
             "name": "phpunit/php-timer",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
-                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b"
+                "reference": "38e9124049cf1a164f1e4537caf19c99bf1eb260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
-                "reference": "3e82f4e9fc92665fafd9157568e4dcb01d014e5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-timer/zipball/38e9124049cf1a164f1e4537caf19c99bf1eb260",
+                "reference": "38e9124049cf1a164f1e4537caf19c99bf1eb260",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4|~5"
             },
             "type": "library",
             "autoload": {
@@ -5104,7 +5107,7 @@
             "keywords": [
                 "timer"
             ],
-            "time": "2015-06-21 08:01:12"
+            "time": "2016-05-12 18:03:57"
         },
         {
             "name": "phpunit/php-token-stream",

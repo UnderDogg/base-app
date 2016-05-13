@@ -89,6 +89,8 @@ class AuthController extends Controller
      *
      * @param User       $user
      * @param AdldapUser $adldapUser
+     *
+     * @return void
      */
     protected function handleLdapUserWasAuthenticated(User $user, AdldapUser $adldapUser)
     {
@@ -101,6 +103,10 @@ class AuthController extends Controller
                 $user->assignRole($admin);
             }
         }
+
+        $user->from_ad = true;
+
+        $user->save();
     }
 
     /**

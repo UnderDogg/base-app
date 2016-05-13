@@ -70,7 +70,7 @@
                     @section('title.header')
 
                         @unless(isset($title))
-                            <h3>@yield('title')</h3>
+                            <h4>@yield('title')</h4>
 
                             <hr>
                         @endunless

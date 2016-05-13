@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Profile;
 
 use App\Http\Requests\Request;
+use App\Models\User;
 
 class UpdateRequest extends Request
 {
@@ -27,5 +28,20 @@ class UpdateRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Persist the changes.
+     *
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function persist(User $user)
+    {
+        $user->name = $this->input('full_name', $user->name);
+        $user->email = $this->input('email', $user->email);
+
+        return $user->save();
     }
 }

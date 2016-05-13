@@ -21,7 +21,7 @@
             });
         </script>
 
-        <div class="alert alert-warning">
+        <div class="alert alert-warning text-center">
             <p>Your account is synchronized with Active Directory.</p>
 
             <p>Please contact your IT Department to modify your account details.</p>

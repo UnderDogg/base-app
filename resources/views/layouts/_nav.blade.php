@@ -253,11 +253,13 @@
                                 </li>
                             @endcan
 
-                            <li>
-                                <a href="{{ route('auth.logout') }}">
-                                    <i class="fa fa-sign-out"></i> Logout
-                                </a>
-                            </li>
+                            @if(!request()->has(config('adldap_auth.windows_auth_attribute')))
+                                <li>
+                                    <a href="{{ route('auth.logout') }}">
+                                        <i class="fa fa-sign-out"></i> Logout
+                                    </a>
+                                </li>
+                            @endif
 
                         </ul>
 

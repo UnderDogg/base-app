@@ -17,6 +17,8 @@
 
     {!! Decorator::render('navbar', $navbar) !!}
 
-    {!! $patches !!}
+    <div class="panel panel-default">
+        {!! $patches !!}
+    </div>
 
 @endsection

@@ -353,7 +353,7 @@ class IssuePresenter extends Presenter
             $labels = implode(null, $labels);
             $users = implode(null, $users);
 
-            $tagLine = sprintf('<p class="h5 table-lead-summary">%s</p>', $issue->tag_line);
+            $tagLine = sprintf('<p class="h6 table-lead-summary">%s</p>', $issue->tag_line);
 
             return "$link $labels $users $tagLine";
         };

@@ -36,7 +36,7 @@ class PatchPresenter extends Presenter
                         'class' => 'table-lead-title',
                     ]);
 
-                    $tagLine = sprintf('<p class="h5 table-lead-summary">%s</p>', $patch->tag_line);
+                    $tagLine = sprintf('<p class="h6 table-lead-summary">%s</p>', $patch->tag_line);
 
                     return "$link $tagLine";
                 };

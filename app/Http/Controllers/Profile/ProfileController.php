@@ -49,7 +49,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $form = $this->presenter->form($user);
+        $form = $this->presenter->form($user, $user->from_ad);
 
         return view('pages.profile.show.details.edit', compact('user', 'form'));
     }
@@ -65,12 +65,13 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->from_ad) {
-            $user->name = $request->input('full_name', $user->name);
-            $user->email = $request->input('email', $user->email);
+        if ($user->from_ad) {
+            flash()->error('Error!', 'You cannot edit your profile. It is being synchronized with your local Active Directory.');
 
-            $user->save();
+            return redirect()->route('profile.edit');
+        }
 
+        if ($request->persist($user)) {
             flash()->success('Success!', 'Your profile has been updated.');
 
             return redirect()->route('profile.show');

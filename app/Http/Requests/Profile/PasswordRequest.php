@@ -53,6 +53,12 @@ class PasswordRequest extends Request
             throw new InvalidPasswordException();
         }
 
+        if ($user->from_ad) {
+            // If the user is from active directory, we won't
+            // allow them to change their password.
+            throw new UnableToChangePasswordException();
+        }
+
         // Change the users password.
         $user->password = $this->input('password');
 

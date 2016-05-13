@@ -52,7 +52,7 @@
 
 @section('card.heading')
 
-    <img class="avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
+    <img class="hidden-xs avatar" src="{{ route('profile.avatar.download', [$comment->user->id]) }}" alt=""/>
 
     <div class="card-heading-header">
 

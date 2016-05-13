@@ -12,13 +12,25 @@
 
     <div class="col-md-6">
 
-        <h2 class="text-center">
-            Login
-        </h2>
+        <div class="panel panel-default">
 
-        <p class="text-muted text-center">Using your windows credentials.</p>
+            <div class="panel-body">
 
-        {!! $form !!}
+                <div class="col-md-12">
+
+                <h3 class="text-center">
+                    Login
+                </h3>
+
+                <p class="text-muted text-center">Using your windows credentials.</p>
+
+                {!! $form !!}
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
