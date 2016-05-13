@@ -164,7 +164,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
 
             });
-            
+
         });
 
         // The device Computer group
