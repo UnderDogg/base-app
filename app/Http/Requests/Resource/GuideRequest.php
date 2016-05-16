@@ -16,7 +16,7 @@ class GuideRequest extends Request
     public function rules()
     {
         $slug = $this->route('guides');
-        
+
         return [
             'title'         => "required|min:5|max:80|unique:guides,title,$slug,slug",
             'description'   => 'min:5|max:1000',

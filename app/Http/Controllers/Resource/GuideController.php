@@ -150,7 +150,7 @@ class GuideController extends Controller
     public function update(GuideRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
-        
+
         $this->authorize('manage.guides');
 
         if ($request->persist($guide)) {
