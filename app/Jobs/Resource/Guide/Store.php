@@ -47,6 +47,9 @@ class Store extends Job
         if ($published) {
             $this->guide->published = true;
             $this->guide->published_on = $this->guide->freshTimestampString();
+        } else {
+            $this->guide->published = false;
+            $this->guide->published_on = null;
         }
 
         return $this->guide->save();

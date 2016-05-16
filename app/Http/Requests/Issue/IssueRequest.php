@@ -83,10 +83,7 @@ class IssueRequest extends Request
      */
     public function persist(Issue $issue)
     {
-        if (!$issue->exists) {
-            $issue->user_id = Auth::id();
-        }
-
+        $issue->user_id = ($issue->exists ? $issue->user_id : Auth::id());
         $issue->title = $this->input('title', $issue->title);
         $issue->description = $this->input('description', $issue->description);
         $issue->occurred_at = $this->input('occurred_at', $issue->occurred_at);

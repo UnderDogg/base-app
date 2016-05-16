@@ -27,7 +27,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             $router->group(['as' => 'resources.'], function (Router $router) {
                 // The guides group.
                 $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
-                    // The guide favorites route (guarded by auth).
                     $router->get('favorites', [
                         'as'         => 'favorites',
                         'uses'       => 'GuideController@favorites',
@@ -35,10 +34,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                     // The specific guides group.
                     $router->group(['prefix' => '{guides}'], function (Router $router) {
-                        // The guide favorite route (guarded by auth).
                         $router->get('favorite', [
-                            'as'         => 'favorite',
-                            'uses'       => 'GuideController@favorite',
+                            'as'    => 'favorite',
+                            'uses'  => 'GuideController@favorite',
                         ]);
 
                         $router->group(['middleware' => 'permission:manage.guides'], function (Router $router) {

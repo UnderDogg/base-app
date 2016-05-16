@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Resource;
 
 use App\Http\Requests\Request;
+use App\Models\Guide;
+use Illuminate\Support\Str;
 
 class GuideRequest extends Request
 {
@@ -14,10 +16,9 @@ class GuideRequest extends Request
     public function rules()
     {
         $slug = $this->route('guides');
-
+        
         return [
             'title'         => "required|min:5|max:80|unique:guides,title,$slug,slug",
-            'slug'          => "required|min:5|max:80|unique:guides,slug,$slug,slug",
             'description'   => 'min:5|max:1000',
         ];
     }
@@ -31,7 +32,6 @@ class GuideRequest extends Request
     {
         return [
             'title.unique' => 'A guide with this title already exists.',
-            'slug.unique'  => 'A guide with this slug already exists.',
         ];
     }
 
@@ -43,5 +43,26 @@ class GuideRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Persist the changes.
+     *
+     * @param Guide $guide
+     *
+     * @return bool
+     */
+    public function persist(Guide $guide)
+    {
+        $guide->slug = Str::slug($this->input('title'));
+        $guide->title = $this->input('title');
+        $guide->description = $this->input('description');
+
+        if ($this->has('publish')) {
+            $guide->published = true;
+            $guide->published_on = $this->guide->freshTimestampString();
+        }
+
+        return $guide->save();
     }
 }

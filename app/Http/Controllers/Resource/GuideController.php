@@ -86,9 +86,7 @@ class GuideController extends Controller
     {
         $this->authorize('manage.guides');
 
-        $guide = $this->guide->newInstance();
-
-        if ($this->dispatch(new Store($request, $guide))) {
+        if ($request->persist($this->guide->newInstance())) {
             flash()->success('Success!', 'Successfully created guide!');
 
             return redirect()->route('resources.guides.index');
@@ -134,7 +132,7 @@ class GuideController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        $this->authorize('guides.edit', [$guide]);
+        $this->authorize('manage.guides');
 
         $form = $this->presenter->form($guide);
 
@@ -152,10 +150,10 @@ class GuideController extends Controller
     public function update(GuideRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
+        
+        $this->authorize('manage.guides');
 
-        $this->authorize('guides.edit', [$guide]);
-
-        if ($this->dispatch(new Update($request, $guide))) {
+        if ($request->persist($guide)) {
             flash()->success('Success!', 'Successfully updated guide!');
 
             return redirect()->route('resources.guides.show', [$id]);
@@ -197,7 +195,7 @@ class GuideController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        $this->authorize('guides.destroy', [$guide]);
+        $this->authorize('manage.guides');
 
         if ($guide->delete()) {
             flash()->success('Success!', 'Successfully deleted guide!');

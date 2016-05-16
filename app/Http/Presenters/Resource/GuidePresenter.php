@@ -113,7 +113,7 @@ class GuidePresenter extends Presenter
                     'method'    => 'patch',
                     'url'       => route('resources.guides.update', [$guide->slug]),
                 ]);
-
+                
                 $form->submit = 'Save';
             } else {
                 $form->attributes([

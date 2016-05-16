@@ -15,8 +15,11 @@ class CreateWikisTable extends Migration
         Schema::create('wikis', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->integer('user_id')->unsigned();
-            $table->string('title');
+            $table->boolean('draft')->default(true);
+            $table->boolean('public')->default(false);
+            $table->string('title')->unique();
             $table->string('slug');
             $table->text('content')->nullable();
 
