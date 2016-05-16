@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Resource;
 
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\Resource\GuidePresenter;
+use App\Http\Requests\Resource\GuideFavoriteRequest;
 use App\Http\Requests\Resource\GuideRequest;
-use App\Jobs\Resource\Guide\Favorite;
-use App\Jobs\Resource\Guide\Store;
-use App\Jobs\Resource\Guide\Update;
 use App\Models\Guide;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -167,15 +165,16 @@ class GuideController extends Controller
     /**
      * Favorites the specified guide.
      *
-     * @param int|string $id
+     * @param GuideFavoriteRequest $request
+     * @param int|string           $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function favorite($id)
+    public function favorite(GuideFavoriteRequest $request, $id)
     {
         $guide = $this->guide->locate($id);
 
-        if ($this->dispatch(new Favorite($guide))) {
+        if ($request->persist($guide)) {
             return redirect()->route('resources.guides.show', [$id]);
         }
 
