@@ -8,8 +8,6 @@ use App\Http\Requests\Resource\GuideStepImagesRequest;
 use App\Http\Requests\Resource\GuideStepMoveRequest;
 use App\Http\Requests\Resource\GuideStepRequest;
 use App\Jobs\Resource\Guide\Step\Move;
-use App\Jobs\Resource\Guide\Step\Store;
-use App\Jobs\Resource\Guide\Step\Update;
 use App\Jobs\Resource\Guide\Step\Upload;
 use App\Models\Guide;
 
@@ -87,7 +85,7 @@ class GuideStepController extends Controller
     {
         $guide = $this->guide->locate($id);
 
-        if ($this->dispatch(new Store($request, $guide))) {
+        if ($request->persist($guide, $this->guide->steps()->getRelated())) {
             flash()->success('Success!', 'Successfully added step.');
 
             if ($request->input('action') === 'multiple') {
@@ -136,7 +134,7 @@ class GuideStepController extends Controller
 
         $step = $guide->findStepByPosition($stepPosition);
 
-        if ($this->dispatch(new Update($request, $guide, $step))) {
+        if ($request->persist($guide, $step)) {
             flash()->success('Success!', 'Successfully updated step.');
 
             if ($request->input('action') === 'multiple') {

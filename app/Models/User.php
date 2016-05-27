@@ -3,23 +3,25 @@
 namespace App\Models;
 
 use Adldap\Laravel\Traits\AdldapUserModelTrait;
+use App\Models\Presenters\UserPresenter;
 use App\Models\Traits\HasAvatar;
 use App\Models\Traits\HasFilesTrait;
+use App\Models\Traits\HasPresenter;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Larapacks\Authorization\Traits\UserRolesTrait;
-use Orchestra\Support\Facades\HTML;
 
 class User extends Model implements AuthorizableContract, AuthenticatableContract
 {
-    use Authorizable;
-    use Authenticatable;
-    use UserRolesTrait;
-    use AdldapUserModelTrait;
-    use HasFilesTrait;
-    use HasAvatar;
+    use Authorizable,
+        Authenticatable,
+        UserRolesTrait,
+        AdldapUserModelTrait,
+        HasFilesTrait,
+        HasAvatar,
+        HasPresenter;
 
     /**
      * The users hidden attributes.
@@ -53,6 +55,16 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
     }
 
     /**
+     * Retutns a new user presenter instance.
+     *
+     * @return UserPresenter
+     */
+    public function present()
+    {
+        return new UserPresenter($this);
+    }
+
+    /**
      * Scopes the specified query limited to administrators.
      *
      * @param mixed $query
@@ -64,47 +76,5 @@ class User extends Model implements AuthorizableContract, AuthenticatableContrac
         return $query->whereHas('roles', function ($query) {
             $query->where(['name' => Role::getAdministratorName()]);
         });
-    }
-
-    /**
-     * Returns the users initials.
-     *
-     * @return string
-     */
-    public function getInitialsAttribute()
-    {
-        $expr = '/(?<=\s|^)[a-z]/i';
-
-        preg_match_all($expr, $this->name, $matches);
-
-        $result = implode('', $matches[0]);
-
-        return strtoupper($result);
-    }
-
-    /**
-     * Returns an HTML string of the users label.
-     *
-     * @return string
-     */
-    public function getLabelAttribute()
-    {
-        $color = 'primary';
-
-        $name = HTML::entities($this->name);
-
-        $icon = HTML::create('i', '', ['class' => 'fa fa-user']);
-
-        return HTML::raw("<span class='label label-$color'>$icon $name</span>");
-    }
-
-    /**
-     * Returns a large variant of the users label.
-     *
-     * @return string
-     */
-    public function getLabelLargeAttribute()
-    {
-        return HTML::create('span', $this->label, ['class' => 'label-large']);
     }
 }

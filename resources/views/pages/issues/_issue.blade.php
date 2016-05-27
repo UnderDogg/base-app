@@ -44,6 +44,12 @@
 
             @endif
 
+            @if ($issue->occurred_at)
+
+                - Occurred {{ $issue->occurred_at_human }}
+
+            @endif
+
         </span>
 
     </div>
@@ -56,6 +62,19 @@
         {!! $issue->description_from_markdown !!}
     </p>
 
+    <!-- Attachments -->
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="hidden-print">
+                @include('pages.issues._files')
+            </div>
+
+        </div>
+
+    </div>
+
     {{--
      We'll make sure a resolution exists and that we have more than
      one comment before display the resolution here.
@@ -65,18 +84,20 @@
         {{-- We'll also make sure that the first comment is not a resolution. --}}
         @if(!$issue->comments->first()->resolution)
 
-            <hr>
+            <!-- Resolution -->
+            <div class="row">
 
-            @include('pages.issues._resolution', ['comment' => $resolution])
+                <div class="col-md-12">
+
+                @include('pages.issues._resolution', ['comment' => $resolution])
+
+                </div>
+
+            </div>
 
         @endif
 
     @endif
-
-    <!-- Attachments -->
-    <div class="hidden-print">
-        @include('pages.issues._files')
-    </div>
 
 @overwrite
 
@@ -116,4 +137,3 @@
     </div>
 
 @overwrite
-

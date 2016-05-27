@@ -90,11 +90,7 @@ class GuidePresenter extends Presenter
     public function tableLast(Guide $guide)
     {
         return $this->table($guide, false, function (TableGrid $table, Builder $builder) {
-            $guides = $builder->limit(5);
-
-            $table->with($guides, false);
-
-            return $table;
+            return $table->with($builder->limit(5), false);
         });
     }
 
@@ -162,9 +158,8 @@ class GuidePresenter extends Presenter
      */
     public function formStep(Guide $guide)
     {
-        $presenter = new GuideStepPresenter($this->form, $this->table);
-
-        return $presenter->form($guide, new GuideStep());
+        return (new GuideStepPresenter($this->form, $this->table))
+            ->form($guide, new GuideStep());
     }
 
     /**

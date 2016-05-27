@@ -57,7 +57,7 @@ class IssuePresenter extends Presenter
                 $column->label = '';
 
                 $column->value = function (Issue $issue) {
-                    return $issue->status_icon;
+                    return $issue->present()->statusIcon();
                 };
 
                 $column->attributes(function () {
@@ -347,13 +347,13 @@ class IssuePresenter extends Presenter
             }
 
             foreach ($issue->users as $user) {
-                $users[] = $user->label;
+                $users[] = $user->present()->label();
             }
 
             $labels = implode(null, $labels);
             $users = implode(null, $users);
 
-            $tagLine = sprintf('<p class="h6 table-lead-summary">%s</p>', $issue->tag_line);
+            $tagLine = sprintf('<p class="h6 table-lead-summary">%s</p>', $issue->present()->tagLine());
 
             return "$link $labels $users $tagLine";
         };

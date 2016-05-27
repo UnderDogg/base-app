@@ -1,5 +1,5 @@
 <div class="panel panel-danger">
     <div class="panel-heading text-center">
-        {{ $issue->getClosedByUserTagLine() }}
+        {{ $issue->present()->closedBy() }}
     </div>
 </div>

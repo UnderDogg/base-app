@@ -32,13 +32,7 @@
     @if($issue->closed)
 
         <!-- Closed. -->
-        <div class="panel panel-danger">
-
-            <div class="panel-heading text-center">
-                Closed
-            </div>
-
-        </div>
+        @include('pages.issues._closed')
 
     @endif
 

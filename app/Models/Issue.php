@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Presenters\IssuePresenter;
 use App\Models\Traits\HasCommentsTrait;
 use App\Models\Traits\HasFilesTrait;
 use App\Models\Traits\HasLabelsTrait;
 use App\Models\Traits\HasMarkdownTrait;
+use App\Models\Traits\HasPresenter;
 use App\Models\Traits\HasRevisionsTrait;
 use App\Models\Traits\HasUsersTrait;
 use App\Models\Traits\HasUserTrait;
@@ -22,6 +24,7 @@ class Issue extends Model
         HasLabelsTrait,
         HasMarkdownTrait,
         HasRevisionsTrait,
+        HasPresenter,
         HasCommentsTrait {
         comments as traitComments;
     }
@@ -123,6 +126,16 @@ class Issue extends Model
     public function closedByUser()
     {
         return $this->belongsTo(User::class, 'closed_by_user_id');
+    }
+
+    /**
+     * Returns a new presenter instance.
+     *
+     * @return IssuePresenter
+     */
+    public function present()
+    {
+        return new IssuePresenter($this);
     }
 
     /**
@@ -254,92 +267,6 @@ class Issue extends Model
     }
 
     /**
-     * Accessor for the status icon of the issue.
-     *
-     * @return string
-     */
-    public function getStatusIconAttribute()
-    {
-        if ($this->isOpen()) {
-            $class = 'text-success fa fa-exclamation-circle';
-        } else {
-            $class = 'text-danger fa fa-check-circle';
-        }
-
-        return HTML::create('i', null, compact('class'));
-    }
-
-    /**
-     * Accessor for the tag line of the issue.
-     *
-     * @return string
-     */
-    public function getTagLineAttribute()
-    {
-        $user = $this->user->name;
-
-        $daysAgo = $this->created_at_human;
-
-        $comments = count($this->comments);
-
-        $icon = '<i class="fa fa-comments"></i>';
-
-        $hash = $this->hash_id;
-
-        $comments = "<span class='pull-right hidden-xs'>$icon $comments</span>";
-
-        return "$hash opened $daysAgo by $user $comments";
-    }
-
-    /**
-     * Returns the created at issue tag line.
-     *
-     * @return string
-     */
-    public function getCreatedAtTagLineAttribute()
-    {
-        $user = $this->user->name;
-
-        $daysAgo = $this->created_at_human;
-
-        return "<strong>$user</strong> created ticket $daysAgo";
-    }
-
-    /**
-     * Returns the occurred at issue tag line.
-     *
-     * @return string
-     */
-    public function getOccurredAtTagLineAttribute()
-    {
-        $daysAgo = $this->occurred_at_human;
-
-        return "Issue occurred $daysAgo";
-    }
-
-    /**
-     * Returns the closed by user tag line.
-     *
-     * @return string
-     */
-    public function getClosedByUserTagLineAttribute()
-    {
-        $user = $this->closedByUser;
-
-        if ($user instanceof User) {
-            $name = $user->name;
-
-            $line = "Closed by $name";
-        } else {
-            $line = 'Closed';
-        }
-
-        $daysAgo = $this->closed_at_human;
-
-        return "$line $daysAgo";
-    }
-
-    /**
      * Returns the created at time in a human readable format.
      *
      * @return string|null
@@ -371,7 +298,7 @@ class Issue extends Model
     public function getOccurredAtForInputAttribute()
     {
         if ($this->occurred_at) {
-            return $this->occurred_at->format('m/d/Y g:i A');
+            return $this->occurred_at->format('F jS Y, h:i a');
         }
     }
 }

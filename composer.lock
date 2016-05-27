@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "adldap2/adldap2",
-            "version": "v6.0.13",
+            "version": "v6.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2.git",
-                "reference": "65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1"
+                "reference": "90b2e76fd4d04a23295e9ec3ec3c9579775901cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1",
-                "reference": "65b2f641907042f0e3fbb54a1c2c7b4c44faf4e1",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2/zipball/90b2e76fd4d04a23295e9ec3ec3c9579775901cf",
+                "reference": "90b2e76fd4d04a23295e9ec3ec3c9579775901cf",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A PHP LDAP Library for Active Directory Manipulation.",
+            "description": "A PHP LDAP Package for Active Directory Manipulation.",
             "keywords": [
                 "active directory",
                 "ad",
@@ -57,20 +57,20 @@
                 "ldap",
                 "windows"
             ],
-            "time": "2016-05-12 13:50:14"
+            "time": "2016-05-24 14:07:49"
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "v2.0.8",
+            "version": "v2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-Laravel.git",
-                "reference": "849f343b71478cd05f7b586fe8faf9cdee2e54f4"
+                "reference": "ff97b61c9438ad903decc3ece8a56a5e8d0d2220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/849f343b71478cd05f7b586fe8faf9cdee2e54f4",
-                "reference": "849f343b71478cd05f7b586fe8faf9cdee2e54f4",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/ff97b61c9438ad903decc3ece8a56a5e8d0d2220",
+                "reference": "ff97b61c9438ad903decc3ece8a56a5e8d0d2220",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,6 @@
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
                 "orchestra/testbench": "~3.2"
             },
             "type": "project",
@@ -98,7 +97,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2016-05-13 14:41:35"
+            "time": "2016-05-22 04:17:24"
         },
         {
             "name": "baum/baum",
@@ -822,16 +821,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.31",
+            "version": "v5.2.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2fa2797604bf54b06faf7bb139a9fc0d66826fea"
+                "reference": "4120808d2e841ba5a94c5e0443e9696ae4fa9bfe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2fa2797604bf54b06faf7bb139a9fc0d66826fea",
-                "reference": "2fa2797604bf54b06faf7bb139a9fc0d66826fea",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4120808d2e841ba5a94c5e0443e9696ae4fa9bfe",
+                "reference": "4120808d2e841ba5a94c5e0443e9696ae4fa9bfe",
                 "shasum": ""
             },
             "require": {
@@ -947,7 +946,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-04-27 13:02:09"
+            "time": "2016-05-25 18:35:42"
         },
         {
             "name": "laravie/html",
@@ -1692,20 +1691,20 @@
         },
         {
             "name": "orchestra/foundation",
-            "version": "v3.2.7",
+            "version": "v3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/foundation.git",
-                "reference": "95fd82f52b0e5a5fa28d1a86b7fe78b2ebecfff7"
+                "reference": "1f610a6a4180737037c76b399ba1a0d96d40aa2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/foundation/zipball/95fd82f52b0e5a5fa28d1a86b7fe78b2ebecfff7",
-                "reference": "95fd82f52b0e5a5fa28d1a86b7fe78b2ebecfff7",
+                "url": "https://api.github.com/repos/orchestral/foundation/zipball/1f610a6a4180737037c76b399ba1a0d96d40aa2a",
+                "reference": "1f610a6a4180737037c76b399ba1a0d96d40aa2a",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.25",
+                "laravel/framework": "~5.2.13",
                 "laravie/html": "~5.2.1",
                 "orchestra/asset": "~3.2.0",
                 "orchestra/auth": "~3.2.5",
@@ -1714,11 +1713,11 @@
                 "orchestra/html": "~3.2.1",
                 "orchestra/kernel": "~3.2.2",
                 "orchestra/memory": "~3.2.4",
-                "orchestra/messages": "~3.2.0",
+                "orchestra/messages": "~3.2.1",
                 "orchestra/model": "~3.2.0",
                 "orchestra/notifier": "~3.2.3",
                 "orchestra/optimize": "~3.2.0",
-                "orchestra/publisher": "~3.2.0",
+                "orchestra/publisher": "~3.2.1",
                 "orchestra/support": "~3.2.3",
                 "orchestra/translation": "~3.2.0",
                 "orchestra/view": "~3.2.0",
@@ -1727,9 +1726,8 @@
                 "predis/predis": "~1.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9.1",
-                "orchestra/testing": "~3.2.0",
-                "phpunit/phpunit": "~4.0"
+                "orchestra/testing": "~3.2.3",
+                "phpunit/phpunit": "~4.8"
             },
             "suggest": {
                 "orchestra/ftp-updater": "Allow Extension with asset to be updated/uploaded environment without SSH support (~3.2).",
@@ -1772,7 +1770,7 @@
                 "orchestral",
                 "user-management"
             ],
-            "time": "2016-03-26 06:05:36"
+            "time": "2016-05-21 14:03:05"
         },
         {
             "name": "orchestra/html",
@@ -2034,16 +2032,16 @@
         },
         {
             "name": "orchestra/model",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/model.git",
-                "reference": "4710b888d57310ebfb18227904d29935dd590925"
+                "reference": "94d3edb03f89e500f0f39fa528bb10d6ba7e7fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/model/zipball/4710b888d57310ebfb18227904d29935dd590925",
-                "reference": "4710b888d57310ebfb18227904d29935dd590925",
+                "url": "https://api.github.com/repos/orchestral/model/zipball/94d3edb03f89e500f0f39fa528bb10d6ba7e7fe7",
+                "reference": "94d3edb03f89e500f0f39fa528bb10d6ba7e7fe7",
                 "shasum": ""
             },
             "require": {
@@ -2087,7 +2085,7 @@
                 "orchestra-platform",
                 "orchestral"
             ],
-            "time": "2016-04-19 22:38:35"
+            "time": "2016-05-19 22:57:03"
         },
         {
             "name": "orchestra/notifier",
@@ -2203,16 +2201,16 @@
         },
         {
             "name": "orchestra/publisher",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/publisher.git",
-                "reference": "4c225d27f227e5686ac4f6b47ca2ae26d82a5a1d"
+                "reference": "21f589e2600122a7437f77df671a2239c15e2b56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/publisher/zipball/4c225d27f227e5686ac4f6b47ca2ae26d82a5a1d",
-                "reference": "4c225d27f227e5686ac4f6b47ca2ae26d82a5a1d",
+                "url": "https://api.github.com/repos/orchestral/publisher/zipball/21f589e2600122a7437f77df671a2239c15e2b56",
+                "reference": "21f589e2600122a7437f77df671a2239c15e2b56",
                 "shasum": ""
             },
             "require": {
@@ -2261,7 +2259,7 @@
                 "orchestral",
                 "orchestral-platform"
             ],
-            "time": "2015-12-14 05:16:34"
+            "time": "2016-05-16 04:33:29"
         },
         {
             "name": "orchestra/support",
@@ -3675,16 +3673,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "1289d16209491b584839022f29257ad859b8532d"
+                "reference": "dff51f72b0706335131b00a7f49606168c582594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/1289d16209491b584839022f29257ad859b8532d",
-                "reference": "1289d16209491b584839022f29257ad859b8532d",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/dff51f72b0706335131b00a7f49606168c582594",
+                "reference": "dff51f72b0706335131b00a7f49606168c582594",
                 "shasum": ""
             },
             "require": {
@@ -3696,7 +3694,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -3730,20 +3728,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/polyfill-php56",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php56.git",
-                "reference": "4d891fff050101a53a4caabb03277284942d1ad9"
+                "reference": "3edf57a8fbf9a927533344cef65ad7e1cf31030a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/4d891fff050101a53a4caabb03277284942d1ad9",
-                "reference": "4d891fff050101a53a4caabb03277284942d1ad9",
+                "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/3edf57a8fbf9a927533344cef65ad7e1cf31030a",
+                "reference": "3edf57a8fbf9a927533344cef65ad7e1cf31030a",
                 "shasum": ""
             },
             "require": {
@@ -3753,7 +3751,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -3786,20 +3784,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/polyfill-util",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-util.git",
-                "reference": "8de62801aa12bc4dfcf85eef5d21981ae7bb3cc4"
+                "reference": "ef830ce3d218e622b221d6bfad42c751d974bf99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/8de62801aa12bc4dfcf85eef5d21981ae7bb3cc4",
-                "reference": "8de62801aa12bc4dfcf85eef5d21981ae7bb3cc4",
+                "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/ef830ce3d218e622b221d6bfad42c751d974bf99",
+                "reference": "ef830ce3d218e622b221d6bfad42c751d974bf99",
                 "shasum": ""
             },
             "require": {
@@ -3808,7 +3806,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -3838,7 +3836,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-05-18 14:26:46"
         },
         {
             "name": "symfony/process",
@@ -4741,16 +4739,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.4",
+            "version": "0.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b"
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/70bba85e4aabc9449626651f48b9018ede04f86b",
-                "reference": "70bba85e4aabc9449626651f48b9018ede04f86b",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
+                "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "shasum": ""
             },
             "require": {
@@ -4802,7 +4800,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-04-02 19:54:00"
+            "time": "2016-05-22 21:52:33"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -5160,16 +5158,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.24",
+            "version": "4.8.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a1066c562c52900a142a0e2bbf0582994671385e"
+                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a1066c562c52900a142a0e2bbf0582994671385e",
-                "reference": "a1066c562c52900a142a0e2bbf0582994671385e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fc1d8cd5b5de11625979125c5639347896ac2c74",
+                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74",
                 "shasum": ""
             },
             "require": {
@@ -5183,7 +5181,7 @@
                 "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": ">=1.0.6",
+                "phpunit/php-timer": "^1.0.6",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -5228,7 +5226,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-03-14 06:16:08"
+            "time": "2016-05-17 03:09:28"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5404,16 +5402,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.6",
+            "version": "1.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "2292b116f43c272ff4328083096114f84ea46a56"
+                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/2292b116f43c272ff4328083096114f84ea46a56",
-                "reference": "2292b116f43c272ff4328083096114f84ea46a56",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/4e8f0da10ac5802913afc151413bc8c53b6c2716",
+                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716",
                 "shasum": ""
             },
             "require": {
@@ -5450,7 +5448,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-05-04 07:59:13"
+            "time": "2016-05-17 03:18:57"
         },
         {
             "name": "sebastian/exporter",

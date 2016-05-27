@@ -93,7 +93,23 @@
             <footer>
 
                 <div class="container">
-                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-md-12 text-center">
+
+                            <hr>
+
+                            <small class="text-muted">
+                                &copy;
+
+                                {{ env('APP_COMPANY') }} - {{ \Carbon\Carbon::now()->year }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </footer>

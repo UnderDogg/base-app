@@ -31,7 +31,8 @@ $(function ()
 
         // Convert all instances of the date input type to datetime pickers.
         $(".date-picker").datetimepicker({
-            format: "L LT"
+            format: 'MMMM Do YYYY, h:mm a',
+            defaultDate: moment()
         });
 
         // Lazy load all responsive images.
