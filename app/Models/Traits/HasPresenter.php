@@ -7,5 +7,5 @@ trait HasPresenter
     /**
      * @return \App\Models\Presenters\Presenter
      */
-    abstract function present();
+    abstract public function present();
 }
