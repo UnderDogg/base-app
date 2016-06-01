@@ -4,7 +4,6 @@ namespace App\Models\Presenters;
 
 use App\Models\Issue;
 use App\Models\User;
-use Orchestra\Support\Facades\HTML;
 
 class IssuePresenter
 {
@@ -36,7 +35,7 @@ class IssuePresenter
             $class = 'text-danger fa fa-check-circle';
         }
 
-        return HTML::create('i', null, compact('class'));
+        return "<i class='$class'></i>";
     }
 
     /**
@@ -70,13 +69,7 @@ class IssuePresenter
     {
         $user = $this->issue->closedByUser;
 
-        if ($user instanceof User) {
-            $name = $user->name;
-
-            $line = "Closed by $name";
-        } else {
-            $line = 'Closed';
-        }
+        $line = ($user instanceof User ? "Closed by {$user->name}" : "Closed");
 
         $daysAgo = $this->issue->closed_at_human;
 

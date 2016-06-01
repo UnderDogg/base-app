@@ -79,10 +79,7 @@ class Issue extends Model
     public function setOccurredAtAttribute($occurredAt)
     {
         if (!empty($occurredAt)) {
-            $date = $this->freshTimestamp();
-            $date->modify($occurredAt);
-
-            $this->attributes['occurred_at'] = $date;
+            $this->attributes['occurred_at'] = $this->freshTimestamp()->modify($occurredAt);
         }
     }
 
