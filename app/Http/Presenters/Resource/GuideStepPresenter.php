@@ -177,7 +177,7 @@ class GuideStepPresenter extends Presenter
                         'data-post'    => 'DELETE',
                     ];
 
-                     return link_to_route('resources.guides.steps.destroy', 'Delete', [$guide->slug, $step->getPosition()], $attribues);
+                    return link_to_route('resources.guides.steps.destroy', 'Delete', [$guide->slug, $step->getPosition()], $attribues);
                 });
         });
     }

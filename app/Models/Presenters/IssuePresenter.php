@@ -69,7 +69,7 @@ class IssuePresenter
     {
         $user = $this->issue->closedByUser;
 
-        $line = ($user instanceof User ? "Closed by {$user->name}" : "Closed");
+        $line = ($user instanceof User ? "Closed by {$user->name}" : 'Closed');
 
         $daysAgo = $this->issue->closed_at_human;
 

@@ -98,5 +98,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
             'middleware'    => ['admin.auth'],
         ]);
     });
-
 });
