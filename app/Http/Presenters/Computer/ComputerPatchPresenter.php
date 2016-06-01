@@ -29,7 +29,6 @@ class ComputerPatchPresenter extends Presenter
     public function form(Computer $computer)
     {
         return $this->form->of('computers.patches', function (FormGrid $form) use ($computer) {
-
         });
     }
 

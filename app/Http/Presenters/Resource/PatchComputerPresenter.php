@@ -41,8 +41,8 @@ class PatchComputerPresenter extends Presenter
             });
 
             $table->column('remove', function (Column $column) use ($patch) {
-               $column->value = function (Computer $computer) use ($patch) {
-                   $params = [$patch->id, $computer->id];
+                $column->value = function (Computer $computer) use ($patch) {
+                    $params = [$patch->id, $computer->id];
 
                     return link_to_route('resources.patches.computers.destroy', 'Remove', $params, [
                         'data-post'    => 'DELETE',
@@ -50,7 +50,7 @@ class PatchComputerPresenter extends Presenter
                         'data-message' => 'Are you sure you want to remove this patch from this computer?',
                         'class'        => 'btn btn-xs btn-danger',
                     ]);
-               };
+                };
             });
         });
     }

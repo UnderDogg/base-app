@@ -21,9 +21,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
     // Auth Covered Routes.
     $router->group(['middleware' => ['auth']], function (Router $router) {
-
         $router->group(['namespace' => 'Resource', 'prefix' => 'resources'], function (Router $router) {
-
             $router->group(['as' => 'resources.'], function (Router $router) {
                 // The guides group.
                 $router->group(['prefix' => 'guides', 'as' => 'guides.'], function (Router $router) {
@@ -73,13 +71,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                                     'uses'       => 'GuideStepController@move',
                                 ]);
                             });
-
                         });
-
                     });
-
                 });
-
             });
 
             // The guides resource.
@@ -100,9 +94,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                 // The patch attachments resource.
                 $router->resource('patches.attachments', 'PatchAttachmentController');
-
             });
-
         });
 
         $router->group(['namespace' => 'Profile', 'prefix' => 'profile', 'as' => 'profile.'], function (Router $router) {
@@ -160,9 +152,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'as'   => 'password.change',
                     'uses' => 'PasswordController@update',
                 ]);
-
             });
-
         });
 
         // The device Computer group
@@ -188,7 +178,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The Computer Device group.
             $router->group(['prefix' => 'computers/{computers}', 'as' => 'computers.'], function (Router $router) {
-
                 $router->get('statuses', [
                     'as'    => 'status.hourly',
                     'uses'  => 'ComputerStatusController@hourly',
@@ -199,9 +188,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'as'   => 'status.check',
                     'uses' => 'ComputerStatusController@check',
                 ]);
-
             });
-
         });
 
         // The PasswordFolder namespace group.
@@ -209,7 +196,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The Passwords group
             $router->group(['prefix' => 'passwords', 'as' => 'passwords.'], function (Router $router) {
-
                 $router->group(['middleware' => ['passwords.gate']], function (Router $router) {
 
                     // Password Gate
@@ -229,7 +215,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         'as'   => 'gate.lock',
                         'uses' => 'GateController@lock',
                     ]);
-
                 });
 
                 // Password Setup Routes
@@ -254,11 +239,8 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             'as'   => 'setup.finish',
                             'uses' => 'SetupController@finish',
                         ]);
-
                     });
-
                 });
-
             });
 
             // The password locked middleware route group.
@@ -278,7 +260,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                 // User Password Resource.
                 $router->resource('passwords', 'PasswordController');
-
             });
         });
 
@@ -396,7 +377,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'destroy'   => 'inquiries.comments.destroy',
                 ],
             ]);
-
         });
 
         // The issue router group.
@@ -497,9 +477,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         'store' => 'issues.users.store',
                     ],
                 ]);
-
             });
-
         });
 
         // The labels resource.
@@ -517,9 +495,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             // The services record controller.
             $router->resource('services.records', 'ServiceRecordController');
-
         });
-
     });
 
     // Authentication Routes.
@@ -538,14 +514,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 'as'   => 'login.perform',
                 'uses' => 'AuthController@postLogin',
             ]);
-
         });
 
         $router->get('logout', [
             'as'   => 'logout',
             'uses' => 'AuthController@getLogout',
         ]);
-
     });
-
 });
