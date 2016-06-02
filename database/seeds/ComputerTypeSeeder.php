@@ -24,7 +24,7 @@ class ComputerTypeSeeder extends Seeder
      */
     public function run()
     {
-        foreach($this->types as $name) {
+        foreach ($this->types as $name) {
             ComputerType::firstOrCreate(compact('name'));
         }
     }
