@@ -34,7 +34,6 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
-        // Handle guest redirects.
         if ($this->auth->guest() === false) {
             // User is authenticated. Return request.
             return $next($request);

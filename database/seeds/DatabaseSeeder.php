@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     protected $seeders = [
         LabelSeeder::class,
+        ComputerTypeSeeder::class,
         InquiryCategorySeeder::class,
         PermissionSeeder::class,
         ApplyPermissionsSeeder::class,

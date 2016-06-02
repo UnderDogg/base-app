@@ -36,17 +36,27 @@
 
             Created
 
-            {{ $issue->created_at_human }}
+            <a title="{{ $issue->created_at }}">
+                {{ $issue->created_at_human }}
+            </a>
 
             @if($issue->revisions->count() > 0)
 
-                - Edited {{ $issue->revisions->first()->created_at_human }}
+                - Edited
+
+                <a title="{{ $issue->revisions->first()->created_at }}">
+                    {{ $issue->revisions->first()->created_at_human }}
+                </a>
 
             @endif
 
             @if ($issue->occurred_at)
 
-                - Occurred {{ $issue->occurred_at_human }}
+                - Occurred
+
+                <a title="{{ $issue->occurred_at }}">
+                    {{ $issue->occurred_at_human }}
+                </a>
 
             @endif
 
