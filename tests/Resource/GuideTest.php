@@ -33,22 +33,20 @@ class GuideTest extends TestCase
         ])->see('403');
     }
 
-    public function test_guide_store()
+    public function test_guide_store($attributes = null)
     {
         $user = $this->createAdmin();
 
         $this->actingAs($user);
 
-        $this->post(route('resources.guides.store'), [
+        $attributes = $attributes ?: [
             'title'       => 'Title',
-            'slug'        => 'guide-slug',
             'description' => 'Description',
-        ]);
+        ];
 
-        $this->seeInDatabase('guides', [
-            'id'    => 1,
-            'title' => 'Title',
-        ]);
+        $this->post(route('resources.guides.store'), $attributes);
+
+        $this->seeInDatabase('guides', $attributes);
     }
 
     public function test_guide_update()
@@ -86,20 +84,21 @@ class GuideTest extends TestCase
         $this->assertSessionHasErrors(['title']);
     }
 
-    public function test_guide_unique_slug_validation()
+    public function test_guide_unique_slug()
     {
-        $this->test_guide_store();
-
-        $guide = Guide::first();
-
-        $response = $this->call('POST', route('resources.guides.store'), [
-            'title'       => 'New Title',
-            'slug'        => $guide->slug,
+        $this->test_guide_store([
+            'title' => 'Guide Title',
             'description' => 'Description',
         ]);
 
-        $this->assertSessionHasErrors(['slug']);
-        $this->assertEquals(302, $response->getStatusCode());
+        $this->call('POST', route('resources.guides.store'), [
+            'title'       => 'Guide-Title',
+            'description' => 'Description',
+        ]);
+
+        $this->seeInDatabase('guides', [
+            'slug' => 'guide-title-1',
+        ]);
     }
 
     public function test_delete_guide()
