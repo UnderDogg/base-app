@@ -87,7 +87,7 @@ class GuideTest extends TestCase
     public function test_guide_unique_slug()
     {
         $this->test_guide_store([
-            'title' => 'Guide Title',
+            'title'       => 'Guide Title',
             'description' => 'Description',
         ]);
 
