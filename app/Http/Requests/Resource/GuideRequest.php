@@ -54,7 +54,7 @@ class GuideRequest extends Request
      */
     public function persist(Guide $guide)
     {
-        $guide->slug = Str::slug($this->input('title'));
+        $guide->slug = $this->makeSlugFromTitle($this->input('title'));
         $guide->title = $this->input('title');
         $guide->description = $this->input('description');
 
@@ -64,5 +64,21 @@ class GuideRequest extends Request
         }
 
         return $guide->save();
+    }
+
+    /**
+     * Create a conversation slug.
+     *
+     * @param string $title
+     *
+     * @return string
+     */
+    public function makeSlugFromTitle($title)
+    {
+        $slug = Str::slug($title);
+
+        $count = Guide::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+        return $count ? "{$slug}-{$count}" : $slug;
     }
 }
