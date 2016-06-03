@@ -25,7 +25,7 @@
             @endforeach
 
             @foreach($issue->users as $user)
-                {!! $user->label_large !!}
+                {!! $user->present()->labelLarge() !!}
             @endforeach
 
         </div>
