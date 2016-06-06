@@ -33,7 +33,7 @@ class CheckComputerExists extends Job
      */
     public function handle()
     {
-        $computer =  Adldap::search()->computers()->find($this->name);
+        $computer = Adldap::search()->computers()->find($this->name);
 
         return $computer instanceof Computer;
     }
