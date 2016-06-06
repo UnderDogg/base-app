@@ -45,19 +45,11 @@ class ImportComputer extends Job
 
         // Make sure the OS has been created, otherwise we'll set the
         // ID to null if the computer doesn't have an OS record.
-        if ($os instanceof OperatingSystem) {
-            $osId = $os->id;
-        } else {
-            $osId = null;
-        }
+        $osId = ($os instanceof OperatingSystem ? $os->id : null);
 
         // Make sure the computer type has been created, otherwise we'll set the
         // ID to null if the computer doesn't have a type associated.
-        if ($type instanceof ComputerType) {
-            $typeId = $type->id;
-        } else {
-            $typeId = null;
-        }
+        $typeId = ($type instanceof ComputerType ? $type->id : null);
 
         // Retrieve the computers details
         $name = $this->computer->getCommonName();

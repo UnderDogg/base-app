@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\ActiveDirectory;
 
-use Adldap\Contracts\AdldapInterface;
+use Adldap\Laravel\Facades\Adldap;
 use App\Jobs\ActiveDirectory\ImportComputer;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -26,42 +26,17 @@ class SyncComputers extends Command
     protected $description = 'Synchronize active directory computers.';
 
     /**
-     * The Adldap instance.
-     *
-     * @var AdldapInterface
-     */
-    protected $adldap;
-
-    /**
-     * Constructor.
-     *
-     * @param AdldapInterface $adldap
-     */
-    public function __construct(AdldapInterface $adldap)
-    {
-        parent::__construct();
-
-        $this->adldap = $adldap;
-    }
-
-    /**
      * Execute the command.
      */
     public function handle()
     {
-        $computers = $this->adldap
-            ->getProvider('default')
-            ->search()
-            ->computers()
-            ->get();
+        $computers = Adldap::search()->computers()->get();
 
         $i = 0;
 
-        if (count($computers) > 0) {
-            foreach ($computers as $computer) {
-                if ($this->dispatch(new ImportComputer($computer))) {
-                    ++$i;
-                }
+        foreach ($computers as $computer) {
+            if ($this->dispatch(new ImportComputer($computer))) {
+                ++$i;
             }
         }
 

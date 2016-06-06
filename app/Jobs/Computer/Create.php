@@ -78,24 +78,18 @@ class Create extends Job
      */
     public function handle(Computer $model)
     {
-        // Verify that the computer doesn't exist already
-        $exists = $model->where('dn', $this->dn)->first();
+        $computer = $model->firstOrNew([
+            'dn' => $this->dn,
+        ]);
 
-        if (is_null($exists)) {
-            $computer = $model->newInstance();
+        $computer->type_id = $this->typeId;
+        $computer->os_id = $this->osId;
+        $computer->name = $this->name;
+        $computer->description = $this->description;
+        $computer->model = $this->model;
 
-            $computer->type_id = $this->typeId;
-            $computer->os_id = $this->osId;
-            $computer->name = $this->name;
-            $computer->description = $this->description;
-            $computer->dn = $this->dn;
-            $computer->model = $this->model;
+        $computer->save();
 
-            if ($computer->save()) {
-                return $computer;
-            }
-        }
-
-        return false;
+        return $computer;
     }
 }

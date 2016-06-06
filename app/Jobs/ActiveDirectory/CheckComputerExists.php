@@ -2,7 +2,7 @@
 
 namespace App\Jobs\ActiveDirectory;
 
-use Adldap\Contracts\AdldapInterface;
+use Adldap\Laravel\Facades\Adldap;
 use Adldap\Models\Computer;
 use App\Jobs\Job;
 
@@ -29,17 +29,11 @@ class CheckComputerExists extends Job
      * Returns true / false if the specified
      * computer exists in active directory.
      *
-     * @param AdldapInterface $adldap
-     *
      * @return bool
      */
-    public function handle(AdldapInterface $adldap)
+    public function handle()
     {
-        $computer = $adldap
-            ->getProvider('default')
-            ->search()
-            ->computers()
-            ->find($this->name);
+        $computer =  Adldap::search()->computers()->find($this->name);
 
         return $computer instanceof Computer;
     }
