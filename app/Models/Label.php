@@ -17,16 +17,6 @@ class Label extends Model
     }
 
     /**
-     * Returns the labels number of open issues.
-     *
-     * @return int
-     */
-    public function numberOfOpenIssues()
-    {
-        return $this->issues()->where('closed', false)->count();
-    }
-
-    /**
      * Returns an array of available label colors.
      *
      * @return array

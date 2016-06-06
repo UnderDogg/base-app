@@ -43,7 +43,7 @@ class LabelPresenter extends Presenter
                 ];
 
                 $column->value = function (Label $label) {
-                    return $label->numberOfOpenIssues();
+                    return $label->issues()->open()->count();
                 };
 
                 $column->attributes = function () {
