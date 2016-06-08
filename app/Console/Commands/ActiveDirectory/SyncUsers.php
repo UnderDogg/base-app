@@ -34,7 +34,7 @@ class SyncUsers extends Command
             ->whereHas('mail')
             ->whereObjectclass('user')
             ->get();
-        
+
         $i = 0;
 
         if (count($users) > 0) {
