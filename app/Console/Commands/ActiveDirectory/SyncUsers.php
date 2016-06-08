@@ -3,6 +3,7 @@
 namespace App\Console\Commands\ActiveDirectory;
 
 use Adldap\Laravel\Facades\Adldap;
+use Adldap\Models\User;
 use App\Jobs\ActiveDirectory\ImportUser;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -39,7 +40,7 @@ class SyncUsers extends Command
 
         if (count($users) > 0) {
             foreach ($users as $user) {
-                if ($this->dispatch(new ImportUser($user))) {
+                if ($user instanceof User && $this->dispatch(new ImportUser($user))) {
                     ++$i;
                 }
             }
