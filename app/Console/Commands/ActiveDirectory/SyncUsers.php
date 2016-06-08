@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\ActiveDirectory;
 
-use Adldap\Contracts\AdldapInterface;
+use Adldap\Laravel\Facades\Adldap;
 use App\Jobs\ActiveDirectory\ImportUser;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -26,36 +26,15 @@ class SyncUsers extends Command
     protected $description = 'Synchronize active directory users.';
 
     /**
-     * The Adldap instance.
-     *
-     * @var AdldapInterface
-     */
-    protected $adldap;
-
-    /**
-     * Constructor.
-     *
-     * @param AdldapInterface $adldap
-     */
-    public function __construct(AdldapInterface $adldap)
-    {
-        parent::__construct();
-
-        $this->adldap = $adldap;
-    }
-
-    /**
      * Execute the command.
      */
     public function handle()
     {
-        $users = $this->adldap
-            ->getProvider('default')
-            ->search()
-            ->users()
+        $users = Adldap::search()->users()
             ->whereHas('mail')
+            ->whereObjectclass('user')
             ->get();
-
+        
         $i = 0;
 
         if (count($users) > 0) {
