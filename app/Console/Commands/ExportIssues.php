@@ -33,12 +33,13 @@ class ExportIssues extends Command
 
         $excel->create('issues', function ($excel) {
             $excel->sheet('issues', function ($sheet) {
-                $issues = Issue::all();
+                $issues = Issue::latest()->get();
 
                 $headers = [
-                    'title',
-                    'description',
-                    'resolution',
+                    'Done',
+                    'Title',
+                    'Description',
+                    'Resolution',
                 ];
 
                 $row = 1;
@@ -51,6 +52,7 @@ class ExportIssues extends Command
                     $resolution = $issue->findCommentResolution();
 
                     $sheet->row($row, [
+                        null,
                         $issue->title,
                         $issue->description,
                         ($resolution ? $resolution->content : null),
