@@ -36,7 +36,6 @@ class ExportIssues extends Command
                 $issues = Issue::latest()->get();
 
                 $headers = [
-                    'Done',
                     'Title',
                     'Description',
                     'Resolution',
@@ -52,7 +51,6 @@ class ExportIssues extends Command
                     $resolution = $issue->findCommentResolution();
 
                     $sheet->row($row, [
-                        null,
                         $issue->title,
                         $issue->description,
                         ($resolution ? $resolution->content : null),
