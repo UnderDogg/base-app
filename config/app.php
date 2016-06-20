@@ -182,6 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Spatie\Backup\BackupServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -236,7 +237,7 @@ return [
         'Adldap'    => Adldap\Laravel\Facades\Adldap::class,
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         'Image'     => Intervention\Image\Facades\Image::class,
-        'Lava'      => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+        'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
 
         /*
          * Orchestra Facades
