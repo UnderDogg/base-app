@@ -44,7 +44,7 @@ class NavigationComposer
         }
 
         $view->with([
-            'open' => $open->count(),
+            'open'   => $open->count(),
             'closed' => $closed->count(),
         ]);
     }
