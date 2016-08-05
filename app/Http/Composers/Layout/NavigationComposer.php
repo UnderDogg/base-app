@@ -50,9 +50,9 @@ class NavigationComposer
                 $query = $query->forUser($user);
             }
 
-            $issues = $query->count();
-
-            $view->with(compact('issues'));
+            $view->with([
+                'issues' => $query->count(),
+            ]);
         }
     }
 }

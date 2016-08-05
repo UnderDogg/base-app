@@ -43,9 +43,9 @@ class NavigationComposer
             $closed->forUser($user);
         }
 
-        $open = $open->count();
-        $closed = $closed->count();
-
-        $view->with(compact('open', 'closed'));
+        $view->with([
+            'open' => $open->count(),
+            'closed' => $closed->count(),
+        ]);
     }
 }
